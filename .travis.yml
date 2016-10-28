@@ -1,0 +1,20 @@
+language: r
+sudo: false
+cache: packages
+
+r:
+  - release
+  - devel
+
+addons:
+  apt:
+    packages:
+      - libv8-dev
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change

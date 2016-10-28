@@ -1,0 +1,8 @@
+man-roxygen/
+^\.travis\.yml$
+^\.DS_Store$
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^CONDUCT\.md$
+^cran-comments\.md$

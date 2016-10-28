@@ -1,0 +1,15 @@
+Package: crul
+Title: 'HTTP' Client
+Description: 'HTTP' Client.
+Version: 0.0.1.9000
+License: MIT + file LICENSE
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com")
+    )
+URL: https://github.com/ropenscilabs/crul
+BugReports: http://www.github.com/ropenscilabs/crul/issues
+Imports:
+    curl (>= 1.1.0),
+    R6 (>= 2.2.0),
+    urltools (>= 1.6.0)
+RoxygenNote: 5.0.1

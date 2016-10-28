@@ -1,0 +1,84 @@
+#' HTTP response
+#'
+#' @keywords internal
+#' @param url A url
+#' @param opts curl options
+#' @param handle A handle
+#' @details
+#' \strong{Methods}
+#'   \describe{
+#'     \item{\code{register_stub(stub)}}{
+#'       Register a stub
+#'     }
+#'   }
+#' @examples \dontrun{
+#' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
+#' x$url
+#' x$method
+#' }
+HttpResponse <- R6::R6Class(
+  'HttpClient',
+  public = list(
+    method = NULL,
+    url = NULL,
+    opts = NULL,
+    handle = NULL,
+    status_code = NULL,
+    request_headers = NULL,
+    response_headers = NULL,
+    modified = NULL,
+    times = NULL,
+    content = NULL,
+    request = NULL,
+
+    print = function(x, ...) {
+      cat("<crul response> ", sep = "\n")
+      cat(paste0("  url: ", self$url), sep = "\n")
+      cat("  request_headers: ", sep = "\n")
+      for (i in seq_along(self$request_headers)) {
+        cat(sprintf("    %s: %s", names(self$request_headers)[i], self$request_headers[[i]]), sep = "\n")
+      }
+      cat("  response_headers: ", sep = "\n")
+      for (i in seq_along(self$response_headers)) {
+        cat(paste0("    ", self$response_headers[[i]]), sep = "\n")
+      }
+      params <- parse_params(self$url)
+      if (!is.null(params)) {
+        cat("  params: ", sep = "\n")
+        for (i in seq_along(params)) {
+          cat(paste0("    ", sub("=", ": ", params[[i]], "=")), sep = "\n")
+        }
+      }
+      if (!is.null(self$status_code)) cat(paste0("  status: ", self$status_code), sep = "\n")
+      invisible(self)
+    },
+
+    initialize = function(method, url, opts, handle, status_code, request_headers,
+                          response_headers, modified, times, content, request) {
+      if (!missing(method)) self$method <- method
+      if (!missing(url)) self$url <- url
+      if (!missing(opts)) self$opts <- opts
+      if (!missing(handle)) self$handle <- handle
+      if (!missing(status_code)) self$status_code <- status_code
+      if (!missing(request_headers)) self$request_headers <- request_headers
+      if (!missing(response_headers)) self$response_headers <- response_headers
+      if (!missing(modified)) self$modified <- modified
+      if (!missing(times)) self$times <- times
+      if (!missing(content)) self$content <- content
+      if (!missing(request)) self$request <- request
+    },
+
+    parse = function(type, encoding) {
+      readBin(self$content, character())
+    }
+  )
+)
+
+parse_params <- function(x) {
+  x <- urltools::parameters(x)
+  if (is.na(x)) {
+    NULL
+  } else {
+    strsplit(x, "&")[[1]]
+  }
+}
