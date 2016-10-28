@@ -23,6 +23,12 @@
 #' res2$parse()
 #' library("jsonlite")
 #' jsonlite::fromJSON(res2$parse())
+#'
+#' # post request
+#' (res3 <- x$post('post', body = list(hello = "world")))
+#'
+#' ## empty body request
+#' x$post('post')
 #' }
 HttpClient <- R6::R6Class(
   'HttpClient',
@@ -85,6 +91,24 @@ HttpClient <- R6::R6Class(
         method = "get",
         options = list(httpget = TRUE),
         headers = list(),
+        useragent = make_ua()
+      )
+      self$make_request(rr)
+    },
+
+    post = function(path = NULL, query = list(), body = NULL, ...) {
+      url <- make_url(self$url, path, query)
+      opts <- list(post = TRUE)
+      if (is.null(body)) {
+        opts$postfields <- raw(0)
+        opts$postfieldsize <- 0
+      }
+      rr <- list(
+        url = url,
+        method = "post",
+        options = opts,
+        headers = list(),
+        fields = body,
         useragent = make_ua()
       )
       self$make_request(rr)

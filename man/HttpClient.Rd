@@ -39,6 +39,12 @@ res$parse()
 res2$parse()
 library("jsonlite")
 jsonlite::fromJSON(res2$parse())
+
+# post request
+(res3 <- x$post('post', body = list(hello = "world")))
+
+## empty body request
+x$post('post')
 }
 }
 \keyword{internal}
