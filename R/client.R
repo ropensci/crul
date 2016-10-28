@@ -36,11 +36,6 @@ HttpClient <- R6::R6Class(
     url = NULL,
     opts = NULL,
     handle = NULL,
-    status_code = NULL,
-    headers = NULL,
-    modified = NULL,
-    times = NULL,
-    content = NULL,
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
@@ -58,6 +53,7 @@ HttpClient <- R6::R6Class(
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
       if (!missing(handle)) self$handle <- handle
+      if (is.null(self$url) && is.null(self$handle)) stop("need one of url or handle", call. = FALSE)
     },
 
     make_request = function(opts) {

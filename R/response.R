@@ -17,7 +17,7 @@
 #' x$method
 #' }
 HttpResponse <- R6::R6Class(
-  'HttpClient',
+  'HttpResponse',
   public = list(
     method = NULL,
     url = NULL,

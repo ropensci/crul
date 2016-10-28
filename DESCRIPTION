@@ -12,4 +12,7 @@ Imports:
     curl (>= 1.1.0),
     R6 (>= 2.2.0),
     urltools (>= 1.6.0)
+Suggests:
+    testthat,
+    covr
 RoxygenNote: 5.0.1
