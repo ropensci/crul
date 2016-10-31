@@ -30,21 +30,33 @@ HTTP client
 \dontrun{
 x <- HttpClient$new(url = "https://httpbin.org")
 x$url
-(res <- x$get('get'))
-res$content
-res$response_headers
-res$parse()
+(res_get1 <- x$get('get'))
+res_get1$content
+res_get1$response_headers
+res_get1$parse()
 
-(res2 <- x$get('get', query = list(hello = "world")))
-res2$parse()
+(res_get2 <- x$get('get', query = list(hello = "world")))
+res_get2$parse()
 library("jsonlite")
-jsonlite::fromJSON(res2$parse())
+jsonlite::fromJSON(res_get2$parse())
 
 # post request
-(res3 <- x$post('post', body = list(hello = "world")))
+(res_post <- x$post('post', body = list(hello = "world")))
 
 ## empty body request
 x$post('post')
+
+# put request
+(res_put <- x$put('put'))
+
+# delete request
+(res_delete <- x$delete('delete'))
+
+# patch request
+(res_patch <- x$patch('patch'))
+
+# head request
+(res_head <- x$head())
 }
 }
 \keyword{internal}
