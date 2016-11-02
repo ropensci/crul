@@ -11,7 +11,7 @@ test_that("HttpClient works", {
   expect_null(aa$handle)
   expect_null(aa$opts)
   expect_is(aa$url, "character")
-  expect_is(aa$make_request, "function")
+  expect_is(aa$.__enclos_env__$private$make_request, "function")
   expect_is(aa$post, "function")
   expect_is(aa$get, "function")
 })
