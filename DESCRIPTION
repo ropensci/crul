@@ -16,4 +16,5 @@ Suggests:
     testthat,
     covr,
     webmockr
+Remotes: ropenscilabs/webmockr
 RoxygenNote: 5.0.1
