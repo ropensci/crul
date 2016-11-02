@@ -14,5 +14,6 @@ Imports:
     urltools (>= 1.6.0)
 Suggests:
     testthat,
-    covr
+    covr,
+    webmockr
 RoxygenNote: 5.0.1

@@ -1,16 +1,36 @@
-#' HTTP client
+#' Base client object
 #'
-#' @keywords internal
-#' @param url A url
-#' @param opts curl options
+#' @export
+#' @param url (character) A url
+#' @param opts (list) curl options
 #' @param handle A handle
 #' @details
 #' \strong{Methods}
 #'   \describe{
-#'     \item{\code{register_stub(stub)}}{
-#'       Register a stub
+#'     \item{\code{get(path, query, ...)}}{
+#'       Make a GET request
+#'     }
+#'     \item{\code{post(path, query, body, ...)}}{
+#'       Make a POST request
+#'     }
+#'     \item{\code{put(path, query, body, ...)}}{
+#'       Make a PUT request
+#'     }
+#'     \item{\code{patch(path, query, body, ...)}}{
+#'       Make a PATCH request
+#'     }
+#'     \item{\code{delete(path, query, body, ...)}}{
+#'       Make a DELETE request
+#'     }
+#'     \item{\code{head(path, query, ...)}}{
+#'       Make a HEAD request
+#'     }
+#'     \item{\code{options(path, query, ...)}}{
+#'       Make an OPTIONS request
 #'     }
 #'   }
+#' @format NULL
+#' @usage NULL
 #' @examples \dontrun{
 #' x <- HttpClient$new(url = "https://httpbin.org")
 #' x$url
@@ -68,6 +88,107 @@ HttpClient <- R6::R6Class(
       if (is.null(self$url) && is.null(self$handle)) stop("need one of url or handle", call. = FALSE)
     },
 
+    get = function(path = NULL, query = list(), ...) {
+      url <- make_url(self$url, path, query)
+      rr <- list(
+        url = url,
+        method = "get",
+        options = list(httpget = TRUE),
+        headers = list(),
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    },
+
+    post = function(path = NULL, query = list(), body = NULL, ...) {
+      url <- make_url(self$url, path, query)
+      opts <- list(post = TRUE)
+      if (is.null(body)) {
+        opts$postfields <- raw(0)
+        opts$postfieldsize <- 0
+      }
+      rr <- list(
+        url = url,
+        method = "post",
+        options = opts,
+        headers = list(),
+        fields = body,
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    },
+
+    put = function(path = NULL, query = list(), body = NULL, ...) {
+      url <- make_url(self$url, path, query)
+      opts <- list(customrequest = "PUT")
+      if (is.null(body)) {
+        opts$postfields <- raw(0)
+        opts$postfieldsize <- 0
+      }
+      rr <- list(
+        url = url,
+        method = "put",
+        options = opts,
+        headers = list(),
+        fields = body,
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    },
+
+    patch = function(path = NULL, query = list(), body = NULL, ...) {
+      url <- make_url(self$url, path, query)
+      opts <- list(customrequest = "PATCH")
+      if (is.null(body)) {
+        opts$postfields <- raw(0)
+        opts$postfieldsize <- 0
+      }
+      rr <- list(
+        url = url,
+        method = "patch",
+        options = opts,
+        headers = list(),
+        fields = body,
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    },
+
+    delete = function(path = NULL, query = list(), body = NULL, ...) {
+      url <- make_url(self$url, path, query)
+      opts <- list(customrequest = "DELETE")
+      if (is.null(body)) {
+        opts$postfields <- raw(0)
+        opts$postfieldsize <- 0
+      }
+      rr <- list(
+        url = url,
+        method = "delete",
+        options = opts,
+        headers = list(),
+        fields = body,
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    },
+
+    head = function(path = NULL, ...) {
+      url <- make_url(self$url, path, NULL)
+      opts <- list(customrequest = "HEAD", nobody = TRUE)
+      rr <- list(
+        url = url,
+        method = "head",
+        options = opts,
+        headers = list(),
+        useragent = make_ua()
+      )
+      private$make_request(rr)
+    }
+  ),
+
+  private = list(
+    request = NULL,
+
     make_request = function(opts) {
       h <- curl::new_handle()
       curl::handle_setopt(h, .list = opts$options)
@@ -90,121 +211,6 @@ HttpClient <- R6::R6Class(
         handle = h,
         request = opts
       )
-    },
-
-    get = function(path = NULL, query = list(), ...) {
-      url <- make_url(self$url, path, query)
-      rr <- list(
-        url = url,
-        method = "get",
-        options = list(httpget = TRUE),
-        headers = list(),
-        useragent = make_ua()
-      )
-      self$make_request(rr)
-    },
-
-    post = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
-      opts <- list(post = TRUE)
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "post",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
-      )
-      self$make_request(rr)
-    },
-
-    put = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
-      opts <- list(customrequest = "PUT")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "put",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
-      )
-      self$make_request(rr)
-    },
-
-    delete = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
-      opts <- list(customrequest = "DELETE")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "delete",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
-      )
-      self$make_request(rr)
-    },
-
-    patch = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
-      opts <- list(customrequest = "PATCH")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "patch",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
-      )
-      self$make_request(rr)
-    },
-
-    head = function(path = NULL, ...) {
-      url <- make_url(self$url, path, NULL)
-      opts <- list(customrequest = "HEAD", nobody = TRUE)
-      rr <- list(
-        url = url,
-        method = "head",
-        options = opts,
-        headers = list(),
-        useragent = make_ua()
-      )
-      self$make_request(rr)
     }
-  ),
-
-  private = list(
-    request = NULL
   )
 )
-
-make_url <- function(url, path, query) {
-  if (!is.null(path)) {
-    urltools::path(url) <- path
-  }
-
-  if (length(query)) {
-    for (i in seq_along(query)) {
-      url <- urltools::param_set(url, names(query)[i], query[[i]])
-    }
-  }
-
-  return(url)
-}

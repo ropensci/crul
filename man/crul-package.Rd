@@ -4,9 +4,17 @@
 \name{crul-package}
 \alias{crul}
 \alias{crul-package}
-\title{\strong{HTTP Client}}
+\title{\strong{HTTP R client}}
 \description{
-\strong{HTTP Client}
+\strong{HTTP R client}
+}
+\section{Package API}{
+
+\itemize{
+ \item \code{\link{HttpClient}} - the workhorse, and main thing to use
+ \item \code{\link{HttpResponse}} - mostly for internal use, but you can use
+ if you want
+}
 }
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}

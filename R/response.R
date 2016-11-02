@@ -1,16 +1,18 @@
-#' HTTP response
+#' Base response object
 #'
-#' @keywords internal
-#' @param url A url
-#' @param opts curl options
+#' @export
+#' @param url (character) A url
+#' @param opts (list) curl options
 #' @param handle A handle
 #' @details
 #' \strong{Methods}
 #'   \describe{
-#'     \item{\code{register_stub(stub)}}{
-#'       Register a stub
+#'     \item{\code{parse()}}{
+#'       Parse the raw response content to text
 #'     }
 #'   }
+#' @format NULL
+#' @usage NULL
 #' @examples \dontrun{
 #' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 #' x$url

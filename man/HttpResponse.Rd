@@ -3,26 +3,22 @@
 \docType{data}
 \name{HttpResponse}
 \alias{HttpResponse}
-\title{HTTP response}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-HttpResponse
-}
+\title{Base response object}
 \arguments{
-\item{url}{A url}
+\item{url}{(character) A url}
 
-\item{opts}{curl options}
+\item{opts}{(list) curl options}
 
 \item{handle}{A handle}
 }
 \description{
-HTTP response
+Base response object
 }
 \details{
 \strong{Methods}
   \describe{
-    \item{\code{register_stub(stub)}}{
-      Register a stub
+    \item{\code{parse()}}{
+      Parse the raw response content to text
     }
   }
 }
@@ -33,5 +29,5 @@ x$url
 x$method
 }
 }
-\keyword{internal}
+\keyword{datasets}
 

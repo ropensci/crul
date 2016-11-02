@@ -3,26 +3,40 @@
 \docType{data}
 \name{HttpClient}
 \alias{HttpClient}
-\title{HTTP client}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-HttpClient
-}
+\title{Base client object}
 \arguments{
-\item{url}{A url}
+\item{url}{(character) A url}
 
-\item{opts}{curl options}
+\item{opts}{(list) curl options}
 
 \item{handle}{A handle}
 }
 \description{
-HTTP client
+Base client object
 }
 \details{
 \strong{Methods}
   \describe{
-    \item{\code{register_stub(stub)}}{
-      Register a stub
+    \item{\code{get(path, query, ...)}}{
+      Make a GET request
+    }
+    \item{\code{post(path, query, body, ...)}}{
+      Make a POST request
+    }
+    \item{\code{put(path, query, body, ...)}}{
+      Make a PUT request
+    }
+    \item{\code{patch(path, query, body, ...)}}{
+      Make a PATCH request
+    }
+    \item{\code{delete(path, query, body, ...)}}{
+      Make a DELETE request
+    }
+    \item{\code{head(path, query, ...)}}{
+      Make a HEAD request
+    }
+    \item{\code{options(path, query, ...)}}{
+      Make an OPTIONS request
     }
   }
 }
@@ -59,5 +73,5 @@ x$post('post')
 (res_head <- x$head())
 }
 }
-\keyword{internal}
+\keyword{datasets}
 
