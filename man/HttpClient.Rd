@@ -71,6 +71,36 @@ x$post('post')
 
 # head request
 (res_head <- x$head())
+
+# set options on client initialization
+(res <- HttpClient$new(
+  url = "https://httpbin.org",
+  opts = list(
+    verbose = TRUE,
+    useragent = "hello world"
+  )
+))
+res$opts
+res$get('get')
+
+# set headers
+(res <- HttpClient$new(
+  url = "https://httpbin.org",
+  opts = list(
+    verbose = TRUE
+  ),
+  headers = list(
+    a = "stuff",
+    b = "things"
+  )
+))
+res$headers
+# reassign header value
+res$headers$a <- "that"
+# define new header
+res$headers$c <- "what"
+# request
+res$get('get')
 }
 }
 \keyword{datasets}

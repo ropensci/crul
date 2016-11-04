@@ -61,12 +61,43 @@
 #'
 #' # head request
 #' (res_head <- x$head())
+#'
+#' # set options on client initialization
+#' (res <- HttpClient$new(
+#'   url = "https://httpbin.org",
+#'   opts = list(
+#'     verbose = TRUE,
+#'     useragent = "hello world"
+#'   )
+#' ))
+#' res$opts
+#' res$get('get')
+#'
+#' # set headers
+#' (res <- HttpClient$new(
+#'   url = "https://httpbin.org",
+#'   opts = list(
+#'     verbose = TRUE
+#'   ),
+#'   headers = list(
+#'     a = "stuff",
+#'     b = "things"
+#'   )
+#' ))
+#' res$headers
+#' # reassign header value
+#' res$headers$a <- "that"
+#' # define new header
+#' res$headers$c <- "what"
+#' # request
+#' res$get('get')
 #' }
 HttpClient <- R6::R6Class(
   'HttpClient',
   public = list(
     url = NULL,
-    opts = NULL,
+    opts = list(),
+    headers = list(),
     handle = NULL,
 
     print = function(x, ...) {
@@ -74,18 +105,25 @@ HttpClient <- R6::R6Class(
       cat(paste0("  url: ", self$url), sep = "\n")
       cat("  options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
-        cat(sprintf("  %s: %s", names(self$opts)[i], self$opts[[i]]), sep = "\n")
+        cat(sprintf("    %s: %s", names(self$opts)[i],
+                    self$opts[[i]]), sep = "\n")
       }
-      cat("  params: ", sep = "\n")
-      if (!is.null(self$status_code)) cat(paste0("  status: ", self$status_code), sep = "\n")
+      cat("  headers: ", sep = "\n")
+      for (i in seq_along(self$headers)) {
+        cat(sprintf("    %s: %s", names(self$headers)[i],
+                    self$headers[[i]]), sep = "\n")
+      }
       invisible(self)
     },
 
-    initialize = function(url, opts, handle) {
+    initialize = function(url, opts, headers, handle) {
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
+      if (!missing(headers)) self$headers <- headers
       if (!missing(handle)) self$handle <- handle
-      if (is.null(self$url) && is.null(self$handle)) stop("need one of url or handle", call. = FALSE)
+      if (is.null(self$url) && is.null(self$handle)) {
+        stop("need one of url or handle", call. = FALSE)
+      }
     },
 
     get = function(path = NULL, query = list(), ...) {
@@ -93,10 +131,13 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "get",
-        options = list(httpget = TRUE),
-        headers = list(),
-        useragent = make_ua()
+        options = list(
+          httpget = TRUE,
+          useragent = make_ua()
+        ),
+        headers = self$headers
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     },
 
@@ -110,11 +151,14 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "post",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
+        options = c(
+          opts,
+          useragent = make_ua()
+        ),
+        headers = self$headers,
+        fields = body
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     },
 
@@ -128,11 +172,14 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "put",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
+        options = c(
+          opts,
+          useragent = make_ua()
+        ),
+        headers = self$headers,
+        fields = body
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     },
 
@@ -146,11 +193,14 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "patch",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
+        options = c(
+          opts,
+          useragent = make_ua()
+        ),
+        headers = self$headers,
+        fields = body
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     },
 
@@ -164,11 +214,14 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "delete",
-        options = opts,
-        headers = list(),
-        fields = body,
-        useragent = make_ua()
+        options = c(
+          opts,
+          useragent = make_ua()
+        ),
+        headers = self$headers,
+        fields = body
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     },
 
@@ -178,10 +231,13 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "head",
-        options = opts,
-        headers = list(),
-        useragent = make_ua()
+        options = c(
+          opts,
+          useragent = make_ua()
+        ),
+        headers = self$headers
       )
+      rr$options <- utils::modifyList(rr$options, self$opts)
       private$make_request(rr)
     }
   ),
@@ -198,6 +254,21 @@ HttpClient <- R6::R6Class(
       curl::handle_setheaders(h, .list = opts$headers)
       on.exit(curl::handle_reset(h), add = TRUE)
       resp <- curl::curl_fetch_memory(opts$url, h)
+
+      # if (!requireNamespace("webmockr")) {
+      #   message("'webmockr' not installed, skipping mocking")
+      # } else {
+      #   #webmockr:::
+      # }
+      # # put request in cache
+      # request_signature <- webmockr:::HttrAdapter$build_request_signature(req)
+      # webmockr:::webmockr_request_registry$register_request(request_signature)
+      #
+      # if (webmockr::request_is_in_cache(req)) {
+      #   resp <- webmockr::StubRegistry$find_stubbed_request(req)
+      # } else {
+      #   resp <- curl::curl_fetch_memory(opts$url, h)
+      # }
 
       HttpResponse$new(
         method = opts$method,
