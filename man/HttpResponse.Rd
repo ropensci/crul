@@ -24,6 +24,9 @@ Base response object
       Was status code less than or equal to 201.
       returns boolean
     }
+    \item{\code{status_http()}}{
+      Get HTTP status code, message, and explanation
+    }
   }
 }
 \examples{
@@ -36,6 +39,11 @@ x <- HttpClient$new(url = 'http://sushi.com')
 (res <- x$get('/nigiri/sake.json'))
 res$parse()
 res$status_code
+res$status_http()
+res$status_http()$status_code
+res$status_http()$message
+res$status_http()$explanation
+res$raise_for_status()
 res$success()
 }
 }

@@ -14,6 +14,9 @@
 #'       Was status code less than or equal to 201.
 #'       returns boolean
 #'     }
+#'     \item{\code{status_http()}}{
+#'       Get HTTP status code, message, and explanation
+#'     }
 #'   }
 #' @format NULL
 #' @usage NULL
@@ -26,6 +29,11 @@
 #' (res <- x$get('/nigiri/sake.json'))
 #' res$parse()
 #' res$status_code
+#' res$status_http()
+#' res$status_http()$status_code
+#' res$status_http()$message
+#' res$status_http()$explanation
+#' res$raise_for_status()
 #' res$success()
 #' }
 HttpResponse <- R6::R6Class(
@@ -86,6 +94,10 @@ HttpResponse <- R6::R6Class(
 
     success = function() {
       self$status_code <= 201
+    },
+
+    status_http = function() {
+      httpcode::http_code(code = self$status_code)
     }
   )
 )

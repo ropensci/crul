@@ -12,7 +12,8 @@ BugReports: http://www.github.com/ropenscilabs/crul/issues
 Imports:
     curl (>= 2.2),
     R6 (>= 2.2.0),
-    urltools (>= 1.6.0)
+    urltools (>= 1.6.0),
+    httpcode
 Suggests:
     testthat,
     knitr,
