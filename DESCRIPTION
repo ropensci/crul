@@ -9,7 +9,7 @@ Authors@R: c(
 URL: https://github.com/ropenscilabs/crul
 BugReports: http://www.github.com/ropenscilabs/crul/issues
 Imports:
-    curl (>= 1.1.0),
+    curl (>= 2.2),
     R6 (>= 2.2.0),
     urltools (>= 1.6.0)
 Suggests:

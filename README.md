@@ -7,12 +7,20 @@ crul
 [![codecov](https://codecov.io/gh/ropenscilabs/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/crul)
 
 An HTTP client, with perhaps the main goal being to hook into 
-[webmockr](https://github.com/ropenscilabs/webmockr) for flexible and easy 
-http request caching, and eventually into 
-[vcr](https://github.com/ropenscilabs/vcr) for another approach to http 
-request caching.
+[webmockr](https://github.com/ropenscilabs/webmockr) and 
+[vcr](https://github.com/ropenscilabs/vcr) for flexible and easy 
+http request caching.
 
 ## Installation
+
+CRAN version
+
+
+```r
+install.packages("crul")
+```
+
+Dev version
 
 
 ```r
@@ -105,7 +113,7 @@ res$content
 #> [116] 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62
 #> [139] 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65
 #> [162] 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 34 39 2e 31 20 72 2d
-#> [185] 63 75 72 6c 2f 32 2e 32 20 63 72 75 6c 2f 30 2e 30 2e 31 2e 39 30 30
+#> [185] 63 75 72 6c 2f 32 2e 32 20 63 72 75 6c 2f 30 2e 30 2e 38 2e 39 30 30
 #> [208] 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
 #> [231] 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c
 #> [254] 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67
@@ -143,7 +151,7 @@ And you can parse the content with a provided function:
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.49.1 r-curl/2.2 crul/0.0.1.9000\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.49.1 r-curl/2.2 crul/0.0.8.9000\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
@@ -162,7 +170,7 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.49.1 r-curl/2.2 crul/0.0.1.9000"
+#> [1] "libcurl/7.49.1 r-curl/2.2 crul/0.0.8.9000"
 #> 
 #> 
 #> $origin
@@ -179,3 +187,5 @@ jsonlite::fromJSON(res$parse())
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). 
 By participating in this project you agree to abide by its terms.
+
+[![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)

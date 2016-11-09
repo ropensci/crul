@@ -13,12 +13,19 @@ knitr::opts_chunk$set(
 [![codecov](https://codecov.io/gh/ropenscilabs/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/crul)
 
 An HTTP client, with perhaps the main goal being to hook into 
-[webmockr](https://github.com/ropenscilabs/webmockr) for flexible and easy 
-http request caching, and eventually into 
-[vcr](https://github.com/ropenscilabs/vcr) for another approach to http 
-request caching.
+[webmockr](https://github.com/ropenscilabs/webmockr) and 
+[vcr](https://github.com/ropenscilabs/vcr) for flexible and easy 
+http request caching.
 
 ## Installation
+
+CRAN version
+
+```{r eval=FALSE}
+install.packages("crul")
+```
+
+Dev version
 
 ```{r eval=FALSE}
 install.packages("devtools")
@@ -118,3 +125,5 @@ jsonlite::fromJSON(res$parse())
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). 
 By participating in this project you agree to abide by its terms.
+
+[![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
