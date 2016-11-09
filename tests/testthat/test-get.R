@@ -33,7 +33,7 @@ test_that("get request - query parameters", {
 
   library(urltools)
   params <- unlist(lapply(
-    strsplit(urltools::url_parse(aa$request$url)$parameter, "&")[[1]],
+    strsplit(urltools::url_parse(aa$request$url$url)$parameter, "&")[[1]],
     function(x) {
       tmp <- strsplit(x, "=")[[1]]
       as.list(stats::setNames(tmp[2], tmp[1]))
