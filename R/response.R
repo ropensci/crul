@@ -10,6 +10,10 @@
 #'     \item{\code{parse()}}{
 #'       Parse the raw response content to text
 #'     }
+#'     \item{\code{success()}}{
+#'       Was status code less than or equal to 201.
+#'       returns boolean
+#'     }
 #'   }
 #' @format NULL
 #' @usage NULL
@@ -17,6 +21,12 @@
 #' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 #' x$url
 #' x$method
+#'
+#' x <- HttpClient$new(url = 'http://sushi.com')
+#' (res <- x$get('/nigiri/sake.json'))
+#' res$parse()
+#' res$status_code
+#' res$success()
 #' }
 HttpResponse <- R6::R6Class(
   'HttpResponse',
@@ -72,6 +82,10 @@ HttpResponse <- R6::R6Class(
 
     parse = function(type, encoding) {
       readBin(self$content, character())
+    },
+
+    success = function() {
+      self$status_code <= 201
     }
   )
 )

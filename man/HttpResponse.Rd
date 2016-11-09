@@ -20,6 +20,10 @@ Base response object
     \item{\code{parse()}}{
       Parse the raw response content to text
     }
+    \item{\code{success()}}{
+      Was status code less than or equal to 201.
+      returns boolean
+    }
   }
 }
 \examples{
@@ -27,6 +31,12 @@ Base response object
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 x$url
 x$method
+
+x <- HttpClient$new(url = 'http://sushi.com')
+(res <- x$get('/nigiri/sake.json'))
+res$parse()
+res$status_code
+res$success()
 }
 }
 \keyword{datasets}
