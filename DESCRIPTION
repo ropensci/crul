@@ -14,7 +14,9 @@ Imports:
     urltools (>= 1.6.0)
 Suggests:
     testthat,
+    knitr,
     covr,
     webmockr
+VignetteBuilder: knit
 Remotes: ropenscilabs/webmockr
 RoxygenNote: 5.0.1
