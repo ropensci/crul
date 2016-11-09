@@ -5,7 +5,7 @@
 \alias{HttpClient}
 \title{Base client object}
 \arguments{
-\item{url}{(character) A url}
+\item{url}{(character) A url. One of \code{url} or \code{handle} required.}
 
 \item{opts}{(list) curl options}
 
@@ -35,14 +35,11 @@ Base client object
     \item{\code{head(path, query, ...)}}{
       Make a HEAD request
     }
-    \item{\code{options(path, query, ...)}}{
-      Make an OPTIONS request
-    }
   }
 }
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+(x <- HttpClient$new(url = "https://httpbin.org"))
 x$url
 (res_get1 <- x$get('get'))
 res_get1$content
@@ -101,6 +98,12 @@ res$headers$a <- "that"
 res$headers$c <- "what"
 # request
 res$get('get')
+
+
+# handles - pass in your own handle
+h <- handle("https://httpbin.org")
+(res <- HttpClient$new(handle = h))
+out <- res$get("get")
 }
 }
 \keyword{datasets}

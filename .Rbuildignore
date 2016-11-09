@@ -6,3 +6,5 @@ man-roxygen/
 ^README\.Rmd$
 ^CONDUCT\.md$
 ^cran-comments\.md$
+Makefile
+

@@ -1,43 +1,38 @@
-context("request: get")
+context("request: delete")
 
-test_that("get request works", {
+test_that("delete request works", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = "https://httpbin.org")
-  aa <- cli$get("get")
+  aa <- cli$delete("delete")
 
   expect_is(aa, "HttpResponse")
   expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "get")
+  expect_equal(aa$method, "delete")
   expect_is(aa$parse, "function")
   expect_is(aa$parse(), "character")
   expect_true(aa$success())
+
+  expect_null(aa$request$fields)
 })
 
-test_that("get request - query parameters", {
+test_that("delete request with body", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = "https://httpbin.org")
-  querya <- list(a = "Asdfadsf", hello = "world")
-  aa <- cli$get("get", query = querya)
+  aa <- cli$delete("delete", body = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")
+  expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "get")
+  expect_equal(aa$method, "delete")
   expect_is(aa$parse, "function")
   expect_is(aa$parse(), "character")
   expect_true(aa$success())
 
-  library(urltools)
-  params <- unlist(lapply(
-    strsplit(urltools::url_parse(aa$request$url)$parameter, "&")[[1]],
-    function(x) {
-      tmp <- strsplit(x, "=")[[1]]
-      as.list(stats::setNames(tmp[2], tmp[1]))
-    }
-  ), FALSE)
-  expect_equal(params, querya)
+  expect_named(aa$request$fields, "hello")
+  expect_equal(aa$request$fields[[1]], "world")
 })

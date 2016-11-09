@@ -1,7 +1,7 @@
 #' Base client object
 #'
 #' @export
-#' @param url (character) A url
+#' @param url (character) A url. One of \code{url} or \code{handle} required.
 #' @param opts (list) curl options
 #' @param handle A handle
 #' @details
@@ -25,14 +25,11 @@
 #'     \item{\code{head(path, query, ...)}}{
 #'       Make a HEAD request
 #'     }
-#'     \item{\code{options(path, query, ...)}}{
-#'       Make an OPTIONS request
-#'     }
 #'   }
 #' @format NULL
 #' @usage NULL
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' x$url
 #' (res_get1 <- x$get('get'))
 #' res_get1$content
@@ -91,6 +88,12 @@
 #' res$headers$c <- "what"
 #' # request
 #' res$get('get')
+#'
+#'
+#' # handles - pass in your own handle
+#' h <- handle("https://httpbin.org")
+#' (res <- HttpClient$new(handle = h))
+#' out <- res$get("get")
 #' }
 HttpClient <- R6::R6Class(
   'HttpClient',
@@ -102,7 +105,7 @@ HttpClient <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
-      cat(paste0("  url: ", self$url), sep = "\n")
+      cat(paste0("  url: ", if (is.null(self$url)) self$handle$url else self$url), sep = "\n")
       cat("  options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         cat(sprintf("    %s: %s", names(self$opts)[i],
@@ -127,7 +130,7 @@ HttpClient <- R6::R6Class(
     },
 
     get = function(path = NULL, query = list(), ...) {
-      url <- make_url(self$url, path, query)
+      url <- make_url(self$url, self$handle, path, query)
       rr <- list(
         url = url,
         method = "get",
@@ -142,7 +145,7 @@ HttpClient <- R6::R6Class(
     },
 
     post = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
+      url <- make_url(self$url, self$handle, path, query)
       opts <- list(post = TRUE)
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -163,7 +166,7 @@ HttpClient <- R6::R6Class(
     },
 
     put = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
+      url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "PUT")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -184,7 +187,7 @@ HttpClient <- R6::R6Class(
     },
 
     patch = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
+      url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "PATCH")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -205,7 +208,7 @@ HttpClient <- R6::R6Class(
     },
 
     delete = function(path = NULL, query = list(), body = NULL, ...) {
-      url <- make_url(self$url, path, query)
+      url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "DELETE")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -226,7 +229,7 @@ HttpClient <- R6::R6Class(
     },
 
     head = function(path = NULL, ...) {
-      url <- make_url(self$url, path, NULL)
+      url <- make_url(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
         url = url,
@@ -246,14 +249,13 @@ HttpClient <- R6::R6Class(
     request = NULL,
 
     make_request = function(opts) {
-      h <- curl::new_handle()
-      curl::handle_setopt(h, .list = opts$options)
+      curl::handle_setopt(opts$url$handle, .list = opts$options)
       if (!is.null(opts$fields)) {
-        curl::handle_setform(h, .list = opts$fields)
+        curl::handle_setform(opts$url$handle, .list = opts$fields)
       }
-      curl::handle_setheaders(h, .list = opts$headers)
-      on.exit(curl::handle_reset(h), add = TRUE)
-      resp <- curl::curl_fetch_memory(opts$url, h)
+      curl::handle_setheaders(opts$url$handle, .list = opts$headers)
+      on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
+      resp <- curl::curl_fetch_memory(opts$url$url, opts$url$handle)
 
       HttpResponse$new(
         method = opts$method,
@@ -264,7 +266,7 @@ HttpClient <- R6::R6Class(
         modified = resp$modified,
         times = resp$times,
         content = resp$content,
-        handle = h,
+        handle = opts$url$handle,
         request = opts
       )
     }
