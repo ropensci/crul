@@ -1,7 +1,8 @@
 Package: crul
-Title: 'HTTP' Client
-Description: 'HTTP' Client.
-Version: 0.0.8.9300
+Title: HTTP Client
+Description: A simple HTTP client, with tools for making HTTP requests,
+    and mocking HTTP requests.
+Version: 0.1.0
 License: MIT + file LICENSE
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com")

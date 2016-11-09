@@ -2,9 +2,10 @@
 #'
 #' @section Package API:
 #' \itemize{
-#'  \item \code{\link{HttpClient}} - the workhorse, and main thing to use
-#'  \item \code{\link{HttpResponse}} - mostly for internal use, but you can use
-#'  if you want
+#'  \item \code{\link{HttpClient}} - create a connection client, set all
+#'  your http options, make http requests
+#'  \item \code{\link{HttpResponse}} - mostly for internal use, handles
+#'  http responses
 #' }
 #'
 #' @import curl

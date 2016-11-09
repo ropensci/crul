@@ -3,7 +3,7 @@
 \docType{data}
 \name{HttpClient}
 \alias{HttpClient}
-\title{Base client object}
+\title{HTTP client}
 \arguments{
 \item{url}{(character) A url. One of \code{url} or \code{handle} required.}
 
@@ -12,7 +12,7 @@
 \item{handle}{A handle}
 }
 \description{
-Base client object
+HTTP client
 }
 \details{
 \strong{Methods}

@@ -1,4 +1,4 @@
-#' Base client object
+#' HTTP client
 #'
 #' @export
 #' @param url (character) A url. One of \code{url} or \code{handle} required.

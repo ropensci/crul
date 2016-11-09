@@ -7,4 +7,3 @@ man-roxygen/
 ^CONDUCT\.md$
 ^cran-comments\.md$
 Makefile
-
