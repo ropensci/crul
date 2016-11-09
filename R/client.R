@@ -255,21 +255,6 @@ HttpClient <- R6::R6Class(
       on.exit(curl::handle_reset(h), add = TRUE)
       resp <- curl::curl_fetch_memory(opts$url, h)
 
-      # if (!requireNamespace("webmockr")) {
-      #   message("'webmockr' not installed, skipping mocking")
-      # } else {
-      #   #webmockr:::
-      # }
-      # # put request in cache
-      # request_signature <- webmockr:::HttrAdapter$build_request_signature(req)
-      # webmockr:::webmockr_request_registry$register_request(request_signature)
-      #
-      # if (webmockr::request_is_in_cache(req)) {
-      #   resp <- webmockr::StubRegistry$find_stubbed_request(req)
-      # } else {
-      #   resp <- curl::curl_fetch_memory(opts$url, h)
-      # }
-
       HttpResponse$new(
         method = opts$method,
         url = resp$url,
