@@ -3,6 +3,9 @@ crul
 
 
 
+[![Build Status](https://travis-ci.org/ropenscilabs/crul.svg?branch=master)](https://travis-ci.org/ropenscilabs/crul)
+[![codecov](https://codecov.io/gh/ropenscilabs/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/crul)
+
 An HTTP client, with perhaps the main goal being to hook into 
 [webmockr](https://github.com/ropenscilabs/webmockr) for flexible and easy 
 http request caching, and eventually into 

@@ -1,7 +1,7 @@
 Package: crul
 Title: 'HTTP' Client
 Description: 'HTTP' Client.
-Version: 0.0.1.9000
+Version: 0.0.8.9000
 License: MIT + file LICENSE
 Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com")
@@ -17,6 +17,6 @@ Suggests:
     knitr,
     covr,
     webmockr
-VignetteBuilder: knit
+VignetteBuilder: knitr
 Remotes: ropenscilabs/webmockr
 RoxygenNote: 5.0.1
