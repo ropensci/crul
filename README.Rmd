@@ -90,6 +90,12 @@ Status code
 res$status_code
 ```
 
+Status information
+
+```{r}
+res$status_http()
+```
+
 The content
 
 ```{r}
@@ -111,10 +117,10 @@ res$request_headers
 Response headers
 
 ```{r}
-res$request_headers
+res$response_headers
 ```
 
-And you can parse the content with a provided function:
+And you can parse the content with `parse()`
 
 ```{r}
 res$parse()
