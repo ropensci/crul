@@ -96,8 +96,8 @@ HttpResponse <- R6::R6Class(
       self$status_code <= 201
     },
 
-    status_http = function() {
-      httpcode::http_code(code = self$status_code)
+    status_http = function(verbose = FALSE) {
+      httpcode::http_code(code = self$status_code, verbose = verbose)
     }
   )
 )

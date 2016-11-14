@@ -17,10 +17,11 @@ Imports:
     curl (>= 2.2),
     R6 (>= 2.2.0),
     urltools (>= 1.6.0),
-    httpcode
+    httpcode (>= 0.2.0)
 Suggests:
     testthat,
     knitr,
     covr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+Remotes: sckott/httpcode
