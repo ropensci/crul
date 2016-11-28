@@ -24,7 +24,7 @@ Dev version
 
 
 ```r
-devtools::install_github(c("ropenscilabs/crul"))
+devtools::install_github(c("ropensci/crul"))
 ```
 
 
@@ -47,16 +47,16 @@ library("crul")
     a = "hello world"
   )
 ))
-#> <crul connection> 
+#> <crul connection>
 #>   url: https://httpbin.org
-#>   options: 
+#>   options:
 #>     timeout: 1
-#>   headers: 
+#>   headers:
 #>     a: hello world
 ```
 
-Makes a R6 class, that has all the bits and bobs you'd expect for doing HTTP 
-requests. When it prints, it gives any defaults you've set. As you update 
+Makes a R6 class, that has all the bits and bobs you'd expect for doing HTTP
+requests. When it prints, it gives any defaults you've set. As you update
 the object you can see what's been set
 
 
@@ -75,11 +75,11 @@ x$headers
 
 ## do some http
 
-The client object created above has http methods that you can call, 
-and pass paths to, as well as query parameters, body values, and any other 
+The client object created above has http methods that you can call,
+and pass paths to, as well as query parameters, body values, and any other
 curl options.
 
-Here, we'll do a __GET__ request on the route `/get` on our base url 
+Here, we'll do a __GET__ request on the route `/get` on our base url
 `https://httpbin.org` (the full url is then `https://httpbin.org/get`)
 
 
@@ -87,8 +87,8 @@ Here, we'll do a __GET__ request on the route `/get` on our base url
 res <- x$get("get")
 ```
 
-The response from a http request is another R6 class `HttpResponse`, which 
-has slots for the outputs of the request, and some functions to deal with 
+The response from a http request is another R6 class `HttpResponse`, which
+has slots for the outputs of the request, and some functions to deal with
 the response:
 
 Status code
@@ -154,27 +154,27 @@ res$parse()
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
-#> 
+#>
 #> $headers
 #> $headers$A
 #> [1] "hello world"
-#> 
+#>
 #> $headers$Accept
 #> [1] "*/*"
-#> 
+#>
 #> $headers$`Accept-Encoding`
 #> [1] "gzip, deflate"
-#> 
+#>
 #> $headers$Host
 #> [1] "httpbin.org"
-#> 
+#>
 #> $headers$`User-Agent`
 #> [1] "libcurl/7.49.1 r-curl/2.2 crul/0.0.1.9000"
-#> 
-#> 
+#>
+#>
 #> $origin
 #> [1] "157.130.179.86"
-#> 
+#>
 #> $url
 #> [1] "https://httpbin.org/get"
 ```

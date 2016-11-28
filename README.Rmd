@@ -9,15 +9,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Build Status](https://travis-ci.org/ropenscilabs/crul.svg?branch=master)](https://travis-ci.org/ropenscilabs/crul)
-[![codecov](https://codecov.io/gh/ropenscilabs/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/crul)
+[![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
+[![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 
 An HTTP client, with perhaps the main goal being to hook into
-[webmockr](https://github.com/ropenscilabs/webmockr) and
-[vcr](https://github.com/ropenscilabs/vcr) for flexible and easy
+[webmockr](https://github.com/ropensci/webmockr) and
+[vcr](https://github.com/ropensci/vcr) for flexible and easy
 http request caching.
 
 ## Installation
@@ -32,7 +32,7 @@ Dev version
 
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("ropenscilabs/crul")
+devtools::install_github("ropensci/crul")
 ```
 
 ```{r}
@@ -129,7 +129,7 @@ jsonlite::fromJSON(res$parse())
 
 ## Meta
 
-* Please [report any issues or bugs](https://github.com/ropenscilabs/crul/issues).
+* Please [report any issues or bugs](https://github.com/ropensci/crul/issues).
 * License: MIT
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).

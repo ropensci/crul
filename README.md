@@ -3,15 +3,15 @@ crul
 
 
 
-[![Build Status](https://travis-ci.org/ropenscilabs/crul.svg?branch=master)](https://travis-ci.org/ropenscilabs/crul)
-[![codecov](https://codecov.io/gh/ropenscilabs/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropenscilabs/crul)
+[![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
+[![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 
 An HTTP client, with perhaps the main goal being to hook into
-[webmockr](https://github.com/ropenscilabs/webmockr) and
-[vcr](https://github.com/ropenscilabs/vcr) for flexible and easy
+[webmockr](https://github.com/ropensci/webmockr) and
+[vcr](https://github.com/ropensci/vcr) for flexible and easy
 http request caching.
 
 ## Installation
@@ -28,7 +28,7 @@ Dev version
 
 ```r
 install.packages("devtools")
-devtools::install_github("ropenscilabs/crul")
+devtools::install_github("ropensci/crul")
 ```
 
 
@@ -51,11 +51,11 @@ library("crul")
     a = "hello world"
   )
 ))
-#> <crul connection> 
+#> <crul connection>
 #>   url: https://httpbin.org
-#>   options: 
+#>   options:
 #>     timeout: 1
-#>   headers: 
+#>   headers:
 #>     a: hello world
 ```
 
@@ -155,13 +155,13 @@ Response headers
 
 ```r
 res$response_headers
-#> [1] "HTTP/1.1 200 OK"                       
-#> [2] "Server: nginx"                         
-#> [3] "Date: Fri, 11 Nov 2016 15:48:13 GMT"   
-#> [4] "Content-Type: application/json"        
-#> [5] "Content-Length: 283"                   
-#> [6] "Connection: keep-alive"                
-#> [7] "Access-Control-Allow-Origin: *"        
+#> [1] "HTTP/1.1 200 OK"
+#> [2] "Server: nginx"
+#> [3] "Date: Fri, 11 Nov 2016 15:48:13 GMT"
+#> [4] "Content-Type: application/json"
+#> [5] "Content-Length: 283"
+#> [6] "Connection: keep-alive"
+#> [7] "Access-Control-Allow-Origin: *"
 #> [8] "Access-Control-Allow-Credentials: true"
 ```
 
@@ -174,34 +174,34 @@ res$parse()
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
-#> 
+#>
 #> $headers
 #> $headers$A
 #> [1] "hello world"
-#> 
+#>
 #> $headers$Accept
 #> [1] "*/*"
-#> 
+#>
 #> $headers$`Accept-Encoding`
 #> [1] "gzip, deflate"
-#> 
+#>
 #> $headers$Host
 #> [1] "httpbin.org"
-#> 
+#>
 #> $headers$`User-Agent`
 #> [1] "libcurl/7.49.1 r-curl/2.2 crul/0.1.0.9000"
-#> 
-#> 
+#>
+#>
 #> $origin
 #> [1] "71.63.223.113"
-#> 
+#>
 #> $url
 #> [1] "https://httpbin.org/get"
 ```
 
 ## Meta
 
-* Please [report any issues or bugs](https://github.com/ropenscilabs/crul/issues).
+* Please [report any issues or bugs](https://github.com/ropensci/crul/issues).
 * License: MIT
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
