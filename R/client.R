@@ -255,7 +255,17 @@ HttpClient <- R6::R6Class(
       }
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
-      resp <- curl::curl_fetch_memory(opts$url$url, opts$url$handle)
+
+      if (!requireNamespace("webmockr") && crul_opts$mock) {
+        message("you're mocking, but webmockr' not installed, skipping mocking")
+      }
+
+      if (crul_opts$mock) {
+        adap <- webmockr::CrulAdapter$new()
+        adap$handle_request(opts)
+      } else {
+        resp <- curl::curl_fetch_memory(opts$url$url, opts$url$handle)
+      }
 
       HttpResponse$new(
         method = opts$method,
