@@ -46,7 +46,8 @@ To each of the HTTP verbs there are the following parameters:
  \item stream - an R function to determine how to stream data. if
  NULL (default), memory used
  \item ... curl options, only those in the acceptable set from
- \code{\link[curl]{curl_options}}
+ \code{\link[curl]{curl_options}} except the following: httpget, httppost,
+ post, postfields, postfieldsize, and customrequest
 }
 }
 \examples{
@@ -80,7 +81,7 @@ x$post('post')
 # head request
 (res_head <- x$head())
 
-# set options on client initialization
+# set curl options on client initialization
 (res <- HttpClient$new(
   url = "https://httpbin.org",
   opts = list(
@@ -90,6 +91,13 @@ x$post('post')
 ))
 res$opts
 res$get('get')
+
+# or set curl options when performing HTTP operation
+(res <- HttpClient$new(url = "https://httpbin.org"))
+res$get('get', verbose = TRUE)
+res$get('get', stuff = "things")
+res$get('get', httpget = TRUE)
+
 
 # set headers
 (res <- HttpClient$new(

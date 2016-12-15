@@ -37,7 +37,8 @@
 #'  \item stream - an R function to determine how to stream data. if
 #'  NULL (default), memory used
 #'  \item ... curl options, only those in the acceptable set from
-#'  \code{\link[curl]{curl_options}}
+#'  \code{\link[curl]{curl_options}} except the following: httpget, httppost,
+#'  post, postfields, postfieldsize, and customrequest
 #' }
 #' @examples
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
@@ -70,7 +71,7 @@
 #' # head request
 #' (res_head <- x$head())
 #'
-#' # set options on client initialization
+#' # set curl options on client initialization
 #' (res <- HttpClient$new(
 #'   url = "https://httpbin.org",
 #'   opts = list(
@@ -80,6 +81,13 @@
 #' ))
 #' res$opts
 #' res$get('get')
+#'
+#' # or set curl options when performing HTTP operation
+#' (res <- HttpClient$new(url = "https://httpbin.org"))
+#' res$get('get', verbose = TRUE)
+#' res$get('get', stuff = "things")
+#' res$get('get', httpget = TRUE)
+#'
 #'
 #' # set headers
 #' (res <- HttpClient$new(
@@ -154,6 +162,7 @@ HttpClient <- R6::R6Class(
 
     get = function(path = NULL, query = list(), disk = NULL,
                    stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       rr <- list(
         url = url,
@@ -164,7 +173,7 @@ HttpClient <- R6::R6Class(
         ),
         headers = self$headers
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -172,6 +181,7 @@ HttpClient <- R6::R6Class(
 
     post = function(path = NULL, query = list(), body = NULL, disk = NULL,
                     stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- list(post = TRUE)
       if (is.null(body)) {
@@ -196,6 +206,7 @@ HttpClient <- R6::R6Class(
 
     put = function(path = NULL, query = list(), body = NULL, disk = NULL,
                    stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "PUT")
       if (is.null(body)) {
@@ -220,6 +231,7 @@ HttpClient <- R6::R6Class(
 
     patch = function(path = NULL, query = list(), body = NULL, disk = NULL,
                      stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "PATCH")
       if (is.null(body)) {
@@ -244,6 +256,7 @@ HttpClient <- R6::R6Class(
 
     delete = function(path = NULL, query = list(), body = NULL, disk = NULL,
                       stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "DELETE")
       if (is.null(body)) {
@@ -267,6 +280,7 @@ HttpClient <- R6::R6Class(
     },
 
     head = function(path = NULL, disk = NULL, stream = NULL, ...) {
+      curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
@@ -329,4 +343,22 @@ crul_fetch <- function(x) {
     # stream
     curl::curl_fetch_stream(x$url$url, x$stream, handle = x$url$handle)
   }
+}
+
+nonacccurl <- c("httpget", "httppost", "post", "postfields",
+                "postfieldsize", "customrequest")
+
+curl_opts_check <- function(...) {
+  # copts <- curl::curl_options()
+  # stop if options in prohibited set
+  x <- list(...)
+  if (any(names(x) %in% nonacccurl)) {
+    stop(paste0("the following curl options are not allowed:\n  ", paste(nonacccurl, collapse = ", ")), call. = FALSE)
+  }
+
+  # copts <- copts[!names(copts) %in% nonacccurl] %>% length
+  # # check if in prohibited set
+  # if (!all(names(x) %in% names(copts))) {
+  #   stop("some curl options not in acceptable set, see Details", call. = FALSE)
+  # }
 }
