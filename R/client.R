@@ -28,7 +28,7 @@
 #'   }
 #' @format NULL
 #' @usage NULL
-#' @examples \dontrun{
+#' @examples
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' x$url
 #' (res_get1 <- x$get('get'))
@@ -94,7 +94,6 @@
 #' h <- handle("https://httpbin.org")
 #' (res <- HttpClient$new(handle = h))
 #' out <- res$get("get")
-#' }
 HttpClient <- R6::R6Class(
   'HttpClient',
   public = list(

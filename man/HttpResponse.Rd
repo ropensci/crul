@@ -30,7 +30,6 @@ Base response object
   }
 }
 \examples{
-\dontrun{
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 x$url
 x$method
@@ -43,17 +42,15 @@ res$status_http()
 res$status_http()$status_code
 res$status_http()$message
 res$status_http()$explanation
-res$raise_for_status()
 res$success()
 
 x <- HttpClient$new(url = 'https://httpbin.org/status/404')
 (res <- x$get())
-res$raise_for_status()
+ \dontrun{res$raise_for_status()}
 
 x <- HttpClient$new(url = 'https://httpbin.org/status/414')
 (res <- x$get())
-res$raise_for_status()
-}
+ \dontrun{res$raise_for_status()}
 }
 \keyword{datasets}
 

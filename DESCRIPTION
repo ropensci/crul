@@ -22,6 +22,7 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    covr
+    covr,
+    jsonlite
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

@@ -38,7 +38,6 @@ HTTP client
   }
 }
 \examples{
-\dontrun{
 (x <- HttpClient$new(url = "https://httpbin.org"))
 x$url
 (res_get1 <- x$get('get'))
@@ -104,7 +103,6 @@ res$get('get')
 h <- handle("https://httpbin.org")
 (res <- HttpClient$new(handle = h))
 out <- res$get("get")
-}
 }
 \keyword{datasets}
 
