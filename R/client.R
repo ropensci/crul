@@ -85,8 +85,8 @@
 #' # or set curl options when performing HTTP operation
 #' (res <- HttpClient$new(url = "https://httpbin.org"))
 #' res$get('get', verbose = TRUE)
-#' res$get('get', stuff = "things")
-#' res$get('get', httpget = TRUE)
+#' \dontrun{res$get('get', stuff = "things")}
+#' \dontrun{res$get('get', httpget = TRUE)}
 #'
 #'
 #' # set headers
@@ -331,34 +331,3 @@ HttpClient <- R6::R6Class(
     }
   )
 )
-
-crul_fetch <- function(x) {
-  if (is.null(x$disk) && is.null(x$stream)) {
-    # memory
-    curl::curl_fetch_memory(x$url$url, handle = x$url$handle)
-  } else if (!is.null(x$disk)) {
-    # disk
-    curl::curl_fetch_disk(x$url$url, x$disk, handle = x$url$handle)
-  } else {
-    # stream
-    curl::curl_fetch_stream(x$url$url, x$stream, handle = x$url$handle)
-  }
-}
-
-nonacccurl <- c("httpget", "httppost", "post", "postfields",
-                "postfieldsize", "customrequest")
-
-curl_opts_check <- function(...) {
-  # copts <- curl::curl_options()
-  # stop if options in prohibited set
-  x <- list(...)
-  if (any(names(x) %in% nonacccurl)) {
-    stop(paste0("the following curl options are not allowed:\n  ", paste(nonacccurl, collapse = ", ")), call. = FALSE)
-  }
-
-  # copts <- copts[!names(copts) %in% nonacccurl] %>% length
-  # # check if in prohibited set
-  # if (!all(names(x) %in% names(copts))) {
-  #   stop("some curl options not in acceptable set, see Details", call. = FALSE)
-  # }
-}

@@ -95,8 +95,8 @@ res$get('get')
 # or set curl options when performing HTTP operation
 (res <- HttpClient$new(url = "https://httpbin.org"))
 res$get('get', verbose = TRUE)
-res$get('get', stuff = "things")
-res$get('get', httpget = TRUE)
+\dontrun{res$get('get', stuff = "things")}
+\dontrun{res$get('get', httpget = TRUE)}
 
 
 # set headers
