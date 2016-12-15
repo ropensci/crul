@@ -17,25 +17,37 @@ HTTP client
 \details{
 \strong{Methods}
   \describe{
-    \item{\code{get(path, query, ...)}}{
+    \item{\code{get(path, query, disk, stream, ...)}}{
       Make a GET request
     }
-    \item{\code{post(path, query, body, ...)}}{
+    \item{\code{post(path, query, body, disk, stream, ...)}}{
       Make a POST request
     }
-    \item{\code{put(path, query, body, ...)}}{
+    \item{\code{put(path, query, body, disk, stream, ...)}}{
       Make a PUT request
     }
-    \item{\code{patch(path, query, body, ...)}}{
+    \item{\code{patch(path, query, body, disk, stream, ...)}}{
       Make a PATCH request
     }
-    \item{\code{delete(path, query, body, ...)}}{
+    \item{\code{delete(path, query, body, disk, stream, ...)}}{
       Make a DELETE request
     }
-    \item{\code{head(path, query, ...)}}{
+    \item{\code{head(path, disk, stream, ...)}}{
       Make a HEAD request
     }
   }
+
+To each of the HTTP verbs there are the following parameters:
+\itemize{
+ \item path - URL path, appended to the base URL
+ \item query - query terms, as a list
+ \item body - body as an R list
+ \item disk - a path to write to. if NULL (default), memory used
+ \item stream - an R function to determine how to stream data. if
+ NULL (default), memory used
+ \item ... curl options, only those in the acceptable set from
+ \code{\link[curl]{curl_options}}
+}
 }
 \examples{
 (x <- HttpClient$new(url = "https://httpbin.org"))
@@ -103,6 +115,18 @@ res$get('get')
 h <- handle("https://httpbin.org")
 (res <- HttpClient$new(handle = h))
 out <- res$get("get")
+
+# write to disk
+(x <- HttpClient$new(url = "https://httpbin.org"))
+f <- tempfile()
+res <- x$get(disk = f)
+res$content # when using write to disk, content is a path
+readLines(res$content)
+
+# streaming response
+(x <- HttpClient$new(url = "https://httpbin.org"))
+res <- x$get('stream/50', stream = function(x) cat(rawToChar(x)))
+res$content # when streaming, content is NULL
 }
 \keyword{datasets}
 
