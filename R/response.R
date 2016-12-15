@@ -25,8 +25,8 @@
 #' x$url
 #' x$method
 #'
-#' x <- HttpClient$new(url = 'http://sushi.com')
-#' (res <- x$get('/nigiri/sake.json'))
+#' x <- HttpClient$new(url = 'https://httpbin.org')
+#' (res <- x$get('get'))
 #' res$parse()
 #' res$status_code
 #' res$status_http()
@@ -35,6 +35,14 @@
 #' res$status_http()$explanation
 #' res$raise_for_status()
 #' res$success()
+#'
+#' x <- HttpClient$new(url = 'https://httpbin.org/status/404')
+#' (res <- x$get())
+#' res$raise_for_status()
+#'
+#' x <- HttpClient$new(url = 'https://httpbin.org/status/414')
+#' (res <- x$get())
+#' res$raise_for_status()
 #' }
 HttpResponse <- R6::R6Class(
   'HttpResponse',
@@ -79,7 +87,7 @@ HttpResponse <- R6::R6Class(
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
       if (!missing(handle)) self$handle <- handle
-      if (!missing(status_code)) self$status_code <- status_code
+      if (!missing(status_code)) self$status_code <- as.numeric(status_code)
       if (!missing(request_headers)) self$request_headers <- request_headers
       if (!missing(response_headers)) self$response_headers <- response_headers
       if (!missing(modified)) self$modified <- modified
@@ -98,6 +106,12 @@ HttpResponse <- R6::R6Class(
 
     status_http = function(verbose = FALSE) {
       httpcode::http_code(code = self$status_code, verbose = verbose)
+    },
+
+    raise_for_status = function() {
+      if (self$status_code >= 300) {
+        fauxpas::http(self, behavior = "stop")
+      }
     }
   )
 )
