@@ -14,14 +14,18 @@
     YEAR: 2016
     COPYRIGHT HOLDER: Scott Chamberlain
 
-* This is a new release. I have read and agree to the the CRAN policies at
-http://cran.r-project.org/web/packages/policies.html
-
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+* I have run R CMD check on the 2 downstream dependencies
+(<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
+No problems were found. The maintainers are me.
 
 ---
+
+This version adds a missing method on the `HttpResponse` class, and 
+adds new options for writing to disk and streaming responses. In 
+addition, improved curl option passing, and using `fauxpas` package
+now for HTTP condition handling.
 
 Thanks!
 Scott Chamberlain

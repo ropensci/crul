@@ -28,7 +28,7 @@
 #'   }
 #' @format NULL
 #' @usage NULL
-#' @details To each of the HTTP verbs there are the following parameters:
+#' @details Possible parameters (not all are allowed in each HTTP verb):
 #' \itemize{
 #'  \item path - URL path, appended to the base URL
 #'  \item query - query terms, as a list
