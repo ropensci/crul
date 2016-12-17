@@ -27,6 +27,12 @@ Base response object
     \item{\code{status_http()}}{
       Get HTTP status code, message, and explanation
     }
+    \item{\code{raise_for_status()}}{
+      Check HTTP status and stop with appropriate
+      HTTP error code and message if >= 300.
+      - If you have \code{fauxpas} installed we use that,
+      otherwise use \pkg{httpcode}
+    }
   }
 }
 \examples{

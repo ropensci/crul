@@ -9,7 +9,7 @@ check that user doesn't pass in prohibited options
 (`curl` package takes care of checking that options 
 are valid) (#5)
 * Incorporated `fauxpas` package for dealing with HTTP 
-conditions (#6)
+conditions. It's a Suggest, so only used if installed (#6)
 * Added support for streaming via `curl::curl_fetch_stream`. 
 `stream` param defaults to `NULL` (thus ignored), or pass in a 
 function to use streaming. Only one of memory, streaming or 

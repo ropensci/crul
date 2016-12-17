@@ -17,6 +17,12 @@
 #'     \item{\code{status_http()}}{
 #'       Get HTTP status code, message, and explanation
 #'     }
+#'     \item{\code{raise_for_status()}}{
+#'       Check HTTP status and stop with appropriate
+#'       HTTP error code and message if >= 300.
+#'       - If you have \code{fauxpas} installed we use that,
+#'       otherwise use \pkg{httpcode}
+#'     }
 #'   }
 #' @format NULL
 #' @usage NULL
@@ -108,7 +114,12 @@ HttpResponse <- R6::R6Class(
 
     raise_for_status = function() {
       if (self$status_code >= 300) {
-        fauxpas::http(self, behavior = "stop")
+        if (!requireNamespace("fauxpas")) {
+          x <- httpcode::http_code(code = self$status_code)
+          stop(sprintf("%s (HTTP %s)", x$message, x$status_code), call. = FALSE)
+        } else {
+          fauxpas::http(self, behavior = "stop")
+        }
       }
     }
   )

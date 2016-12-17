@@ -12,15 +12,15 @@ Authors@R: c(
     person("Scott", "Chamberlain", role = c("aut", "cre"), email = "myrmecocystus@gmail.com")
     )
 URL: https://github.com/ropensci/crul
-BugReports: http://www.github.com/ropensci/crul/issues
+BugReports: https://github.com/ropensci/crul/issues
 Imports:
     curl (>= 2.2),
     R6 (>= 2.2.0),
     urltools (>= 1.6.0),
-    httpcode (>= 0.2.0),
-    fauxpas (>= 0.1.0)
+    httpcode (>= 0.2.0)
 Suggests:
     testthat,
+    fauxpas (>= 0.1.0),
     knitr,
     covr,
     jsonlite

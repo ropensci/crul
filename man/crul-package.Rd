@@ -17,6 +17,12 @@
  http responses
 }
 }
+
+\section{HTTP conditions}{
+
+We use \code{fauxpas} if you have it installed for handling HTTP
+conditions but if it's not installed we use \pkg{httpcode}
+}
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
