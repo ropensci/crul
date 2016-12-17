@@ -24,6 +24,11 @@ streaming or disk allowed. (#12)
 * Added missing `raise_for_status()` method on the 
 `HttpResponse` class (#10)
 
+### BUG FIXES
+
+* Was importing `httpcode` but wasn't using it in the package. 
+Now using the package in `HttpResponse`
+
 
 crul 0.1.0
 ==========
