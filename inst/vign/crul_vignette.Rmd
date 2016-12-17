@@ -29,7 +29,7 @@ install.packages("crul")
 Dev version
 
 ```{r eval=FALSE}
-devtools::install_github(c("ropensci/crul"))
+devtools::install_github("ropensci/crul")
 ```
 
 ```{r}
@@ -108,7 +108,7 @@ res$request_headers
 Response headers
 
 ```{r}
-res$request_headers
+res$response_headers
 ```
 
 And you can parse the content with a provided function:
@@ -116,4 +116,41 @@ And you can parse the content with a provided function:
 ```{r}
 res$parse()
 jsonlite::fromJSON(res$parse())
+```
+
+With the `HttpClient` object, which holds any configuration stuff
+we set, we can make other HTTP verb requests. For example, a `HEAD`
+request:
+
+```{r}
+x$post(
+  path = "post", 
+  body = list(hello = "world")
+)
+```
+
+
+## write to disk
+
+```{r}
+x <- HttpClient$new(url = "https://httpbin.org")
+f <- tempfile()
+res <- x$get(disk = f)
+# when using write to disk, content is a path
+res$content 
+```
+
+Read lines
+
+```{r}
+readLines(res$content, n = 10)
+```
+
+## stream data
+
+```{r}
+(x <- HttpClient$new(url = "https://httpbin.org"))
+res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
+# when streaming, content is NULL
+res$content 
 ```
