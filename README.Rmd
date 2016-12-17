@@ -14,11 +14,7 @@ knitr::opts_chunk$set(
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-
-An HTTP client, with perhaps the main goal being to hook into
-[webmockr](https://github.com/ropensci/webmockr) and
-[vcr](https://github.com/ropensci/vcr) for flexible and easy
-http request caching.
+An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday).
 
 ## Installation
 
@@ -139,6 +135,14 @@ res$get(query = list(limit = 100), timeout_ms = 100)
 #>   Timeout was reached
 ```
 
+## TO DO
+
+Add integration for:
+
+* [webmockr](https://github.com/ropensci/webmockr)
+* [vcr](https://github.com/ropensci/vcr) 
+
+for flexible and easy HTTP request caching
 
 ## Meta
 
