@@ -114,7 +114,7 @@ HttpResponse <- R6::R6Class(
 
     raise_for_status = function() {
       if (self$status_code >= 300) {
-        if (!requireNamespace("fauxpas")) {
+        if (!requireNamespace("fauxpas", quietly = TRUE)) {
           x <- httpcode::http_code(code = self$status_code)
           stop(sprintf("%s (HTTP %s)", x$message, x$status_code), call. = FALSE)
         } else {
