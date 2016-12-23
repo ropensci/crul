@@ -33,6 +33,8 @@
 #'
 #' x <- HttpClient$new(url = 'https://httpbin.org')
 #' (res <- x$get('get'))
+#' res$request_headers
+#' res$response_headers
 #' res$parse()
 #' res$status_code
 #' res$status_http()
@@ -72,7 +74,7 @@ HttpResponse <- R6::R6Class(
       }
       cat("  response_headers: ", sep = "\n")
       for (i in seq_along(self$response_headers)) {
-        cat(paste0("    ", self$response_headers[[i]]), sep = "\n")
+        cat(sprintf("    %s: %s", names(self$response_headers)[i], self$response_headers[[i]]), sep = "\n")
       }
       params <- parse_params(self$url)
       if (!is.null(params)) {

@@ -320,8 +320,10 @@ HttpClient <- R6::R6Class(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
-        request_headers = c(useragent = opts$useragent, opts$headers),
-        response_headers = curl::parse_headers(rawToChar(resp$headers)),
+        request_headers = c(useragent = opts$options$useragent, opts$headers),
+        response_headers = {
+          headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+        },
         modified = resp$modified,
         times = resp$times,
         content = resp$content,

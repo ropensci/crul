@@ -42,6 +42,8 @@ x$method
 
 x <- HttpClient$new(url = 'https://httpbin.org')
 (res <- x$get('get'))
+res$request_headers
+res$response_headers
 res$parse()
 res$status_code
 res$status_http()
