@@ -33,3 +33,15 @@ test_that("path - paths don't work if paths already on URL", {
   expect_is(bb, "HttpResponse")
   expect_equal(bb$status_code, 404)
 })
+
+test_that("path - work with routes that have spaces", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = "http://www.marinespecies.org")
+  bb <- cli$get('rest/AphiaRecordsByName/Platanista gangetica')
+
+  expect_is(bb, "HttpResponse")
+  urlsp <- strsplit(bb$url, "/")[[1]]
+  expect_equal(urlsp[length(urlsp)], 'Platanista%20gangetica')
+  expect_equal(bb$status_code, 200)
+})
