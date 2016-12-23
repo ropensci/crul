@@ -135,6 +135,11 @@ readLines(res$content)
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$get('stream/50', stream = function(x) cat(rawToChar(x)))
 res$content # when streaming, content is NULL
+
+# query params are URL encoded for you, so DO NOT do it yourself
+## if you url encode yourself, it gets double encoded, and that's bad
+(x <- HttpClient$new(url = "https://httpbin.org"))
+res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
 }
 \keyword{datasets}
 

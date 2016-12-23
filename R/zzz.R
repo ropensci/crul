@@ -27,7 +27,7 @@ add_query <- function(x, url) {
   if (length(x)) {
     quer <- list()
     for (i in seq_along(x)) {
-      quer[[i]] <- paste(names(x)[i], x[[i]], sep = "=")
+      quer[[i]] <- paste(names(x)[i], urltools::url_encode(x[[i]]), sep = "=")
     }
     parms <- paste0(quer, collapse = "&")
     paste0(url, "?", parms)
