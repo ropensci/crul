@@ -6,7 +6,7 @@ make_url <- function(url = NULL, handle = NULL, path, query) {
   }
 
   if (!is.null(path)) {
-    urltools::path(url) <- path
+    urltools::path(url) <- gsub("\\s", "%20", path)
   }
 
   url <- add_query(query, url)
