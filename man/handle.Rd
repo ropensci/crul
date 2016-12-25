@@ -16,5 +16,10 @@ Make a handle
 }
 \examples{
 handle("https://httpbin.org")
+
+# handles - pass in your own handle
+h <- handle("https://httpbin.org")
+(res <- HttpClient$new(handle = h))
+out <- res$get("get")
 }
 

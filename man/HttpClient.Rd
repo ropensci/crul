@@ -42,6 +42,7 @@ Possible parameters (not all are allowed in each HTTP verb):
  \item path - URL path, appended to the base URL
  \item query - query terms, as a list
  \item body - body as an R list
+ \item encode - one of form, multipart, json, or raw
  \item disk - a path to write to. if NULL (default), memory used
  \item stream - an R function to determine how to stream data. if
  NULL (default), memory used
@@ -81,65 +82,14 @@ x$post('post')
 # head request
 (res_head <- x$head())
 
-# set curl options on client initialization
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE,
-    useragent = "hello world"
-  )
-))
-res$opts
-res$get('get')
-
-# or set curl options when performing HTTP operation
-(res <- HttpClient$new(url = "https://httpbin.org"))
-res$get('get', verbose = TRUE)
-\dontrun{res$get('get', stuff = "things")}
-\dontrun{res$get('get', httpget = TRUE)}
-
-
-# set headers
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE
-  ),
-  headers = list(
-    a = "stuff",
-    b = "things"
-  )
-))
-res$headers
-# reassign header value
-res$headers$a <- "that"
-# define new header
-res$headers$c <- "what"
-# request
-res$get('get')
-
-
-# handles - pass in your own handle
-h <- handle("https://httpbin.org")
-(res <- HttpClient$new(handle = h))
-out <- res$get("get")
-
-# write to disk
-(x <- HttpClient$new(url = "https://httpbin.org"))
-f <- tempfile()
-res <- x$get(disk = f)
-res$content # when using write to disk, content is a path
-readLines(res$content)
-
-# streaming response
-(x <- HttpClient$new(url = "https://httpbin.org"))
-res <- x$get('stream/50', stream = function(x) cat(rawToChar(x)))
-res$content # when streaming, content is NULL
-
 # query params are URL encoded for you, so DO NOT do it yourself
 ## if you url encode yourself, it gets double encoded, and that's bad
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
+}
+\seealso{
+\code{\link{post-requests}}, \code{\link{http-headers}},
+\code{\link{writing-options}}
 }
 \keyword{datasets}
 
