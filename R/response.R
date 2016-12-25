@@ -102,8 +102,11 @@ HttpResponse <- R6::R6Class(
       if (!missing(request)) self$request <- request
     },
 
-    parse = function(type, encoding) {
-      readBin(self$content, character())
+    parse = function(encoding = NULL) {
+      # readBin(self$content, character())
+      iconv(readBin(self$content, character()),
+            from = guess_encoding(encoding),
+            to = "UTF-8")
     },
 
     success = function() {
@@ -126,6 +129,21 @@ HttpResponse <- R6::R6Class(
     }
   )
 )
+
+guess_encoding <- function(encoding = NULL) {
+  if (!is.null(encoding)) {
+    return(check_encoding(encoding))
+  } else {
+    message("No encoding supplied: defaulting to UTF-8.")
+    return("UTF-8")
+  }
+}
+
+check_encoding <- function(x) {
+  if ((tolower(x) %in% tolower(iconvlist()))) return(x)
+  message("Invalid encoding ", x, ": defaulting to UTF-8.")
+  "UTF-8"
+}
 
 parse_params <- function(x) {
   x <- urltools::parameters(x)
