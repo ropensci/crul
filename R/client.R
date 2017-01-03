@@ -154,7 +154,7 @@ HttpClient <- R6::R6Class(
         headers = c(self$headers, opts$type),
         fields = opts$fields
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -179,7 +179,7 @@ HttpClient <- R6::R6Class(
         headers = self$headers,
         fields = body
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -204,7 +204,7 @@ HttpClient <- R6::R6Class(
         headers = self$headers,
         fields = body
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -229,7 +229,7 @@ HttpClient <- R6::R6Class(
         headers = self$headers,
         fields = body
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -248,7 +248,7 @@ HttpClient <- R6::R6Class(
         ),
         headers = self$headers
       )
-      rr$options <- utils::modifyList(rr$options, self$opts)
+      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
