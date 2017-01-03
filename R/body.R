@@ -27,7 +27,7 @@ raw_body <- function(body, type = NULL) {
 # adapted from https://github.com/hadley/httr
 prep_body <- function(body, encode, type = NULL) {
   if (identical(body, FALSE)) {
-    return(list(post = TRUE, nobody = TRUE))
+    return(list(opts = list(post = TRUE, nobody = TRUE)))
   }
   if (is.character(body) || is.raw(body)) {
     return(raw_body(body, type = type))
