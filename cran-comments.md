@@ -11,21 +11,19 @@
   License components with restrictions and base license permitting such:
     MIT + file LICENSE
   File 'LICENSE':
-    YEAR: 2016
+    YEAR: 2017
     COPYRIGHT HOLDER: Scott Chamberlain
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 2 downstream dependencies
+* I have run R CMD check on the 4 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
 No problems were found. The maintainers are me.
 
 ---
 
-This version adds a missing method on the `HttpResponse` class, and 
-adds new options for writing to disk and streaming responses. In 
-addition, improved curl option passing, and using `fauxpas` package
-now for HTTP condition handling.
+This version makes many minor improvements, including more documentation,
+correct URL encoding, and better parsing of HTTP headers.
 
 Thanks!
 Scott Chamberlain

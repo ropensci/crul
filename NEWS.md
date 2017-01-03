@@ -1,3 +1,20 @@
+crul 0.2.0
+==========
+
+### MINOR IMPROVEMENTS
+
+* Created new manual files for various tasks to document
+usage better (#19)
+* URL encode paths - should fix any bugs where spaces between words 
+caused errors previously (#17)
+* URL encode query parameters - should fix any bugs where spaces between words 
+caused errors previously (#11)
+* request headers now passed correctly to response object (#13)
+* response headers now parsed to a list for easier access (#14)
+* Now supporting multiple query parameters of the same name, wasn't
+possible in last version (#15)
+
+
 crul 0.1.6
 ==========
 
