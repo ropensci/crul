@@ -270,7 +270,7 @@ HttpClient <- R6::R6Class(
       }
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
-      resp <- crul_fetch(opts)
+      (resp <- crul_fetch(opts))
 
       HttpResponse$new(
         method = opts$method,
@@ -278,7 +278,11 @@ HttpClient <- R6::R6Class(
         status_code = resp$status_code,
         request_headers = c(useragent = opts$options$useragent, opts$headers),
         response_headers = {
-          headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+          if (grepl("^ftp://", resp$url)) {
+            list()
+          } else {
+            headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+          }
         },
         modified = resp$modified,
         times = resp$times,
