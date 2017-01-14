@@ -3,6 +3,10 @@
 #' @export
 #' @param url (character) A url. One of \code{url} or \code{handle} required.
 #' @param opts (list) curl options
+#' @param proxies (character/list) A proxy URL. must include scheme and port.
+#' To use HTTP Basic Auth with your proxy, use
+#' \code{http://user:password@host/} syntax. See \code{\link{proxies}}
+#' for examples and more information. Supports one proxy for now.
 #' @param handle A handle
 #' @details
 #' \strong{Methods}
@@ -86,6 +90,7 @@ HttpClient <- R6::R6Class(
   public = list(
     url = NULL,
     opts = list(),
+    proxies = list(),
     headers = list(),
     handle = NULL,
 
@@ -97,6 +102,8 @@ HttpClient <- R6::R6Class(
         cat(sprintf("    %s: %s", names(self$opts)[i],
                     self$opts[[i]]), sep = "\n")
       }
+      cat("  proxies: ", sep = "\n")
+      if (length(self$proxies)) cat(paste("    -", purl(self$proxies)), sep = "\n")
       cat("  headers: ", sep = "\n")
       for (i in seq_along(self$headers)) {
         cat(sprintf("    %s: %s", names(self$headers)[i],
@@ -105,9 +112,10 @@ HttpClient <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(url, opts, headers, handle) {
+    initialize = function(url, opts, proxies, headers, handle) {
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
+      if (!missing(proxies)) self$proxies <- proxies
       if (!missing(headers)) self$headers <- headers
       if (!missing(handle)) self$handle <- handle
       if (is.null(self$url) && is.null(self$handle)) {
@@ -128,7 +136,8 @@ HttpClient <- R6::R6Class(
         ),
         headers = self$headers
       )
-      rr$options <- utils::modifyList(rr$options, c(self$opts, ...))
+      rr$options <- utils::modifyList(rr$options,
+                                      c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
