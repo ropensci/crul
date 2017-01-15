@@ -2,9 +2,18 @@
 % Please edit documentation in R/curl-options.R
 \name{curl-options}
 \alias{curl-options}
+\alias{timeout}
+\alias{user-agent}
+\alias{verbose}
 \title{curl options}
 \description{
-curl options
+With the \code{opts} parameter you can pass in various
+curl options, including user agent string, whether to get verbose
+curl output or not, setting a timeout for requests, and more. See
+\code{\link[curl]{curl_options}} for all the options you can use.
+}
+\details{
+A progress helper will be coming soon.
 }
 \examples{
 # set curl options on client initialization
@@ -23,5 +32,12 @@ res$get('get')
 res$get('get', verbose = TRUE)
 \dontrun{res$get('get', stuff = "things")}
 \dontrun{res$get('get', httpget = TRUE)}
+
+# set a timeout
+(res <- HttpClient$new(
+  url = "https://httpbin.org",
+  opts = list(timeout_ms = 1)
+))
+\dontrun{res$get('get')}
 }
 

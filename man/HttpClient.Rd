@@ -9,12 +9,10 @@
 
 \item{opts}{(list) curl options}
 
-\item{proxies}{(character/list) A proxy URL. must include scheme and port.
-To use HTTP Basic Auth with your proxy, use
-\code{http://user:password@host/} syntax. See \code{\link{proxies}}
-for examples and more information. Supports one proxy for now.}
+\item{proxies}{an object of class \code{proxy}, as returned from the
+\code{\link{proxy}} function. Supports one proxy for now}
 
-\item{handle}{A handle}
+\item{handle}{A handle, see \code{\link{handle}}}
 }
 \description{
 HTTP client

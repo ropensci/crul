@@ -7,14 +7,27 @@
 #' @param pwd (character) password, optional
 #' @param auth (character) authentication type, one of basic (default),
 #' digest, digest_ie, gssnegotiate, ntlm, or any. optional
+#'
+#' @details See http://proxylist.hidemyass.com/ for a list of proxies you
+#' can use
+#'
+#' To use HTTP Basic Auth with your proxy, use
+#' \code{http://user:password@host/} syntax.
+#'
 #' @examples
+#' proxy("http://97.77.104.22:3128")
+#' proxy("97.77.104.22:3128")
+#' proxy("http://97.77.104.22:3128", "foo", "bar")
+#' proxy("http://97.77.104.22:3128", "foo", "bar", auth = "digest")
+#' proxy("http://97.77.104.22:3128", "foo", "bar", auth = "ntlm")
+#'
 #' # with proxy (look at request/outgoing headers)
 #' (res <- HttpClient$new(
 #'   url = "http://www.google.com",
 #'   proxies = proxy("http://97.77.104.22:3128")
 #' ))
 #' res$proxies
-#' res$get(verbose = TRUE)
+#' \dontrun{res$get(verbose = TRUE)}
 #'
 #' # vs. without proxy (look at request/outgoing headers)
 #' (res2 <- HttpClient$new(url = "http://www.google.com"))
@@ -26,18 +39,25 @@
 #'   url = "http://google.com",
 #'   proxies = proxy("http://97.77.104.22:3128", user = "foo", pwd = "bar")
 #' ))
+#'
+#' # another example
+#' (res <- HttpClient$new(
+#'   url = "http://ip.tyk.nu/",
+#'   proxies = proxy("http://200.29.191.149:3128")
+#' ))
+#' \dontrun{res$get()$parse("UTF-8")}
 NULL
 
 #' @export
 #' @rdname proxies
 proxy <- function(url, user = NULL, pwd = NULL, auth = "basic") {
   url <- proxy_url(url)
-  ccp(list(
+  structure(ccp(list(
     proxy = url$domain,
     proxyport = url$port,
     proxyuserpwd = proxy_up(user, pwd),
     proxyauth = proxy_auth(auth)
-  ))
+  )), class = "proxy")
 }
 
 proxy_url <- function(x) {

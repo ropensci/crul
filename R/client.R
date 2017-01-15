@@ -3,11 +3,10 @@
 #' @export
 #' @param url (character) A url. One of \code{url} or \code{handle} required.
 #' @param opts (list) curl options
-#' @param proxies (character/list) A proxy URL. must include scheme and port.
-#' To use HTTP Basic Auth with your proxy, use
-#' \code{http://user:password@host/} syntax. See \code{\link{proxies}}
-#' for examples and more information. Supports one proxy for now.
-#' @param handle A handle
+#' @param proxies an object of class \code{proxy}, as returned from the
+#' \code{\link{proxy}} function. Supports one proxy for now
+#' @param handle A handle, see \code{\link{handle}}
+#'
 #' @details
 #' \strong{Methods}
 #'   \describe{
@@ -30,6 +29,7 @@
 #'       Make a HEAD request
 #'     }
 #'   }
+#'
 #' @format NULL
 #' @usage NULL
 #' @details Possible parameters (not all are allowed in each HTTP verb):
@@ -115,7 +115,12 @@ HttpClient <- R6::R6Class(
     initialize = function(url, opts, proxies, headers, handle) {
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
-      if (!missing(proxies)) self$proxies <- proxies
+      if (!missing(proxies)) {
+        if (!inherits(proxies, "proxy")) {
+          stop("proxies input must be of class proxy", call. = FALSE)
+        }
+        self$proxies <- proxies
+      }
       if (!missing(headers)) self$headers <- headers
       if (!missing(handle)) self$handle <- handle
       if (is.null(self$url) && is.null(self$handle)) {
