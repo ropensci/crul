@@ -24,9 +24,6 @@ proxy options
 \details{
 See http://proxylist.hidemyass.com/ for a list of proxies you
 can use
-
-To use HTTP Basic Auth with your proxy, use
-\code{http://user:password@host/} syntax.
 }
 \examples{
 proxy("http://97.77.104.22:3128")
