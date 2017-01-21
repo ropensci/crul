@@ -1,19 +1,12 @@
-make_url <- function(url = NULL, handle = NULL, path, query) {
-  if (!is.null(handle)) {
-    url <- handle$url
-  } else {
-    handle <- list(handle = curl::new_handle())
-  }
+`%||%` <- function(x, y) if (is.null(x)) y else x
 
-  if (!is.null(path)) {
-    urltools::path(url) <- path
-  }
+ccp <- function(x) Filter(Negate(is.null), x)
 
-  if (length(query)) {
-    for (i in seq_along(query)) {
-      url <- urltools::param_set(url, names(query)[i], query[[i]])
+assert <- function(x, y) {
+  if (!is.null(x)) {
+    if (!class(x) %in% y) {
+      stop(deparse(substitute(x)), " must be of class ",
+           paste0(y, collapse = ", "), call. = FALSE)
     }
   }
-
-  return(list(url = url, handle = handle$handle))
 }

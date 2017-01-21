@@ -27,25 +27,38 @@ Base response object
     \item{\code{status_http()}}{
       Get HTTP status code, message, and explanation
     }
+    \item{\code{raise_for_status()}}{
+      Check HTTP status and stop with appropriate
+      HTTP error code and message if >= 300.
+      - If you have \code{fauxpas} installed we use that,
+      otherwise use \pkg{httpcode}
+    }
   }
 }
 \examples{
-\dontrun{
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 x$url
 x$method
 
-x <- HttpClient$new(url = 'http://sushi.com')
-(res <- x$get('/nigiri/sake.json'))
+x <- HttpClient$new(url = 'https://httpbin.org')
+(res <- x$get('get'))
+res$request_headers
+res$response_headers
 res$parse()
 res$status_code
 res$status_http()
 res$status_http()$status_code
 res$status_http()$message
 res$status_http()$explanation
-res$raise_for_status()
 res$success()
-}
+
+x <- HttpClient$new(url = 'https://httpbin.org/status/404')
+(res <- x$get())
+ \dontrun{res$raise_for_status()}
+
+x <- HttpClient$new(url = 'https://httpbin.org/status/414')
+(res <- x$get())
+ \dontrun{res$raise_for_status()}
 }
 \keyword{datasets}
 

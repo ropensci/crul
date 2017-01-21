@@ -9,7 +9,10 @@
 
 \item{opts}{(list) curl options}
 
-\item{handle}{A handle}
+\item{proxies}{an object of class \code{proxy}, as returned from the
+\code{\link{proxy}} function. Supports one proxy for now}
+
+\item{handle}{A handle, see \code{\link{handle}}}
 }
 \description{
 HTTP client
@@ -17,28 +20,41 @@ HTTP client
 \details{
 \strong{Methods}
   \describe{
-    \item{\code{get(path, query, ...)}}{
+    \item{\code{get(path, query, disk, stream, ...)}}{
       Make a GET request
     }
-    \item{\code{post(path, query, body, ...)}}{
+    \item{\code{post(path, query, body, disk, stream, ...)}}{
       Make a POST request
     }
-    \item{\code{put(path, query, body, ...)}}{
+    \item{\code{put(path, query, body, disk, stream, ...)}}{
       Make a PUT request
     }
-    \item{\code{patch(path, query, body, ...)}}{
+    \item{\code{patch(path, query, body, disk, stream, ...)}}{
       Make a PATCH request
     }
-    \item{\code{delete(path, query, body, ...)}}{
+    \item{\code{delete(path, query, body, disk, stream, ...)}}{
       Make a DELETE request
     }
-    \item{\code{head(path, query, ...)}}{
+    \item{\code{head(path, disk, stream, ...)}}{
       Make a HEAD request
     }
   }
+
+Possible parameters (not all are allowed in each HTTP verb):
+\itemize{
+ \item path - URL path, appended to the base URL
+ \item query - query terms, as a list
+ \item body - body as an R list
+ \item encode - one of form, multipart, json, or raw
+ \item disk - a path to write to. if NULL (default), memory used
+ \item stream - an R function to determine how to stream data. if
+ NULL (default), memory used
+ \item ... curl options, only those in the acceptable set from
+ \code{\link[curl]{curl_options}} except the following: httpget, httppost,
+ post, postfields, postfieldsize, and customrequest
+}
 }
 \examples{
-\dontrun{
 (x <- HttpClient$new(url = "https://httpbin.org"))
 x$url
 (res_get1 <- x$get('get'))
@@ -69,42 +85,14 @@ x$post('post')
 # head request
 (res_head <- x$head())
 
-# set options on client initialization
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE,
-    useragent = "hello world"
-  )
-))
-res$opts
-res$get('get')
-
-# set headers
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE
-  ),
-  headers = list(
-    a = "stuff",
-    b = "things"
-  )
-))
-res$headers
-# reassign header value
-res$headers$a <- "that"
-# define new header
-res$headers$c <- "what"
-# request
-res$get('get')
-
-
-# handles - pass in your own handle
-h <- handle("https://httpbin.org")
-(res <- HttpClient$new(handle = h))
-out <- res$get("get")
+# query params are URL encoded for you, so DO NOT do it yourself
+## if you url encode yourself, it gets double encoded, and that's bad
+(x <- HttpClient$new(url = "https://httpbin.org"))
+res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
 }
+\seealso{
+\code{\link{post-requests}}, \code{\link{http-headers}},
+\code{\link{writing-options}}
 }
 \keyword{datasets}
 

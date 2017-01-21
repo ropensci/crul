@@ -11,17 +11,19 @@
   License components with restrictions and base license permitting such:
     MIT + file LICENSE
   File 'LICENSE':
-    YEAR: 2016
+    YEAR: 2017
     COPYRIGHT HOLDER: Scott Chamberlain
-
-* This is a new release. I have read and agree to the the CRAN policies at
-http://cran.r-project.org/web/packages/policies.html
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+* I have run R CMD check on the 4 downstream dependencies
+(<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
+No problems were found. The maintainers are me.
 
 ---
+
+This version makes many minor improvements, including more documentation,
+correct URL encoding, and better parsing of HTTP headers.
 
 Thanks!
 Scott Chamberlain

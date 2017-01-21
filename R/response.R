@@ -17,25 +17,39 @@
 #'     \item{\code{status_http()}}{
 #'       Get HTTP status code, message, and explanation
 #'     }
+#'     \item{\code{raise_for_status()}}{
+#'       Check HTTP status and stop with appropriate
+#'       HTTP error code and message if >= 300.
+#'       - If you have \code{fauxpas} installed we use that,
+#'       otherwise use \pkg{httpcode}
+#'     }
 #'   }
 #' @format NULL
 #' @usage NULL
-#' @examples \dontrun{
+#' @examples
 #' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 #' x$url
 #' x$method
 #'
-#' x <- HttpClient$new(url = 'http://sushi.com')
-#' (res <- x$get('/nigiri/sake.json'))
+#' x <- HttpClient$new(url = 'https://httpbin.org')
+#' (res <- x$get('get'))
+#' res$request_headers
+#' res$response_headers
 #' res$parse()
 #' res$status_code
 #' res$status_http()
 #' res$status_http()$status_code
 #' res$status_http()$message
 #' res$status_http()$explanation
-#' res$raise_for_status()
 #' res$success()
-#' }
+#'
+#' x <- HttpClient$new(url = 'https://httpbin.org/status/404')
+#' (res <- x$get())
+#'  \dontrun{res$raise_for_status()}
+#'
+#' x <- HttpClient$new(url = 'https://httpbin.org/status/414')
+#' (res <- x$get())
+#'  \dontrun{res$raise_for_status()}
 HttpResponse <- R6::R6Class(
   'HttpResponse',
   public = list(
@@ -60,7 +74,7 @@ HttpResponse <- R6::R6Class(
       }
       cat("  response_headers: ", sep = "\n")
       for (i in seq_along(self$response_headers)) {
-        cat(paste0("    ", self$response_headers[[i]]), sep = "\n")
+        cat(sprintf("    %s: %s", names(self$response_headers)[i], self$response_headers[[i]]), sep = "\n")
       }
       params <- parse_params(self$url)
       if (!is.null(params)) {
@@ -79,7 +93,7 @@ HttpResponse <- R6::R6Class(
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
       if (!missing(handle)) self$handle <- handle
-      if (!missing(status_code)) self$status_code <- status_code
+      if (!missing(status_code)) self$status_code <- as.numeric(status_code)
       if (!missing(request_headers)) self$request_headers <- request_headers
       if (!missing(response_headers)) self$response_headers <- response_headers
       if (!missing(modified)) self$modified <- modified
@@ -88,8 +102,11 @@ HttpResponse <- R6::R6Class(
       if (!missing(request)) self$request <- request
     },
 
-    parse = function(type, encoding) {
-      readBin(self$content, character())
+    parse = function(encoding = NULL) {
+      # readBin(self$content, character())
+      iconv(readBin(self$content, character()),
+            from = guess_encoding(encoding),
+            to = "UTF-8")
     },
 
     success = function() {
@@ -98,9 +115,35 @@ HttpResponse <- R6::R6Class(
 
     status_http = function(verbose = FALSE) {
       httpcode::http_code(code = self$status_code, verbose = verbose)
+    },
+
+    raise_for_status = function() {
+      if (self$status_code >= 300) {
+        if (!requireNamespace("fauxpas", quietly = TRUE)) {
+          x <- httpcode::http_code(code = self$status_code)
+          stop(sprintf("%s (HTTP %s)", x$message, x$status_code), call. = FALSE)
+        } else {
+          fauxpas::http(self, behavior = "stop")
+        }
+      }
     }
   )
 )
+
+guess_encoding <- function(encoding = NULL) {
+  if (!is.null(encoding)) {
+    return(check_encoding(encoding))
+  } else {
+    message("No encoding supplied: defaulting to UTF-8.")
+    return("UTF-8")
+  }
+}
+
+check_encoding <- function(x) {
+  if ((tolower(x) %in% tolower(iconvlist()))) return(x)
+  message("Invalid encoding ", x, ": defaulting to UTF-8.")
+  "UTF-8"
+}
 
 parse_params <- function(x) {
   x <- urltools::parameters(x)

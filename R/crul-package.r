@@ -8,6 +8,10 @@
 #'  http responses
 #' }
 #'
+#' @section HTTP conditions:
+#' We use \code{fauxpas} if you have it installed for handling HTTP
+#' conditions but if it's not installed we use \pkg{httpcode}
+#'
 #' @import curl
 #' @importFrom R6 R6Class
 #' @name crul-package
