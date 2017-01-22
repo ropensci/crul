@@ -4,11 +4,12 @@
 #' @examples
 #' # load webmockr
 #' library(webmockr)
+#' library(crul)
 #'
 #' # turn on mocking
 #' webmockr::enable()
 #' crul::mock()
-#' crul_opts$mock
+#' crul:::crul_opts$mock
 #'
 #' # stub a request
 #' webmockr::stub_request("get", "http://localhost:9000/get")
@@ -24,6 +25,7 @@
 NULL
 
 crul_opts <- new.env()
+crul_opts$mock <- FALSE
 
 #' @export
 mock <- function(on = TRUE) crul_opts$mock <- on

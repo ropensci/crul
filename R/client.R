@@ -296,31 +296,42 @@ HttpClient <- R6::R6Class(
 
       if (crul_opts$mock) {
         adap <- webmockr::CrulAdapter$new()
-        #adap$handle_request(opts)
+        resp <- adap$handle_request(opts)
       } else {
-        resp <- curl::curl_fetch_memory(opts$url$url, opts$url$handle)
+        resp <- private$crul_fetch(opts)
       }
 
-      # (resp <- crul_fetch(opts))
+      HttpResponse$new(
+        method = opts$method,
+        url = resp$url,
+        status_code = resp$status_code,
+        request_headers = c(useragent = opts$options$useragent, opts$headers),
+        response_headers = {
+          if (grepl("^ftp://", resp$url)) {
+            list()
+          } else {
+            headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+          }
+        },
+        modified = resp$modified,
+        times = resp$times,
+        content = resp$content,
+        handle = opts$url$handle,
+        request = opts
+      )
+    },
 
-      # HttpResponse$new(
-      #   method = opts$method,
-      #   url = resp$url,
-      #   status_code = resp$status_code,
-      #   request_headers = c(useragent = opts$options$useragent, opts$headers),
-      #   response_headers = {
-      #     if (grepl("^ftp://", resp$url)) {
-      #       list()
-      #     } else {
-      #       headers_parse(curl::parse_headers(rawToChar(resp$headers)))
-      #     }
-      #   },
-      #   modified = resp$modified,
-      #   times = resp$times,
-      #   content = resp$content,
-      #   handle = opts$url$handle,
-      #   request = opts
-      # )
+    crul_fetch = function(x) {
+      if (is.null(x$disk) && is.null(x$stream)) {
+        # memory
+        curl::curl_fetch_memory(x$url$url, handle = x$url$handle)
+      } else if (!is.null(x$disk)) {
+        # disk
+        curl::curl_fetch_disk(x$url$url, x$disk, handle = x$url$handle)
+      } else {
+        # stream
+        curl::curl_fetch_stream(x$url$url, x$stream, handle = x$url$handle)
+      }
     }
   )
 )

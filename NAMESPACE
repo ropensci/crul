@@ -2,6 +2,7 @@
 
 export(HttpClient)
 export(HttpResponse)
+export(HttpStubbedResponse)
 export(handle)
 export(mock)
 export(proxy)

@@ -9,42 +9,23 @@ Mocking HTTP requests
 \examples{
 # load webmockr
 library(webmockr)
+library(crul)
 
 # turn on mocking
 webmockr::enable()
 crul::mock()
+crul:::crul_opts$mock
+
+# stub a request
+webmockr::stub_request("get", "http://localhost:9000/get")
+webmockr:::webmockr_stub_registry
 
 # create an HTTP client
 (x <- HttpClient$new(url = "http://localhost:9000"))
-x$get('get')
 
-# set headers
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE
-  ),
-  headers = list(
-    a = "stuff",
-    b = "things"
-  )
-))
-res$headers
-# reassign header value
-res$headers$a <- "that"
-# define new header
-res$headers$c <- "what"
-# request
-res$get('get')
-
-## setting content-type via headers
-(res <- HttpClient$new(
-  url = "https://httpbin.org",
-  opts = list(
-    verbose = TRUE
-  ),
-  headers = list(`Content-Type` = "application/json")
-))
-res$get('get')
+# make a request - first one is executed, and following requests
+# pull from the cache
+x$get('get') # http request made
+x$get('get') # not http request made, pulled from cache
 }
 
