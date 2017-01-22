@@ -23,6 +23,7 @@ Imports:
 Suggests:
     testthat,
     fauxpas (>= 0.1.0),
+    webmockr,
     knitr,
     covr,
     jsonlite

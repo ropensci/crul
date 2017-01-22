@@ -3,6 +3,7 @@
 export(HttpClient)
 export(HttpResponse)
 export(handle)
+export(mock)
 export(proxy)
 import(curl)
 importFrom(R6,R6Class)
