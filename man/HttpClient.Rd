@@ -9,7 +9,10 @@
 
 \item{opts}{(list) curl options}
 
-\item{handle}{A handle}
+\item{proxies}{an object of class \code{proxy}, as returned from the
+\code{\link{proxy}} function. Supports one proxy for now}
+
+\item{handle}{A handle, see \code{\link{handle}}}
 }
 \description{
 HTTP client

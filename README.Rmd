@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday).
+An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday) and Python land's [requests](http://docs.python-requests.org/en/master/)
 
 ## Installation
 
