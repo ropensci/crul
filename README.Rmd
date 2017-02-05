@@ -137,12 +137,18 @@ res$get(query = list(limit = 100), timeout_ms = 100)
 
 ## TO DO
 
+### http caching 
+
 Add integration for:
 
 * [webmockr](https://github.com/ropensci/webmockr)
 * [vcr](https://github.com/ropensci/vcr) 
 
 for flexible and easy HTTP request caching
+
+### async
+
+* working on it
 
 ## Meta
 

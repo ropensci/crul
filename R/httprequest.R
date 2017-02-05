@@ -1,98 +1,36 @@
 #' HTTP client
 #'
 #' @export
+#'
 #' @param url (character) A url. One of \code{url} or \code{handle} required.
 #' @param opts (list) curl options
 #' @param proxies an object of class \code{proxy}, as returned from the
 #' \code{\link{proxy}} function. Supports one proxy for now
+#' @param method (character) HTTP method: head, get, post, put, patch,
+#' delete, options
 #' @param handle A handle, see \code{\link{handle}}
-#'
-#' @details
-#' \strong{Methods}
-#'   \describe{
-#'     \item{\code{get(path, query, disk, stream, ...)}}{
-#'       Make a GET request
-#'     }
-#'     \item{\code{post(path, query, body, disk, stream, ...)}}{
-#'       Make a POST request
-#'     }
-#'     \item{\code{put(path, query, body, disk, stream, ...)}}{
-#'       Make a PUT request
-#'     }
-#'     \item{\code{patch(path, query, body, disk, stream, ...)}}{
-#'       Make a PATCH request
-#'     }
-#'     \item{\code{delete(path, query, body, disk, stream, ...)}}{
-#'       Make a DELETE request
-#'     }
-#'     \item{\code{head(path, disk, stream, ...)}}{
-#'       Make a HEAD request
-#'     }
-#'   }
-#'
-#' @format NULL
-#' @usage NULL
-#' @details Possible parameters (not all are allowed in each HTTP verb):
-#' \itemize{
-#'  \item path - URL path, appended to the base URL
-#'  \item query - query terms, as a list
-#'  \item body - body as an R list
-#'  \item encode - one of form, multipart, json, or raw
-#'  \item disk - a path to write to. if NULL (default), memory used
-#'  \item stream - an R function to determine how to stream data. if
-#'  NULL (default), memory used
-#'  \item ... curl options, only those in the acceptable set from
-#'  \code{\link[curl]{curl_options}} except the following: httpget, httppost,
-#'  post, postfields, postfieldsize, and customrequest
-#' }
 #'
 #' @seealso \code{\link{post-requests}}, \code{\link{http-headers}},
 #' \code{\link{writing-options}}
 #'
 #' @examples
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpRequest$new(url = "https://httpbin.org")$get())
+#' x$method
 #' x$url
-#' (res_get1 <- x$get('get'))
-#' res_get1$content
-#' res_get1$response_headers
-#' res_get1$parse()
+#' x$payload
 #'
-#' (res_get2 <- x$get('get', query = list(hello = "world")))
-#' res_get2$parse()
-#' library("jsonlite")
-#' jsonlite::fromJSON(res_get2$parse())
-#'
-#' # post request
-#' (res_post <- x$post('post', body = list(hello = "world")))
-#'
-#' ## empty body request
-#' x$post('post')
-#'
-#' # put request
-#' (res_put <- x$put('put'))
-#'
-#' # delete request
-#' (res_delete <- x$delete('delete'))
-#'
-#' # patch request
-#' (res_patch <- x$patch('patch'))
-#'
-#' # head request
-#' (res_head <- x$head())
-#'
-#' # query params are URL encoded for you, so DO NOT do it yourself
-#' ## if you url encode yourself, it gets double encoded, and that's bad
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
-#' res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
-
-HttpClient <- R6::R6Class(
-  'HttpClient',
+#' (x <- HttpRequest$new(url = "http://localhost:9000/post"))
+#' x$post(body = list(foo = "bar"))
+HttpRequest <- R6::R6Class(
+  'HttpRequest',
   public = list(
     url = NULL,
+    method = NULL,
     opts = list(),
     proxies = list(),
     headers = list(),
     handle = NULL,
+    payload = NULL,
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
@@ -112,8 +50,9 @@ HttpClient <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(url, opts, proxies, headers, handle) {
+    initialize = function(url, method = "get", opts, proxies, headers, handle) {
       if (!missing(url)) self$url <- url
+      if (!missing(url)) self$method <- method
       if (!missing(opts)) self$opts <- opts
       if (!missing(proxies)) {
         if (!inherits(proxies, "proxy")) {
@@ -131,7 +70,7 @@ HttpClient <- R6::R6Class(
     get = function(path = NULL, query = list(), disk = NULL,
                    stream = NULL, ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, query)
+      url <- make_url_async(self$url, self$handle, path, query)
       rr <- list(
         url = url,
         method = "get",
@@ -145,18 +84,14 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      self$payload <- rr
+      return(self)
     },
 
     post = function(path = NULL, query = list(), body = NULL, disk = NULL,
                     stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, query)
-      # opts <- list(post = TRUE)
-      # if (is.null(body)) {
-      #   opts$postfields <- raw(0)
-      #   opts$postfieldsize <- 0
-      # }
+      url <- make_url_async(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
       rr <- list(
         url = url,
@@ -172,13 +107,14 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      self$payload <- rr
+      return(self)
     },
 
     put = function(path = NULL, query = list(), body = NULL, disk = NULL,
                    stream = NULL, encode = NULL, ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, query)
+      url <- make_url_async(self$url, self$handle, path, query)
       opts <- list(customrequest = "PUT")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -198,13 +134,14 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      self$payload <- rr
+      return(self)
     },
 
     patch = function(path = NULL, query = list(), body = NULL, disk = NULL,
                      stream = NULL, encode = NULL, ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, query)
+      url <- make_url_async(self$url, self$handle, path, query)
       opts <- list(customrequest = "PATCH")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -224,13 +161,14 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      self$payload <- rr
+      return(self)
     },
 
     delete = function(path = NULL, query = list(), body = NULL, disk = NULL,
                       stream = NULL, encode = NULL, ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, query)
+      url <- make_url_async(self$url, self$handle, path, query)
       opts <- list(customrequest = "DELETE")
       if (is.null(body)) {
         opts$postfields <- raw(0)
@@ -250,12 +188,13 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      self$payload <- rr
+      return(self)
     },
 
     head = function(path = NULL, disk = NULL, stream = NULL, ...) {
       curl_opts_check(...)
-      url <- make_url(self$url, self$handle, path, NULL)
+      url <- make_url_async(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
         url = url,
@@ -270,45 +209,29 @@ HttpClient <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
-    }
-  ),
-
-  private = list(
-    request = NULL,
-
-    make_request = function(opts) {
-      if (xor(!is.null(opts$disk), !is.null(opts$stream))) {
-        if (!is.null(opts$disk) && !is.null(opts$stream)) {
-          stop("disk and stream can not be used together", call. = FALSE)
-        }
-      }
-      curl::handle_setopt(opts$url$handle, .list = opts$options)
-      if (!is.null(opts$fields)) {
-        curl::handle_setform(opts$url$handle, .list = opts$fields)
-      }
-      curl::handle_setheaders(opts$url$handle, .list = opts$headers)
-      on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
-      resp <- crul_fetch(opts)
-
-      HttpResponse$new(
-        method = opts$method,
-        url = resp$url,
-        status_code = resp$status_code,
-        request_headers = c(useragent = opts$options$useragent, opts$headers),
-        response_headers = {
-          if (grepl("^ftp://", resp$url)) {
-            list()
-          } else {
-            headers_parse(curl::parse_headers(rawToChar(resp$headers)))
-          }
-        },
-        modified = resp$modified,
-        times = resp$times,
-        content = resp$content,
-        handle = opts$url$handle,
-        request = opts
-      )
+      self$payload <- rr
+      return(self)
     }
   )
 )
+
+make_url_async <- function(url = NULL, handle = NULL, path, query) {
+  if (!is.null(handle)) {
+    url <- handle$url
+  }
+
+  if (!is.null(path)) {
+    urltools::path(url) <- path
+  }
+
+  url <- gsub("\\s", "%20", url)
+  url <- add_query(query, url)
+
+  if (!is.null(handle)) {
+    curl::handle_setopt(handle, url = url)
+  } else {
+    handle <- curl::new_handle(url = url)
+  }
+
+  return(list(url = url, handle = handle))
+}

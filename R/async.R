@@ -1,12 +1,12 @@
-#' Async client
+#' Simple async client
 #'
 #' @export
 #' @examples \dontrun{
-#' cc <- AsyncClient$new(
+#' cc <- Async$new(
 #'   urls = c(
-#'     'https://www.heroku.com/',
-#'     'http://docs.python-tablib.org/en/latest/',
-#'     'https://httpbin.org'
+#'     'http://localhost:9000/get',
+#'     'http://localhost:9000/get?a=5',
+#'     'http://localhost:9000/get?foo=bar'
 #'   )
 #' )
 #' cc
@@ -19,10 +19,11 @@
 #' res[[1]]$method
 #' res[[1]]$content
 #' res[[1]]$parse("UTF-8")
+#'
+#' lapply(res, function(z) z$parse("UTF-8"))
 #' }
-
-AsyncClient <- R6::R6Class(
-  'AsyncClient',
+Async <- R6::R6Class(
+  'Async',
   public = list(
     urls = NULL,
 
@@ -42,7 +43,7 @@ AsyncClient <- R6::R6Class(
     get = function(path = NULL, query = list(), ...) {
       curl_opts_check(...)
       reqs <- lapply(self$urls, function(z) {
-        url <- make_url_async(z)
+        url <- make_url_async_simple(z)
         list(
           url = url,
           method = "get",
@@ -101,19 +102,10 @@ AsyncClient <- R6::R6Class(
           request = b
         )
       }, multi_res, reqs)
-
-      # parse requests
-      # lapply(multi_res, function(z) {
-      #   list(
-      #     status_code = z$status_code,
-      #     url = z$url,
-      #     content = rawToChar(z$content)
-      #   )
-      # })
     }
   )
 )
 
-make_url_async <- function(url) {
+make_url_async_simple <- function(url) {
   list(handle = curl::new_handle(url = url))
 }

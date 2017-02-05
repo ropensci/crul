@@ -6,6 +6,10 @@
 #'  your http options, make http requests
 #'  \item \code{\link{HttpResponse}} - mostly for internal use, handles
 #'  http responses
+#'  \item \code{\link{HttpRequest}} - generate an HTTP request, mostly for
+#'  use in building requests to be used in \code{Async} or \code{AsyncVaried}
+#'  \item \code{\link{Async}} - asynchronous requests
+#'  \item \code{\link{AsyncVaried}} - varied asynchronous requests
 #' }
 #'
 #' @section HTTP conditions:
