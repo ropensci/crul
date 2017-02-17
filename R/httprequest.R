@@ -1,23 +1,38 @@
 #' HTTP request object
 #'
 #' @export
-#'
-#' @param url (character) A url. One of \code{url} or \code{handle} required.
-#' @param opts (list) curl options
-#' @param proxies an object of class \code{proxy}, as returned from the
-#' \code{\link{proxy}} function. Supports one proxy for now
-#' @param method (character) HTTP method: head, get, post, put, patch,
-#' delete, options
-#' @param headers (list) a named list of headers
-#' @param handle A handle, see \code{\link{handle}}
-#'
+#' @template args
 #' @seealso \code{\link{post-requests}}, \code{\link{http-headers}},
 #' \code{\link{writing-options}}
 #'
 #' @details This R6 class doesn't do actual HTTP requests as does
-#' \code{\link{HttpClient}} - but is rather for building requests
-#' to use for async HTTP requests in either \code{\link{Async}}
-#' or \code{\link{AsyncVaried}}
+#' \code{\link{HttpClient}} - but is for building requests
+#' to use for async HTTP requests in \code{\link{AsyncVaried}}
+#
+#'
+#' \strong{Methods}
+#'   \describe{
+#'     \item{\code{get(path, query, disk, stream, ...)}}{
+#'       Define a GET request
+#'     }
+#'     \item{\code{post(path, query, body, disk, stream, ...)}}{
+#'       Define a POST request
+#'     }
+#'     \item{\code{put(path, query, body, disk, stream, ...)}}{
+#'       Define a PUT request
+#'     }
+#'     \item{\code{patch(path, query, body, disk, stream, ...)}}{
+#'       Define a PATCH request
+#'     }
+#'     \item{\code{delete(path, query, body, disk, stream, ...)}}{
+#'       Define a DELETE request
+#'     }
+#'     \item{\code{head(path, disk, stream, ...)}}{
+#'       Define a HEAD request
+#'     }
+#'   }
+#'
+#' See \code{\link{HttpClient}} for information on parameters.
 #'
 #' @format NULL
 #' @usage NULL
@@ -28,13 +43,12 @@
 #' x$url
 #' x$payload
 #'
-#' (x <- HttpRequest$new(url = "http://localhost:9000/post"))
+#' (x <- HttpRequest$new(url = "https://httpbin.org/post"))
 #' x$post(body = list(foo = "bar"))
 HttpRequest <- R6::R6Class(
   'HttpRequest',
   public = list(
     url = NULL,
-    method = NULL,
     opts = list(),
     proxies = list(),
     headers = list(),
@@ -43,14 +57,16 @@ HttpRequest <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul http request> ", sep = "\n")
-      cat(paste0("  url: ", if (is.null(self$url)) self$handle$url else self$url), sep = "\n")
+      cat(paste0("  url: ", if (is.null(self$url))
+        self$handle$url else self$url), sep = "\n")
       cat("  options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         cat(sprintf("    %s: %s", names(self$opts)[i],
                     self$opts[[i]]), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
-      if (length(self$proxies)) cat(paste("    -", purl(self$proxies)), sep = "\n")
+      if (length(self$proxies)) cat(paste("    -",
+                                          purl(self$proxies)), sep = "\n")
       cat("  headers: ", sep = "\n")
       for (i in seq_along(self$headers)) {
         cat(sprintf("    %s: %s", names(self$headers)[i],
@@ -59,9 +75,8 @@ HttpRequest <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(url, method = "get", opts, proxies, headers, handle) {
+    initialize = function(url, opts, proxies, headers, handle) {
       if (!missing(url)) self$url <- url
-      if (!missing(url)) self$method <- method
       if (!missing(opts)) self$opts <- opts
       if (!missing(proxies)) {
         if (!inherits(proxies, "proxy")) {

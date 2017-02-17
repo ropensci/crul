@@ -1,8 +1,8 @@
 #' Async client for different request types
 #'
 #' @export
-#' @param ... Any number of objects of class \code{HttpRequest}
-#' @param .list Any number of objects of class \code{HttpRequest}
+#' @param ...,.list Any number of objects of class \code{\link{HttpRequest}},
+#' must supply inputs to one of these parameters, but not both
 #' @family async
 #' @return An object of class \code{AsyncVaried} with variables and methods
 #' @details
@@ -96,6 +96,10 @@ AsyncVaried <- R6::R6Class(
 
     request = function() {
       private$output <- private$async_request(private$reqs)
+    },
+
+    responses = function() {
+      private$output
     },
 
     requests = function() {

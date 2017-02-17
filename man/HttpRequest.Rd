@@ -12,9 +12,6 @@
 \item{proxies}{an object of class \code{proxy}, as returned from the
 \code{\link{proxy}} function. Supports one proxy for now}
 
-\item{method}{(character) HTTP method: head, get, post, put, patch,
-delete, options}
-
 \item{headers}{(list) a named list of headers}
 
 \item{handle}{A handle, see \code{\link{handle}}}
@@ -24,9 +21,32 @@ HTTP request object
 }
 \details{
 This R6 class doesn't do actual HTTP requests as does
-\code{\link{HttpClient}} - but is rather for building requests
-to use for async HTTP requests in either \code{\link{Async}}
-or \code{\link{AsyncVaried}}
+\code{\link{HttpClient}} - but is for building requests
+to use for async HTTP requests in \code{\link{AsyncVaried}}
+
+\strong{Methods}
+  \describe{
+    \item{\code{get(path, query, disk, stream, ...)}}{
+      Define a GET request
+    }
+    \item{\code{post(path, query, body, disk, stream, ...)}}{
+      Define a POST request
+    }
+    \item{\code{put(path, query, body, disk, stream, ...)}}{
+      Define a PUT request
+    }
+    \item{\code{patch(path, query, body, disk, stream, ...)}}{
+      Define a PATCH request
+    }
+    \item{\code{delete(path, query, body, disk, stream, ...)}}{
+      Define a DELETE request
+    }
+    \item{\code{head(path, disk, stream, ...)}}{
+      Define a HEAD request
+    }
+  }
+
+See \code{\link{HttpClient}} for information on parameters.
 }
 \examples{
 (x <- HttpRequest$new(url = "https://httpbin.org")$get())
@@ -34,7 +54,7 @@ x$method
 x$url
 x$payload
 
-(x <- HttpRequest$new(url = "http://localhost:9000/post"))
+(x <- HttpRequest$new(url = "https://httpbin.org/post"))
 x$post(body = list(foo = "bar"))
 }
 \seealso{

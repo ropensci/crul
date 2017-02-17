@@ -5,9 +5,8 @@
 \alias{AsyncVaried}
 \title{Async client for different request types}
 \arguments{
-\item{...}{Any number of objects of class \code{HttpRequest}}
-
-\item{.list}{Any number of objects of class \code{HttpRequest}}
+\item{..., .list}{Any number of objects of class \code{\link{HttpRequest}},
+must supply inputs to one of these parameters, but not both}
 }
 \value{
 An object of class \code{AsyncVaried} with variables and methods

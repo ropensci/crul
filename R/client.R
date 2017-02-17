@@ -1,12 +1,7 @@
 #' HTTP client
 #'
 #' @export
-#' @param url (character) A url. One of \code{url} or \code{handle} required.
-#' @param opts (list) curl options
-#' @param proxies an object of class \code{proxy}, as returned from the
-#' \code{\link{proxy}} function. Supports one proxy for now
-#' @param handle A handle, see \code{\link{handle}}
-#'
+#' @template args
 #' @details
 #' \strong{Methods}
 #'   \describe{
@@ -38,9 +33,11 @@
 #'  \item query - query terms, as a list
 #'  \item body - body as an R list
 #'  \item encode - one of form, multipart, json, or raw
-#'  \item disk - a path to write to. if NULL (default), memory used
+#'  \item disk - a path to write to. if NULL (default), memory used.
+#'  See \code{\link[curl]{curl_fetch_disk}} for help.
 #'  \item stream - an R function to determine how to stream data. if
-#'  NULL (default), memory used
+#'  NULL (default), memory used. See \code{\link[curl]{curl_fetch_stream}}
+#'  for help
 #'  \item ... curl options, only those in the acceptable set from
 #'  \code{\link[curl]{curl_options}} except the following: httpget, httppost,
 #'  post, postfields, postfieldsize, and customrequest
@@ -152,11 +149,6 @@ HttpClient <- R6::R6Class(
                     stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
-      # opts <- list(post = TRUE)
-      # if (is.null(body)) {
-      #   opts$postfields <- raw(0)
-      #   opts$postfieldsize <- 0
-      # }
       opts <- prep_body(body, encode)
       rr <- list(
         url = url,

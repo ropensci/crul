@@ -1,4 +1,4 @@
-#' HTTP POST requests
+#' HTTP POST/PUT/PATCH requests
 #'
 #' @name post-requests
 #' @examples

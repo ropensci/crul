@@ -1,15 +1,34 @@
 #' Simple async client
 #'
+#' A client to work with many URLs, but all with the same HTTP method
+#'
 #' @export
 #' @param urls (character) one or more URLs (required)
 #' @family async
 #' @details
 #' \strong{Methods}
 #'   \describe{
-#'     \item{\code{get()}}{
+#'     \item{\code{get(path, query, ...)}}{
 #'       make async GET requests for all URLs
 #'     }
+#'     \item{\code{post(path, query, body, encode, ...)}}{
+#'       make async POST requests for all URLs
+#'     }
+#'     \item{\code{put(path, query, body, encode, ...)}}{
+#'       make async PUT requests for all URLs
+#'     }
+#'     \item{\code{patch(path, query, body, encode, ...)}}{
+#'       make async PATCH requests for all URLs
+#'     }
+#'     \item{\code{delete(path, query, body, encode, ...)}}{
+#'       make async DELETE requests for all URLs
+#'     }
+#'     \item{\code{head(path, ...)}}{
+#'       make async HEAD requests for all URLs
+#'     }
 #'   }
+#'
+#' See \code{\link{HttpClient}} for information on parameters.
 #'
 #' @format NULL
 #' @usage NULL
@@ -17,7 +36,7 @@
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(
-#'     'https://httpbin.org/get',
+#'     'https://httpbin.org/',
 #'     'https://httpbin.org/get?a=5',
 #'     'https://httpbin.org/get?foo=bar'
 #'   )
@@ -54,71 +73,51 @@ Async <- R6::R6Class(
     },
 
     get = function(path = NULL, query = list(), ...) {
-      curl_opts_check(...)
-      reqs <- lapply(self$urls, function(z) {
-        url <- make_url_async_simple(z)
-        list(
-          url = url,
-          method = "get",
-          options = list(
-            httpget = TRUE,
-            useragent = make_ua()
-          ),
-          headers = list()
-        )
-      })
-      # reqs
-      private$async_request(reqs)
+      private$gen_interface(self$urls, "get", path, query, ...)
+    },
+
+    post = function(path = NULL, query = list(), body = NULL,
+                    encode = "multipart", ...) {
+      private$gen_interface(self$urls, "post", path, query, body, encode, ...)
+    },
+
+    put = function(path = NULL, query = list(), body = NULL,
+                   encode = "multipart", ...) {
+      private$gen_interface(self$urls, "put", path, query, body, encode, ...)
+    },
+
+    patch = function(path = NULL, query = list(), body = NULL,
+                     encode = "multipart", ...) {
+      private$gen_interface(self$urls, "patch", path, query, body, encode, ...)
+    },
+
+    delete = function(path = NULL, query = list(), body = NULL,
+                      encode = "multipart", ...) {
+      private$gen_interface(self$urls, "delete", path, query, body, encode, ...)
+    },
+
+    head = function(path = NULL, ...) {
+      private$gen_interface(self$urls, "head", path, ...)
     }
   ),
 
   private = list(
-    request = NULL,
-
-    async_request = function(reqs) {
-      crulpool <- curl::new_pool()
-
-      multi_res <- vector("list", length(reqs))
-      suc_cess <- function(res) multi_res <<- c(multi_res, list(res))
-
-      lapply(reqs, function(w) {
-        # setup handle
-        curl::handle_setopt(w$url$handle, .list = w$options)
-        # add to pool
-        curl::multi_add(w$url$handle, done = suc_cess, pool = crulpool)
-      })
-
-      # run all requests
-      curl::multi_run(pool = crulpool)
-      remain <- curl::multi_list(crulpool)
-      if (length(remain)) lapply(remain, curl::multi_cancel)
-      (multi_res <- ccp(multi_res))
-
-      Map(function(z, b) {
-        HttpResponse$new(
-          method = b$method,
-          url = z$url,
-          status_code = z$status_code,
-          #request_headers = c(useragent = opts$options$useragent, opts$headers),
-          request_headers = list(),
-          response_headers = {
-            if (grepl("^ftp://", z$url)) {
-              list()
-            } else {
-              headers_parse(curl::parse_headers(rawToChar(z$headers)))
-            }
-          },
-          modified = z$modified,
-          times = z$times,
-          content = z$content,
-          handle = b$handle,
-          request = b
-        )
-      }, multi_res, reqs)
+    gen_interface = function(x, method, ...) {
+      tmp <- AsyncVaried$new(
+        .list = lapply(x, function(z) {
+          switch(
+            method,
+            get = HttpRequest$new(url = z)$get(...),
+            post = HttpRequest$new(url = z)$post(...),
+            put = HttpRequest$new(url = z)$put(...),
+            patch = HttpRequest$new(url = z)$patch(...),
+            delete = HttpRequest$new(url = z)$delete(...),
+            head = HttpRequest$new(url = z)$head(...)
+          )
+        })
+      )
+      tmp$request()
+      tmp$responses()
     }
   )
 )
-
-make_url_async_simple <- function(url) {
-  list(handle = curl::new_handle(url = url))
-}

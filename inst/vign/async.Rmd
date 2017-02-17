@@ -20,12 +20,15 @@ Asynchronous requests with `crul`.
 
 There are two interfaces to asynchronous requests in `crul`:
 
-1. Simple async: any number of URLs, all treated with the same curl options, headers, etc., and only one HTTP method type at a time.
+1. Simple async: any number of URLs, all treated with the same curl options, 
+headers, etc., and only one HTTP method type at a time.
 2. Varied request async: build any type of request and execute all asynchronously.
 
-The first option takes less thinking, less work, and is good solution when you just want to hit a bunch of URLs asynchronously.
+The first option takes less thinking, less work, and is good solution when you 
+just want to hit a bunch of URLs asynchronously.
 
-The second option is ideal when you want to set curl options/headers on each request and/or want to do different types of HTTP methods on each request.
+The second option is ideal when you want to set curl options/headers on each 
+request and/or want to do different types of HTTP methods on each request.
 
 ```{r}
 library("crul")
