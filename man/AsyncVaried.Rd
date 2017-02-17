@@ -4,35 +4,48 @@
 \name{AsyncVaried}
 \alias{AsyncVaried}
 \title{Async client for different request types}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-AsyncVaried
+\arguments{
+\item{...}{Any number of objects of class \code{HttpRequest}}
+
+\item{.list}{Any number of objects of class \code{HttpRequest}}
+}
+\value{
+An object of class \code{AsyncVaried} with variables and methods
 }
 \description{
 Async client for different request types
 }
+\details{
+\strong{Methods}
+  \describe{
+    \item{\code{request()}}{
+      execute asynchronous requests
+    }
+    \item{\code{requests()}}{
+      list requests
+    }
+    \item{\code{parse(encoding = "UTF-8")}}{
+      parse content
+    }
+    \item{\code{status_code()}}{
+      (integer) HTTP status codes
+    }
+    \item{\code{status()}}{
+      (list) HTTP status objects
+    }
+    \item{\code{content()}}{
+      raw content
+    }
+    \item{\code{time()}}{
+      curl request times
+    }
+  }
+}
 \examples{
 \dontrun{
-# 1st request - GET
-(req1 <- HttpClient2$new(
-  url = "http://localhost:9000/get"
-))
-req1$get()
-
-# 2nd request = POST
-req2 <- HttpClient2$new(
-  url = "http://localhost:9000/post"
-)
-req2$post()
-
-# build async client
-(manyreq <- AsyncVaried$new(req1, req2))
-manyreq$request()
-manyreq$parse()
-
-# all in one call
-req1 <- HttpClient2$new(url = "http://localhost:9000/get")$get()
-req2 <- HttpClient2$new(url = "http://localhost:9000/post")$post()
+# pass in requests via ...
+req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
 out <- AsyncVaried$new(req1, req2)
 out$request()
 out$status()
@@ -41,15 +54,17 @@ out$content()
 out$times()
 out$parse()
 
-# lots of calls
+# pass in requests in a list via .list param
 reqlist <- list(
-  HttpClient2$new(url = "http://localhost:9000/get")$get(),
-  HttpClient2$new(url = "http://localhost:9000/post")$post(),
-  HttpClient2$new(url = "http://localhost:9000/put")$put(),
-  HttpClient2$new(url = "http://localhost:9000/delete")$delete(),
-  HttpClient2$new(url = "http://localhost:9000/get?g=5")$get(),
-  HttpClient2$new(url = "http://localhost:9000/post")$post(body = list(y = 9)),
-  HttpClient2$new(url = "http://localhost:9000/get")$get(query = list(hello = "world"))
+  HttpRequest$new(url = "https://httpbin.org/get")$get(),
+  HttpRequest$new(url = "https://httpbin.org/post")$post(),
+  HttpRequest$new(url = "https://httpbin.org/put")$put(),
+  HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
+  HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
+  HttpRequest$new(
+    url = "https://httpbin.org/post")$post(body = list(y = 9)),
+  HttpRequest$new(
+    url = "https://httpbin.org/get")$get(query = list(hello = "world"))
 )
 
 out <- AsyncVaried$new(.list = reqlist)
@@ -61,5 +76,7 @@ out$times()
 out$parse()
 }
 }
+\seealso{
+Other async: \code{\link{Async}}
+}
 \keyword{datasets}
-

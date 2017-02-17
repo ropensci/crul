@@ -95,4 +95,3 @@ res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
 \code{\link{writing-options}}
 }
 \keyword{datasets}
-

@@ -1,12 +1,25 @@
 #' Simple async client
 #'
 #' @export
+#' @param urls (character) one or more URLs (required)
+#' @family async
+#' @details
+#' \strong{Methods}
+#'   \describe{
+#'     \item{\code{get()}}{
+#'       make async GET requests for all URLs
+#'     }
+#'   }
+#'
+#' @format NULL
+#' @usage NULL
+#' @return a list, with objects of class \code{HttpResponse}
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(
-#'     'http://localhost:9000/get',
-#'     'http://localhost:9000/get?a=5',
-#'     'http://localhost:9000/get?foo=bar'
+#'     'https://httpbin.org/get',
+#'     'https://httpbin.org/get?a=5',
+#'     'https://httpbin.org/get?foo=bar'
 #'   )
 #' )
 #' cc
@@ -37,7 +50,7 @@ Async <- R6::R6Class(
     },
 
     initialize = function(urls) {
-      if (!missing(urls)) self$urls <- urls
+      self$urls <- urls
     },
 
     get = function(path = NULL, query = list(), ...) {

@@ -1,27 +1,42 @@
 #' Async client for different request types
 #'
 #' @export
+#' @param ... Any number of objects of class \code{HttpRequest}
+#' @param .list Any number of objects of class \code{HttpRequest}
+#' @family async
+#' @return An object of class \code{AsyncVaried} with variables and methods
+#' @details
+#' \strong{Methods}
+#'   \describe{
+#'     \item{\code{request()}}{
+#'       execute asynchronous requests
+#'     }
+#'     \item{\code{requests()}}{
+#'       list requests
+#'     }
+#'     \item{\code{parse(encoding = "UTF-8")}}{
+#'       parse content
+#'     }
+#'     \item{\code{status_code()}}{
+#'       (integer) HTTP status codes
+#'     }
+#'     \item{\code{status()}}{
+#'       (list) HTTP status objects
+#'     }
+#'     \item{\code{content()}}{
+#'       raw content
+#'     }
+#'     \item{\code{time()}}{
+#'       curl request times
+#'     }
+#'   }
+#'
+#' @format NULL
+#' @usage NULL
 #' @examples \dontrun{
-#' # 1st request - GET
-#' (req1 <- HttpClient2$new(
-#'   url = "http://localhost:9000/get"
-#' ))
-#' req1$get()
-#'
-#' # 2nd request = POST
-#' req2 <- HttpClient2$new(
-#'   url = "http://localhost:9000/post"
-#' )
-#' req2$post()
-#'
-#' # build async client
-#' (manyreq <- AsyncVaried$new(req1, req2))
-#' manyreq$request()
-#' manyreq$parse()
-#'
-#' # all in one call
-#' req1 <- HttpClient2$new(url = "http://localhost:9000/get")$get()
-#' req2 <- HttpClient2$new(url = "http://localhost:9000/post")$post()
+#' # pass in requests via ...
+#' req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+#' req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
 #' out <- AsyncVaried$new(req1, req2)
 #' out$request()
 #' out$status()
@@ -30,15 +45,17 @@
 #' out$times()
 #' out$parse()
 #'
-#' # lots of calls
+#' # pass in requests in a list via .list param
 #' reqlist <- list(
-#'   HttpClient2$new(url = "http://localhost:9000/get")$get(),
-#'   HttpClient2$new(url = "http://localhost:9000/post")$post(),
-#'   HttpClient2$new(url = "http://localhost:9000/put")$put(),
-#'   HttpClient2$new(url = "http://localhost:9000/delete")$delete(),
-#'   HttpClient2$new(url = "http://localhost:9000/get?g=5")$get(),
-#'   HttpClient2$new(url = "http://localhost:9000/post")$post(body = list(y = 9)),
-#'   HttpClient2$new(url = "http://localhost:9000/get")$get(query = list(hello = "world"))
+#'   HttpRequest$new(url = "https://httpbin.org/get")$get(),
+#'   HttpRequest$new(url = "https://httpbin.org/post")$post(),
+#'   HttpRequest$new(url = "https://httpbin.org/put")$put(),
+#'   HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
+#'   HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
+#'   HttpRequest$new(
+#'     url = "https://httpbin.org/post")$post(body = list(y = 9)),
+#'   HttpRequest$new(
+#'     url = "https://httpbin.org/get")$get(query = list(hello = "world"))
 #' )
 #'
 #' out <- AsyncVaried$new(.list = reqlist)
@@ -52,52 +69,63 @@
 AsyncVaried <- R6::R6Class(
   'AsyncVaried',
   public = list(
-    reqs = NULL,
-    output = NULL,
-
     print = function(x, ...) {
-      cat("<crul async connection> ", sep = "\n")
+      cat("<crul async varied connection> ", sep = "\n")
       cat("  requests: ", sep = "\n")
-      for (i in seq_along(self$reqs)) {
-        cat("   ", self$reqs[[i]]$url, "\n")
+      for (i in seq_along(private$reqs)) {
+        cat(sprintf("   %s: %s",
+                    private$reqs[[i]]$payload$method,
+                    private$reqs[[i]]$url), "\n")
       }
       invisible(self)
     },
 
     initialize = function(..., .list = list()) {
       if (length(.list)) {
-        self$reqs <- .list
+        private$reqs <- .list
       } else {
-        self$reqs <- list(...)
+        private$reqs <- list(...)
+      }
+      if (length(private$reqs) == 0) {
+        stop("must pass in at least one request", call. = FALSE)
+      }
+      if (any(vapply(private$reqs, function(x) class(x)[1], "") != "HttpRequest")) {
+        stop("all inputs must be of class 'HttpRequest'", call. = FALSE)
       }
     },
 
     request = function() {
-      self$output <- private$async_request(self$reqs)
+      private$output <- private$async_request(private$reqs)
     },
 
-    parse = function() {
-      vapply(self$output, function(z) z$parse("UTF-8"), "")
+    requests = function() {
+      private$reqs
+    },
+
+    parse = function(encoding = "UTF-8") {
+      vapply(private$output, function(z) z$parse(encoding = encoding), "")
     },
 
     status_code = function() {
-      vapply(self$output, function(z) z$status_code, 1)
+      vapply(private$output, function(z) z$status_code, 1)
     },
 
     status = function() {
-      lapply(self$output, function(z) z$status_http())
+      lapply(private$output, function(z) z$status_http())
     },
 
     content = function() {
-      lapply(self$output, function(z) z$content)
+      lapply(private$output, function(z) z$content)
     },
 
     times = function() {
-      lapply(self$output, function(z) z$times)
+      lapply(private$output, function(z) z$times)
     }
   ),
 
   private = list(
+    reqs = NULL,
+    output = NULL,
     reqq = NULL,
 
     async_request = function(reqs) {
@@ -149,9 +177,3 @@ AsyncVaried <- R6::R6Class(
     }
   )
 )
-
-# async <- function(...) {
-#   tmp <- AsyncClient2$new(...)
-#   tmp$request()
-#   tmp
-# }

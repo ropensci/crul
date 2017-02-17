@@ -1,4 +1,4 @@
-#' HTTP client
+#' HTTP request object
 #'
 #' @export
 #'
@@ -8,10 +8,19 @@
 #' \code{\link{proxy}} function. Supports one proxy for now
 #' @param method (character) HTTP method: head, get, post, put, patch,
 #' delete, options
+#' @param headers (list) a named list of headers
 #' @param handle A handle, see \code{\link{handle}}
 #'
 #' @seealso \code{\link{post-requests}}, \code{\link{http-headers}},
 #' \code{\link{writing-options}}
+#'
+#' @details This R6 class doesn't do actual HTTP requests as does
+#' \code{\link{HttpClient}} - but is rather for building requests
+#' to use for async HTTP requests in either \code{\link{Async}}
+#' or \code{\link{AsyncVaried}}
+#'
+#' @format NULL
+#' @usage NULL
 #'
 #' @examples
 #' (x <- HttpRequest$new(url = "https://httpbin.org")$get())
@@ -33,7 +42,7 @@ HttpRequest <- R6::R6Class(
     payload = NULL,
 
     print = function(x, ...) {
-      cat("<crul connection> ", sep = "\n")
+      cat("<crul http request> ", sep = "\n")
       cat(paste0("  url: ", if (is.null(self$url)) self$handle$url else self$url), sep = "\n")
       cat("  options: ", sep = "\n")
       for (i in seq_along(self$opts)) {

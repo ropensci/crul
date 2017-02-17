@@ -21,4 +21,3 @@ readLines(res$content)
 res <- x$get('stream/50', stream = function(x) cat(rawToChar(x)))
 res$content # when streaming, content is NULL
 }
-

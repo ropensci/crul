@@ -2,8 +2,8 @@
 % Please edit documentation in R/crul-package.r
 \docType{package}
 \name{crul-package}
-\alias{crul}
 \alias{crul-package}
+\alias{crul}
 \title{\strong{HTTP R client}}
 \description{
 \strong{HTTP R client}
@@ -27,7 +27,7 @@
 We use \code{fauxpas} if you have it installed for handling HTTP
 conditions but if it's not installed we use \pkg{httpcode}
 }
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
-

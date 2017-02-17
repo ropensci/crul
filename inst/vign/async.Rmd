@@ -21,9 +21,9 @@ Asynchronous requests with `crul`.
 There are two interfaces to asynchronous requests in `crul`:
 
 1. Simple async: any number of URLs, all treated with the same curl options, headers, etc., and only one HTTP method type at a time.
-2. Varied request async: build any type of request and execute all asynchronously. 
+2. Varied request async: build any type of request and execute all asynchronously.
 
-The first option takes less thinking, less work, and is good solution when you just want to hit a bunch of URLs asynchronously. 
+The first option takes less thinking, less work, and is good solution when you just want to hit a bunch of URLs asynchronously.
 
 The second option is ideal when you want to set curl options/headers on each request and/or want to do different types of HTTP methods on each request.
 
@@ -48,9 +48,9 @@ Build request objcect with 1 or more URLs
 ```{r}
 (cc <- Async$new(
   urls = c(
-    'http://localhost:9000/get?a=5',
-    'http://localhost:9000/get?a=5&b=6',
-    'http://localhost:9000/ip'
+    'https://httpbin.org/get?a=5',
+    'https://httpbin.org/get?a=5&b=6',
+    'https://httpbin.org/ip'
   )
 ))
 ```
@@ -81,7 +81,7 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 ```{r}
 req1 <- HttpRequest$new(
-  url = "http://localhost:9000/get?a=5",
+  url = "https://httpbin.org/get?a=5",
   opts = list(
     verbose = TRUE
   )
@@ -89,7 +89,7 @@ req1 <- HttpRequest$new(
 req1$get()
 
 req2 <- HttpRequest$new(
-  url = "http://localhost:9000/post?a=5&b=6",
+  url = "https://httpbin.org/post?a=5&b=6",
   method = "post"
 )
 req2$post(body = list(a = 5))

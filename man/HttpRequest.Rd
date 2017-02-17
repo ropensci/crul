@@ -3,11 +3,7 @@
 \docType{data}
 \name{HttpRequest}
 \alias{HttpRequest}
-\title{HTTP client}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-HttpRequest
-}
+\title{HTTP request object}
 \arguments{
 \item{url}{(character) A url. One of \code{url} or \code{handle} required.}
 
@@ -19,10 +15,18 @@ HttpRequest
 \item{method}{(character) HTTP method: head, get, post, put, patch,
 delete, options}
 
+\item{headers}{(list) a named list of headers}
+
 \item{handle}{A handle, see \code{\link{handle}}}
 }
 \description{
-HTTP client
+HTTP request object
+}
+\details{
+This R6 class doesn't do actual HTTP requests as does
+\code{\link{HttpClient}} - but is rather for building requests
+to use for async HTTP requests in either \code{\link{Async}}
+or \code{\link{AsyncVaried}}
 }
 \examples{
 (x <- HttpRequest$new(url = "https://httpbin.org")$get())
@@ -38,4 +42,3 @@ x$post(body = list(foo = "bar"))
 \code{\link{writing-options}}
 }
 \keyword{datasets}
-

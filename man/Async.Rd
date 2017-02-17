@@ -4,20 +4,30 @@
 \name{Async}
 \alias{Async}
 \title{Simple async client}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
-\usage{
-Async
+\arguments{
+\item{urls}{(character) one or more URLs (required)}
+}
+\value{
+a list, with objects of class \code{HttpResponse}
 }
 \description{
 Simple async client
+}
+\details{
+\strong{Methods}
+  \describe{
+    \item{\code{get()}}{
+      make async GET requests for all URLs
+    }
+  }
 }
 \examples{
 \dontrun{
 cc <- Async$new(
   urls = c(
-    'http://localhost:9000/get',
-    'http://localhost:9000/get?a=5',
-    'http://localhost:9000/get?foo=bar'
+    'https://httpbin.org/get',
+    'https://httpbin.org/get?a=5',
+    'https://httpbin.org/get?foo=bar'
   )
 )
 cc
@@ -34,5 +44,7 @@ res[[1]]$parse("UTF-8")
 lapply(res, function(z) z$parse("UTF-8"))
 }
 }
+\seealso{
+Other async: \code{\link{AsyncVaried}}
+}
 \keyword{datasets}
-

@@ -61,4 +61,3 @@ x <- HttpClient$new(url = 'https://httpbin.org/status/414')
  \dontrun{res$raise_for_status()}
 }
 \keyword{datasets}
-
