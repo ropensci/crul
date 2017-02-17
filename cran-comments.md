@@ -16,14 +16,14 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 4 downstream dependencies
+* I have run R CMD check on the 7 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
 No problems were found. The maintainers are me.
 
 ---
 
-This version makes many minor improvements, including more documentation,
-correct URL encoding, and better parsing of HTTP headers.
+This version adds methods for asynchronous HTTP requests, and fixes
+some bugs.
 
 Thanks!
 Scott Chamberlain

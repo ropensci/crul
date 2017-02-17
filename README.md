@@ -8,7 +8,19 @@ crul
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday) and Python land's [requests](http://docs.python-requests.org/en/master/)
+An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's [requests](http://docs.python-requests.org/en/master/)
+
+Package API:
+
+* `HttpClient` - Main interface to making HTTP requests. Synchronous requests only.
+* `HttpResponse` - HTTP response object, used for all responses across the
+different clients.
+* `Async` - Asynchronous HTTP requests - a simple interface for many URLS -
+whose interface is similar to `HttpClient` - all URLs are treated the same.
+* `HttpRequest` - HTTP request object, used for `AsyncVaried`
+* `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`
+objects - with a different interface than `HttpClient`/`Async` due to the nature
+of handling requests with different HTTP methods, options, etc.
 
 ## Installation
 
@@ -23,7 +35,6 @@ Dev version
 
 
 ```r
-install.packages("devtools")
 devtools::install_github("ropensci/crul")
 ```
 
@@ -49,7 +60,7 @@ library("crul")
 ))
 #> <crul connection> 
 #>   url: https://httpbin.org
-#>   options: 
+#>   curl options: 
 #>     timeout: 1
 #>   proxies: 
 #>   headers: 
@@ -126,9 +137,9 @@ res$content
 #> [116] 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62
 #> [139] 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65
 #> [162] 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 31 2e 30 20 72 2d
-#> [185] 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 32 2e 32 2e 39 38 31
+#> [185] 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 32 2e 37 2e 39 31 30
 #> [208] 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
-#> [231] 39 38 2e 31 33 34 2e 39 33 2e 32 35 34 22 2c 20 0a 20 20 22 75 72 6c
+#> [231] 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c
 #> [254] 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67
 #> [277] 2f 67 65 74 22 0a 7d 0a
 ```
@@ -147,7 +158,7 @@ Request headers
 ```r
 res$request_headers
 #> $useragent
-#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810"
+#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"
 #> 
 #> $a
 #> [1] "hello world"
@@ -165,7 +176,7 @@ res$response_headers
 #> [1] "nginx"
 #> 
 #> $date
-#> [1] "Sat, 04 Feb 2017 20:26:16 GMT"
+#> [1] "Fri, 17 Feb 2017 21:10:54 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
@@ -189,7 +200,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810\"\n  }, \n  \"origin\": \"198.134.93.254\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -209,11 +220,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810"
+#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"
 #> 
 #> 
 #> $origin
-#> [1] "198.134.93.254"
+#> [1] "157.130.179.86"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -225,24 +236,91 @@ jsonlite::fromJSON(res$parse())
 ```r
 res <- HttpClient$new(url = "http://api.gbif.org/v1/occurrence/search")
 res$get(query = list(limit = 100), timeout_ms = 100)
-#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) : 
+#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :
 #>   Timeout was reached
+```
+
+## Asynchronous requests
+
+The simpler interface allows many requests (many URLs), but they all get the same
+options/headers, etc. and you have to use the same HTTP method on all of them:
+
+
+```r
+(cc <- Async$new(
+  urls = c(
+    'https://httpbin.org/',
+    'https://httpbin.org/get?a=5',
+    'https://httpbin.org/get?foo=bar'
+  )
+))
+#> <crul async connection> 
+#>   urls: 
+#>    https://httpbin.org/
+#>    https://httpbin.org/get?a=5
+#>    https://httpbin.org/get?foo=bar
+res <- cc$get()
+lapply(res, function(z) z$parse("UTF-8"))
+#> [[1]]
+#> [1] "{\n  \"args\": {\n    \"foo\": \"bar\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?foo=bar\"\n}\n"
+#> 
+#> [[2]]
+#> [1] "<!DOCTYPE html>\n<html>\n<head>\n  <meta http-equiv='content-type' value='text/html;charset=utf8'>\n  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>\n  <title>httpbin(1): HTTP Client Testing Service</title>\n  <style type='text/css' media='all'>\n  /* style: man */\n  body#manpage {margin:0}\n  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}\n  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}\n  .mp h2 {margin:10px 0 0 0}\n  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}\n  .mp h3 {margin:0 0 0 4ex}\n  .mp dt {margin:0;clear:left}\n  .mp dt.flush {float:left;width:8ex}\n  .mp dd {margin:0 0 0 9ex}\n  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}\n  .mp pre {margin-bottom:20px}\n  .mp pre+h2,.mp pre+h3 {margin-top:22px}\n  .mp h2+pre,.mp h3+pre {margin-top:5px}\n  .mp img {display:block;margin:auto}\n  .mp h1.man-title {display:none}\n  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}\n  .mp h2 {font-size:16px;line-height:1.25}\n  .mp h1 {font-size:20px;line-height:2}\n  .mp {text-align:justify;background:#fff}\n  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}\n  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}\n  .mp u {text-decoration:underline}\n  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}\n  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}\n  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}\n  .mp b.man-ref {font-weight:normal;color:#434241}\n  .mp pre {padding:0 4ex}\n  .mp pre code {font-weight:normal;color:#434241}\n  .mp h2+pre,h3+pre {padding-left:0}\n  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}\n  ol.man-decor {width:100%}\n  ol.man-decor li.tl {text-align:left}\n  ol.man-decor li.tc {text-align:center;letter-spacing:4px}\n  ol.man-decor li.tr {text-align:right;float:right}\n  </style>\n  <style type='text/css' media='all'>\n  /* style: 80c */\n  .mp {max-width:86ex}\n  ul {list-style: None; margin-left: 1em!important}\n  .man-navigation {left:101ex}\n  </style>\n</head>\n\n<body id='manpage'>\n<a href=\"http://github.com/Runscope/httpbin\"><img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\" alt=\"Fork me on GitHub\"></a>\n\n\n\n<div class='mp'>\n<h1>httpbin(1): HTTP Request &amp; Response Service</h1>\n<p>Freely hosted in <a href=\"http://httpbin.org\">HTTP</a>, <a href=\"https://httpbin.org\">HTTPS</a> &amp; <a href=\"http://eu.httpbin.org/\">EU</a> flavors by <a href=\"https://www.runscope.com/\">Runscope</a></p>\n\n<h2 id=\"ENDPOINTS\">ENDPOINTS</h2>\n\n<ul>\n<li><a href=\"/\" data-bare-link=\"true\"><code>/</code></a> This page.</li>\n<li><a href=\"/ip\" data-bare-link=\"true\"><code>/ip</code></a> Returns Origin IP.</li>\n<li><a href=\"/user-agent\" data-bare-link=\"true\"><code>/user-agent</code></a> Returns user-agent.</li>\n<li><a href=\"/headers\" data-bare-link=\"true\"><code>/headers</code></a> Returns header dict.</li>\n<li><a href=\"/get\" data-bare-link=\"true\"><code>/get</code></a> Returns GET data.</li>\n<li><code>/post</code> Returns POST data.</li>\n<li><code>/patch</code> Returns PATCH data.</li>\n<li><code>/put</code> Returns PUT data.</li>\n<li><code>/delete</code> Returns DELETE data</li>\n<li><a href=\"/encoding/utf8\"><code>/encoding/utf8</code></a> Returns page containing UTF-8 data.</li>\n<li><a href=\"/gzip\" data-bare-link=\"true\"><code>/gzip</code></a> Returns gzip-encoded data.</li>\n<li><a href=\"/deflate\" data-bare-link=\"true\"><code>/deflate</code></a> Returns deflate-encoded data.</li>\n<li><a href=\"/status/418\"><code>/status/:code</code></a> Returns given HTTP Status code.</li>\n<li><a href=\"/response-headers?Content-Type=text%2Fplain%3B+charset%3DUTF-8&amp;Server=httpbin\"><code>/response-headers?key=val</code></a> Returns given response headers.</li>\n<li><a href=\"/redirect/6\"><code>/redirect/:n</code></a> 302 Redirects <em>n</em> times.</li>\n<li><a href=\"/redirect-to?url=http%3A%2F%2Fexample.com%2F\"><code>/redirect-to?url=foo</code></a> 302 Redirects to the <em>foo</em> URL.</li>\n<li><a href=\"/relative-redirect/6\"><code>/relative-redirect/:n</code></a> 302 Relative redirects <em>n</em> times.</li>\n<li><a href=\"/absolute-redirect/6\"><code>/absolute-redirect/:n</code></a> 302 Absolute redirects <em>n</em> times.</li>\n<li><a href=\"/cookies\" data-bare-link=\"true\"><code>/cookies</code></a> Returns cookie data.</li>\n<li><a href=\"/cookies/set?k2=v2&amp;k1=v1\"><code>/cookies/set?name=value</code></a> Sets one or more simple cookies.</li>\n<li><a href=\"/cookies/delete?k2=&amp;k1=\"><code>/cookies/delete?name</code></a> Deletes one or more simple cookies.</li>\n<li><a href=\"/basic-auth/user/passwd\"><code>/basic-auth/:user/:passwd</code></a> Challenges HTTPBasic Auth.</li>\n<li><a href=\"/hidden-basic-auth/user/passwd\"><code>/hidden-basic-auth/:user/:passwd</code></a> 404'd BasicAuth.</li>\n<li><a href=\"/digest-auth/auth/user/passwd\"><code>/digest-auth/:qop/:user/:passwd</code></a> Challenges HTTP Digest Auth.</li>\n<li><a href=\"/stream/20\"><code>/stream/:n</code></a> Streams <em>min(n, 100)</em> lines.</li>\n<li><a href=\"/delay/3\"><code>/delay/:n</code></a> Delays responding for <em>min(n, 10)</em> seconds.</li>\n<li><a href=\"/drip?duration=5&amp;numbytes=5&amp;code=200\"><code>/drip?numbytes=n&amp;duration=s&amp;delay=s&amp;code=code</code></a> Drips data over a duration after an optional initial delay, then (optionally) returns with the given status code.</li>\n<li><a href=\"/range/1024\"><code>/range/1024?duration=s&amp;chunk_size=code</code></a> Streams <em>n</em> bytes, and allows specifying a <em>Range</em> header to select a subset of the data. Accepts a <em>chunk_size</em> and request <em>duration</em> parameter.</li>\n<li><a href=\"/html\" data-bare-link=\"true\"><code>/html</code></a> Renders an HTML Page.</li>\n<li><a href=\"/robots.txt\" data-bare-link=\"true\"><code>/robots.txt</code></a> Returns some robots.txt rules.</li>\n<li><a href=\"/deny\" data-bare-link=\"true\"><code>/deny</code></a> Denied by robots.txt file.</li>\n<li><a href=\"/cache\" data-bare-link=\"true\"><code>/cache</code></a> Returns 200 unless an If-Modified-Since or If-None-Match header is provided, when it returns a 304.</li>\n<li><a href=\"/cache/60\"><code>/cache/:n</code></a> Sets a Cache-Control header for <em>n</em> seconds.</li>\n<li><a href=\"/bytes/1024\"><code>/bytes/:n</code></a> Generates <em>n</em> random bytes of binary data, accepts optional <em>seed</em> integer parameter.</li>\n<li><a href=\"/stream-bytes/1024\"><code>/stream-bytes/:n</code></a> Streams <em>n</em> random bytes of binary data, accepts optional <em>seed</em> and <em>chunk_size</em> integer parameters.</li>\n<li><a href=\"/links/10\"><code>/links/:n</code></a> Returns page containing <em>n</em> HTML links.</li>\n<li><a href=\"/image\"><code>/image</code></a> Returns page containing an image based on sent Accept header.</li>\n<li><a href=\"/image/png\"><code>/image/png</code></a> Returns page containing a PNG image.</li>\n<li><a href=\"/image/jpeg\"><code>/image/jpeg</code></a> Returns page containing a JPEG image.</li>\n<li><a href=\"/image/webp\"><code>/image/webp</code></a> Returns page containing a WEBP image.</li>\n<li><a href=\"/image/svg\"><code>/image/svg</code></a> Returns page containing a SVG image.</li>\n<li><a href=\"/forms/post\" data-bare-link=\"true\"><code>/forms/post</code></a> HTML form that submits to <em>/post</em></li>\n<li><a href=\"/xml\" data-bare-link=\"true\"><code>/xml</code></a> Returns some XML</li>\n</ul>\n\n\n<h2 id=\"DESCRIPTION\">DESCRIPTION</h2>\n\n<p>Testing an HTTP Library can become difficult sometimes. <a href=\"http://requestb.in\">RequestBin</a> is fantastic for testing POST requests, but doesn't let you control the response. This exists to cover all kinds of HTTP scenarios. Additional endpoints are being considered.</p>\n\n<p>All endpoint responses are JSON-encoded.</p>\n\n<h2 id=\"EXAMPLES\">EXAMPLES</h2>\n\n<h3 id=\"-curl-http-httpbin-org-ip\">$ curl http://httpbin.org/ip</h3>\n\n<pre><code>{\"origin\": \"24.127.96.129\"}\n</code></pre>\n\n<h3 id=\"-curl-http-httpbin-org-user-agent\">$ curl http://httpbin.org/user-agent</h3>\n\n<pre><code>{\"user-agent\": \"curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3\"}\n</code></pre>\n\n<h3 id=\"-curl-http-httpbin-org-get\">$ curl http://httpbin.org/get</h3>\n\n<pre><code>{\n   \"args\": {},\n   \"headers\": {\n      \"Accept\": \"*/*\",\n      \"Connection\": \"close\",\n      \"Content-Length\": \"\",\n      \"Content-Type\": \"\",\n      \"Host\": \"httpbin.org\",\n      \"User-Agent\": \"curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3\"\n   },\n   \"origin\": \"24.127.96.129\",\n   \"url\": \"http://httpbin.org/get\"\n}\n</code></pre>\n\n<h3 id=\"-curl-I-http-httpbin-org-status-418\">$ curl -I http://httpbin.org/status/418</h3>\n\n<pre><code>HTTP/1.1 418 I'M A TEAPOT\nServer: nginx/0.7.67\nDate: Mon, 13 Jun 2011 04:25:38 GMT\nConnection: close\nx-more-info: http://tools.ietf.org/html/rfc2324\nContent-Length: 135\n</code></pre>\n\n<h3 id=\"-curl-https-httpbin-org-get-show_env-1\">$ curl https://httpbin.org/get?show_env=1</h3>\n\n<pre><code>{\n  \"headers\": {\n    \"Content-Length\": \"\",\n    \"Accept-Language\": \"en-US,en;q=0.8\",\n    \"Accept-Encoding\": \"gzip,deflate,sdch\",\n    \"X-Forwarded-Port\": \"443\",\n    \"X-Forwarded-For\": \"109.60.101.240\",\n    \"Host\": \"httpbin.org\",\n    \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\",\n    \"User-Agent\": \"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11\",\n    \"X-Request-Start\": \"1350053933441\",\n    \"Accept-Charset\": \"ISO-8859-1,utf-8;q=0.7,*;q=0.3\",\n    \"Connection\": \"keep-alive\",\n    \"X-Forwarded-Proto\": \"https\",\n    \"Cookie\": \"_gauges_unique_day=1; _gauges_unique_month=1; _gauges_unique_year=1; _gauges_unique=1; _gauges_unique_hour=1\",\n    \"Content-Type\": \"\"\n  },\n  \"args\": {\n    \"show_env\": \"1\"\n  },\n  \"origin\": \"109.60.101.240\",\n  \"url\": \"http://httpbin.org/get?show_env=1\"\n}\n</code></pre>\n\n<h2 id=\"Installing-and-running-from-PyPI\">Installing and running from PyPI</h2>\n\n<p>You can install httpbin as a library from PyPI and run it as a WSGI app.  For example, using Gunicorn:</p>\n\n<pre><code class=\"bash\">$ pip install httpbin\n$ gunicorn httpbin:app\n</code></pre>\n\n<h2 id=\"Changelog\">Changelog</h2>\n\n<ul>\n<li>0.2.0: Added an XML endpoint.  Also fixes several bugs with unicode, CORS headers, digest auth, and more.</li>\n<li>0.1.2: Fix a couple Python3 bugs with the random byte endpoints, fix a bug when uploading files without a Content-Type header set.</li>\n<li>0.1.1: Added templates as data in setup.py</li>\n<li>0.1.0: Added python3 support and (re)publish on PyPI</li>\n</ul>\n\n\n<h2 id=\"AUTHOR\">AUTHOR</h2>\n\n<p>A <a href=\"https://www.runscope.com/community\">Runscope Community Project</a>.</p>\n<p>Originally created by <a href=\"http://kennethreitz.com/\">Kenneth Reitz</a>.</p>\n\n<h2 id=\"SEE-ALSO\">SEE ALSO</h2>\n\n<p><a href=\"https://www.hurl.it\">Hurl.it</a> - Make HTTP requests.</p>\n<p><a href=\"http://requestb.in\">RequestBin</a> - Inspect HTTP requests.</p>\n<p><a href=\"http://python-requests.org\" data-bare-link=\"true\">http://python-requests.org</a></p>\n\n</div>\n\n\n    \n<script type=\"text/javascript\">\n  (function() {\n    window._pa = window._pa || {};\n    _pa.productId = \"httpbin\";\n    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;\n    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + \"//tag.perfectaudience.com/serve/5226171f87bc6890da0000a0.js\";\n    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);\n  })();\n</script>\n\n<script>\n  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n\n  ga('create', 'UA-36620802-9', 'auto');\n  ga('send', 'pageview');\n\n</script>\n\n\n</body>\n</html>"
+#> 
+#> [[3]]
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+```
+
+The `AsyncVaried` interface accepts any number of `HttpRequest` objects, which
+can define any type of HTTP request of any HTTP method:
+
+
+```r
+req1 <- HttpRequest$new(
+  url = "https://httpbin.org/get",
+  opts = list(verbose = TRUE),
+  headers = list(foo = "bar")
+)$get()
+req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
+out <- AsyncVaried$new(req1, req2)
+```
+
+Execute the requests
+
+
+```r
+out$request()
+```
+
+Then functions get applied to all responses:
+
+
+```r
+out$status()
+#> [[1]]
+#> <Status code: 200>
+#>   Message: OK
+#>   Explanation: Request fulfilled, document follows
+#> 
+#> [[2]]
+#> <Status code: 200>
+#>   Message: OK
+#>   Explanation: Request fulfilled, document follows
+out$parse()
+#> [1] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
+#> [2] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 ```
 
 ## TO DO
 
-### http caching 
+### http caching
 
 Add integration for:
 
 * [webmockr](https://github.com/ropensci/webmockr)
-* [vcr](https://github.com/ropensci/vcr) 
+* [vcr](https://github.com/ropensci/vcr)
 
 for flexible and easy HTTP request caching
-
-### async
-
-* working on it
 
 ## Meta
 

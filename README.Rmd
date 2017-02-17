@@ -18,11 +18,15 @@ An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/ge
 
 Package API:
 
-* `HttpClient` - xxx
-* `HttpResponse` - xxx
-* `HttpRequest` - xxx
-* `Async` - xxx
-* `AsyncVaried` - xxx
+* `HttpClient` - Main interface to making HTTP requests. Synchronous requests only.
+* `HttpResponse` - HTTP response object, used for all responses across the
+different clients.
+* `Async` - Asynchronous HTTP requests - a simple interface for many URLS -
+whose interface is similar to `HttpClient` - all URLs are treated the same.
+* `HttpRequest` - HTTP request object, used for `AsyncVaried`
+* `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`
+objects - with a different interface than `HttpClient`/`Async` due to the nature
+of handling requests with different HTTP methods, options, etc.
 
 ## Installation
 
@@ -138,18 +142,61 @@ jsonlite::fromJSON(res$parse())
 ```{r eval=FALSE}
 res <- HttpClient$new(url = "http://api.gbif.org/v1/occurrence/search")
 res$get(query = list(limit = 100), timeout_ms = 100)
-#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) : 
+#> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :
 #>   Timeout was reached
+```
+
+## Asynchronous requests
+
+The simpler interface allows many requests (many URLs), but they all get the same
+options/headers, etc. and you have to use the same HTTP method on all of them:
+
+```{r}
+(cc <- Async$new(
+  urls = c(
+    'https://httpbin.org/',
+    'https://httpbin.org/get?a=5',
+    'https://httpbin.org/get?foo=bar'
+  )
+))
+res <- cc$get()
+lapply(res, function(z) z$parse("UTF-8"))
+```
+
+The `AsyncVaried` interface accepts any number of `HttpRequest` objects, which
+can define any type of HTTP request of any HTTP method:
+
+```{r}
+req1 <- HttpRequest$new(
+  url = "https://httpbin.org/get",
+  opts = list(verbose = TRUE),
+  headers = list(foo = "bar")
+)$get()
+req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
+out <- AsyncVaried$new(req1, req2)
+```
+
+Execute the requests
+
+```{r}
+out$request()
+```
+
+Then functions get applied to all responses:
+
+```{r}
+out$status()
+out$parse()
 ```
 
 ## TO DO
 
-### http caching 
+### http caching
 
 Add integration for:
 
 * [webmockr](https://github.com/ropensci/webmockr)
-* [vcr](https://github.com/ropensci/vcr) 
+* [vcr](https://github.com/ropensci/vcr)
 
 for flexible and easy HTTP request caching
 
