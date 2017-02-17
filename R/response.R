@@ -70,11 +70,13 @@ HttpResponse <- R6::R6Class(
       cat(paste0("  url: ", self$url), sep = "\n")
       cat("  request_headers: ", sep = "\n")
       for (i in seq_along(self$request_headers)) {
-        cat(sprintf("    %s: %s", names(self$request_headers)[i], self$request_headers[[i]]), sep = "\n")
+        cat(sprintf("    %s: %s", names(self$request_headers)[i],
+                    self$request_headers[[i]]), sep = "\n")
       }
       cat("  response_headers: ", sep = "\n")
       for (i in seq_along(self$response_headers)) {
-        cat(sprintf("    %s: %s", names(self$response_headers)[i], self$response_headers[[i]]), sep = "\n")
+        cat(sprintf("    %s: %s", names(self$response_headers)[i],
+                    self$response_headers[[i]]), sep = "\n")
       }
       params <- parse_params(self$url)
       if (!is.null(params)) {
@@ -83,12 +85,15 @@ HttpResponse <- R6::R6Class(
           cat(paste0("    ", sub("=", ": ", params[[i]], "=")), sep = "\n")
         }
       }
-      if (!is.null(self$status_code)) cat(paste0("  status: ", self$status_code), sep = "\n")
+      if (!is.null(self$status_code)) cat(paste0("  status: ",
+                                                 self$status_code), sep = "\n")
       invisible(self)
     },
 
-    initialize = function(method, url, opts, handle, status_code, request_headers,
-                          response_headers, modified, times, content, request) {
+    initialize = function(method, url, opts, handle, status_code,
+                          request_headers, response_headers, modified, times,
+                          content, request) {
+
       if (!missing(method)) self$method <- method
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts

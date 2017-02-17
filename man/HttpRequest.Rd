@@ -7,7 +7,8 @@
 \arguments{
 \item{url}{(character) A url. One of \code{url} or \code{handle} required.}
 
-\item{opts}{(list) curl options}
+\item{opts}{(list) curl options, a named list. See
+\code{\link[curl]{curl_options}} for available curl options}
 
 \item{proxies}{an object of class \code{proxy}, as returned from the
 \code{\link{proxy}} function. Supports one proxy for now}
@@ -49,13 +50,19 @@ to use for async HTTP requests in \code{\link{AsyncVaried}}
 See \code{\link{HttpClient}} for information on parameters.
 }
 \examples{
-(x <- HttpRequest$new(url = "https://httpbin.org")$get())
-x$method
+(x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
 x$url
 x$payload
 
 (x <- HttpRequest$new(url = "https://httpbin.org/post"))
 x$post(body = list(foo = "bar"))
+
+HttpRequest$new(
+  url = "https://httpbin.org/get",
+  headers = list(
+    `Content-Type` = "application/json"
+  )
+)
 }
 \seealso{
 \code{\link{post-requests}}, \code{\link{http-headers}},

@@ -38,13 +38,19 @@
 #' @usage NULL
 #'
 #' @examples
-#' (x <- HttpRequest$new(url = "https://httpbin.org")$get())
-#' x$method
+#' (x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
 #' x$url
 #' x$payload
 #'
 #' (x <- HttpRequest$new(url = "https://httpbin.org/post"))
 #' x$post(body = list(foo = "bar"))
+#'
+#' HttpRequest$new(
+#'   url = "https://httpbin.org/get",
+#'   headers = list(
+#'     `Content-Type` = "application/json"
+#'   )
+#' )
 HttpRequest <- R6::R6Class(
   'HttpRequest',
   public = list(
@@ -59,7 +65,7 @@ HttpRequest <- R6::R6Class(
       cat("<crul http request> ", sep = "\n")
       cat(paste0("  url: ", if (is.null(self$url))
         self$handle$url else self$url), sep = "\n")
-      cat("  options: ", sep = "\n")
+      cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         cat(sprintf("    %s: %s", names(self$opts)[i],
                     self$opts[[i]]), sep = "\n")

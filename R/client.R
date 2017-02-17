@@ -93,14 +93,17 @@ HttpClient <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
-      cat(paste0("  url: ", if (is.null(self$url)) self$handle$url else self$url), sep = "\n")
-      cat("  options: ", sep = "\n")
+      cat(paste0("  url: ",
+                 if (is.null(self$url)) self$handle$url else self$url),
+          sep = "\n")
+      cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         cat(sprintf("    %s: %s", names(self$opts)[i],
                     self$opts[[i]]), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
-      if (length(self$proxies)) cat(paste("    -", purl(self$proxies)), sep = "\n")
+      if (length(self$proxies)) cat(paste("    -", purl(self$proxies)),
+                                    sep = "\n")
       cat("  headers: ", sep = "\n")
       for (i in seq_along(self$headers)) {
         cat(sprintf("    %s: %s", names(self$headers)[i],

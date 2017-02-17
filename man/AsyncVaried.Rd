@@ -35,7 +35,7 @@ Async client for different request types
     \item{\code{content()}}{
       raw content
     }
-    \item{\code{time()}}{
+    \item{\code{times()}}{
       curl request times
     }
   }
@@ -43,7 +43,11 @@ Async client for different request types
 \examples{
 \dontrun{
 # pass in requests via ...
-req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+req1 <- HttpRequest$new(
+  url = "https://httpbin.org/get",
+  opts = list(verbose = TRUE),
+  headers = list(foo = "bar")
+)$get()
 req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
 out <- AsyncVaried$new(req1, req2)
 out$request()
@@ -52,6 +56,7 @@ out$status_code()
 out$content()
 out$times()
 out$parse()
+out$responses()
 
 # pass in requests in a list via .list param
 reqlist <- list(

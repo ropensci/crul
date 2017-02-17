@@ -26,7 +26,7 @@
 #'     \item{\code{content()}}{
 #'       raw content
 #'     }
-#'     \item{\code{time()}}{
+#'     \item{\code{times()}}{
 #'       curl request times
 #'     }
 #'   }
@@ -35,7 +35,11 @@
 #' @usage NULL
 #' @examples \dontrun{
 #' # pass in requests via ...
-#' req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+#' req1 <- HttpRequest$new(
+#'   url = "https://httpbin.org/get",
+#'   opts = list(verbose = TRUE),
+#'   headers = list(foo = "bar")
+#' )$get()
 #' req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
 #' out <- AsyncVaried$new(req1, req2)
 #' out$request()
@@ -44,6 +48,7 @@
 #' out$content()
 #' out$times()
 #' out$parse()
+#' out$responses()
 #'
 #' # pass in requests in a list via .list param
 #' reqlist <- list(
@@ -89,7 +94,9 @@ AsyncVaried <- R6::R6Class(
       if (length(private$reqs) == 0) {
         stop("must pass in at least one request", call. = FALSE)
       }
-      if (any(vapply(private$reqs, function(x) class(x)[1], "") != "HttpRequest")) {
+      if (
+        any(vapply(private$reqs, function(x) class(x)[1], "") != "HttpRequest")
+      ) {
         stop("all inputs must be of class 'HttpRequest'", call. = FALSE)
       }
     },
@@ -160,10 +167,10 @@ AsyncVaried <- R6::R6Class(
 
       Map(function(z, b) {
         HttpResponse$new(
-          method = b$method,
+          method = b$payload$method,
           url = z$url,
           status_code = z$status_code,
-          request_headers = list(),
+          request_headers = c(useragent = b$payload$options$useragent, b$headers),
           response_headers = {
             if (grepl("^ftp://", z$url)) {
               list()
