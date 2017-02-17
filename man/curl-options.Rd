@@ -2,9 +2,9 @@
 % Please edit documentation in R/curl-options.R
 \name{curl-options}
 \alias{curl-options}
-\alias{timeout}
 \alias{user-agent}
 \alias{verbose}
+\alias{timeout}
 \title{curl options}
 \description{
 With the \code{opts} parameter you can pass in various
@@ -40,4 +40,3 @@ res$get('get', verbose = TRUE)
 ))
 \dontrun{res$get('get')}
 }
-

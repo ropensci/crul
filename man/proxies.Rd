@@ -58,4 +58,3 @@ res2$get(verbose = TRUE)
 ))
 \dontrun{res$get()$parse("UTF-8")}
 }
-

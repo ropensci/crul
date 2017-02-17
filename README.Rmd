@@ -14,7 +14,15 @@ knitr::opts_chunk$set(
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday) and Python land's [requests](http://docs.python-requests.org/en/master/)
+An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's [requests](http://docs.python-requests.org/en/master/)
+
+Package API:
+
+* `HttpClient` - xxx
+* `HttpResponse` - xxx
+* `HttpRequest` - xxx
+* `Async` - xxx
+* `AsyncVaried` - xxx
 
 ## Installation
 
@@ -27,7 +35,6 @@ install.packages("crul")
 Dev version
 
 ```{r eval=FALSE}
-install.packages("devtools")
 devtools::install_github("ropensci/crul")
 ```
 
@@ -136,6 +143,8 @@ res$get(query = list(limit = 100), timeout_ms = 100)
 ```
 
 ## TO DO
+
+### http caching 
 
 Add integration for:
 

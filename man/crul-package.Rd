@@ -2,8 +2,8 @@
 % Please edit documentation in R/crul-package.r
 \docType{package}
 \name{crul-package}
-\alias{crul}
 \alias{crul-package}
+\alias{crul}
 \title{\strong{HTTP R client}}
 \description{
 \strong{HTTP R client}
@@ -15,6 +15,10 @@
  your http options, make http requests
  \item \code{\link{HttpResponse}} - mostly for internal use, handles
  http responses
+ \item \code{\link{HttpRequest}} - generate an HTTP request, mostly for
+ use in building requests to be used in \code{Async} or \code{AsyncVaried}
+ \item \code{\link{Async}} - asynchronous requests
+ \item \code{\link{AsyncVaried}} - varied asynchronous requests
 }
 }
 
@@ -23,7 +27,7 @@
 We use \code{fauxpas} if you have it installed for handling HTTP
 conditions but if it's not installed we use \pkg{httpcode}
 }
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
-

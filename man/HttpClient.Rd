@@ -12,6 +12,8 @@
 \item{proxies}{an object of class \code{proxy}, as returned from the
 \code{\link{proxy}} function. Supports one proxy for now}
 
+\item{headers}{(list) a named list of headers}
+
 \item{handle}{A handle, see \code{\link{handle}}}
 }
 \description{
@@ -46,9 +48,11 @@ Possible parameters (not all are allowed in each HTTP verb):
  \item query - query terms, as a list
  \item body - body as an R list
  \item encode - one of form, multipart, json, or raw
- \item disk - a path to write to. if NULL (default), memory used
+ \item disk - a path to write to. if NULL (default), memory used.
+ See \code{\link[curl]{curl_fetch_disk}} for help.
  \item stream - an R function to determine how to stream data. if
- NULL (default), memory used
+ NULL (default), memory used. See \code{\link[curl]{curl_fetch_stream}}
+ for help
  \item ... curl options, only those in the acceptable set from
  \code{\link[curl]{curl_options}} except the following: httpget, httppost,
  post, postfields, postfieldsize, and customrequest
@@ -95,4 +99,3 @@ res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
 \code{\link{writing-options}}
 }
 \keyword{datasets}
-

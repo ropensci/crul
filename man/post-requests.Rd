@@ -2,9 +2,9 @@
 % Please edit documentation in R/post-requests.R
 \name{post-requests}
 \alias{post-requests}
-\title{HTTP POST requests}
+\title{HTTP POST/PUT/PATCH requests}
 \description{
-HTTP POST requests
+HTTP POST/PUT/PATCH requests
 }
 \examples{
 (x <- HttpClient$new(url = "https://httpbin.org"))
@@ -49,4 +49,3 @@ jsonlite::fromJSON(res$parse())
 # )
 
 }
-

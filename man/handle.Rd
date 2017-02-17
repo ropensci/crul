@@ -22,4 +22,3 @@ h <- handle("https://httpbin.org")
 (res <- HttpClient$new(handle = h))
 out <- res$get("get")
 }
-

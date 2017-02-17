@@ -8,7 +8,7 @@ crul
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday).
+An HTTP client, taking inspiration from Rubyland's [faraday](https://rubygems.org/gems/faraday) and Python land's [requests](http://docs.python-requests.org/en/master/)
 
 ## Installation
 
@@ -51,6 +51,7 @@ library("crul")
 #>   url: https://httpbin.org
 #>   options: 
 #>     timeout: 1
+#>   proxies: 
 #>   headers: 
 #>     a: hello world
 ```
@@ -125,11 +126,11 @@ res$content
 #> [116] 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62
 #> [139] 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65
 #> [162] 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 31 2e 30 20 72 2d
-#> [185] 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 32 2e 30 22 0a 20 20
-#> [208] 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 37 31 2e 36 33 2e
-#> [231] 32 32 33 2e 31 31 33 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74
-#> [254] 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a
-#> [277] 7d 0a
+#> [185] 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 32 2e 32 2e 39 38 31
+#> [208] 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
+#> [231] 39 38 2e 31 33 34 2e 39 33 2e 32 35 34 22 2c 20 0a 20 20 22 75 72 6c
+#> [254] 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67
+#> [277] 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
@@ -146,7 +147,7 @@ Request headers
 ```r
 res$request_headers
 #> $useragent
-#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.0"
+#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810"
 #> 
 #> $a
 #> [1] "hello world"
@@ -164,13 +165,13 @@ res$response_headers
 #> [1] "nginx"
 #> 
 #> $date
-#> [1] "Tue, 03 Jan 2017 05:51:33 GMT"
+#> [1] "Sat, 04 Feb 2017 20:26:16 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
 #> 
 #> $`content-length`
-#> [1] "278"
+#> [1] "284"
 #> 
 #> $connection
 #> [1] "keep-alive"
@@ -188,7 +189,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.0\"\n  }, \n  \"origin\": \"71.63.223.113\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810\"\n  }, \n  \"origin\": \"198.134.93.254\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -208,11 +209,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.0"
+#> [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.2.9810"
 #> 
 #> 
 #> $origin
-#> [1] "71.63.223.113"
+#> [1] "198.134.93.254"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -230,12 +231,18 @@ res$get(query = list(limit = 100), timeout_ms = 100)
 
 ## TO DO
 
+### http caching 
+
 Add integration for:
 
 * [webmockr](https://github.com/ropensci/webmockr)
 * [vcr](https://github.com/ropensci/vcr) 
 
 for flexible and easy HTTP request caching
+
+### async
+
+* working on it
 
 ## Meta
 
