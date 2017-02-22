@@ -43,8 +43,8 @@
 #'  post, postfields, postfieldsize, and customrequest
 #' }
 #'
-#' @seealso \code{\link{post-requests}}, \code{\link{http-headers}},
-#' \code{\link{writing-options}}
+#' @seealso \code{\link{post-requests}}, \code{\link{delete-requests}},
+#' \code{\link{http-headers}}, \code{\link{writing-options}}
 #'
 #' @examples
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
@@ -153,7 +153,7 @@ HttpClient <- R6::R6Class(
       curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
-      rr <- prep_opts("post", url, self, opts)
+      rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -164,7 +164,7 @@ HttpClient <- R6::R6Class(
       curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
-      rr <- prep_opts("put", url, self, opts)
+      rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -175,7 +175,7 @@ HttpClient <- R6::R6Class(
       curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
-      rr <- prep_opts("patch", url, self, opts)
+      rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
@@ -186,7 +186,7 @@ HttpClient <- R6::R6Class(
       curl_opts_check(...)
       url <- make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
-      rr <- prep_opts("delete", url, self, opts)
+      rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)
