@@ -65,7 +65,7 @@ HttpRequest$new(
 )
 }
 \seealso{
-\code{\link{post-requests}}, \code{\link{http-headers}},
-\code{\link{writing-options}}
+\code{\link{post-requests}}, \code{\link{delete-requests}},
+\code{\link{http-headers}}, \code{\link{writing-options}}
 }
 \keyword{datasets}

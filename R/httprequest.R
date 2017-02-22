@@ -2,8 +2,8 @@
 #'
 #' @export
 #' @template args
-#' @seealso \code{\link{post-requests}}, \code{\link{http-headers}},
-#' \code{\link{writing-options}}
+#' @seealso \code{\link{post-requests}}, \code{\link{delete-requests}},
+#' \code{\link{http-headers}}, \code{\link{writing-options}}
 #'
 #' @details This R6 class doesn't do actual HTTP requests as does
 #' \code{\link{HttpClient}} - but is for building requests
@@ -123,18 +123,7 @@ HttpRequest <- R6::R6Class(
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
-      rr <- list(
-        url = url,
-        method = "post",
-        options = as.list(c(
-          opts$opts,
-          useragent = make_ua()
-        )),
-        headers = c(self$headers, opts$type),
-        fields = opts$fields
-      )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
+      rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr
@@ -142,26 +131,11 @@ HttpRequest <- R6::R6Class(
     },
 
     put = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                   stream = NULL, encode = NULL, ...) {
+                   stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, query)
-      opts <- list(customrequest = "PUT")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "put",
-        options = c(
-          opts,
-          useragent = make_ua()
-        ),
-        headers = self$headers,
-        fields = body
-      )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
+      opts <- prep_body(body, encode)
+      rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr
@@ -169,26 +143,11 @@ HttpRequest <- R6::R6Class(
     },
 
     patch = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                     stream = NULL, encode = NULL, ...) {
+                     stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, query)
-      opts <- list(customrequest = "PATCH")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "patch",
-        options = c(
-          opts,
-          useragent = make_ua()
-        ),
-        headers = self$headers,
-        fields = body
-      )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
+      opts <- prep_body(body, encode)
+      rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr
@@ -196,26 +155,11 @@ HttpRequest <- R6::R6Class(
     },
 
     delete = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                      stream = NULL, encode = NULL, ...) {
+                      stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, query)
-      opts <- list(customrequest = "DELETE")
-      if (is.null(body)) {
-        opts$postfields <- raw(0)
-        opts$postfieldsize <- 0
-      }
-      rr <- list(
-        url = url,
-        method = "delete",
-        options = c(
-          opts,
-          useragent = make_ua()
-        ),
-        headers = self$headers,
-        fields = body
-      )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
+      opts <- prep_body(body, encode)
+      rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr
