@@ -8,3 +8,5 @@ man-roxygen/
 ^cran-comments\.md$
 Makefile
 ^revdep$
+docs
+
