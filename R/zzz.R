@@ -16,6 +16,11 @@ prep_opts <- function(method, url, self, opts, ...) {
     opts$opts$post <- NULL
     opts$opts$customrequest <- toupper(method)
   }
+  if (!is.null(opts$type)) {
+    if (nchar(opts$type[[1]]) == 0) {
+      opts$type <- NULL
+    }
+  }
   rr <- list(
     url = url,
     method = method,
