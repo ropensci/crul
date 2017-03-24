@@ -1,0 +1,148 @@
+---
+title: "How to use crul"
+author: "Scott Chamberlain"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: readable
+vignette: >
+  %\VignetteIndexEntry{How to use crul}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+The following aims to help you decide how to use `crul` in different 
+scenarios.
+
+First, `crul` is aimed a bit more at developers than at the casual 
+user doing HTTP requests. That is, `crul` is probably a better fit 
+for an R package developer, mainly because it heavily uses `R6` - 
+an interface that's very unlike the interface in `httr` but very
+similar to interacting with classes in Ruby/Python.
+
+Second, there is not yet, but will be soon, the ability to mock 
+HTTP requests. We are working on that, and should have it integrated
+soon. When that feature arrives we'll update this vignette.
+
+Load the library
+
+```{r}
+library("crul")
+```
+
+## A simple HTTP request function
+
+Most likely you'll want to do a `GET` request - so let's start with that - 
+though the details are not much different for other HTTP verbs.
+
+And in most cases you'll likely not want to do asynchronous requests - though
+see below if you do.
+
+You'll probably want to write a small function, like so (annotated for 
+clarity)
+
+```{r}
+make_request <- function(url) {
+  # create a HttpClient object, defining the url
+  cli <- crul::HttpClient$new(url = url)
+  # do a GET request
+  res <- cli$get()
+  # check to see if request failed or succeeded
+  # - if succeeds this will return nothing and proceeds to next step
+  res$raise_for_status()
+  # parse response to plain text (JSON in this case) - most likely you'll 
+  # want UTF-8 encoding
+  txt <- res$parse("UTF-8")
+  # parse the JSON to an R list
+  jsonlite::fromJSON(txt)
+}
+```
+
+Use the function
+
+```{r}
+make_request("https://httpbin.org/get")
+```
+
+Now you can use the `make_request` function in your script or package.
+
+## More customized function
+
+Once you get more familiar (or if you're already familiar with HTTP) you may
+want to have more control, toggle more switches.
+
+In the next function, we'll allow for users to pass in curl options, use 
+a custom HTTP status checker, and xxx.
+
+```{r}
+make_request2 <- function(url, ...) {
+  # create a HttpClient object, defining the url
+  cli <- crul::HttpClient$new(url = url)
+  # do a GET request, allow curl options to be passed in
+  res <- cli$get(...)
+  # check to see if request failed or succeeded
+  # - a custom approach this time combining status code, 
+  #   explanation of the code, and message from the server
+  if (res$status_code > 201) {
+    mssg <- jsonlite::fromJSON(res$parse("UTF-8"))$message$message
+    x <- res$status_http()
+    stop(
+      sprintf("HTTP (%s) - %s\n  %s", x$status_code, x$explanation, mssg),
+      call. = FALSE
+    )
+  }
+  # parse response
+  txt <- res$parse("UTF-8")
+  # parse the JSON to an R list
+  jsonlite::fromJSON(txt)
+}
+```
+
+Use the function
+
+```{r}
+make_request2("http://api.crossref.org/works?rows=0")
+```
+
+No different from the first function (besides the URL). However, now we can 
+pass in curl options:
+
+```{r eval=FALSE}
+make_request2("http://api.crossref.org/works?rows=0", verbose = TRUE)
+make_request2("http://api.crossref.org/works?rows=0", timeout_ms = 1)
+```
+
+We can also pass named parameters supported in the `get` method, including
+`query`, `disk`, and `stream`.
+
+```{r}
+make_request2("http://api.crossref.org/works", query = list(rows = 0))
+```
+
+In addition, the failure behavior is different, and customized to the 
+specific web resource we are working with
+
+```{r eval=FALSE}
+make_request2("http://api.crossref.org/works?rows=asdf")
+#> Error: HTTP (400) - Bad request syntax or unsupported method
+#>   Integer specified as asdf but must be a positive integer less than or equal to 1000.
+```
+
+## Asynchronous requests
+
+You may want to use asynchronous HTTP requests when any one HTTP request 
+takes "too long". This is of course all relative. You may be dealing with a 
+server that responds very slowly, or other circumstances. 
+
+See the __async with crul__ vignette for more details on asynchronous requests.

@@ -36,6 +36,10 @@ just want to hit a bunch of URLs asynchronously.
 The second option is ideal when you want to set curl options/headers on each 
 request and/or want to do different types of HTTP methods on each request.
 
+One thing to think about before using async is whether the data provider is 
+okay with it. It's possible that a data provider's service may be brought down
+if you do too many async requests. 
+
 ```{r}
 library("crul")
 ```

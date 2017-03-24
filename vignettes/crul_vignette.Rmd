@@ -22,9 +22,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-crul introduction
-=================
-
 `crul` is an HTTP client for R.
 
 ## Install

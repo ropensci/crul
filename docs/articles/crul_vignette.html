@@ -66,9 +66,6 @@
     
     
 <div class="contents">
-<div id="crul-introduction" class="section level1">
-<h1 class="hasAnchor">
-<html><body><a href="#crul-introduction" class="anchor"> </a></body></html>crul introduction</h1>
 <p><code>crul</code> is an HTTP client for R.</p>
 <div id="install" class="section level2">
 <h2 class="hasAnchor">
@@ -155,7 +152,7 @@
 <span class="co">#&gt; [1] "gunicorn/19.7.1"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $date</span>
-<span class="co">#&gt; [1] "Fri, 24 Mar 2017 21:31:01 GMT"</span>
+<span class="co">#&gt; [1] "Fri, 24 Mar 2017 23:05:41 GMT"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $`content-type`</span>
 <span class="co">#&gt; [1] "application/json"</span>
@@ -217,7 +214,7 @@ jsonlite::<span class="kw">fromJSON</span>(res$<span class="kw">parse</span>())
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
 <span class="co">#&gt;     connection: keep-alive</span>
 <span class="co">#&gt;     server: gunicorn/19.7.1</span>
-<span class="co">#&gt;     date: Fri, 24 Mar 2017 21:31:02 GMT</span>
+<span class="co">#&gt;     date: Fri, 24 Mar 2017 23:05:41 GMT</span>
 <span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
@@ -233,7 +230,7 @@ f &lt;-<span class="st"> </span><span class="kw">tempfile</span>()
 res &lt;-<span class="st"> </span>x$<span class="kw">get</span>(<span class="dt">disk =</span> f)
 <span class="co"># when using write to disk, content is a path</span>
 res$content 
-<span class="co">#&gt; [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmpTNCDHG/file368574a27acd"</span></code></pre></div>
+<span class="co">#&gt; [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmpDRNgyG/file70ed6d36233d"</span></code></pre></div>
 <p>Read lines</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(res$content, <span class="dt">n =</span> <span class="dv">10</span>)
 <span class="co">#&gt;  [1] "&lt;!DOCTYPE html&gt;"                                                                           </span>
@@ -257,15 +254,14 @@ res$content
 <span class="co">#&gt;   proxies: </span>
 <span class="co">#&gt;   headers:</span>
 res &lt;-<span class="st"> </span>x$<span class="kw">get</span>(<span class="st">'stream/5'</span>, <span class="dt">stream =</span> function(x) <span class="kw">cat</span>(<span class="kw">rawToChar</span>(x)))
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 0}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 1}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 2}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 3}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 4}</span>
+<span class="co">#&gt; {"args": {}, "url": "https://httpbin.org/stream/5", "id": 0, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "Connection": "close"}}</span>
+<span class="co">#&gt; {"args": {}, "url": "https://httpbin.org/stream/5", "id": 1, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "Connection": "close"}}</span>
+<span class="co">#&gt; {"args": {}, "url": "https://httpbin.org/stream/5", "id": 2, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "Connection": "close"}}</span>
+<span class="co">#&gt; {"args": {}, "url": "https://httpbin.org/stream/5", "id": 3, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "Connection": "close"}}</span>
+<span class="co">#&gt; {"args": {}, "url": "https://httpbin.org/stream/5", "id": 4, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "Connection": "close"}}</span>
 <span class="co"># when streaming, content is NULL</span>
 res$content 
 <span class="co">#&gt; NULL</span></code></pre></div>
-</div>
 </div>
 </div>
   </div>
@@ -274,15 +270,11 @@ res$content
         <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#crul-introduction">crul introduction</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#install">Install</a></li>
       <li><a href="#the-client">the client</a></li>
       <li><a href="#do-some-http">do some http</a></li>
       <li><a href="#write-to-disk">write to disk</a></li>
       <li><a href="#stream-data">stream data</a></li>
-      </ul>
-</li>
       </ul>
 </div>
       </div>
