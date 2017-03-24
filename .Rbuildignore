@@ -9,4 +9,4 @@ man-roxygen/
 Makefile
 ^revdep$
 docs
-
+.github
