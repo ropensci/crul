@@ -6,9 +6,17 @@
 #' [http-headers], [writing-options]
 #'
 #' @details This R6 class doesn't do actual HTTP requests as does
-#' [HttpClient()] - but is for building requests
-#' to use for async HTTP requests in [AsyncVaried()]
-#
+#' [HttpClient()] - it is for building requests to use for async HTTP
+#' requests in [AsyncVaried()]
+#'
+#' Note that you can access HTTP verbs after creating an `HttpRequest`
+#' object, just as you can with `HttpClient`. See examples for usage.
+#'
+#' Also note that a new object is created when you call HTTP verbs on
+#' a `HttpRequest` object - that is, assign the new object to a variable
+#' unless you're just exploring or passing it directlty to something else
+#' (e.g., a list with many `HttpRequest` objects, or directly in to
+#' `AsyncVaried`).
 #'
 #' **Methods**
 #'   \describe{
@@ -30,6 +38,10 @@
 #'     \item{`head(path, disk, stream, ...)`}{
 #'       Define a HEAD request
 #'     }
+#'     \item{`method()`}{
+#'       Get the HTTP method (if defined)
+#'       - returns character string
+#'     }
 #'   }
 #'
 #' See [HttpClient()] for information on parameters.
@@ -38,6 +50,15 @@
 #' @usage NULL
 #'
 #' @examples
+#' x <- HttpRequest$new(url = "https://httpbin.org/get")
+#' ## note here how the HTTP method is shown on the first line to the right
+#' x$get()
+#'
+#' ## assign to a new object to keep the output
+#' z <- x$get()
+#' ### get the HTTP method
+#' z$method()
+#'
 #' (x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
 #' x$url
 #' x$payload
@@ -62,7 +83,7 @@ HttpRequest <- R6::R6Class(
     payload = NULL,
 
     print = function(x, ...) {
-      cat("<crul http request> ", sep = "\n")
+      cat(paste0("<crul http request> ", self$method()), sep = "\n")
       cat(paste0("  url: ", if (is.null(self$url))
         self$handle$url else self$url), sep = "\n")
       cat("  curl options: ", sep = "\n")
@@ -185,7 +206,9 @@ HttpRequest <- R6::R6Class(
       rr$stream <- stream
       self$payload <- rr
       return(self)
-    }
+    },
+
+    method = function() self$payload$method
   )
 )
 

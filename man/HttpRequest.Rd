@@ -22,8 +22,17 @@ HTTP request object
 }
 \details{
 This R6 class doesn't do actual HTTP requests as does
-\code{\link[=HttpClient]{HttpClient()}} - but is for building requests
-to use for async HTTP requests in \code{\link[=AsyncVaried]{AsyncVaried()}}
+\code{\link[=HttpClient]{HttpClient()}} - it is for building requests to use for async HTTP
+requests in \code{\link[=AsyncVaried]{AsyncVaried()}}
+
+Note that you can access HTTP verbs after creating an \code{HttpRequest}
+object, just as you can with \code{HttpClient}. See examples for usage.
+
+Also note that a new object is created when you call HTTP verbs on
+a \code{HttpRequest} object - that is, assign the new object to a variable
+unless you're just exploring or passing it directlty to something else
+(e.g., a list with many \code{HttpRequest} objects, or directly in to
+\code{AsyncVaried}).
 
 \strong{Methods}
 \describe{
@@ -45,11 +54,24 @@ Define a DELETE request
 \item{\code{head(path, disk, stream, ...)}}{
 Define a HEAD request
 }
+\item{\code{method()}}{
+Get the HTTP method (if defined)
+- returns character string
+}
 }
 
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
 \examples{
+x <- HttpRequest$new(url = "https://httpbin.org/get")
+## note here how the HTTP method is shown on the first line to the right
+x$get()
+
+## assign to a new object to keep the output
+z <- x$get()
+### get the HTTP method
+z$method()
+
 (x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
 x$url
 x$payload
