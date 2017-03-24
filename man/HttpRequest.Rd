@@ -28,11 +28,9 @@ requests in \code{\link[=AsyncVaried]{AsyncVaried()}}
 Note that you can access HTTP verbs after creating an \code{HttpRequest}
 object, just as you can with \code{HttpClient}. See examples for usage.
 
-Also note that a new object is created when you call HTTP verbs on
-a \code{HttpRequest} object - that is, assign the new object to a variable
-unless you're just exploring or passing it directlty to something else
-(e.g., a list with many \code{HttpRequest} objects, or directly in to
-\code{AsyncVaried}).
+Also note that when you call HTTP verbs on a \code{HttpRequest} object you
+don't need to assign the new object to a variable as the new details
+you've added are added to the object itself.
 
 \strong{Methods}
 \describe{

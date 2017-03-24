@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Working with HTTP headers — http-headers • crul</title>
+<title>HTTP DELETE requests — delete-requests • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,11 +77,11 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Working with HTTP headers</h1>
+    <h1>HTTP DELETE requests</h1>
     </div>
 
     
-    <p>Working with HTTP headers</p>
+    <p>HTTP DELETE requests</p>
     
 
         
@@ -92,40 +92,75 @@
 #&gt;   curl options: 
 #&gt;   proxies: 
 #&gt;   headers: </div><div class='input'>
-<span class='co'># set headers</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(
-    <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-  ),
-  <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'>list</span>(
-    <span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>"stuff"</span>,
-    <span class='kw'>b</span> <span class='kw'>=</span> <span class='st'>"things"</span>
-  )
-))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;     verbose: TRUE
-#&gt;   proxies: 
-#&gt;   headers: 
-#&gt;     a: stuff
-#&gt;     b: things</div><div class='input'><span class='no'>res</span>$<span class='no'>headers</span></div><div class='output co'>#&gt; $a
-#&gt; [1] &quot;stuff&quot;
-#&gt; 
-#&gt; $b
-#&gt; [1] &quot;things&quot;
-#&gt; </div><div class='input'><span class='co'># reassign header value</span>
-<span class='no'>res</span>$<span class='no'>headers</span>$<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='st'>"that"</span>
-<span class='co'># define new header</span>
-<span class='no'>res</span>$<span class='no'>headers</span>$<span class='no'>c</span> <span class='kw'>&lt;-</span> <span class='st'>"what"</span>
-<span class='co'># request</span>
-<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
-#&gt;   url: https://httpbin.org/get
+<span class='co'>## a list</span>
+(<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
+#&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
 #&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
-#&gt;     a: that
-#&gt;     b: things
-#&gt;     c: what
+#&gt;   response_headers: 
+#&gt;     status: HTTP/1.1 200 OK
+#&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:53 GMT
+#&gt;     content-type: application/json
+#&gt;     access-control-allow-origin: *
+#&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 533
+#&gt;     via: 1.1 vegur
+#&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res1</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
+#&gt; named list()
+#&gt; 
+#&gt; $data
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; $files
+#&gt; named list()
+#&gt; 
+#&gt; $form
+#&gt; $form$hello
+#&gt; [1] &quot;world&quot;
+#&gt; 
+#&gt; 
+#&gt; $headers
+#&gt; $headers$Accept
+#&gt; [1] &quot;*/*&quot;
+#&gt; 
+#&gt; $headers$`Accept-Encoding`
+#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; 
+#&gt; $headers$Connection
+#&gt; [1] &quot;close&quot;
+#&gt; 
+#&gt; $headers$`Content-Length`
+#&gt; [1] &quot;145&quot;
+#&gt; 
+#&gt; $headers$`Content-Type`
+#&gt; [1] &quot;multipart/form-data; boundary=------------------------37e80453259753ca&quot;
+#&gt; 
+#&gt; $headers$Expect
+#&gt; [1] &quot;100-continue&quot;
+#&gt; 
+#&gt; $headers$Host
+#&gt; [1] &quot;httpbin.org&quot;
+#&gt; 
+#&gt; $headers$`User-Agent`
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; 
+#&gt; 
+#&gt; $json
+#&gt; NULL
+#&gt; 
+#&gt; $origin
+#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; 
+#&gt; $url
+#&gt; [1] &quot;https://httpbin.org/delete&quot;
+#&gt; </div><div class='input'>
+<span class='co'>## a string</span>
+(<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
+#&gt;   url: https://httpbin.org/delete
+#&gt;   request_headers: 
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
@@ -134,38 +169,71 @@
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 343
+#&gt;     content-length: 465
+#&gt;     via: 1.1 vegur
+#&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res2</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
+#&gt; named list()
+#&gt; 
+#&gt; $data
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; $files
+#&gt; named list()
+#&gt; 
+#&gt; $form
+#&gt; $form$`hello world`
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; 
+#&gt; $headers
+#&gt; $headers$Accept
+#&gt; [1] &quot;*/*&quot;
+#&gt; 
+#&gt; $headers$`Accept-Encoding`
+#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; 
+#&gt; $headers$Connection
+#&gt; [1] &quot;close&quot;
+#&gt; 
+#&gt; $headers$`Content-Length`
+#&gt; [1] &quot;11&quot;
+#&gt; 
+#&gt; $headers$`Content-Type`
+#&gt; [1] &quot;application/x-www-form-urlencoded&quot;
+#&gt; 
+#&gt; $headers$Host
+#&gt; [1] &quot;httpbin.org&quot;
+#&gt; 
+#&gt; $headers$`User-Agent`
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; 
+#&gt; 
+#&gt; $json
+#&gt; NULL
+#&gt; 
+#&gt; $origin
+#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; 
+#&gt; $url
+#&gt; [1] &quot;https://httpbin.org/delete&quot;
+#&gt; </div><div class='input'>
+<span class='co'>## empty body request</span>
+<span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
+#&gt;   url: https://httpbin.org/delete
+#&gt;   request_headers: 
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;   response_headers: 
+#&gt;     status: HTTP/1.1 200 OK
+#&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:54 GMT
+#&gt;     content-type: application/json
+#&gt;     access-control-allow-origin: *
+#&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 439
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
-<span class='co'>## setting content-type via headers</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(
-    <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-  ),
-  <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>`Content-Type`</span> <span class='kw'>=</span> <span class='st'>"application/json"</span>)
-))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;     verbose: TRUE
-#&gt;   proxies: 
-#&gt;   headers: 
-#&gt;     Content-Type: application/json</div><div class='input'><span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
-#&gt;   url: https://httpbin.org/get
-#&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
-#&gt;     Content-Type: application/json
-#&gt;   response_headers: 
-#&gt;     status: HTTP/1.1 200 OK
-#&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 21:30:54 GMT
-#&gt;     content-type: application/json
-#&gt;     access-control-allow-origin: *
-#&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 328
-#&gt;     via: 1.1 vegur
-#&gt;   status: 200</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

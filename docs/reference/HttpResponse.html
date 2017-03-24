@@ -98,24 +98,24 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Methods</strong>
-  <dl class='dl-horizontal'>
-    <dt><code>parse()</code></dt><dd>
-      Parse the raw response content to text
-    </dd>
-    <dt><code>success()</code></dt><dd>
-      Was status code less than or equal to 201.
-      returns boolean
-    </dd>
-    <dt><code>status_http()</code></dt><dd>
-      Get HTTP status code, message, and explanation
-    </dd>
-    <dt><code>raise_for_status()</code></dt><dd>
-      Check HTTP status and stop with appropriate
-      HTTP error code and message if &gt;= 300.
-      - If you have <code>fauxpas</code> installed we use that,
-      otherwise use <span class="pkg">httpcode</span>
-    </dd>
-  </dl></p>
+<dl class='dl-horizontal'>
+<dt><code>parse()</code></dt><dd>
+Parse the raw response content to text
+</dd>
+<dt><code>success()</code></dt><dd>
+Was status code less than or equal to 201.
+returns boolean
+</dd>
+<dt><code>status_http()</code></dt><dd>
+Get HTTP status code, message, and explanation
+</dd>
+<dt><code>raise_for_status()</code></dt><dd>
+Check HTTP status and stop with appropriate
+HTTP error code and message if &gt;= 300.
+- If you have <code>fauxpas</code> installed we use that,
+otherwise use <span class="pkg">httpcode</span>
+</dd>
+</dl></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -125,74 +125,80 @@
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:23 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 259
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:56 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 287
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='no'>res</span>$<span class='no'>request_headers</span></div><div class='output co'>#&gt; $useragent
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
 #&gt; </div><div class='input'><span class='no'>res</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
 #&gt; [1] &quot;HTTP/1.1 200 OK&quot;
 #&gt; 
+#&gt; $connection
+#&gt; [1] &quot;keep-alive&quot;
+#&gt; 
 #&gt; $server
-#&gt; [1] &quot;nginx&quot;
+#&gt; [1] &quot;gunicorn/19.7.1&quot;
 #&gt; 
 #&gt; $date
-#&gt; [1] &quot;Wed, 22 Feb 2017 18:41:23 GMT&quot;
+#&gt; [1] &quot;Fri, 24 Mar 2017 21:30:56 GMT&quot;
 #&gt; 
 #&gt; $`content-type`
 #&gt; [1] &quot;application/json&quot;
-#&gt; 
-#&gt; $`content-length`
-#&gt; [1] &quot;259&quot;
-#&gt; 
-#&gt; $connection
-#&gt; [1] &quot;keep-alive&quot;
 #&gt; 
 #&gt; $`access-control-allow-origin`
 #&gt; [1] &quot;*&quot;
 #&gt; 
 #&gt; $`access-control-allow-credentials`
 #&gt; [1] &quot;true&quot;
-#&gt; </div><div class='input'><span class='no'>res</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;</div><div class='input'><span class='no'>res</span>$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()</div><div class='output co'>#&gt; &lt;Status code: 200&gt;
+#&gt; 
+#&gt; $`content-length`
+#&gt; [1] &quot;287&quot;
+#&gt; 
+#&gt; $via
+#&gt; [1] &quot;1.1 vegur&quot;
+#&gt; </div><div class='input'><span class='no'>res</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Connection\&quot;: \&quot;close\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;</div><div class='input'><span class='no'>res</span>$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()</div><div class='output co'>#&gt; &lt;Status code: 200&gt;
 #&gt;   Message: OK
 #&gt;   Explanation: Request fulfilled, document follows</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] &quot;200&quot;</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>message</span></div><div class='output co'>#&gt; [1] &quot;OK&quot;</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>explanation</span></div><div class='output co'>#&gt; [1] &quot;Request fulfilled, document follows&quot;</div><div class='input'><span class='no'>res</span>$<span class='fu'>success</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/404'</span>)
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/status/404
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 404 NOT FOUND
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:24 GMT
-#&gt;     content-type: text/html; charset=utf-8
-#&gt;     content-length: 0
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:56 GMT
+#&gt;     content-type: text/html; charset=utf-8
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 0
+#&gt;     via: 1.1 vegur
 #&gt;   status: 404</div><div class='input'> <span class='co'>## Not run: res$raise_for_status()</span>
 
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/414'</span>)
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/status/414
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 414 REQUEST URI TOO LONG
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:24 GMT
-#&gt;     content-type: text/html; charset=utf-8
-#&gt;     content-length: 0
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:56 GMT
+#&gt;     content-type: text/html; charset=utf-8
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 0
+#&gt;     via: 1.1 vegur
 #&gt;   status: 414</div><div class='input'> <span class='co'>## Not run: res$raise_for_status()</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -104,53 +104,53 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Methods</strong>
-  <dl class='dl-horizontal'>
-    <dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
-      Make a GET request
-    </dd>
-    <dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
-      Make a POST request
-    </dd>
-    <dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
-      Make a PUT request
-    </dd>
-    <dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
-      Make a PATCH request
-    </dd>
-    <dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
-      Make a DELETE request
-    </dd>
-    <dt><code>head(path, disk, stream, ...)</code></dt><dd>
-      Make a HEAD request
-    </dd>
-  </dl></p>
+<dl class='dl-horizontal'>
+<dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
+Make a GET request
+</dd>
+<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
+Make a POST request
+</dd>
+<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
+Make a PUT request
+</dd>
+<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
+Make a PATCH request
+</dd>
+<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
+Make a DELETE request
+</dd>
+<dt><code>head(path, disk, stream, ...)</code></dt><dd>
+Make a HEAD request
+</dd>
+</dl></p>
     <p>Possible parameters (not all are allowed in each HTTP verb):
 <ul>
 <li> path - URL path, appended to the base URL
- </li>
+</li>
 <li> query - query terms, as a list
- </li>
+</li>
 <li> body - body as an R list
- </li>
+</li>
 <li> encode - one of form, multipart, json, or raw
- </li>
+</li>
 <li> disk - a path to write to. if NULL (default), memory used.
- See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl_fetch_disk</a></code> for help.
- </li>
+See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl::curl_fetch_disk()</a></code> for help.
+</li>
 <li> stream - an R function to determine how to stream data. if
- NULL (default), memory used. See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl_fetch_stream</a></code>
- for help
- </li>
+NULL (default), memory used. See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl::curl_fetch_stream()</a></code>
+for help
+</li>
 <li> ... curl options, only those in the acceptable set from
- <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl_options</a></code> except the following: httpget, httppost,
- post, postfields, postfieldsize, and customrequest
+<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl::curl_options()</a></code> except the following: httpget, httppost,
+post, postfields, postfieldsize, and customrequest
 </li>
 </ul></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='post-requests.html'>post-requests</a></code>, <code><a href='http-headers.html'>http-headers</a></code>,
-<code><a href='writing-options.html'>writing-options</a></code></p>
+    <p><a href='post-requests.html'>post-requests</a>, <a href='delete-requests.html'>delete-requests</a>, <a href='http-headers.html'>http-headers</a>,
+<a href='writing-options.html'>writing-options</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -161,66 +161,72 @@
 #&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] &quot;https://httpbin.org&quot;</div><div class='input'>(<span class='no'>res_get1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:22 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 259
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 287
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>content</span></div><div class='output co'>#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61 64 65
 #&gt;  [26] 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 63 63 65 70 74 22 3a 20 22 2a 2f 2a
 #&gt;  [51] 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e 67 22
 #&gt;  [76] 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 20 0a 20 20 20 20 22
-#&gt; [101] 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20
-#&gt; [126] 20 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f
-#&gt; [151] 37 2e 35 31 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e
-#&gt; [176] 33 2e 30 2e 39 31 30 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e
-#&gt; [201] 22 3a 20 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22
-#&gt; [226] 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72
-#&gt; [251] 67 2f 67 65 74 22 0a 7d 0a</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
+#&gt; [101] 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22 63 6c 6f 73 65 22 2c 20 0a 20 20
+#&gt; [126] 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20
+#&gt; [151] 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75
+#&gt; [176] 72 6c 2f 37 2e 35 31 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c
+#&gt; [201] 2f 30 2e 33 2e 32 2e 39 34 31 34 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69
+#&gt; [226] 67 69 6e 22 3a 20 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a
+#&gt; [251] 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e
+#&gt; [276] 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
 #&gt; [1] &quot;HTTP/1.1 200 OK&quot;
-#&gt; 
-#&gt; $server
-#&gt; [1] &quot;nginx&quot;
-#&gt; 
-#&gt; $date
-#&gt; [1] &quot;Wed, 22 Feb 2017 18:41:22 GMT&quot;
-#&gt; 
-#&gt; $`content-type`
-#&gt; [1] &quot;application/json&quot;
-#&gt; 
-#&gt; $`content-length`
-#&gt; [1] &quot;259&quot;
 #&gt; 
 #&gt; $connection
 #&gt; [1] &quot;keep-alive&quot;
+#&gt; 
+#&gt; $server
+#&gt; [1] &quot;gunicorn/19.7.1&quot;
+#&gt; 
+#&gt; $date
+#&gt; [1] &quot;Fri, 24 Mar 2017 21:30:55 GMT&quot;
+#&gt; 
+#&gt; $`content-type`
+#&gt; [1] &quot;application/json&quot;
 #&gt; 
 #&gt; $`access-control-allow-origin`
 #&gt; [1] &quot;*&quot;
 #&gt; 
 #&gt; $`access-control-allow-credentials`
 #&gt; [1] &quot;true&quot;
-#&gt; </div><div class='input'><span class='no'>res_get1</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;</div><div class='input'>
+#&gt; 
+#&gt; $`content-length`
+#&gt; [1] &quot;287&quot;
+#&gt; 
+#&gt; $via
+#&gt; [1] &quot;1.1 vegur&quot;
+#&gt; </div><div class='input'><span class='no'>res_get1</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Connection\&quot;: \&quot;close\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;</div><div class='input'>
 (<span class='no'>res_get2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>)))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get?hello=world
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:22 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 295
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 323
+#&gt;     via: 1.1 vegur
 #&gt;   params: 
 #&gt;     hello: world
-#&gt;   status: 200</div><div class='input'><span class='no'>res_get2</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {\n    \&quot;hello\&quot;: \&quot;world\&quot;\n  }, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get?hello=world\&quot;\n}\n&quot;</div><div class='input'><span class='fu'>library</span>(<span class='st'>"jsonlite"</span>)
+#&gt;   status: 200</div><div class='input'><span class='no'>res_get2</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {\n    \&quot;hello\&quot;: \&quot;world\&quot;\n  }, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Connection\&quot;: \&quot;close\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get?hello=world\&quot;\n}\n&quot;</div><div class='input'><span class='fu'>library</span>(<span class='st'>"jsonlite"</span>)
 <span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res_get2</span>$<span class='fu'>parse</span>())</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; $args
 #&gt; $args$hello
 #&gt; [1] &quot;world&quot;
@@ -233,11 +239,14 @@
 #&gt; $headers$`Accept-Encoding`
 #&gt; [1] &quot;gzip, deflate&quot;
 #&gt; 
+#&gt; $headers$Connection
+#&gt; [1] &quot;close&quot;
+#&gt; 
 #&gt; $headers$Host
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
 #&gt; 
 #&gt; 
 #&gt; $origin
@@ -250,92 +259,97 @@
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>)))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:22 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 472
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 531
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## empty body request</span>
 <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
-#&gt;     Content-Type: 
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:22 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 351
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 437
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># put request</span>
 (<span class='no'>res_put</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>put</span>(<span class='st'>'put'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/put
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:23 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 408
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 436
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># delete request</span>
 (<span class='no'>res_delete</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:23 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 411
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 439
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># patch request</span>
 (<span class='no'>res_patch</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>patch</span>(<span class='st'>'patch'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/patch
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:23 GMT
-#&gt;     content-type: application/json
-#&gt;     content-length: 410
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     content-length: 438
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># head request</span>
 (<span class='no'>res_head</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>head</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     server: nginx
-#&gt;     date: Wed, 22 Feb 2017 18:41:23 GMT
-#&gt;     content-type: text/html; charset=utf-8
-#&gt;     content-length: 12150
 #&gt;     connection: keep-alive
+#&gt;     server: gunicorn/19.7.1
+#&gt;     date: Fri, 24 Mar 2017 21:30:55 GMT
+#&gt;     content-type: text/html; charset=utf-8
+#&gt;     content-length: 12172
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># query params are URL encoded for you, so DO NOT do it yourself</span>
 <span class='co'>## if you url encode yourself, it gets double encoded, and that's bad</span>

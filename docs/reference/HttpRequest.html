@@ -104,39 +104,59 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This R6 class doesn&#39;t do actual HTTP requests as does
-<code><a href='HttpClient.html'>HttpClient</a></code> - but is for building requests
-to use for async HTTP requests in <code><a href='AsyncVaried.html'>AsyncVaried</a></code></p>
+<code><a href='HttpClient.html'>HttpClient()</a></code> - it is for building requests to use for async HTTP
+requests in <code><a href='AsyncVaried.html'>AsyncVaried()</a></code></p>
+    <p>Note that you can access HTTP verbs after creating an <code>HttpRequest</code>
+object, just as you can with <code>HttpClient</code>. See examples for usage.</p>
+    <p>Also note that when you call HTTP verbs on a <code>HttpRequest</code> object you
+don&#39;t need to assign the new object to a variable as the new details
+you&#39;ve added are added to the object itself.</p>
     <p><strong>Methods</strong>
-  <dl class='dl-horizontal'>
-    <dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
-      Define a GET request
-    </dd>
-    <dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
-      Define a POST request
-    </dd>
-    <dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
-      Define a PUT request
-    </dd>
-    <dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
-      Define a PATCH request
-    </dd>
-    <dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
-      Define a DELETE request
-    </dd>
-    <dt><code>head(path, disk, stream, ...)</code></dt><dd>
-      Define a HEAD request
-    </dd>
-  </dl></p>
-    <p>See <code><a href='HttpClient.html'>HttpClient</a></code> for information on parameters.</p>
+<dl class='dl-horizontal'>
+<dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
+Define a GET request
+</dd>
+<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
+Define a POST request
+</dd>
+<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
+Define a PUT request
+</dd>
+<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
+Define a PATCH request
+</dd>
+<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
+Define a DELETE request
+</dd>
+<dt><code>head(path, disk, stream, ...)</code></dt><dd>
+Define a HEAD request
+</dd>
+<dt><code>method()</code></dt><dd>
+Get the HTTP method (if defined)
+- returns character string
+</dd>
+</dl></p>
+    <p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='post-requests.html'>post-requests</a></code>, <code><a href='http-headers.html'>http-headers</a></code>,
-<code><a href='writing-options.html'>writing-options</a></code></p>
+    <p><a href='post-requests.html'>post-requests</a>, <a href='delete-requests.html'>delete-requests</a>,
+<a href='http-headers.html'>http-headers</a>, <a href='writing-options.html'>writing-options</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul http request&gt; 
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)
+<span class='co'>## note here how the HTTP method is shown on the first line to the right</span>
+<span class='no'>x</span>$<span class='fu'>get</span>()</div><div class='output co'>#&gt; &lt;crul http request&gt; get
+#&gt;   url: https://httpbin.org/get
+#&gt;   curl options: 
+#&gt;   proxies: 
+#&gt;   headers: </div><div class='input'>
+<span class='co'>## assign to a new object to keep the output</span>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>()
+<span class='co'>### get the HTTP method</span>
+<span class='no'>z</span>$<span class='fu'>method</span>()</div><div class='output co'>#&gt; [1] &quot;get&quot;</div><div class='input'>
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul http request&gt; get
 #&gt;   url: https://httpbin.org/get
 #&gt;   curl options: 
 #&gt;   proxies: 
@@ -156,7 +176,7 @@ to use for async HTTP requests in <code><a href='AsyncVaried.html'>AsyncVaried</
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $options$useragent
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.0.9100&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
 #&gt; 
 #&gt; 
 #&gt; $headers
@@ -166,7 +186,7 @@ to use for async HTTP requests in <code><a href='AsyncVaried.html'>AsyncVaried</
 #&gt;   url: https://httpbin.org/post
 #&gt;   curl options: 
 #&gt;   proxies: 
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; 
+#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; post
 #&gt;   url: https://httpbin.org/post
 #&gt;   curl options: 
 #&gt;   proxies: 

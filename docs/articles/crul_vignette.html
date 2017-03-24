@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • crul</title>
+<title>crul introduction • crul</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -57,18 +57,15 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1></h1>
+      <h1>crul introduction</h1>
+                        <h4 class="author">Scott Chamberlain</h4>
             
+            <h4 class="date">2017-03-24</h4>
           </div>
 
     
     
 <div class="contents">
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{crul introduction}
-%\VignetteEncoding{UTF-8}
--->
 <div id="crul-introduction" class="section level1">
 <h1 class="hasAnchor">
 <html><body><a href="#crul-introduction" class="anchor"> </a></body></html>crul introduction</h1>
@@ -97,7 +94,7 @@
 ))
 <span class="co">#&gt; &lt;crul connection&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org</span>
-<span class="co">#&gt;   options: </span>
+<span class="co">#&gt;   curl options: </span>
 <span class="co">#&gt;     timeout: 1</span>
 <span class="co">#&gt;   proxies: </span>
 <span class="co">#&gt;   headers: </span>
@@ -127,21 +124,22 @@
 <span class="co">#&gt;  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22</span>
 <span class="co">#&gt;  [70] 3a 20 22 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45</span>
 <span class="co">#&gt;  [93] 6e 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74</span>
-<span class="co">#&gt; [116] 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62</span>
-<span class="co">#&gt; [139] 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65</span>
-<span class="co">#&gt; [162] 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 31 2e 30 20 72 2d</span>
-<span class="co">#&gt; [185] 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 32 2e 37 2e 39 31 30</span>
-<span class="co">#&gt; [208] 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31</span>
-<span class="co">#&gt; [231] 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c</span>
-<span class="co">#&gt; [254] 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67</span>
-<span class="co">#&gt; [277] 2f 67 65 74 22 0a 7d 0a</span></code></pre></div>
+<span class="co">#&gt; [116] 65 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20</span>
+<span class="co">#&gt; [139] 22 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22</span>
+<span class="co">#&gt; [162] 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65</span>
+<span class="co">#&gt; [185] 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 31</span>
+<span class="co">#&gt; [208] 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 33 20 63 72 75 6c 2f 30 2e 33 2e</span>
+<span class="co">#&gt; [231] 32 2e 39 34 31 34 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e</span>
+<span class="co">#&gt; [254] 22 3a 20 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20</span>
+<span class="co">#&gt; [277] 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69</span>
+<span class="co">#&gt; [300] 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</span></code></pre></div>
 <p>HTTP method</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$method
 <span class="co">#&gt; [1] "get"</span></code></pre></div>
 <p>Request headers</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$request_headers
 <span class="co">#&gt; $useragent</span>
-<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"</span>
+<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $a</span>
 <span class="co">#&gt; [1] "hello world"</span></code></pre></div>
@@ -150,29 +148,32 @@
 <span class="co">#&gt; $status</span>
 <span class="co">#&gt; [1] "HTTP/1.1 200 OK"</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt; $connection</span>
+<span class="co">#&gt; [1] "keep-alive"</span>
+<span class="co">#&gt; </span>
 <span class="co">#&gt; $server</span>
-<span class="co">#&gt; [1] "nginx"</span>
+<span class="co">#&gt; [1] "gunicorn/19.7.1"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $date</span>
-<span class="co">#&gt; [1] "Fri, 17 Feb 2017 17:50:51 GMT"</span>
+<span class="co">#&gt; [1] "Fri, 24 Mar 2017 21:31:01 GMT"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $`content-type`</span>
 <span class="co">#&gt; [1] "application/json"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`content-length`</span>
-<span class="co">#&gt; [1] "284"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $connection</span>
-<span class="co">#&gt; [1] "keep-alive"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $`access-control-allow-origin`</span>
 <span class="co">#&gt; [1] "*"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $`access-control-allow-credentials`</span>
-<span class="co">#&gt; [1] "true"</span></code></pre></div>
+<span class="co">#&gt; [1] "true"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $`content-length`</span>
+<span class="co">#&gt; [1] "312"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $via</span>
+<span class="co">#&gt; [1] "1.1 vegur"</span></code></pre></div>
 <p>And you can parse the content with a provided function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">parse</span>()
-<span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span>
+<span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span>
 jsonlite::<span class="kw">fromJSON</span>(res$<span class="kw">parse</span>())
 <span class="co">#&gt; $args</span>
 <span class="co">#&gt; named list()</span>
@@ -187,11 +188,14 @@ jsonlite::<span class="kw">fromJSON</span>(res$<span class="kw">parse</span>())
 <span class="co">#&gt; $headers$`Accept-Encoding`</span>
 <span class="co">#&gt; [1] "gzip, deflate"</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt; $headers$Connection</span>
+<span class="co">#&gt; [1] "close"</span>
+<span class="co">#&gt; </span>
 <span class="co">#&gt; $headers$Host</span>
 <span class="co">#&gt; [1] "httpbin.org"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers$`User-Agent`</span>
-<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"</span>
+<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $origin</span>
@@ -207,17 +211,18 @@ jsonlite::<span class="kw">fromJSON</span>(res$<span class="kw">parse</span>())
 <span class="co">#&gt; &lt;crul response&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org/post</span>
 <span class="co">#&gt;   request_headers: </span>
-<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100</span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
 <span class="co">#&gt;     a: hello world</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
-<span class="co">#&gt;     server: nginx</span>
-<span class="co">#&gt;     date: Fri, 17 Feb 2017 17:50:51 GMT</span>
-<span class="co">#&gt;     content-type: application/json</span>
-<span class="co">#&gt;     content-length: 497</span>
 <span class="co">#&gt;     connection: keep-alive</span>
+<span class="co">#&gt;     server: gunicorn/19.7.1</span>
+<span class="co">#&gt;     date: Fri, 24 Mar 2017 21:31:02 GMT</span>
+<span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
+<span class="co">#&gt;     content-length: 556</span>
+<span class="co">#&gt;     via: 1.1 vegur</span>
 <span class="co">#&gt;   status: 200</span></code></pre></div>
 </div>
 <div id="write-to-disk" class="section level2">
@@ -228,7 +233,7 @@ f &lt;-<span class="st"> </span><span class="kw">tempfile</span>()
 res &lt;-<span class="st"> </span>x$<span class="kw">get</span>(<span class="dt">disk =</span> f)
 <span class="co"># when using write to disk, content is a path</span>
 res$content 
-<span class="co">#&gt; [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmprZ0MKu/file40da34cd0956"</span></code></pre></div>
+<span class="co">#&gt; [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmpTNCDHG/file368574a27acd"</span></code></pre></div>
 <p>Read lines</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(res$content, <span class="dt">n =</span> <span class="dv">10</span>)
 <span class="co">#&gt;  [1] "&lt;!DOCTYPE html&gt;"                                                                           </span>
@@ -248,15 +253,15 @@ res$content
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span>HttpClient$<span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"https://httpbin.org"</span>))
 <span class="co">#&gt; &lt;crul connection&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org</span>
-<span class="co">#&gt;   options: </span>
+<span class="co">#&gt;   curl options: </span>
 <span class="co">#&gt;   proxies: </span>
 <span class="co">#&gt;   headers:</span>
 res &lt;-<span class="st"> </span>x$<span class="kw">get</span>(<span class="st">'stream/5'</span>, <span class="dt">stream =</span> function(x) <span class="kw">cat</span>(<span class="kw">rawToChar</span>(x)))
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"}, "args": {}, "id": 0, "origin": "157.130.179.86"}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"}, "args": {}, "id": 1, "origin": "157.130.179.86"}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"}, "args": {}, "id": 2, "origin": "157.130.179.86"}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"}, "args": {}, "id": 3, "origin": "157.130.179.86"}</span>
-<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"}, "args": {}, "id": 4, "origin": "157.130.179.86"}</span>
+<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 0}</span>
+<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 1}</span>
+<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 2}</span>
+<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 3}</span>
+<span class="co">#&gt; {"url": "https://httpbin.org/stream/5", "args": {}, "origin": "157.130.179.86", "headers": {"User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414", "Host": "httpbin.org", "Accept": "*/*", "Accept-Encoding": "gzip, deflate", "Connection": "close"}, "id": 4}</span>
 <span class="co"># when streaming, content is NULL</span>
 res$content 
 <span class="co">#&gt; NULL</span></code></pre></div>

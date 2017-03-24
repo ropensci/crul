@@ -12,11 +12,9 @@
 #' Note that you can access HTTP verbs after creating an `HttpRequest`
 #' object, just as you can with `HttpClient`. See examples for usage.
 #'
-#' Also note that a new object is created when you call HTTP verbs on
-#' a `HttpRequest` object - that is, assign the new object to a variable
-#' unless you're just exploring or passing it directlty to something else
-#' (e.g., a list with many `HttpRequest` objects, or directly in to
-#' `AsyncVaried`).
+#' Also note that when you call HTTP verbs on a `HttpRequest` object you
+#' don't need to assign the new object to a variable as the new details
+#' you've added are added to the object itself.
 #'
 #' **Methods**
 #'   \describe{

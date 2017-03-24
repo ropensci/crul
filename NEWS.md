@@ -19,6 +19,9 @@ only defines a request, but does not execute it. (#8)
 * Fixed parsing of headers from FTP servers (#21)
 
 
+
+
+
 crul 0.2.0
 ==========
 
@@ -34,6 +37,8 @@ caused errors previously (#11)
 * response headers now parsed to a list for easier access (#14)
 * Now supporting multiple query parameters of the same name, wasn't
 possible in last version (#15)
+
+
 
 
 crul 0.1.6
@@ -66,6 +71,10 @@ streaming or disk allowed. (#12)
 
 * Was importing `httpcode` but wasn't using it in the package.
 Now using the package in `HttpResponse`
+
+
+
+
 
 
 crul 0.1.0

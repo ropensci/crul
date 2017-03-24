@@ -9,7 +9,7 @@ Description: A simple HTTP client, with tools for making HTTP requests,
 Version: 0.3.2.9414
 License: MIT + file LICENSE
 Authors@R: c(
-    person("Scott", "Chamberlain", role = c("aut", "cre"), 
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
     )
 URL: https://github.com/ropensci/crul
@@ -25,6 +25,7 @@ Suggests:
     testthat,
     fauxpas (>= 0.1.0),
     knitr,
+    rmarkdown,
     covr,
     jsonlite
 VignetteBuilder: knitr

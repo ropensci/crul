@@ -88,7 +88,7 @@
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>..., .list</dt>
-      <dd>Any number of objects of class <code><a href='HttpRequest.html'>HttpRequest</a></code>,
+      <dd>Any number of objects of class <code><a href='HttpRequest.html'>HttpRequest()</a></code>,
 must supply inputs to one of these parameters, but not both</dd>
     </dl>
     
@@ -99,29 +99,47 @@ must supply inputs to one of these parameters, but not both</dd>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Methods</strong>
-  <dl class='dl-horizontal'>
-    <dt><code>request()</code></dt><dd>
-      execute asynchronous requests
-    </dd>
-    <dt><code>requests()</code></dt><dd>
-      list requests
-    </dd>
-    <dt><code>parse(encoding = &quot;UTF-8&quot;)</code></dt><dd>
-      parse content
-    </dd>
-    <dt><code>status_code()</code></dt><dd>
-      (integer) HTTP status codes
-    </dd>
-    <dt><code>status()</code></dt><dd>
-      (list) HTTP status objects
-    </dd>
-    <dt><code>content()</code></dt><dd>
-      raw content
-    </dd>
-    <dt><code>times()</code></dt><dd>
-      curl request times
-    </dd>
-  </dl></p>
+<dl class='dl-horizontal'>
+<dt><code>request()</code></dt><dd>
+Execute asynchronous requests
+- returns: nothing, responses stored inside object,
+though will print messages if you choose verbose output
+</dd>
+<dt><code>requests()</code></dt><dd>
+list requests
+- returns: a list of <code>HttpRequest</code> objects, empty list before
+requests made
+</dd>
+<dt><code>responses()</code></dt><dd>
+list responses
+- returns: a list of <code>HttpResponse</code> objects, empty list before
+requests made
+</dd>
+<dt><code>parse(encoding = &quot;UTF-8&quot;)</code></dt><dd>
+parse content
+- returns: character vector, empty character vector before
+requests made
+</dd>
+<dt><code>status_code()</code></dt><dd>
+(integer) HTTP status codes
+- returns: numeric vector, empty numeric vector before
+requests made
+</dd>
+<dt><code>status()</code></dt><dd>
+(list) HTTP status objects
+- returns: a list of <code>http_code</code> objects, empty list before
+requests made
+</dd>
+<dt><code>content()</code></dt><dd>
+raw content
+- returns: raw list, empty list before requests made
+</dd>
+<dt><code>times()</code></dt><dd>
+curl request times
+- returns: list of named numeric vectors, empty list before
+requests made
+</dd>
+</dl></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -137,13 +155,33 @@ must supply inputs to one of these parameters, but not both</dd>
 <span class='co'>#   headers = list(foo = "bar")</span>
 <span class='co'># )$get()</span>
 <span class='co'># req2 &lt;- HttpRequest$new(url = "https://httpbin.org/post")$post()</span>
+<span class='co'># </span>
+<span class='co'># # Create an AsyncVaried object</span>
 <span class='co'># out &lt;- AsyncVaried$new(req1, req2)</span>
-<span class='co'># out$request()</span>
+<span class='co'># </span>
+<span class='co'># # before you make requests, the methods return empty objects</span>
 <span class='co'># out$status()</span>
 <span class='co'># out$status_code()</span>
 <span class='co'># out$content()</span>
 <span class='co'># out$times()</span>
 <span class='co'># out$parse()</span>
+<span class='co'># out$responses()</span>
+<span class='co'># </span>
+<span class='co'># # make requests</span>
+<span class='co'># out$request()</span>
+<span class='co'># </span>
+<span class='co'># # access various parts</span>
+<span class='co'># ## http status objects</span>
+<span class='co'># out$status()</span>
+<span class='co'># ## status codes</span>
+<span class='co'># out$status_code()</span>
+<span class='co'># ## content (raw data)</span>
+<span class='co'># out$content()</span>
+<span class='co'># ## times</span>
+<span class='co'># out$times()</span>
+<span class='co'># ## parsed content</span>
+<span class='co'># out$parse()</span>
+<span class='co'># ## response objects</span>
 <span class='co'># out$responses()</span>
 <span class='co'># </span>
 <span class='co'># # pass in requests in a list via .list param</span>

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • crul</title>
+<title>async with crul • crul</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -57,21 +57,15 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1></h1>
+      <h1>async with crul</h1>
+                        <h4 class="author">Scott Chamberlain</h4>
             
+            <h4 class="date">2017-03-24</h4>
           </div>
 
     
     
 <div class="contents">
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{async}
-%\VignetteEncoding{UTF-8}
--->
-<div id="async-with-crul" class="section level1">
-<h1 class="hasAnchor">
-<html><body><a href="#async-with-crul" class="anchor"> </a></body></html>async with crul</h1>
 <p>Asynchronous requests with <code>crul</code>.</p>
 <p>There are two interfaces to asynchronous requests in <code>crul</code>:</p>
 <ol style="list-style-type: decimal">
@@ -101,71 +95,77 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(res &lt;-<span class="st"> </span>cc$<span class="kw">get</span>())
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; &lt;crul response&gt; </span>
-<span class="co">#&gt;   url: https://httpbin.org/ip</span>
+<span class="co">#&gt;   url: https://httpbin.org/get?a=5</span>
 <span class="co">#&gt;   request_headers: </span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
-<span class="co">#&gt;     server: nginx</span>
-<span class="co">#&gt;     date: Fri, 17 Feb 2017 17:50:17 GMT</span>
-<span class="co">#&gt;     content-type: application/json</span>
-<span class="co">#&gt;     content-length: 33</span>
 <span class="co">#&gt;     connection: keep-alive</span>
+<span class="co">#&gt;     server: gunicorn/19.7.1</span>
+<span class="co">#&gt;     date: Fri, 24 Mar 2017 21:31:00 GMT</span>
+<span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
+<span class="co">#&gt;     content-length: 307</span>
+<span class="co">#&gt;     via: 1.1 vegur</span>
+<span class="co">#&gt;   params: </span>
+<span class="co">#&gt;     a: 5</span>
 <span class="co">#&gt;   status: 200</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; &lt;crul response&gt; </span>
-<span class="co">#&gt;   url: https://httpbin.org/get?a=5</span>
+<span class="co">#&gt;   url: https://httpbin.org/get?a=5&amp;b=6</span>
 <span class="co">#&gt;   request_headers: </span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
-<span class="co">#&gt;     server: nginx</span>
-<span class="co">#&gt;     date: Fri, 17 Feb 2017 17:50:17 GMT</span>
-<span class="co">#&gt;     content-type: application/json</span>
-<span class="co">#&gt;     content-length: 279</span>
 <span class="co">#&gt;     connection: keep-alive</span>
+<span class="co">#&gt;     server: gunicorn/19.7.1</span>
+<span class="co">#&gt;     date: Fri, 24 Mar 2017 21:31:00 GMT</span>
+<span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
+<span class="co">#&gt;     content-length: 326</span>
+<span class="co">#&gt;     via: 1.1 vegur</span>
 <span class="co">#&gt;   params: </span>
 <span class="co">#&gt;     a: 5</span>
+<span class="co">#&gt;     b: 6</span>
 <span class="co">#&gt;   status: 200</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
 <span class="co">#&gt; &lt;crul response&gt; </span>
-<span class="co">#&gt;   url: https://httpbin.org/get?a=5&amp;b=6</span>
+<span class="co">#&gt;   url: https://httpbin.org/ip</span>
 <span class="co">#&gt;   request_headers: </span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
-<span class="co">#&gt;     server: nginx</span>
-<span class="co">#&gt;     date: Fri, 17 Feb 2017 17:50:17 GMT</span>
-<span class="co">#&gt;     content-type: application/json</span>
-<span class="co">#&gt;     content-length: 298</span>
 <span class="co">#&gt;     connection: keep-alive</span>
+<span class="co">#&gt;     server: gunicorn/19.7.1</span>
+<span class="co">#&gt;     date: Fri, 24 Mar 2017 21:31:00 GMT</span>
+<span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
-<span class="co">#&gt;   params: </span>
-<span class="co">#&gt;     a: 5</span>
-<span class="co">#&gt;     b: 6</span>
+<span class="co">#&gt;     content-length: 33</span>
+<span class="co">#&gt;     via: 1.1 vegur</span>
 <span class="co">#&gt;   status: 200</span></code></pre></div>
 <p>You get back a list matching length of the number of input URLs</p>
 <p>Access object variables and methods just as with <code>HttpClient</code> results, here just one at a time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res[[<span class="dv">1</span>]]$url
-<span class="co">#&gt; [1] "https://httpbin.org/ip"</span>
+<span class="co">#&gt; [1] "https://httpbin.org/get?a=5"</span>
 res[[<span class="dv">1</span>]]$<span class="kw">success</span>()
 <span class="co">#&gt; [1] TRUE</span>
 res[[<span class="dv">1</span>]]$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>)
-<span class="co">#&gt; [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"</span></code></pre></div>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span></code></pre></div>
 <p>Or apply access/method calls aross many results, e.g., parse all results</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res, function(z) z$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>))
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"</span>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&amp;b=6\"\n}\n"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&amp;b=6\"\n}\n"</span></code></pre></div>
+<span class="co">#&gt; [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"</span></code></pre></div>
 </div>
 <div id="varied-request-async" class="section level2">
 <h2 class="hasAnchor">
@@ -177,21 +177,20 @@ res[[<span class="dv">1</span>]]$<span class="kw">parse</span>(<span class="st">
   )
 )
 req1$<span class="kw">get</span>()
-<span class="co">#&gt; &lt;crul http request&gt; </span>
+<span class="co">#&gt; &lt;crul http request&gt; get</span>
 <span class="co">#&gt;   url: https://httpbin.org/get?a=5</span>
-<span class="co">#&gt;   options: </span>
+<span class="co">#&gt;   curl options: </span>
 <span class="co">#&gt;     verbose: TRUE</span>
 <span class="co">#&gt;   proxies: </span>
 <span class="co">#&gt;   headers:</span>
 
 req2 &lt;-<span class="st"> </span>HttpRequest$<span class="kw">new</span>(
-  <span class="dt">url =</span> <span class="st">"https://httpbin.org/post?a=5&amp;b=6"</span>,
-  <span class="dt">method =</span> <span class="st">"post"</span>
+  <span class="dt">url =</span> <span class="st">"https://httpbin.org/post?a=5&amp;b=6"</span>
 )
 req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">5</span>))
-<span class="co">#&gt; &lt;crul http request&gt; </span>
+<span class="co">#&gt; &lt;crul http request&gt; post</span>
 <span class="co">#&gt;   url: https://httpbin.org/post?a=5&amp;b=6</span>
-<span class="co">#&gt;   options: </span>
+<span class="co">#&gt;   curl options: </span>
 <span class="co">#&gt;   proxies: </span>
 <span class="co">#&gt;   headers:</span>
 
@@ -204,8 +203,8 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">request</span>()</code></pre></div>
 <p>Parse all results</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">parse</span>()
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                   </span>
-<span class="co">#&gt; [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------121b91d0764ddd51\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&amp;b=6\"\n}\n"</span></code></pre></div>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       </span>
+<span class="co">#&gt; [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------e140362a9c97c9ce\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&amp;b=6\"\n}\n"</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res$<span class="kw">parse</span>(), jsonlite::prettify)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; {</span>
@@ -215,8 +214,9 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt;     "headers": {</span>
 <span class="co">#&gt;         "Accept": "*/*",</span>
 <span class="co">#&gt;         "Accept-Encoding": "gzip, deflate",</span>
+<span class="co">#&gt;         "Connection": "close",</span>
 <span class="co">#&gt;         "Host": "httpbin.org",</span>
-<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"</span>
+<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
 <span class="co">#&gt;     },</span>
 <span class="co">#&gt;     "origin": "157.130.179.86",</span>
 <span class="co">#&gt;     "url": "https://httpbin.org/get?a=5"</span>
@@ -239,10 +239,12 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt;     "headers": {</span>
 <span class="co">#&gt;         "Accept": "*/*",</span>
 <span class="co">#&gt;         "Accept-Encoding": "gzip, deflate",</span>
+<span class="co">#&gt;         "Connection": "close",</span>
 <span class="co">#&gt;         "Content-Length": "137",</span>
-<span class="co">#&gt;         "Content-Type": "multipart/form-data; boundary=------------------------121b91d0764ddd51",</span>
+<span class="co">#&gt;         "Content-Type": "multipart/form-data; boundary=------------------------e140362a9c97c9ce",</span>
+<span class="co">#&gt;         "Expect": "100-continue",</span>
 <span class="co">#&gt;         "Host": "httpbin.org",</span>
-<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.2.7.9100"</span>
+<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
 <span class="co">#&gt;     },</span>
 <span class="co">#&gt;     "json": null,</span>
 <span class="co">#&gt;     "origin": "157.130.179.86",</span>
@@ -254,19 +256,14 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt; [1] 200 200</span></code></pre></div>
 </div>
 </div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#async-with-crul">async with crul</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#simple-async">simple async</a></li>
       <li><a href="#varied-request-async">varied request async</a></li>
-      </ul>
-</li>
       </ul>
 </div>
       </div>
