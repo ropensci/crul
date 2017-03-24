@@ -37,3 +37,52 @@ add_query <- function(x, url) {
     return(url)
   }
 }
+
+#' Build and parse URLs
+#'
+#' @export
+#' @param url (character) a url
+#' @param path (character) a path
+#' @param query (list) a named list of query parameters
+#' @return \code{url_build} returns a character string URL; \code{url_parse}
+#' returns a list with URL components
+#' @examples
+#' url_build("https://httpbin.org")
+#' url_build("https://httpbin.org", "get")
+#' url_build("https://httpbin.org", "post")
+#' url_build("https://httpbin.org", "get", list(foo = "bar"))
+#'
+#' url_parse("httpbin.org")
+#' url_parse("http://httpbin.org")
+#' url_parse(url = "https://httpbin.org")
+#' url_parse("https://httpbin.org/get")
+#' url_parse("https://httpbin.org/get?foo=bar")
+#' url_parse("https://httpbin.org/get?foo=bar&stuff=things")
+#' url_parse("https://httpbin.org/get?foo=bar&stuff=things[]")
+url_build <- function(url, path = NULL, query = NULL) {
+  assert(url, "character")
+  assert(path, "character")
+  assert(query, "list")
+  if (!has_names(query)) stop("all query elements must be named", call. = FALSE)
+  make_url(url, handle = NULL, path, query)$url
+}
+
+#' @export
+#' @rdname url_build
+url_parse <- function(url) {
+  tmp <- urltools::url_parse(url)
+  tmp <- as.list(tmp)
+  if (!is.na(tmp$parameter)) {
+    tmp$parameter <- unlist(
+      lapply(strsplit(tmp$parameter, "&")[[1]], function(x) {
+        z <- strsplit(x, split = "=")[[1]]
+        as.list(stats::setNames(z[2], z[1]))
+      }), FALSE)
+  }
+  return(tmp)
+}
+
+# returns logical
+has_names <- function(x) {
+  length(Filter(nzchar, names(x))) == length(x)
+}
