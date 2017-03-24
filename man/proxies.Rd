@@ -22,7 +22,7 @@ digest, digest_ie, gssnegotiate, ntlm, or any. optional}
 proxy options
 }
 \details{
-See http://proxylist.hidemyass.com/ for a list of proxies you
+See \url{http://proxylist.hidemyass.com/} for a list of proxies you
 can use
 }
 \examples{

@@ -11,14 +11,14 @@
 \section{Package API}{
 
 \itemize{
- \item \code{\link{HttpClient}} - create a connection client, set all
- your http options, make http requests
- \item \code{\link{HttpResponse}} - mostly for internal use, handles
- http responses
- \item \code{\link{HttpRequest}} - generate an HTTP request, mostly for
- use in building requests to be used in \code{Async} or \code{AsyncVaried}
- \item \code{\link{Async}} - asynchronous requests
- \item \code{\link{AsyncVaried}} - varied asynchronous requests
+\item \code{\link[=HttpClient]{HttpClient()}} - create a connection client, set all
+your http options, make http requests
+\item \code{\link[=HttpResponse]{HttpResponse()}} - mostly for internal use, handles
+http responses
+\item \code{\link[=HttpRequest]{HttpRequest()}} - generate an HTTP request, mostly for
+use in building requests to be used in \code{Async} or \code{AsyncVaried}
+\item \code{\link[=Async]{Async()}} - asynchronous requests
+\item \code{\link[=AsyncVaried]{AsyncVaried()}} - varied asynchronous requests
 }
 }
 

@@ -10,7 +10,7 @@
 With the \code{opts} parameter you can pass in various
 curl options, including user agent string, whether to get verbose
 curl output or not, setting a timeout for requests, and more. See
-\code{\link[curl]{curl_options}} for all the options you can use.
+\code{\link[curl:curl_options]{curl::curl_options()}} for all the options you can use.
 }
 \details{
 A progress helper will be coming soon.

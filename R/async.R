@@ -6,33 +6,33 @@
 #' @param urls (character) one or more URLs (required)
 #' @family async
 #' @details
-#' \strong{Methods}
+#' **Methods**
 #'   \describe{
-#'     \item{\code{get(path, query, ...)}}{
+#'     \item{`get(path, query, ...)`}{
 #'       make async GET requests for all URLs
 #'     }
-#'     \item{\code{post(path, query, body, encode, ...)}}{
+#'     \item{`post(path, query, body, encode, ...)`}{
 #'       make async POST requests for all URLs
 #'     }
-#'     \item{\code{put(path, query, body, encode, ...)}}{
+#'     \item{`put(path, query, body, encode, ...)`}{
 #'       make async PUT requests for all URLs
 #'     }
-#'     \item{\code{patch(path, query, body, encode, ...)}}{
+#'     \item{`patch(path, query, body, encode, ...)`}{
 #'       make async PATCH requests for all URLs
 #'     }
-#'     \item{\code{delete(path, query, body, encode, ...)}}{
+#'     \item{`delete(path, query, body, encode, ...)`}{
 #'       make async DELETE requests for all URLs
 #'     }
-#'     \item{\code{head(path, ...)}}{
+#'     \item{`head(path, ...)`}{
 #'       make async HEAD requests for all URLs
 #'     }
 #'   }
 #'
-#' See \code{\link{HttpClient}} for information on parameters.
+#' See [HttpClient()] for information on parameters.
 #'
 #' @format NULL
 #' @usage NULL
-#' @return a list, with objects of class \code{HttpResponse}
+#' @return a list, with objects of class [HttpResponse()]
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(

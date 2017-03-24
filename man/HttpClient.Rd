@@ -22,41 +22,41 @@ HTTP client
 }
 \details{
 \strong{Methods}
-  \describe{
-    \item{\code{get(path, query, disk, stream, ...)}}{
-      Make a GET request
-    }
-    \item{\code{post(path, query, body, disk, stream, ...)}}{
-      Make a POST request
-    }
-    \item{\code{put(path, query, body, disk, stream, ...)}}{
-      Make a PUT request
-    }
-    \item{\code{patch(path, query, body, disk, stream, ...)}}{
-      Make a PATCH request
-    }
-    \item{\code{delete(path, query, body, disk, stream, ...)}}{
-      Make a DELETE request
-    }
-    \item{\code{head(path, disk, stream, ...)}}{
-      Make a HEAD request
-    }
-  }
+\describe{
+\item{\code{get(path, query, disk, stream, ...)}}{
+Make a GET request
+}
+\item{\code{post(path, query, body, disk, stream, ...)}}{
+Make a POST request
+}
+\item{\code{put(path, query, body, disk, stream, ...)}}{
+Make a PUT request
+}
+\item{\code{patch(path, query, body, disk, stream, ...)}}{
+Make a PATCH request
+}
+\item{\code{delete(path, query, body, disk, stream, ...)}}{
+Make a DELETE request
+}
+\item{\code{head(path, disk, stream, ...)}}{
+Make a HEAD request
+}
+}
 
 Possible parameters (not all are allowed in each HTTP verb):
 \itemize{
- \item path - URL path, appended to the base URL
- \item query - query terms, as a list
- \item body - body as an R list
- \item encode - one of form, multipart, json, or raw
- \item disk - a path to write to. if NULL (default), memory used.
- See \code{\link[curl]{curl_fetch_disk}} for help.
- \item stream - an R function to determine how to stream data. if
- NULL (default), memory used. See \code{\link[curl]{curl_fetch_stream}}
- for help
- \item ... curl options, only those in the acceptable set from
- \code{\link[curl]{curl_options}} except the following: httpget, httppost,
- post, postfields, postfieldsize, and customrequest
+\item path - URL path, appended to the base URL
+\item query - query terms, as a list
+\item body - body as an R list
+\item encode - one of form, multipart, json, or raw
+\item disk - a path to write to. if NULL (default), memory used.
+See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.
+\item stream - an R function to determine how to stream data. if
+NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+for help
+\item ... curl options, only those in the acceptable set from
+\code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost,
+post, postfields, postfieldsize, and customrequest
 }
 }
 \examples{
@@ -96,7 +96,7 @@ x$post('post')
 res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
 }
 \seealso{
-\code{\link{post-requests}}, \code{\link{delete-requests}},
-\code{\link{http-headers}}, \code{\link{writing-options}}
+\link{post-requests}, \link{delete-requests}, \link{http-headers},
+\link{writing-options}
 }
 \keyword{datasets}

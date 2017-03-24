@@ -8,35 +8,35 @@
 \item{urls}{(character) one or more URLs (required)}
 }
 \value{
-a list, with objects of class \code{HttpResponse}
+a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}
 }
 \description{
 A client to work with many URLs, but all with the same HTTP method
 }
 \details{
 \strong{Methods}
-  \describe{
-    \item{\code{get(path, query, ...)}}{
-      make async GET requests for all URLs
-    }
-    \item{\code{post(path, query, body, encode, ...)}}{
-      make async POST requests for all URLs
-    }
-    \item{\code{put(path, query, body, encode, ...)}}{
-      make async PUT requests for all URLs
-    }
-    \item{\code{patch(path, query, body, encode, ...)}}{
-      make async PATCH requests for all URLs
-    }
-    \item{\code{delete(path, query, body, encode, ...)}}{
-      make async DELETE requests for all URLs
-    }
-    \item{\code{head(path, ...)}}{
-      make async HEAD requests for all URLs
-    }
-  }
+\describe{
+\item{\code{get(path, query, ...)}}{
+make async GET requests for all URLs
+}
+\item{\code{post(path, query, body, encode, ...)}}{
+make async POST requests for all URLs
+}
+\item{\code{put(path, query, body, encode, ...)}}{
+make async PUT requests for all URLs
+}
+\item{\code{patch(path, query, body, encode, ...)}}{
+make async PATCH requests for all URLs
+}
+\item{\code{delete(path, query, body, encode, ...)}}{
+make async DELETE requests for all URLs
+}
+\item{\code{head(path, ...)}}{
+make async HEAD requests for all URLs
+}
+}
 
-See \code{\link{HttpClient}} for information on parameters.
+See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
 \examples{
 \dontrun{

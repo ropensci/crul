@@ -5,7 +5,7 @@
 \alias{AsyncVaried}
 \title{Async client for different request types}
 \arguments{
-\item{..., .list}{Any number of objects of class \code{\link{HttpRequest}},
+\item{..., .list}{Any number of objects of class \code{\link[=HttpRequest]{HttpRequest()}},
 must supply inputs to one of these parameters, but not both}
 }
 \value{
@@ -16,29 +16,29 @@ Async client for different request types
 }
 \details{
 \strong{Methods}
-  \describe{
-    \item{\code{request()}}{
-      execute asynchronous requests
-    }
-    \item{\code{requests()}}{
-      list requests
-    }
-    \item{\code{parse(encoding = "UTF-8")}}{
-      parse content
-    }
-    \item{\code{status_code()}}{
-      (integer) HTTP status codes
-    }
-    \item{\code{status()}}{
-      (list) HTTP status objects
-    }
-    \item{\code{content()}}{
-      raw content
-    }
-    \item{\code{times()}}{
-      curl request times
-    }
-  }
+\describe{
+\item{\code{request()}}{
+execute asynchronous requests
+}
+\item{\code{requests()}}{
+list requests
+}
+\item{\code{parse(encoding = "UTF-8")}}{
+parse content
+}
+\item{\code{status_code()}}{
+(integer) HTTP status codes
+}
+\item{\code{status()}}{
+(list) HTTP status objects
+}
+\item{\code{content()}}{
+raw content
+}
+\item{\code{times()}}{
+curl request times
+}
+}
 }
 \examples{
 \dontrun{

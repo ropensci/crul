@@ -5,22 +5,22 @@
 #' @param opts (list) curl options
 #' @param handle A handle
 #' @details
-#' \strong{Methods}
+#' **Methods**
 #'   \describe{
-#'     \item{\code{parse()}}{
+#'     \item{`parse()`}{
 #'       Parse the raw response content to text
 #'     }
-#'     \item{\code{success()}}{
+#'     \item{`success()`}{
 #'       Was status code less than or equal to 201.
 #'       returns boolean
 #'     }
-#'     \item{\code{status_http()}}{
+#'     \item{`status_http()`}{
 #'       Get HTTP status code, message, and explanation
 #'     }
-#'     \item{\code{raise_for_status()}}{
+#'     \item{`raise_for_status()`}{
 #'       Check HTTP status and stop with appropriate
 #'       HTTP error code and message if >= 300.
-#'       - If you have \code{fauxpas} installed we use that,
+#'       - If you have `fauxpas` installed we use that,
 #'       otherwise use \pkg{httpcode}
 #'     }
 #'   }

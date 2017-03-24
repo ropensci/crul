@@ -2,37 +2,37 @@
 #'
 #' @export
 #' @template args
-#' @seealso \code{\link{post-requests}}, \code{\link{delete-requests}},
-#' \code{\link{http-headers}}, \code{\link{writing-options}}
+#' @seealso [post-requests], [delete-requests],
+#' [http-headers], [writing-options]
 #'
 #' @details This R6 class doesn't do actual HTTP requests as does
-#' \code{\link{HttpClient}} - but is for building requests
-#' to use for async HTTP requests in \code{\link{AsyncVaried}}
+#' [HttpClient()] - but is for building requests
+#' to use for async HTTP requests in [AsyncVaried()]
 #
 #'
-#' \strong{Methods}
+#' **Methods**
 #'   \describe{
-#'     \item{\code{get(path, query, disk, stream, ...)}}{
+#'     \item{`get(path, query, disk, stream, ...)`}{
 #'       Define a GET request
 #'     }
-#'     \item{\code{post(path, query, body, disk, stream, ...)}}{
+#'     \item{`post(path, query, body, disk, stream, ...)`}{
 #'       Define a POST request
 #'     }
-#'     \item{\code{put(path, query, body, disk, stream, ...)}}{
+#'     \item{`put(path, query, body, disk, stream, ...)`}{
 #'       Define a PUT request
 #'     }
-#'     \item{\code{patch(path, query, body, disk, stream, ...)}}{
+#'     \item{`patch(path, query, body, disk, stream, ...)`}{
 #'       Define a PATCH request
 #'     }
-#'     \item{\code{delete(path, query, body, disk, stream, ...)}}{
+#'     \item{`delete(path, query, body, disk, stream, ...)`}{
 #'       Define a DELETE request
 #'     }
-#'     \item{\code{head(path, disk, stream, ...)}}{
+#'     \item{`head(path, disk, stream, ...)`}{
 #'       Define a HEAD request
 #'     }
 #'   }
 #'
-#' See \code{\link{HttpClient}} for information on parameters.
+#' See [HttpClient()] for information on parameters.
 #'
 #' @format NULL
 #' @usage NULL

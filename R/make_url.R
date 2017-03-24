@@ -44,7 +44,7 @@ add_query <- function(x, url) {
 #' @param url (character) a url
 #' @param path (character) a path
 #' @param query (list) a named list of query parameters
-#' @return \code{url_build} returns a character string URL; \code{url_parse}
+#' @return `url_build` returns a character string URL; `url_parse`
 #' returns a list with URL components
 #' @examples
 #' url_build("https://httpbin.org")

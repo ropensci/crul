@@ -22,32 +22,32 @@ HTTP request object
 }
 \details{
 This R6 class doesn't do actual HTTP requests as does
-\code{\link{HttpClient}} - but is for building requests
-to use for async HTTP requests in \code{\link{AsyncVaried}}
+\code{\link[=HttpClient]{HttpClient()}} - but is for building requests
+to use for async HTTP requests in \code{\link[=AsyncVaried]{AsyncVaried()}}
 
 \strong{Methods}
-  \describe{
-    \item{\code{get(path, query, disk, stream, ...)}}{
-      Define a GET request
-    }
-    \item{\code{post(path, query, body, disk, stream, ...)}}{
-      Define a POST request
-    }
-    \item{\code{put(path, query, body, disk, stream, ...)}}{
-      Define a PUT request
-    }
-    \item{\code{patch(path, query, body, disk, stream, ...)}}{
-      Define a PATCH request
-    }
-    \item{\code{delete(path, query, body, disk, stream, ...)}}{
-      Define a DELETE request
-    }
-    \item{\code{head(path, disk, stream, ...)}}{
-      Define a HEAD request
-    }
-  }
+\describe{
+\item{\code{get(path, query, disk, stream, ...)}}{
+Define a GET request
+}
+\item{\code{post(path, query, body, disk, stream, ...)}}{
+Define a POST request
+}
+\item{\code{put(path, query, body, disk, stream, ...)}}{
+Define a PUT request
+}
+\item{\code{patch(path, query, body, disk, stream, ...)}}{
+Define a PATCH request
+}
+\item{\code{delete(path, query, body, disk, stream, ...)}}{
+Define a DELETE request
+}
+\item{\code{head(path, disk, stream, ...)}}{
+Define a HEAD request
+}
+}
 
-See \code{\link{HttpClient}} for information on parameters.
+See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
 \examples{
 (x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
@@ -65,7 +65,7 @@ HttpRequest$new(
 )
 }
 \seealso{
-\code{\link{post-requests}}, \code{\link{delete-requests}},
-\code{\link{http-headers}}, \code{\link{writing-options}}
+\link{post-requests}, \link{delete-requests},
+\link{http-headers}, \link{writing-options}
 }
 \keyword{datasets}

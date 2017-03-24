@@ -1,32 +1,32 @@
 #' Async client for different request types
 #'
 #' @export
-#' @param ...,.list Any number of objects of class \code{\link{HttpRequest}},
+#' @param ...,.list Any number of objects of class [HttpRequest()],
 #' must supply inputs to one of these parameters, but not both
 #' @family async
-#' @return An object of class \code{AsyncVaried} with variables and methods
+#' @return An object of class `AsyncVaried` with variables and methods
 #' @details
-#' \strong{Methods}
+#' **Methods**
 #'   \describe{
-#'     \item{\code{request()}}{
+#'     \item{`request()`}{
 #'       execute asynchronous requests
 #'     }
-#'     \item{\code{requests()}}{
+#'     \item{`requests()`}{
 #'       list requests
 #'     }
-#'     \item{\code{parse(encoding = "UTF-8")}}{
+#'     \item{`parse(encoding = "UTF-8")`}{
 #'       parse content
 #'     }
-#'     \item{\code{status_code()}}{
+#'     \item{`status_code()`}{
 #'       (integer) HTTP status codes
 #'     }
-#'     \item{\code{status()}}{
+#'     \item{`status()`}{
 #'       (list) HTTP status objects
 #'     }
-#'     \item{\code{content()}}{
+#'     \item{`content()`}{
 #'       raw content
 #'     }
-#'     \item{\code{times()}}{
+#'     \item{`times()`}{
 #'       curl request times
 #'     }
 #'   }

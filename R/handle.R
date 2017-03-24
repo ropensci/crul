@@ -2,7 +2,7 @@
 #'
 #' @export
 #' @param url (character) A url. required.
-#' @param ... options passed on to \code{\link[curl]{new_handle}}
+#' @param ... options passed on to [curl::new_handle()]
 #' @examples
 #' handle("https://httpbin.org")
 #'
