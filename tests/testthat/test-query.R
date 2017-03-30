@@ -21,7 +21,8 @@ test_that("query - multiple params of same name work", {
 
   expect_is(aa, "HttpResponse")
   expect_equal(length(gregexpr("hello", aa$url)[[1]]), 2)
-  expect_equal(length(gregexpr("hello", jsonlite::fromJSON(aa$parse())$url)[[1]]), 2)
+  expect_equal(
+    length(gregexpr("hello", jsonlite::fromJSON(aa$parse())$url)[[1]]), 2)
 })
 
 test_that("query - length 0 query list works", {

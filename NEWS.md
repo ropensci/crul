@@ -1,11 +1,33 @@
+crul 0.3.4
+==========
+
+### NEW FEATURES
+
+* xxxx (#xx)
+* xxxx (#xx)
+* xxxx (#xx)
+
+### MINOR IMPROVEMENTS
+
+* xxxx (#xx)
+* xxxx (#xx)
+* xxxx (#xx)
+
+### BUG FIXES
+
+* xxxx (#xx)
+* xxxx (#xx)
+* xxxx (#xx)
+
+
 crul 0.3.0
 ==========
 
 ### NEW FEATURES
 
 * Added support for asynchronous HTTP requests, including two new
-R6 classes: `Async` and `AsyncVaried`. The former being a simpler 
-interface treating all URLs with same options/HTTP method, and the latter 
+R6 classes: `Async` and `AsyncVaried`. The former being a simpler
+interface treating all URLs with same options/HTTP method, and the latter
 allowing any type of request through the new R6 class `HttpRequest` (#8) (#24)
 * New R6 class `HttpRequest` to support `AsyncVaried` - this method
 only defines a request, but does not execute it. (#8)

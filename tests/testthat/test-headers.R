@@ -21,5 +21,6 @@ test_that("headers work - user headers passed", {
 
   expect_is(bb, "HttpResponse")
   expect_named(bb$request_headers, c('useragent', 'hello'))
-  expect_true(any(grepl("Hello", names(jsonlite::fromJSON(bb$parse())$headers))))
+  expect_true(
+    any(grepl("Hello", names(jsonlite::fromJSON(bb$parse())$headers))))
 })

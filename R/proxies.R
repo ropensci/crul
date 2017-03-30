@@ -90,5 +90,6 @@ proxy_auth <- function(x) {
 }
 
 purl <- function(x) {
-  sprintf("http://%s:%s (auth: %s)", x$proxy, x$proxyport, !is.null(x$proxyuserpwd))
+  sprintf("http://%s:%s (auth: %s)",
+          x$proxy, x$proxyport, !is.null(x$proxyuserpwd))
 }
