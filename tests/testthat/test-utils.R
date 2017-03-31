@@ -1,0 +1,40 @@
+context("encode")
+test_that("encode", {
+  aa <- encode("https://httpbin.org")
+  bb <- encode(I("https://httpbin.org"))
+
+  expect_is(aa, "character")
+  expect_is(bb, "AsIs")
+
+  expect_match(aa, "%3A")
+  expect_false(grepl("%3A", bb))
+})
+
+
+context("has_name")
+test_that("has_name", {
+  expect_false(has_name(5))
+  expect_true(all(has_name(mtcars)))
+  expect_true(has_name(list(a = 5)))
+  expect_false(has_name(list(5)))
+})
+
+
+context("has_namez")
+test_that("has_namez", {
+  expect_false(has_namez(5))
+  expect_true(has_namez(mtcars))
+  expect_true(has_namez(list(a = 5)))
+  expect_false(has_namez(list(5)))
+})
+
+
+context("make_query")
+test_that("make_query", {
+  aa <- make_query(list(foo = "hello", bar = "world"))
+
+  expect_is(aa, "character")
+  expect_match(aa, "foo")
+  expect_match(aa, "&")
+  expect_match(aa, "=")
+})

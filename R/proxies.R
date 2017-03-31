@@ -70,6 +70,8 @@ proxy_url <- function(x) {
 }
 
 proxy_up <- function(user, pwd) {
+  assert(user, "character")
+  assert(pwd, "character")
   if (!is.null(user) || !is.null(pwd)) {
     return(paste0(user, ":", pwd))
   }

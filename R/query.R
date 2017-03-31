@@ -5,6 +5,10 @@ encode <- function(x) {
   curl::curl_escape(x)
 }
 
+has_namez <- function(x) {
+  length(Filter(nzchar, names(x))) == length(x)
+}
+
 # adapted from https://github.com/hadley/httr
 has_name <- function(x) {
   nms <- names(x)

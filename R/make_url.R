@@ -63,7 +63,7 @@ url_build <- function(url, path = NULL, query = NULL) {
   assert(url, "character")
   assert(path, "character")
   assert(query, "list")
-  if (!has_names(query)) stop("all query elements must be named", call. = FALSE)
+  if (!has_namez(query)) stop("all query elements must be named", call. = FALSE)
   make_url(url, handle = NULL, path, query)$url
 }
 
@@ -80,9 +80,4 @@ url_parse <- function(url) {
       }), FALSE)
   }
   return(tmp)
-}
-
-# returns logical
-has_names <- function(x) {
-  length(Filter(nzchar, names(x))) == length(x)
 }
