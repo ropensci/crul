@@ -20,6 +20,7 @@ HTTP POST/PUT/PATCH requests
 x$post('post')
 
 ## form requests
+\dontrun{
 (cli <- HttpClient$new(
   url = "http://apps.kew.org/wcsp/advsearch.do"
 ))
@@ -32,6 +33,7 @@ cli$post(
     selectedLevel = 'cont'
   )
 )
+}
 
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$post("post",

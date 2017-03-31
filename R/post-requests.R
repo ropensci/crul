@@ -15,6 +15,7 @@
 #' x$post('post')
 #'
 #' ## form requests
+#' \dontrun{
 #' (cli <- HttpClient$new(
 #'   url = "http://apps.kew.org/wcsp/advsearch.do"
 #' ))
@@ -27,6 +28,7 @@
 #'     selectedLevel = 'cont'
 #'   )
 #' )
+#' }
 #'
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' res <- x$post("post",

@@ -5,11 +5,27 @@
 \alias{HttpResponse}
 \title{Base response object}
 \arguments{
-\item{url}{(character) A url}
+\item{url}{(character) A url, required}
 
 \item{opts}{(list) curl options}
 
 \item{handle}{A handle}
+
+\item{method}{(character) HTTP method}
+
+\item{status_code}{(integer) status code}
+
+\item{request_headers}{(list) request headers, named list}
+
+\item{response_headers}{(list) response headers, named list}
+
+\item{modified}{(character) modified date}
+
+\item{times}{(vector) named vector}
+
+\item{content}{(raw) raw binary content response}
+
+\item{request}{request object, with all details}
 }
 \description{
 Base response object
