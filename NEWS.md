@@ -3,21 +3,24 @@ crul 0.3.4
 
 ### NEW FEATURES
 
-* xxxx (#xx)
-* xxxx (#xx)
-* xxxx (#xx)
+* New utility functions `url_build` and `url_parse` (#31)
 
 ### MINOR IMPROVEMENTS
 
-* xxxx (#xx)
-* xxxx (#xx)
-* xxxx (#xx)
+* Now using markdown for documentation (#32)
+* Better documentation for `AsyncVaried` (#30)
+* New vignette on how to use `crul` in realistic
+scenarios rather than brief examples to demonstrate
+individual features (#29)
+* Better documentation for `HttpRequest` (#28)
+* Included more tests
 
 ### BUG FIXES
 
-* xxxx (#xx)
-* xxxx (#xx)
-* xxxx (#xx)
+* Fixed put/patch/delete as weren't passing body
+correctly in `HttpClient` (#26)
+* DRY out code for preparing requests - simplify to
+use helper functions (#27)
 
 
 crul 0.3.0

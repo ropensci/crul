@@ -18,13 +18,14 @@ Windows R-devel)
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 7 downstream dependencies
+* I have run R CMD check on the 10 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
 No problems were found. The maintainers of all deps are me.
 
 ---
 
-This version xxxx.
+This version adds a few new functions, new vignette, improves
+docs and tests, and fixes a few bug.
 
 Thanks!
 Scott Chamberlain
