@@ -1,8 +1,10 @@
 ## Test environments
 
-* local OS X install, R 3.3.2
-* ubuntu 12.04 (on travis-ci), R 3.3.2
+* local OS X install, R 3.3.3
+* ubuntu 12.04 (on travis-ci), R 3.3.3
 * win-builder (devel and release)
+* R-hub (Fedora Linux R-devel, Ubuntu Linux R-release,
+Windows R-devel)
 
 ## R CMD check results
 
@@ -18,12 +20,11 @@
 
 * I have run R CMD check on the 7 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
-No problems were found. The maintainers are me.
+No problems were found. The maintainers of all deps are me.
 
 ---
 
-This version adds methods for asynchronous HTTP requests, and fixes
-some bugs.
+This version xxxx.
 
 Thanks!
 Scott Chamberlain
