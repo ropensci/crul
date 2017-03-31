@@ -38,3 +38,12 @@ test_that("make_query", {
   expect_match(aa, "&")
   expect_match(aa, "=")
 })
+
+
+context("curl_opts_check")
+test_that("curl_opts_check works", {
+  expect_null(curl_opts_check(verbose = TRUE))
+  expect_null(curl_opts_check(timeout_ms = 0.001))
+  expect_error(
+    curl_opts_check(httppost = 1), "the following curl options are not allowed")
+})
