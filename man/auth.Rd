@@ -29,16 +29,16 @@ auth(user = "foo", pwd = "bar", auth = "any")
 # with HttpClient
 (res <- HttpClient$new(
   url = "https://httpbin.org/basic-auth/user/passwd",
-  auth = auth(user = "foo", pwd = "bar")
+  auth = auth(user = "user", pwd = "passwd")
 ))
 res$auth
-x <- res$get(verbose = TRUE)
+x <- res$get()
 jsonlite::fromJSON(x$parse("UTF-8"))
 
 # with HttpRequest
 (res <- HttpRequest$new(
   url = "https://httpbin.org/basic-auth/user/passwd",
-  auth = auth(user = "foo", pwd = "bar")
+  auth = auth(user = "user", pwd = "passwd")
 ))
 x$auth
 }
