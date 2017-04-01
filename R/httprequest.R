@@ -76,6 +76,7 @@ HttpRequest <- R6::R6Class(
     url = NULL,
     opts = list(),
     proxies = list(),
+    auth = list(),
     headers = list(),
     handle = NULL,
     payload = NULL,
@@ -92,6 +93,11 @@ HttpRequest <- R6::R6Class(
       cat("  proxies: ", sep = "\n")
       if (length(self$proxies)) cat(paste("    -",
                                           purl(self$proxies)), sep = "\n")
+      cat("  auth: ", sep = "\n")
+      if (length(self$auth$userpwd)) {
+        cat(paste("    -", self$auth$userpwd), sep = "\n")
+        cat(paste("    - type: ", self$auth$httpauth), sep = "\n")
+      }
       cat("  headers: ", sep = "\n")
       for (i in seq_along(self$headers)) {
         cat(sprintf("    %s: %s", names(self$headers)[i],
@@ -100,7 +106,7 @@ HttpRequest <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(url, opts, proxies, headers, handle) {
+    initialize = function(url, opts, proxies, auth, headers, handle) {
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
       if (!missing(proxies)) {
@@ -109,6 +115,7 @@ HttpRequest <- R6::R6Class(
         }
         self$proxies <- proxies
       }
+      if (!missing(auth)) self$auth <- auth
       if (!missing(headers)) self$headers <- headers
       if (!missing(handle)) self$handle <- handle
       if (is.null(self$url) && is.null(self$handle)) {
@@ -129,8 +136,8 @@ HttpRequest <- R6::R6Class(
         ),
         headers = self$headers
       )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
+      rr$options <- utils::modifyList(
+        rr$options, c(self$opts, self$proxies, self$auth, ...))
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr

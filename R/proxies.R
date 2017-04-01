@@ -52,8 +52,8 @@ proxy <- function(url, user = NULL, pwd = NULL, auth = "basic") {
   structure(ccp(list(
     proxy = url$domain,
     proxyport = url$port,
-    proxyuserpwd = proxy_up(user, pwd),
-    proxyauth = proxy_auth(auth)
+    proxyuserpwd = make_up(user, pwd),
+    proxyauth = auth_type(auth)
   )), class = "proxy")
 }
 
@@ -69,7 +69,7 @@ proxy_url <- function(x) {
   as.list(tmp)
 }
 
-proxy_up <- function(user, pwd) {
+make_up <- function(user, pwd) {
   assert(user, "character")
   assert(pwd, "character")
   if (!is.null(user) || !is.null(pwd)) {
@@ -78,7 +78,8 @@ proxy_up <- function(user, pwd) {
   NULL
 }
 
-proxy_auth <- function(x) {
+auth_type <- function(x) {
+  stopifnot(inherits(x, "character"))
   switch(
     x,
     basic = 1,

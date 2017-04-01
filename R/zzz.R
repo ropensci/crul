@@ -33,7 +33,7 @@ prep_opts <- function(method, url, self, opts, ...) {
   )
   rr$options <- utils::modifyList(
     rr$options,
-    c(self$opts, self$proxies, ...)
+    c(self$opts, self$proxies, self$auth, ...)
   )
   return(rr)
 }
