@@ -96,16 +96,16 @@
 (<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:28 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 533
+#&gt;     content-length: 528
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res1</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
@@ -135,7 +135,7 @@
 #&gt; [1] &quot;145&quot;
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;multipart/form-data; boundary=------------------------e50d120848f18fa1&quot;
+#&gt; [1] &quot;multipart/form-data; boundary=------------------------76a1b80e0107b499&quot;
 #&gt; 
 #&gt; $headers$Expect
 #&gt; [1] &quot;100-continue&quot;
@@ -144,7 +144,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -160,16 +160,16 @@
 (<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:28 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 465
+#&gt;     content-length: 460
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res2</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
@@ -205,7 +205,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -221,16 +221,16 @@
 <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:28 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 439
+#&gt;     content-length: 434
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 </div></pre>

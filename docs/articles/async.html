@@ -60,7 +60,7 @@
       <h1>async with crul</h1>
                         <h4 class="author">Scott Chamberlain</h4>
             
-            <h4 class="date">2017-03-24</h4>
+            <h4 class="date">2017-04-03</h4>
           </div>
 
     
@@ -75,12 +75,12 @@
 <p>The first option takes less thinking, less work, and is good solution when you just want to hit a bunch of URLs asynchronously.</p>
 <p>The second option is ideal when you want to set curl options/headers on each request and/or want to do different types of HTTP methods on each request.</p>
 <p>One thing to think about before using async is whether the data provider is okay with it. It’s possible that a data provider’s service may be brought down if you do too many async requests.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"crul"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"crul"</span>)</code></pre>
 <div id="simple-async" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#simple-async" class="anchor"> </a></body></html>simple async</h2>
 <p>Build request objcect with 1 or more URLs</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(cc &lt;-<span class="st"> </span>Async$<span class="kw">new</span>(
+<pre class="sourceCode r"><code class="sourceCode r">(cc &lt;-<span class="st"> </span>Async$<span class="kw">new</span>(
   <span class="dt">urls =</span> <span class="kw">c</span>(
     <span class="st">'https://httpbin.org/get?a=5'</span>,
     <span class="st">'https://httpbin.org/get?a=5&amp;b=6'</span>,
@@ -91,23 +91,23 @@
 <span class="co">#&gt;   urls: </span>
 <span class="co">#&gt;    https://httpbin.org/get?a=5</span>
 <span class="co">#&gt;    https://httpbin.org/get?a=5&amp;b=6</span>
-<span class="co">#&gt;    https://httpbin.org/ip</span></code></pre></div>
+<span class="co">#&gt;    https://httpbin.org/ip</span></code></pre>
 <p>Make request with any HTTP method</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(res &lt;-<span class="st"> </span>cc$<span class="kw">get</span>())
+<pre class="sourceCode r"><code class="sourceCode r">(res &lt;-<span class="st"> </span>cc$<span class="kw">get</span>())
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; &lt;crul response&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org/get?a=5</span>
 <span class="co">#&gt;   request_headers: </span>
-<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
 <span class="co">#&gt;     connection: keep-alive</span>
 <span class="co">#&gt;     server: gunicorn/19.7.1</span>
-<span class="co">#&gt;     date: Fri, 24 Mar 2017 23:05:39 GMT</span>
+<span class="co">#&gt;     date: Mon, 03 Apr 2017 16:29:47 GMT</span>
 <span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
-<span class="co">#&gt;     content-length: 307</span>
+<span class="co">#&gt;     content-length: 302</span>
 <span class="co">#&gt;     via: 1.1 vegur</span>
 <span class="co">#&gt;   params: </span>
 <span class="co">#&gt;     a: 5</span>
@@ -117,16 +117,16 @@
 <span class="co">#&gt; &lt;crul response&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org/get?a=5&amp;b=6</span>
 <span class="co">#&gt;   request_headers: </span>
-<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
 <span class="co">#&gt;     connection: keep-alive</span>
 <span class="co">#&gt;     server: gunicorn/19.7.1</span>
-<span class="co">#&gt;     date: Fri, 24 Mar 2017 23:05:39 GMT</span>
+<span class="co">#&gt;     date: Mon, 03 Apr 2017 16:29:47 GMT</span>
 <span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
-<span class="co">#&gt;     content-length: 326</span>
+<span class="co">#&gt;     content-length: 321</span>
 <span class="co">#&gt;     via: 1.1 vegur</span>
 <span class="co">#&gt;   params: </span>
 <span class="co">#&gt;     a: 5</span>
@@ -137,41 +137,41 @@
 <span class="co">#&gt; &lt;crul response&gt; </span>
 <span class="co">#&gt;   url: https://httpbin.org/ip</span>
 <span class="co">#&gt;   request_headers: </span>
-<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414</span>
+<span class="co">#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4</span>
 <span class="co">#&gt;   response_headers: </span>
 <span class="co">#&gt;     status: HTTP/1.1 200 OK</span>
 <span class="co">#&gt;     connection: keep-alive</span>
 <span class="co">#&gt;     server: gunicorn/19.7.1</span>
-<span class="co">#&gt;     date: Fri, 24 Mar 2017 23:05:39 GMT</span>
+<span class="co">#&gt;     date: Mon, 03 Apr 2017 16:29:47 GMT</span>
 <span class="co">#&gt;     content-type: application/json</span>
 <span class="co">#&gt;     access-control-allow-origin: *</span>
 <span class="co">#&gt;     access-control-allow-credentials: true</span>
 <span class="co">#&gt;     content-length: 33</span>
 <span class="co">#&gt;     via: 1.1 vegur</span>
-<span class="co">#&gt;   status: 200</span></code></pre></div>
+<span class="co">#&gt;   status: 200</span></code></pre>
 <p>You get back a list matching length of the number of input URLs</p>
 <p>Access object variables and methods just as with <code>HttpClient</code> results, here just one at a time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res[[<span class="dv">1</span>]]$url
+<pre class="sourceCode r"><code class="sourceCode r">res[[<span class="dv">1</span>]]$url
 <span class="co">#&gt; [1] "https://httpbin.org/get?a=5"</span>
 res[[<span class="dv">1</span>]]$<span class="kw">success</span>()
 <span class="co">#&gt; [1] TRUE</span>
 res[[<span class="dv">1</span>]]$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>)
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span></code></pre></div>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.4 crul/0.3.4\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span></code></pre>
 <p>Or apply access/method calls aross many results, e.g., parse all results</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res, function(z) z$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res, function(z) z$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>))
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.4 crul/0.3.4\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&amp;b=6\"\n}\n"</span>
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.4 crul/0.3.4\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&amp;b=6\"\n}\n"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"</span></code></pre></div>
+<span class="co">#&gt; [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"</span></code></pre>
 </div>
 <div id="varied-request-async" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#varied-request-async" class="anchor"> </a></body></html>varied request async</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">req1 &lt;-<span class="st"> </span>HttpRequest$<span class="kw">new</span>(
+<pre class="sourceCode r"><code class="sourceCode r">req1 &lt;-<span class="st"> </span>HttpRequest$<span class="kw">new</span>(
   <span class="dt">url =</span> <span class="st">"https://httpbin.org/get?a=5"</span>,
   <span class="dt">opts =</span> <span class="kw">list</span>(
     <span class="dt">verbose =</span> <span class="ot">TRUE</span>
@@ -199,14 +199,14 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt; &lt;crul async varied connection&gt; </span>
 <span class="co">#&gt;   requests: </span>
 <span class="co">#&gt;    get: https://httpbin.org/get?a=5 </span>
-<span class="co">#&gt;    post: https://httpbin.org/post?a=5&amp;b=6</span></code></pre></div>
+<span class="co">#&gt;    post: https://httpbin.org/post?a=5&amp;b=6</span></code></pre>
 <p>Make requests asynchronously</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">request</span>()</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">request</span>()</code></pre>
 <p>Parse all results</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">parse</span>()
-<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       </span>
-<span class="co">#&gt; [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------0f4b8b539ba91cb1\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&amp;b=6\"\n}\n"</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res$<span class="kw">parse</span>(), jsonlite::prettify)
+<pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">parse</span>()
+<span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.4 crul/0.3.4\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       </span>
+<span class="co">#&gt; [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------83f32b58473fdb71\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.4 crul/0.3.4\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&amp;b=6\"\n}\n"</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lapply</span>(res$<span class="kw">parse</span>(), jsonlite::prettify)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "args": {</span>
@@ -217,7 +217,7 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt;         "Accept-Encoding": "gzip, deflate",</span>
 <span class="co">#&gt;         "Connection": "close",</span>
 <span class="co">#&gt;         "Host": "httpbin.org",</span>
-<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
+<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.4 crul/0.3.4"</span>
 <span class="co">#&gt;     },</span>
 <span class="co">#&gt;     "origin": "157.130.179.86",</span>
 <span class="co">#&gt;     "url": "https://httpbin.org/get?a=5"</span>
@@ -242,19 +242,19 @@ req2$<span class="kw">post</span>(<span class="dt">body =</span> <span class="kw
 <span class="co">#&gt;         "Accept-Encoding": "gzip, deflate",</span>
 <span class="co">#&gt;         "Connection": "close",</span>
 <span class="co">#&gt;         "Content-Length": "137",</span>
-<span class="co">#&gt;         "Content-Type": "multipart/form-data; boundary=------------------------0f4b8b539ba91cb1",</span>
+<span class="co">#&gt;         "Content-Type": "multipart/form-data; boundary=------------------------83f32b58473fdb71",</span>
 <span class="co">#&gt;         "Expect": "100-continue",</span>
 <span class="co">#&gt;         "Host": "httpbin.org",</span>
-<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
+<span class="co">#&gt;         "User-Agent": "libcurl/7.51.0 r-curl/2.4 crul/0.3.4"</span>
 <span class="co">#&gt;     },</span>
 <span class="co">#&gt;     "json": null,</span>
 <span class="co">#&gt;     "origin": "157.130.179.86",</span>
 <span class="co">#&gt;     "url": "https://httpbin.org/post?a=5&amp;b=6"</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; </span></code></pre></div>
+<span class="co">#&gt; </span></code></pre>
 <p>Status codes</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">status_code</span>()
-<span class="co">#&gt; [1] 200 200</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">res$<span class="kw">status_code</span>()
+<span class="co">#&gt; [1] 200 200</span></code></pre>
 </div>
 </div>
   </div>
