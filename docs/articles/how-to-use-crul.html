@@ -60,7 +60,7 @@
       <h1>How to use crul</h1>
                         <h4 class="author">Scott Chamberlain</h4>
             
-            <h4 class="date">2017-03-24</h4>
+            <h4 class="date">2017-04-03</h4>
           </div>
 
     
@@ -70,14 +70,14 @@
 <p>First, <code>crul</code> is aimed a bit more at developers than at the casual user doing HTTP requests. That is, <code>crul</code> is probably a better fit for an R package developer, mainly because it heavily uses <code>R6</code> - an interface that’s very unlike the interface in <code>httr</code> but very similar to interacting with classes in Ruby/Python.</p>
 <p>Second, there is not yet, but will be soon, the ability to mock HTTP requests. We are working on that, and should have it integrated soon. When that feature arrives we’ll update this vignette.</p>
 <p>Load the library</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"crul"</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"crul"</span>)</code></pre>
 <div id="a-simple-http-request-function" class="section level2">
 <h2 class="hasAnchor">
 <html><body><a href="#a-simple-http-request-function" class="anchor"> </a></body></html>A simple HTTP request function</h2>
 <p>Most likely you’ll want to do a <code>GET</code> request - so let’s start with that - though the details are not much different for other HTTP verbs.</p>
 <p>And in most cases you’ll likely not want to do asynchronous requests - though see below if you do.</p>
 <p>You’ll probably want to write a small function, like so (annotated for clarity)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_request &lt;-<span class="st"> </span>function(url) {
+<pre class="sourceCode r"><code class="sourceCode r">make_request &lt;-<span class="st"> </span>function(url) {
   <span class="co"># create a HttpClient object, defining the url</span>
   cli &lt;-<span class="st"> </span>crul::HttpClient$<span class="kw">new</span>(<span class="dt">url =</span> url)
   <span class="co"># do a GET request</span>
@@ -90,9 +90,9 @@
   txt &lt;-<span class="st"> </span>res$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>)
   <span class="co"># parse the JSON to an R list</span>
   jsonlite::<span class="kw">fromJSON</span>(txt)
-}</code></pre></div>
+}</code></pre>
 <p>Use the function</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request</span>(<span class="st">"https://httpbin.org/get"</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request</span>(<span class="st">"https://httpbin.org/get"</span>)
 <span class="co">#&gt; $args</span>
 <span class="co">#&gt; named list()</span>
 <span class="co">#&gt; </span>
@@ -110,14 +110,14 @@
 <span class="co">#&gt; [1] "httpbin.org"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $headers$`User-Agent`</span>
-<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414"</span>
+<span class="co">#&gt; [1] "libcurl/7.51.0 r-curl/2.4 crul/0.3.4"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $origin</span>
 <span class="co">#&gt; [1] "157.130.179.86"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $url</span>
-<span class="co">#&gt; [1] "https://httpbin.org/get"</span></code></pre></div>
+<span class="co">#&gt; [1] "https://httpbin.org/get"</span></code></pre>
 <p>Now you can use the <code>make_request</code> function in your script or package.</p>
 </div>
 <div id="more-customized-function" class="section level2">
@@ -125,7 +125,7 @@
 <html><body><a href="#more-customized-function" class="anchor"> </a></body></html>More customized function</h2>
 <p>Once you get more familiar (or if you’re already familiar with HTTP) you may want to have more control, toggle more switches.</p>
 <p>In the next function, we’ll allow for users to pass in curl options, use a custom HTTP status checker, and xxx.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_request2 &lt;-<span class="st"> </span>function(url, ...) {
+<pre class="sourceCode r"><code class="sourceCode r">make_request2 &lt;-<span class="st"> </span>function(url, ...) {
   <span class="co"># create a HttpClient object, defining the url</span>
   cli &lt;-<span class="st"> </span>crul::HttpClient$<span class="kw">new</span>(<span class="dt">url =</span> url)
   <span class="co"># do a GET request, allow curl options to be passed in</span>
@@ -145,9 +145,9 @@
   txt &lt;-<span class="st"> </span>res$<span class="kw">parse</span>(<span class="st">"UTF-8"</span>)
   <span class="co"># parse the JSON to an R list</span>
   jsonlite::<span class="kw">fromJSON</span>(txt)
-}</code></pre></div>
+}</code></pre>
 <p>Use the function</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>)
 <span class="co">#&gt; $status</span>
 <span class="co">#&gt; [1] "ok"</span>
 <span class="co">#&gt; </span>
@@ -162,7 +162,7 @@
 <span class="co">#&gt; named list()</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$`total-results`</span>
-<span class="co">#&gt; [1] 87413367</span>
+<span class="co">#&gt; [1] 87644780</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$items</span>
 <span class="co">#&gt; list()</span>
@@ -175,12 +175,12 @@
 <span class="co">#&gt; [1] 0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$query$`search-terms`</span>
-<span class="co">#&gt; NULL</span></code></pre></div>
+<span class="co">#&gt; NULL</span></code></pre>
 <p>No different from the first function (besides the URL). However, now we can pass in curl options:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)
-<span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>, <span class="dt">timeout_ms =</span> <span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)
+<span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=0"</span>, <span class="dt">timeout_ms =</span> <span class="dv">1</span>)</code></pre>
 <p>We can also pass named parameters supported in the <code>get</code> method, including <code>query</code>, <code>disk</code>, and <code>stream</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works"</span>, <span class="dt">query =</span> <span class="kw">list</span>(<span class="dt">rows =</span> <span class="dv">0</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works"</span>, <span class="dt">query =</span> <span class="kw">list</span>(<span class="dt">rows =</span> <span class="dv">0</span>))
 <span class="co">#&gt; $status</span>
 <span class="co">#&gt; [1] "ok"</span>
 <span class="co">#&gt; </span>
@@ -195,7 +195,7 @@
 <span class="co">#&gt; named list()</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$`total-results`</span>
-<span class="co">#&gt; [1] 87413367</span>
+<span class="co">#&gt; [1] 87644780</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$items</span>
 <span class="co">#&gt; list()</span>
@@ -208,11 +208,11 @@
 <span class="co">#&gt; [1] 0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $message$query$`search-terms`</span>
-<span class="co">#&gt; NULL</span></code></pre></div>
+<span class="co">#&gt; NULL</span></code></pre>
 <p>In addition, the failure behavior is different, and customized to the specific web resource we are working with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=asdf"</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">make_request2</span>(<span class="st">"http://api.crossref.org/works?rows=asdf"</span>)
 <span class="co">#&gt; Error: HTTP (400) - Bad request syntax or unsupported method</span>
-<span class="co">#&gt;   Integer specified as asdf but must be a positive integer less than or equal to 1000.</span></code></pre></div>
+<span class="co">#&gt;   Integer specified as asdf but must be a positive integer less than or equal to 1000.</span></code></pre>
 </div>
 <div id="asynchronous-requests" class="section level2">
 <h2 class="hasAnchor">

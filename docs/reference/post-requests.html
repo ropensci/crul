@@ -97,82 +97,66 @@
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:33 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:43 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 531
+#&gt;     content-length: 526
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## a string</span>
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:33 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:43 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 463
+#&gt;     content-length: 458
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## empty body request</span>
 <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:34 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 437
+#&gt;     content-length: 432
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## form requests</span>
-(<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
-  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://apps.kew.org/wcsp/advsearch.do"</span>
-))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: http://apps.kew.org/wcsp/advsearch.do
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   headers: </div><div class='input'><span class='no'>cli</span>$<span class='fu'>post</span>(
-  <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"form"</span>,
-  <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(
-    <span class='kw'>page</span> <span class='kw'>=</span> <span class='st'>'advancedSearch'</span>,
-    <span class='kw'>genus</span> <span class='kw'>=</span> <span class='st'>'Gagea'</span>,
-    <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>'pratensis'</span>,
-    <span class='kw'>selectedLevel</span> <span class='kw'>=</span> <span class='st'>'cont'</span>
-  )
-)</div><div class='output co'>#&gt; &lt;crul response&gt; 
-#&gt;   url: http://apps.kew.org/wcsp/advsearch.do
-#&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
-#&gt;     Content-Type: application/x-www-form-urlencoded
-#&gt;   response_headers: 
-#&gt;     status: HTTP/1.0 200 OK
-#&gt;     date: Fri, 24 Mar 2017 23:05:34 GMT
-#&gt;     server: Apache/2.2.3 (Red Hat)
-#&gt;     set-cookie: JSESSIONID=DA37E795C608009BA6D4F4759D63A6C1; Path=/wcsp
-#&gt;     content-length: 17304
-#&gt;     cache-control: max-age=900
-#&gt;     expires: Fri, 24 Mar 2017 23:20:34 GMT
-#&gt;     content-type: text/html;charset=ISO-8859-1
-#&gt;     connection: close
-#&gt;     set-cookie: __kewlb=1454604957.1.796981360.634912769; path=/
-#&gt;   status: 200</div><div class='input'>
+<span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># (cli &lt;- HttpClient$new(</span>
+<span class='co'>#   url = "http://apps.kew.org/wcsp/advsearch.do"</span>
+<span class='co'># ))</span>
+<span class='co'># cli$post(</span>
+<span class='co'>#   encode = "form",</span>
+<span class='co'>#   body = list(</span>
+<span class='co'>#     page = 'advancedSearch',</span>
+<span class='co'>#     genus = 'Gagea',</span>
+<span class='co'>#     species = 'pratensis',</span>
+<span class='co'>#     selectedLevel = 'cont'</span>
+<span class='co'>#   )</span>
+<span class='co'># )</span>
+<span class='co'>## ---------------------------------------------</span>
+
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
@@ -216,7 +200,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -247,17 +231,17 @@
 ))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/put
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;     Content-Type: application/json
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:34 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 518
+#&gt;     content-length: 513
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
@@ -291,7 +275,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -343,7 +327,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -370,17 +354,17 @@
 ))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/patch
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;     Content-Type: application/json
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: gunicorn/19.7.1
-#&gt;     date: Fri, 24 Mar 2017 23:05:35 GMT
+#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 520
+#&gt;     content-length: 515
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
@@ -414,7 +398,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
@@ -466,7 +450,7 @@
 #&gt; [1] &quot;httpbin.org&quot;
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.3 crul/0.3.2.9414&quot;
+#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
 #&gt; 
 #&gt; 
 #&gt; $json
