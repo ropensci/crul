@@ -25,15 +25,27 @@ prep_opts <- function(method, url, self, opts, ...) {
     url = url,
     method = method,
     options = as.list(c(
-      opts$opts,
-      useragent = make_ua()
+      opts$opts
     )),
-    headers = c(self$headers, opts$type),
+    headers = as.list(c(
+      opts$type,
+      `User-Agent` = make_ua(),
+      `Accept-Encoding` = 'gzip, deflate'
+    )),
     fields = opts$fields
   )
+  rr$headers <- norm_headers(rr$headers, self$headers)
   rr$options <- utils::modifyList(
     rr$options,
     c(self$opts, self$proxies, self$auth, ...)
   )
   return(rr)
+}
+
+norm_headers <- function(x, y) {
+  if (length(names(y)) > 0) {
+    x <- x[!names(x) %in% names(y)]
+    x <- c(x, y)
+  }
+  return(x)
 }

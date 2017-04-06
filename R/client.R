@@ -143,11 +143,14 @@ HttpClient <- R6::R6Class(
         url = url,
         method = "get",
         options = list(
-          httpget = TRUE,
-          useragent = make_ua()
+          httpget = TRUE
         ),
-        headers = self$headers
+        headers = list(
+          `User-Agent` = make_ua(),
+          `Accept-Encoding` = 'gzip, deflate'
+        )
       )
+      rr$headers <- norm_headers(rr$headers, self$headers)
       rr$options <- utils::modifyList(
         rr$options, c(self$opts, self$proxies, self$auth, ...))
       rr$disk <- disk
