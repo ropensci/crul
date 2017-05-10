@@ -76,16 +76,23 @@ HttpResponse <- R6::R6Class(
     print = function(x, ...) {
       cat("<crul response> ", sep = "\n")
       cat(paste0("  url: ", self$url), sep = "\n")
+
       cat("  request_headers: ", sep = "\n")
-      for (i in seq_along(self$request_headers)) {
-        cat(sprintf("    %s: %s", names(self$request_headers)[i],
-                    self$request_headers[[i]]), sep = "\n")
+      if (length(self$request_headers)) {
+        for (i in seq_along(self$request_headers)) {
+          cat(sprintf("    %s: %s", names(self$request_headers)[i],
+                      self$request_headers[[i]]), sep = "\n")
+        }
       }
+
       cat("  response_headers: ", sep = "\n")
-      for (i in seq_along(self$response_headers)) {
-        cat(sprintf("    %s: %s", names(self$response_headers)[i],
-                    self$response_headers[[i]]), sep = "\n")
+      if (length(self$response_headers)) {
+        for (i in seq_along(self$response_headers)) {
+          cat(sprintf("    %s: %s", names(self$response_headers)[i],
+                      self$response_headers[[i]]), sep = "\n")
+        }
       }
+
       params <- parse_params(self$url)
       if (!is.null(params)) {
         cat("  params: ", sep = "\n")

@@ -14,20 +14,27 @@ Mocking HTTP requests
 library(webmockr)
 library(crul)
 
+URL <- "https://httpbin.org"
+# URL <- "http://localhost:9000"
+
 # turn on mocking
 webmockr::enable()
 crul::mock()
 crul:::crul_opts$mock
 
 # stub a request
-webmockr::stub_request("get", "http://localhost:9000/get")
+webmockr::stub_request("get", URL)
 webmockr:::webmockr_stub_registry
 
 # create an HTTP client
-(x <- HttpClient$new(url = "http://localhost:9000"))
+(x <- HttpClient$new(url = URL))
 
 # make a request - first one is executed, and following requests
 # pull from the cache
-x$get('get') # http request made
+x$get(path = 'get') # http request made
 x$get('get') # not http request made, pulled from cache
+
+# allow net connect
+webmockr::webmockr_allow_net_connect()
+x$get('get')
 }

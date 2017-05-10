@@ -252,11 +252,17 @@ HttpClient <- R6::R6Class(
         url = resp$url,
         status_code = resp$status_code,
         request_headers = c(useragent = opts$options$useragent, opts$headers),
+        #response_headers = list(),
         response_headers = {
           if (grepl("^ftp://", resp$url)) {
             list()
           } else {
-            headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+            hh <- rawToChar(resp$headers %||% raw(0))
+            if (is.null(hh) || nchar(hh) == 0) {
+              list()
+            } else {
+              headers_parse(curl::parse_headers(hh))
+            }
           }
         },
         modified = resp$modified,
