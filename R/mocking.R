@@ -14,7 +14,7 @@
 #' crul:::crul_opts$mock
 #'
 #' # stub a request
-#' webmockr::stub_request("get", URL)
+#' stub_request("get", URL)
 #' webmockr:::webmockr_stub_registry
 #'
 #' # create an HTTP client
@@ -27,6 +27,8 @@
 #'
 #' # allow net connect
 #' webmockr::webmockr_allow_net_connect()
+#' x$get('get')
+#' webmockr::webmockr_disable_net_connect()
 #' x$get('get')
 mock <- function(on = TRUE) crul_opts$mock <- on
 

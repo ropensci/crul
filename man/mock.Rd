@@ -18,7 +18,6 @@ URL <- "https://httpbin.org"
 # URL <- "http://localhost:9000"
 
 # turn on mocking
-webmockr::enable()
 crul::mock()
 crul:::crul_opts$mock
 
@@ -31,7 +30,7 @@ webmockr:::webmockr_stub_registry
 
 # make a request - first one is executed, and following requests
 # pull from the cache
-x$get(path = 'get') # http request made
+x$get('get') # http request made
 x$get('get') # not http request made, pulled from cache
 
 # allow net connect
