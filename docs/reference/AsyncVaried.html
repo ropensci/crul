@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,11 +88,14 @@
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>..., .list</dt>
-      <dd>Any number of objects of class <code><a href='HttpRequest.html'>HttpRequest()</a></code>,
-must supply inputs to one of these parameters, but not both</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>..., .list</th>
+      <td><p>Any number of objects of class <code><a href='HttpRequest.html'>HttpRequest()</a></code>,
+must supply inputs to one of these parameters, but not both</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -98,48 +103,31 @@ must supply inputs to one of these parameters, but not both</dd>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Methods</strong>
-<dl class='dl-horizontal'>
-<dt><code>request()</code></dt><dd>
-Execute asynchronous requests
+    <p><strong>Methods</strong></p><dl class='dl-horizontal'>
+<dt><code>request()</code></dt><dd><p>Execute asynchronous requests
 - returns: nothing, responses stored inside object,
-though will print messages if you choose verbose output
-</dd>
-<dt><code>requests()</code></dt><dd>
-list requests
+though will print messages if you choose verbose output</p></dd>
+<dt><code>requests()</code></dt><dd><p>list requests
 - returns: a list of <code>HttpRequest</code> objects, empty list before
-requests made
-</dd>
-<dt><code>responses()</code></dt><dd>
-list responses
+requests made</p></dd>
+<dt><code>responses()</code></dt><dd><p>list responses
 - returns: a list of <code>HttpResponse</code> objects, empty list before
-requests made
-</dd>
-<dt><code>parse(encoding = &quot;UTF-8&quot;)</code></dt><dd>
-parse content
+requests made</p></dd>
+<dt><code>parse(encoding = "UTF-8")</code></dt><dd><p>parse content
 - returns: character vector, empty character vector before
-requests made
-</dd>
-<dt><code>status_code()</code></dt><dd>
-(integer) HTTP status codes
+requests made</p></dd>
+<dt><code>status_code()</code></dt><dd><p>(integer) HTTP status codes
 - returns: numeric vector, empty numeric vector before
-requests made
-</dd>
-<dt><code>status()</code></dt><dd>
-(list) HTTP status objects
+requests made</p></dd>
+<dt><code>status()</code></dt><dd><p>(list) HTTP status objects
 - returns: a list of <code>http_code</code> objects, empty list before
-requests made
-</dd>
-<dt><code>content()</code></dt><dd>
-raw content
-- returns: raw list, empty list before requests made
-</dd>
-<dt><code>times()</code></dt><dd>
-curl request times
+requests made</p></dd>
+<dt><code>content()</code></dt><dd><p>raw content
+- returns: raw list, empty list before requests made</p></dd>
+<dt><code>times()</code></dt><dd><p>curl request times
 - returns: list of named numeric vectors, empty list before
-requests made
-</dd>
-</dl></p>
+requests made</p></dd>
+</dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -147,64 +135,64 @@ requests made
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># # pass in requests via ...</span>
-<span class='co'># req1 &lt;- HttpRequest$new(</span>
-<span class='co'>#   url = "https://httpbin.org/get",</span>
-<span class='co'>#   opts = list(verbose = TRUE),</span>
-<span class='co'>#   headers = list(foo = "bar")</span>
-<span class='co'># )$get()</span>
-<span class='co'># req2 &lt;- HttpRequest$new(url = "https://httpbin.org/post")$post()</span>
-<span class='co'># </span>
-<span class='co'># # Create an AsyncVaried object</span>
-<span class='co'># out &lt;- AsyncVaried$new(req1, req2)</span>
-<span class='co'># </span>
-<span class='co'># # before you make requests, the methods return empty objects</span>
-<span class='co'># out$status()</span>
-<span class='co'># out$status_code()</span>
-<span class='co'># out$content()</span>
-<span class='co'># out$times()</span>
-<span class='co'># out$parse()</span>
-<span class='co'># out$responses()</span>
-<span class='co'># </span>
-<span class='co'># # make requests</span>
-<span class='co'># out$request()</span>
-<span class='co'># </span>
-<span class='co'># # access various parts</span>
-<span class='co'># ## http status objects</span>
-<span class='co'># out$status()</span>
-<span class='co'># ## status codes</span>
-<span class='co'># out$status_code()</span>
-<span class='co'># ## content (raw data)</span>
-<span class='co'># out$content()</span>
-<span class='co'># ## times</span>
-<span class='co'># out$times()</span>
-<span class='co'># ## parsed content</span>
-<span class='co'># out$parse()</span>
-<span class='co'># ## response objects</span>
-<span class='co'># out$responses()</span>
-<span class='co'># </span>
-<span class='co'># # pass in requests in a list via .list param</span>
-<span class='co'># reqlist &lt;- list(</span>
-<span class='co'>#   HttpRequest$new(url = "https://httpbin.org/get")$get(),</span>
-<span class='co'>#   HttpRequest$new(url = "https://httpbin.org/post")$post(),</span>
-<span class='co'>#   HttpRequest$new(url = "https://httpbin.org/put")$put(),</span>
-<span class='co'>#   HttpRequest$new(url = "https://httpbin.org/delete")$delete(),</span>
-<span class='co'>#   HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),</span>
-<span class='co'>#   HttpRequest$new(</span>
-<span class='co'>#     url = "https://httpbin.org/post")$post(body = list(y = 9)),</span>
-<span class='co'>#   HttpRequest$new(</span>
-<span class='co'>#     url = "https://httpbin.org/get")$get(query = list(hello = "world"))</span>
-<span class='co'># )</span>
-<span class='co'># </span>
-<span class='co'># out &lt;- AsyncVaried$new(.list = reqlist)</span>
-<span class='co'># out$request()</span>
-<span class='co'># out$status()</span>
-<span class='co'># out$status_code()</span>
-<span class='co'># out$content()</span>
-<span class='co'># out$times()</span>
-<span class='co'># out$parse()</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
+  <span class='co'># pass in requests via ...</span>
+  <span class='no'>req1</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
+    <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>,
+    <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+    <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>)
+  )$<span class='fu'>get</span>()
+  <span class='no'>req2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>)$<span class='fu'>post</span>()
+
+  <span class='co'># Create an AsyncVaried object</span>
+  <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='no'>req1</span>, <span class='no'>req2</span>)
+
+  <span class='co'># before you make requests, the methods return empty objects</span>
+  <span class='no'>out</span>$<span class='fu'>status</span>()
+  <span class='no'>out</span>$<span class='fu'>status_code</span>()
+  <span class='no'>out</span>$<span class='fu'>content</span>()
+  <span class='no'>out</span>$<span class='fu'>times</span>()
+  <span class='no'>out</span>$<span class='fu'>parse</span>()
+  <span class='no'>out</span>$<span class='fu'>responses</span>()
+
+  <span class='co'># make requests</span>
+  <span class='no'>out</span>$<span class='fu'>request</span>()
+
+  <span class='co'># access various parts</span>
+  <span class='co'>## http status objects</span>
+  <span class='no'>out</span>$<span class='fu'>status</span>()
+  <span class='co'>## status codes</span>
+  <span class='no'>out</span>$<span class='fu'>status_code</span>()
+  <span class='co'>## content (raw data)</span>
+  <span class='no'>out</span>$<span class='fu'>content</span>()
+  <span class='co'>## times</span>
+  <span class='no'>out</span>$<span class='fu'>times</span>()
+  <span class='co'>## parsed content</span>
+  <span class='no'>out</span>$<span class='fu'>parse</span>()
+  <span class='co'>## response objects</span>
+  <span class='no'>out</span>$<span class='fu'>responses</span>()
+
+  <span class='co'># pass in requests in a list via .list param</span>
+  <span class='no'>reqlist</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>(),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>)$<span class='fu'>post</span>(),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/put"</span>)$<span class='fu'>put</span>(),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/delete"</span>)$<span class='fu'>delete</span>(),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get?g=5"</span>)$<span class='fu'>get</span>(),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
+      <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>)$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>9</span>)),
+    <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
+      <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>))
+  )
+
+  <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='kw'>.list</span> <span class='kw'>=</span> <span class='no'>reqlist</span>)
+  <span class='no'>out</span>$<span class='fu'>request</span>()
+  <span class='no'>out</span>$<span class='fu'>status</span>()
+  <span class='no'>out</span>$<span class='fu'>status_code</span>()
+  <span class='no'>out</span>$<span class='fu'>content</span>()
+  <span class='no'>out</span>$<span class='fu'>times</span>()
+  <span class='no'>out</span>$<span class='fu'>parse</span>()
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

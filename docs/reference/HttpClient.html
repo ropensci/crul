@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,66 +88,56 @@
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>url</dt>
-      <dd>(character) A url. One of <code>url</code> or <code>handle</code> required.</dd>
-      <dt>opts</dt>
-      <dd>(list) curl options, a named list. See
-<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl_options</a></code> for available curl options</dd>
-      <dt>proxies</dt>
-      <dd>an object of class <code>proxy</code>, as returned from the
-<code><a href='proxies.html'>proxy</a></code> function. Supports one proxy for now</dd>
-      <dt>headers</dt>
-      <dd>(list) a named list of headers</dd>
-      <dt>handle</dt>
-      <dd>A handle, see <code><a href='handle.html'>handle</a></code></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>(character) A url. One of <code>url</code> or <code>handle</code> required.</p></td>
+    </tr>
+    <tr>
+      <th>opts</th>
+      <td><p>(list) curl options, a named list. See
+<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl_options</a></code> for available curl options</p></td>
+    </tr>
+    <tr>
+      <th>proxies</th>
+      <td><p>an object of class <code>proxy</code>, as returned from the
+<code><a href='proxies.html'>proxy</a></code> function. Supports one proxy for now</p></td>
+    </tr>
+    <tr>
+      <th>headers</th>
+      <td><p>(list) a named list of headers</p></td>
+    </tr>
+    <tr>
+      <th>handle</th>
+      <td><p>A handle, see <code><a href='handle.html'>handle</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Methods</strong>
-<dl class='dl-horizontal'>
-<dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
-Make a GET request
-</dd>
-<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
-Make a POST request
-</dd>
-<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
-Make a PUT request
-</dd>
-<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
-Make a PATCH request
-</dd>
-<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
-Make a DELETE request
-</dd>
-<dt><code>head(path, disk, stream, ...)</code></dt><dd>
-Make a HEAD request
-</dd>
-</dl></p>
-    <p>Possible parameters (not all are allowed in each HTTP verb):
-<ul>
-<li> path - URL path, appended to the base URL
-</li>
-<li> query - query terms, as a list
-</li>
-<li> body - body as an R list
-</li>
-<li> encode - one of form, multipart, json, or raw
-</li>
-<li> disk - a path to write to. if NULL (default), memory used.
-See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl::curl_fetch_disk()</a></code> for help.
-</li>
-<li> stream - an R function to determine how to stream data. if
+    <p><strong>Methods</strong></p><dl class='dl-horizontal'>
+<dt><code>get(path, query, disk, stream, ...)</code></dt><dd><p>Make a GET request</p></dd>
+<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd><p>Make a POST request</p></dd>
+<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd><p>Make a PUT request</p></dd>
+<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd><p>Make a PATCH request</p></dd>
+<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd><p>Make a DELETE request</p></dd>
+<dt><code>head(path, disk, stream, ...)</code></dt><dd><p>Make a HEAD request</p></dd>
+</dl>
+    <p>Possible parameters (not all are allowed in each HTTP verb):</p><ul>
+<li><p>path - URL path, appended to the base URL</p></li>
+<li><p>query - query terms, as a list</p></li>
+<li><p>body - body as an R list</p></li>
+<li><p>encode - one of form, multipart, json, or raw</p></li>
+<li><p>disk - a path to write to. if NULL (default), memory used.
+See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl::curl_fetch_disk()</a></code> for help.</p></li>
+<li><p>stream - an R function to determine how to stream data. if
 NULL (default), memory used. See <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_fetch'>curl::curl_fetch_stream()</a></code>
-for help
-</li>
-<li> ... curl options, only those in the acceptable set from
+for help</p></li>
+<li><p>... curl options, only those in the acceptable set from
 <code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl::curl_options()</a></code> except the following: httpget, httppost,
-post, postfields, postfieldsize, and customrequest
-</li>
-</ul></p>
+post, postfields, postfieldsize, and customrequest</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -158,19 +150,23 @@ post, postfields, postfieldsize, and customrequest
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] &quot;https://httpbin.org&quot;</div><div class='input'>(<span class='no'>res_get1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
+#&gt;   auth: 
+#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] "https://httpbin.org"</div><div class='input'>(<span class='no'>res_get1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:41 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:57 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 282
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00109100341797
+#&gt;     content-length: 287
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>content</span></div><div class='output co'>#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61 64 65
 #&gt;  [26] 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 63 63 65 70 74 22 3a 20 22 2a 2f 2a
@@ -179,176 +175,202 @@ post, postfields, postfieldsize, and customrequest
 #&gt; [101] 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22 63 6c 6f 73 65 22 2c 20 0a 20 20
 #&gt; [126] 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20
 #&gt; [151] 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75
-#&gt; [176] 72 6c 2f 37 2e 35 31 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 34 20 63 72 75 6c
-#&gt; [201] 2f 30 2e 33 2e 34 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a
-#&gt; [226] 20 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72
-#&gt; [251] 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f
-#&gt; [276] 67 65 74 22 0a 7d 0a</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
-#&gt; [1] &quot;HTTP/1.1 200 OK&quot;
+#&gt; [176] 72 6c 2f 37 2e 35 31 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 36 20 63 72 75 6c
+#&gt; [201] 2f 30 2e 33 2e 35 2e 39 31 31 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69
+#&gt; [226] 67 69 6e 22 3a 20 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a
+#&gt; [251] 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e
+#&gt; [276] 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</div><div class='input'><span class='no'>res_get1</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
+#&gt; [1] "HTTP/1.1 200 OK"
 #&gt; 
 #&gt; $connection
-#&gt; [1] &quot;keep-alive&quot;
+#&gt; [1] "keep-alive"
 #&gt; 
 #&gt; $server
-#&gt; [1] &quot;gunicorn/19.7.1&quot;
+#&gt; [1] "meinheld/0.6.1"
 #&gt; 
 #&gt; $date
-#&gt; [1] &quot;Mon, 03 Apr 2017 16:29:41 GMT&quot;
+#&gt; [1] "Mon, 15 May 2017 18:11:57 GMT"
 #&gt; 
 #&gt; $`content-type`
-#&gt; [1] &quot;application/json&quot;
+#&gt; [1] "application/json"
 #&gt; 
 #&gt; $`access-control-allow-origin`
-#&gt; [1] &quot;*&quot;
+#&gt; [1] "*"
 #&gt; 
 #&gt; $`access-control-allow-credentials`
-#&gt; [1] &quot;true&quot;
+#&gt; [1] "true"
+#&gt; 
+#&gt; $`x-powered-by`
+#&gt; [1] "Flask"
+#&gt; 
+#&gt; $`x-processed-time`
+#&gt; [1] "0.00109100341797"
 #&gt; 
 #&gt; $`content-length`
-#&gt; [1] &quot;282&quot;
+#&gt; [1] "287"
 #&gt; 
 #&gt; $via
-#&gt; [1] &quot;1.1 vegur&quot;
-#&gt; </div><div class='input'><span class='no'>res_get1</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Connection\&quot;: \&quot;close\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;</div><div class='input'>
+#&gt; [1] "1.1 vegur"
+#&gt; </div><div class='input'><span class='no'>res_get1</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</div><div class='input'>
 (<span class='no'>res_get2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>)))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get?hello=world
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:41 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 318
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00133991241455
+#&gt;     content-length: 323
 #&gt;     via: 1.1 vegur
 #&gt;   params: 
 #&gt;     hello: world
-#&gt;   status: 200</div><div class='input'><span class='no'>res_get2</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] &quot;{\n  \&quot;args\&quot;: {\n    \&quot;hello\&quot;: \&quot;world\&quot;\n  }, \n  \&quot;headers\&quot;: {\n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Connection\&quot;: \&quot;close\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get?hello=world\&quot;\n}\n&quot;</div><div class='input'><span class='fu'>library</span>(<span class='st'>"jsonlite"</span>)
+#&gt;   status: 200</div><div class='input'><span class='no'>res_get2</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] "{\n  \"args\": {\n    \"hello\": \"world\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?hello=world\"\n}\n"</div><div class='input'><span class='fu'>library</span>(<span class='st'>"jsonlite"</span>)
 <span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res_get2</span>$<span class='fu'>parse</span>())</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; $args
 #&gt; $args$hello
-#&gt; [1] &quot;world&quot;
+#&gt; [1] "world"
 #&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/get?hello=world&quot;
+#&gt; [1] "https://httpbin.org/get?hello=world"
 #&gt; </div><div class='input'>
 <span class='co'># post request</span>
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>)))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:41 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:59 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 526
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00125694274902
+#&gt;     content-length: 531
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## empty body request</span>
 <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:41 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:00 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 432
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00109601020813
+#&gt;     content-length: 437
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># put request</span>
 (<span class='no'>res_put</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>put</span>(<span class='st'>'put'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/put
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:41 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:00 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 431
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00123000144958
+#&gt;     content-length: 436
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># delete request</span>
 (<span class='no'>res_delete</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:42 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:00 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 434
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00131607055664
+#&gt;     content-length: 439
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># patch request</span>
 (<span class='no'>res_patch</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>patch</span>(<span class='st'>'patch'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/patch
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:42 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:00 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 433
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00135493278503
+#&gt;     content-length: 438
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># head request</span>
 (<span class='no'>res_head</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>head</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:42 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:59 GMT
 #&gt;     content-type: text/html; charset=utf-8
-#&gt;     content-length: 12172
+#&gt;     content-length: 12373
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00640797615051
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'># query params are URL encoded for you, so DO NOT do it yourself</span>
@@ -357,6 +379,7 @@ post, postfields, postfieldsize, and customrequest
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>"get"</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='st'>'hello world'</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -84,21 +86,30 @@
     <p>proxy options</p>
     
 
-    <pre><span class='fu'>proxy</span>(<span class='no'>url</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)</pre>
+    <pre class="usage"><span class='fu'>proxy</span>(<span class='no'>url</span>, <span class='kw'>user</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pwd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>url</dt>
-      <dd>(character) URL, with scheme (http/https), domain and
-port (must be numeric). required.</dd>
-      <dt>user</dt>
-      <dd>(character) username, optional</dd>
-      <dt>pwd</dt>
-      <dd>(character) password, optional</dd>
-      <dt>auth</dt>
-      <dd>(character) authentication type, one of basic (default),
-digest, digest_ie, gssnegotiate, ntlm, or any. optional</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>(character) URL, with scheme (http/https), domain and
+port (must be numeric). required.</p></td>
+    </tr>
+    <tr>
+      <th>user</th>
+      <td><p>(character) username, optional</p></td>
+    </tr>
+    <tr>
+      <th>pwd</th>
+      <td><p>(character) password, optional</p></td>
+    </tr>
+    <tr>
+      <th>auth</th>
+      <td><p>(character) authentication type, one of basic (default),
+digest, digest_ie, gssnegotiate, ntlm, or any. optional</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -108,7 +119,7 @@ can use</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>)</div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
@@ -116,9 +127,9 @@ can use</p>
 #&gt; $proxyauth
 #&gt; [1] 1
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"97.77.104.22:3128"</span>)</div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"97.77.104.22:3128"</span>)</div><div class='output co'>#&gt; $proxy
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
@@ -126,47 +137,47 @@ can use</p>
 #&gt; $proxyauth
 #&gt; [1] 1
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>)</div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>)</div><div class='output co'>#&gt; $proxy
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
 #&gt; 
 #&gt; $proxyuserpwd
-#&gt; [1] &quot;foo:bar&quot;
+#&gt; [1] "foo:bar"
 #&gt; 
 #&gt; $proxyauth
 #&gt; [1] 1
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"digest"</span>)</div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"digest"</span>)</div><div class='output co'>#&gt; $proxy
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
 #&gt; 
 #&gt; $proxyuserpwd
-#&gt; [1] &quot;foo:bar&quot;
+#&gt; [1] "foo:bar"
 #&gt; 
 #&gt; $proxyauth
 #&gt; [1] 2
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"ntlm"</span>)</div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'><span class='fu'>proxy</span>(<span class='st'>"http://97.77.104.22:3128"</span>, <span class='st'>"foo"</span>, <span class='st'>"bar"</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='st'>"ntlm"</span>)</div><div class='output co'>#&gt; $proxy
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
 #&gt; 
 #&gt; $proxyuserpwd
-#&gt; [1] &quot;foo:bar&quot;
+#&gt; [1] "foo:bar"
 #&gt; 
 #&gt; $proxyauth
 #&gt; [1] 8
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'>
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'>
 <span class='co'># with proxy (look at request/outgoing headers)</span>
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://www.google.com"</span>,
@@ -176,8 +187,9 @@ can use</p>
 #&gt;   curl options: 
 #&gt;   proxies: 
 #&gt;     - http://97.77.104.22:3128 (auth: FALSE)
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'><span class='no'>res</span>$<span class='no'>proxies</span></div><div class='output co'>#&gt; $proxy
-#&gt; [1] &quot;97.77.104.22&quot;
+#&gt; [1] "97.77.104.22"
 #&gt; 
 #&gt; $proxyport
 #&gt; [1] 3128
@@ -185,31 +197,33 @@ can use</p>
 #&gt; $proxyauth
 #&gt; [1] 1
 #&gt; 
-#&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;proxy&quot;</div><div class='input'><span class='co'>## Not run: res$get(verbose = TRUE)</span>
+#&gt; attr(,"class")
+#&gt; [1] "proxy"</div><div class='input'><span class='co'>## Not run: res$get(verbose = TRUE)</span>
 
 <span class='co'># vs. without proxy (look at request/outgoing headers)</span>
 (<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://www.google.com"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
 #&gt;   url: http://www.google.com
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'><span class='no'>res2</span>$<span class='fu'>get</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: http://www.google.com/
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     date: Mon, 03 Apr 2017 16:29:45 GMT
+#&gt;     date: Mon, 15 May 2017 18:12:05 GMT
 #&gt;     expires: -1
 #&gt;     cache-control: private, max-age=0
 #&gt;     content-type: text/html; charset=ISO-8859-1
-#&gt;     p3p: CP=&quot;This is not a P3P policy! See https://www.google.com/support/accounts/answer/151657?hl=en for more info.&quot;
+#&gt;     p3p: CP="This is not a P3P policy! See https://www.google.com/support/accounts/answer/151657?hl=en for more info."
 #&gt;     content-encoding: gzip
 #&gt;     server: gws
-#&gt;     content-length: 4711
+#&gt;     content-length: 4429
 #&gt;     x-xss-protection: 1; mode=block
 #&gt;     x-frame-options: SAMEORIGIN
-#&gt;     set-cookie: NID=100=NsiJndKHhea-DzUxC253Gnbv-_EfBPH73X-erxMEHIw99Fk7eFJjb9jr4RsDWG74GSTtk51KUALGHk4GEc8Q1J3gVNPxSuxBFpEAFimPMicA6-pp8srLe1s1fJKybDWaCCtlAWDtoMBRow_g; expires=Tue, 03-Oct-2017 16:29:45 GMT; path=/; domain=.google.com; HttpOnly
+#&gt;     set-cookie: NID=103=ObvUrbhn_tomJF4NAKQ62eNwjqfw4HmCTeQPuuC66nrvRLWk3NvTM6vMtdTE09M9Aj5DPzz080_q8scVQEUAf8oZQASRV0BMi79gOsFZPVqJlyFgsqL88NYuTRjh0R4Kr6yuc3z9FleOB_QeIQ; expires=Tue, 14-Nov-2017 18:12:05 GMT; path=/; domain=.google.com; HttpOnly
 #&gt;   status: 200</div><div class='input'>
 
 <span class='co'># Use authentication</span>
@@ -221,6 +235,7 @@ can use</p>
 #&gt;   curl options: 
 #&gt;   proxies: 
 #&gt;     - http://97.77.104.22:3128 (auth: TRUE)
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>
 <span class='co'># another example</span>
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
@@ -231,7 +246,8 @@ can use</p>
 #&gt;   curl options: 
 #&gt;   proxies: 
 #&gt;     - http://200.29.191.149:3128 (auth: FALSE)
-#&gt;   headers: </div><div class='input'><span class='co'>## Not run: res$get()$parse(&amp;quot;UTF-8&amp;quot;)</span></div></pre>
+#&gt;   auth: 
+#&gt;   headers: </div><div class='input'><span class='co'>## Not run: res$get()$parse("UTF-8")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
