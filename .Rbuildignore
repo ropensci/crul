@@ -10,3 +10,4 @@ Makefile
 ^revdep$
 docs
 .github
+inst/vign
