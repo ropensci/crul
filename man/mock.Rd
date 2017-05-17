@@ -22,7 +22,7 @@ crul::mock()
 crul:::crul_opts$mock
 
 # stub a request
-webmockr::stub_request("get", URL)
+stub_request("get", URL)
 webmockr:::webmockr_stub_registry
 
 # create an HTTP client
@@ -35,5 +35,7 @@ x$get('get') # not http request made, pulled from cache
 
 # allow net connect
 webmockr::webmockr_allow_net_connect()
+x$get('get')
+webmockr::webmockr_disable_net_connect()
 x$get('get')
 }
