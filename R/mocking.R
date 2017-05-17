@@ -1,7 +1,7 @@
 #' Mocking HTTP requests
 #'
 #' @export
-#' @examples
+#' @examples \dontrun{
 #' # load webmockr
 #' library(webmockr)
 #' library(crul)
@@ -30,6 +30,7 @@
 #' x$get('get')
 #' webmockr::webmockr_disable_net_connect()
 #' x$get('get')
+#' }
 mock <- function(on = TRUE) crul_opts$mock <- on
 
 # crul_opts <- new.env()

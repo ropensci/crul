@@ -10,6 +10,7 @@ mock(on = TRUE)
 Mocking HTTP requests
 }
 \examples{
+\dontrun{
 # load webmockr
 library(webmockr)
 library(crul)
@@ -38,4 +39,5 @@ webmockr::webmockr_allow_net_connect()
 x$get('get')
 webmockr::webmockr_disable_net_connect()
 x$get('get')
+}
 }
