@@ -29,4 +29,5 @@ Suggests:
     covr,
     jsonlite
 VignetteBuilder: knitr
+Remotes: ropensci/webmockr
 RoxygenNote: 6.0.1
