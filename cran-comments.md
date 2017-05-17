@@ -1,10 +1,8 @@
 ## Test environments
 
-* local OS X install, R 3.3.3
-* ubuntu 12.04 (on travis-ci), R 3.3.3
+* local OS X install, R 3.4.0
+* ubuntu 12.04 (on travis-ci), R 3.4.0
 * win-builder (devel and release)
-* R-hub (Fedora Linux R-devel, Ubuntu Linux R-release,
-Windows R-devel)
 
 ## R CMD check results
 
@@ -18,14 +16,14 @@ Windows R-devel)
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 10 downstream dependencies
+* I have run R CMD check on the 20 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
-No problems were found. The maintainers of all deps are me.
+No problems were found. The two other maintainers were notified.
 
 ---
 
-This version adds a few new functions, new vignette, improves
-docs and tests, and fixes a few bug.
+This version adds a few new functions, improves some HTTP headers
+sent, and includes mocking integration.
 
 Thanks!
 Scott Chamberlain
