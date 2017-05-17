@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,76 +93,87 @@
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>
 <span class='co'># POST requests</span>
 <span class='co'>## a list</span>
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:43 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:03 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 526
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00113296508789
+#&gt;     content-length: 531
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## a string</span>
 (<span class='no'>res_post</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:43 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:03 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 458
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.000818967819214
+#&gt;     content-length: 463
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## empty body request</span>
 <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:04 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 432
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00112104415894
+#&gt;     content-length: 437
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 <span class='co'>## form requests</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># (cli &lt;- HttpClient$new(</span>
-<span class='co'>#   url = "http://apps.kew.org/wcsp/advsearch.do"</span>
-<span class='co'># ))</span>
-<span class='co'># cli$post(</span>
-<span class='co'>#   encode = "form",</span>
-<span class='co'>#   body = list(</span>
-<span class='co'>#     page = 'advancedSearch',</span>
-<span class='co'>#     genus = 'Gagea',</span>
-<span class='co'>#     species = 'pratensis',</span>
-<span class='co'>#     selectedLevel = 'cont'</span>
-<span class='co'>#   )</span>
-<span class='co'># )</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+  (<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
+    <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://apps.kew.org/wcsp/advsearch.do"</span>
+  ))
+  <span class='no'>cli</span>$<span class='fu'>post</span>(
+    <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"form"</span>,
+    <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(
+      <span class='kw'>page</span> <span class='kw'>=</span> <span class='st'>'advancedSearch'</span>,
+      <span class='kw'>genus</span> <span class='kw'>=</span> <span class='st'>'Gagea'</span>,
+      <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>'pratensis'</span>,
+      <span class='kw'>selectedLevel</span> <span class='kw'>=</span> <span class='st'>'cont'</span>
+    )
+  )
+})
 
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>"post"</span>,
   <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"json"</span>,
   <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(
@@ -172,7 +185,7 @@
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;{\&quot;genus\&quot;:\&quot;Gagea\&quot;,\&quot;species\&quot;:\&quot;pratensis\&quot;}&quot;
+#&gt; [1] "{\"genus\":\"Gagea\",\"species\":\"pratensis\"}"
 #&gt; 
 #&gt; $files
 #&gt; named list()
@@ -182,46 +195,47 @@
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;39&quot;
+#&gt; [1] "39"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/json&quot;
+#&gt; [1] "application/json"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; $json$genus
-#&gt; [1] &quot;Gagea&quot;
+#&gt; [1] "Gagea"
 #&gt; 
 #&gt; $json$species
-#&gt; [1] &quot;pratensis&quot;
+#&gt; [1] "pratensis"
 #&gt; 
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/post&quot;
+#&gt; [1] "https://httpbin.org/post"
 #&gt; </div><div class='input'>
 <span class='co'># PUT requests</span>
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>put</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"put"</span>,
   <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"json"</span>,
   <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(
@@ -231,23 +245,26 @@
 ))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/put
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;     Content-Type: application/json
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:04 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 513
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00244688987732
+#&gt;     content-length: 518
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;{\&quot;genus\&quot;:\&quot;Gagea\&quot;,\&quot;species\&quot;:\&quot;pratensis\&quot;}&quot;
+#&gt; [1] "{\"genus\":\"Gagea\",\"species\":\"pratensis\"}"
 #&gt; 
 #&gt; $files
 #&gt; named list()
@@ -257,87 +274,87 @@
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;39&quot;
+#&gt; [1] "39"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/json&quot;
+#&gt; [1] "application/json"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; $json$genus
-#&gt; [1] &quot;Gagea&quot;
+#&gt; [1] "Gagea"
 #&gt; 
 #&gt; $json$species
-#&gt; [1] &quot;pratensis&quot;
+#&gt; [1] "pratensis"
 #&gt; 
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/put&quot;
+#&gt; [1] "https://httpbin.org/put"
 #&gt; </div><div class='input'>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>put</span>(<span class='st'>"put"</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"foo bar"</span>)
 <span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $files
 #&gt; named list()
 #&gt; 
 #&gt; $form
 #&gt; $form$`foo bar`
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;7&quot;
+#&gt; [1] "7"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/x-www-form-urlencoded&quot;
+#&gt; [1] "application/x-www-form-urlencoded"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/put&quot;
+#&gt; [1] "https://httpbin.org/put"
 #&gt; </div><div class='input'>
 
 <span class='co'># PATCH requests</span>
@@ -345,6 +362,7 @@
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>patch</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"patch"</span>,
   <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"json"</span>,
   <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(
@@ -354,23 +372,26 @@
 ))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/patch
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
 #&gt;     Content-Type: application/json
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:44 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:12:04 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 515
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.000833034515381
+#&gt;     content-length: 520
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;{\&quot;genus\&quot;:\&quot;Gagea\&quot;,\&quot;species\&quot;:\&quot;pratensis\&quot;}&quot;
+#&gt; [1] "{\"genus\":\"Gagea\",\"species\":\"pratensis\"}"
 #&gt; 
 #&gt; $files
 #&gt; named list()
@@ -380,87 +401,87 @@
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;39&quot;
+#&gt; [1] "39"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/json&quot;
+#&gt; [1] "application/json"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; $json$genus
-#&gt; [1] &quot;Gagea&quot;
+#&gt; [1] "Gagea"
 #&gt; 
 #&gt; $json$species
-#&gt; [1] &quot;pratensis&quot;
+#&gt; [1] "pratensis"
 #&gt; 
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/patch&quot;
+#&gt; [1] "https://httpbin.org/patch"
 #&gt; </div><div class='input'>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>patch</span>(<span class='st'>"patch"</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"foo bar"</span>)
 <span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $files
 #&gt; named list()
 #&gt; 
 #&gt; $form
 #&gt; $form$`foo bar`
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;7&quot;
+#&gt; [1] "7"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/x-www-form-urlencoded&quot;
+#&gt; [1] "application/x-www-form-urlencoded"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/patch&quot;
+#&gt; [1] "https://httpbin.org/patch"
 #&gt; </div><div class='input'>
 
 <span class='co'># Upload files - STILL WORKING ON THIS</span>

@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,146 +93,156 @@
 #&gt;   url: https://httpbin.org
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>
 <span class='co'>## a list</span>
 (<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 528
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.00167107582092
+#&gt;     content-length: 533
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res1</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $files
 #&gt; named list()
 #&gt; 
 #&gt; $form
 #&gt; $form$hello
-#&gt; [1] &quot;world&quot;
+#&gt; [1] "world"
 #&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;145&quot;
+#&gt; [1] "145"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;multipart/form-data; boundary=------------------------76a1b80e0107b499&quot;
+#&gt; [1] "multipart/form-data; boundary=------------------------dafaa88ba69e3b8c"
 #&gt; 
 #&gt; $headers$Expect
-#&gt; [1] &quot;100-continue&quot;
+#&gt; [1] "100-continue"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/delete&quot;
+#&gt; [1] "https://httpbin.org/delete"
 #&gt; </div><div class='input'>
 <span class='co'>## a string</span>
 (<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 460
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.0013370513916
+#&gt;     content-length: 465
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res2</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; $files
 #&gt; named list()
 #&gt; 
 #&gt; $form
 #&gt; $form$`hello world`
-#&gt; [1] &quot;&quot;
+#&gt; [1] ""
 #&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] &quot;*/*&quot;
+#&gt; [1] "*/*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
-#&gt; [1] &quot;gzip, deflate&quot;
+#&gt; [1] "gzip, deflate"
 #&gt; 
 #&gt; $headers$Connection
-#&gt; [1] &quot;close&quot;
+#&gt; [1] "close"
 #&gt; 
 #&gt; $headers$`Content-Length`
-#&gt; [1] &quot;11&quot;
+#&gt; [1] "11"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] &quot;application/x-www-form-urlencoded&quot;
+#&gt; [1] "application/x-www-form-urlencoded"
 #&gt; 
 #&gt; $headers$Host
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] &quot;157.130.179.86&quot;
+#&gt; [1] "157.130.179.86"
 #&gt; 
 #&gt; $url
-#&gt; [1] &quot;https://httpbin.org/delete&quot;
+#&gt; [1] "https://httpbin.org/delete"
 #&gt; </div><div class='input'>
 <span class='co'>## empty body request</span>
 <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     useragent: libcurl/7.51.0 r-curl/2.4 crul/0.3.4
+#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     Accept-Encoding: gzip, deflate
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
-#&gt;     server: gunicorn/19.7.1
-#&gt;     date: Mon, 03 Apr 2017 16:29:40 GMT
+#&gt;     server: meinheld/0.6.1
+#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
-#&gt;     content-length: 434
+#&gt;     x-powered-by: Flask
+#&gt;     x-processed-time: 0.000946998596191
+#&gt;     content-length: 439
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 </div></pre>

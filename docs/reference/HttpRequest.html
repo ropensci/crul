@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,56 +88,52 @@
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>url</dt>
-      <dd>(character) A url. One of <code>url</code> or <code>handle</code> required.</dd>
-      <dt>opts</dt>
-      <dd>(list) curl options, a named list. See
-<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl_options</a></code> for available curl options</dd>
-      <dt>proxies</dt>
-      <dd>an object of class <code>proxy</code>, as returned from the
-<code><a href='proxies.html'>proxy</a></code> function. Supports one proxy for now</dd>
-      <dt>headers</dt>
-      <dd>(list) a named list of headers</dd>
-      <dt>handle</dt>
-      <dd>A handle, see <code><a href='handle.html'>handle</a></code></dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>(character) A url. One of <code>url</code> or <code>handle</code> required.</p></td>
+    </tr>
+    <tr>
+      <th>opts</th>
+      <td><p>(list) curl options, a named list. See
+<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl_options</a></code> for available curl options</p></td>
+    </tr>
+    <tr>
+      <th>proxies</th>
+      <td><p>an object of class <code>proxy</code>, as returned from the
+<code><a href='proxies.html'>proxy</a></code> function. Supports one proxy for now</p></td>
+    </tr>
+    <tr>
+      <th>headers</th>
+      <td><p>(list) a named list of headers</p></td>
+    </tr>
+    <tr>
+      <th>handle</th>
+      <td><p>A handle, see <code><a href='handle.html'>handle</a></code></p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This R6 class doesn&#39;t do actual HTTP requests as does
+    <p>This R6 class doesn't do actual HTTP requests as does
 <code><a href='HttpClient.html'>HttpClient()</a></code> - it is for building requests to use for async HTTP
 requests in <code><a href='AsyncVaried.html'>AsyncVaried()</a></code></p>
-    <p>Note that you can access HTTP verbs after creating an <code>HttpRequest</code>
+<p>Note that you can access HTTP verbs after creating an <code>HttpRequest</code>
 object, just as you can with <code>HttpClient</code>. See examples for usage.</p>
-    <p>Also note that when you call HTTP verbs on a <code>HttpRequest</code> object you
-don&#39;t need to assign the new object to a variable as the new details
-you&#39;ve added are added to the object itself.</p>
-    <p><strong>Methods</strong>
-<dl class='dl-horizontal'>
-<dt><code>get(path, query, disk, stream, ...)</code></dt><dd>
-Define a GET request
-</dd>
-<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd>
-Define a POST request
-</dd>
-<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd>
-Define a PUT request
-</dd>
-<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd>
-Define a PATCH request
-</dd>
-<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd>
-Define a DELETE request
-</dd>
-<dt><code>head(path, disk, stream, ...)</code></dt><dd>
-Define a HEAD request
-</dd>
-<dt><code>method()</code></dt><dd>
-Get the HTTP method (if defined)
-- returns character string
-</dd>
-</dl></p>
+<p>Also note that when you call HTTP verbs on a <code>HttpRequest</code> object you
+don't need to assign the new object to a variable as the new details
+you've added are added to the object itself.
+    <strong>Methods</strong></p><dl class='dl-horizontal'>
+<dt><code>get(path, query, disk, stream, ...)</code></dt><dd><p>Define a GET request</p></dd>
+<dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a POST request</p></dd>
+<dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a PUT request</p></dd>
+<dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a PATCH request</p></dd>
+<dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a DELETE request</p></dd>
+<dt><code>head(path, disk, stream, ...)</code></dt><dd><p>Define a HEAD request</p></dd>
+<dt><code>method()</code></dt><dd><p>Get the HTTP method (if defined)
+- returns character string</p></dd>
+</dl>
     <p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -151,45 +149,54 @@ Get the HTTP method (if defined)
 #&gt;   url: https://httpbin.org/get
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>
 <span class='co'>## assign to a new object to keep the output</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>()
 <span class='co'>### get the HTTP method</span>
-<span class='no'>z</span>$<span class='fu'>method</span>()</div><div class='output co'>#&gt; [1] &quot;get&quot;</div><div class='input'>
+<span class='no'>z</span>$<span class='fu'>method</span>()</div><div class='output co'>#&gt; [1] "get"</div><div class='input'>
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul http request&gt; get
 #&gt;   url: https://httpbin.org/get
 #&gt;   curl options: 
 #&gt;   proxies: 
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] &quot;https://httpbin.org/get&quot;</div><div class='input'><span class='no'>x</span>$<span class='no'>payload</span></div><div class='output co'>#&gt; $url
+#&gt;   auth: 
+#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] "https://httpbin.org/get"</div><div class='input'><span class='no'>x</span>$<span class='no'>payload</span></div><div class='output co'>#&gt; $url
 #&gt; $url$url
-#&gt; [1] &quot;https://httpbin.org/get&quot;
+#&gt; [1] "https://httpbin.org/get"
 #&gt; 
 #&gt; $url$handle
 #&gt; &lt;curl handle&gt; (https://httpbin.org/get)
 #&gt; 
 #&gt; 
 #&gt; $method
-#&gt; [1] &quot;get&quot;
+#&gt; [1] "get"
 #&gt; 
 #&gt; $options
 #&gt; $options$httpget
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $options$useragent
-#&gt; [1] &quot;libcurl/7.51.0 r-curl/2.4 crul/0.3.4&quot;
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
 #&gt; 
 #&gt; 
 #&gt; $headers
-#&gt; list()
+#&gt; $headers$`User-Agent`
+#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
+#&gt; 
+#&gt; $headers$`Accept-Encoding`
+#&gt; [1] "gzip, deflate"
+#&gt; 
 #&gt; </div><div class='input'>
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; 
 #&gt;   url: https://httpbin.org/post
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; post
 #&gt;   url: https://httpbin.org/post
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: </div><div class='input'>
 <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>,
@@ -200,6 +207,7 @@ Get the HTTP method (if defined)
 #&gt;   url: https://httpbin.org/get
 #&gt;   curl options: 
 #&gt;   proxies: 
+#&gt;   auth: 
 #&gt;   headers: 
 #&gt;     Content-Type: application/json</div></pre>
   </div>

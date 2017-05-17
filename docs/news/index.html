@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -84,17 +86,17 @@
     <div class="contents">
     <div id="crul-0-3-4" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crul-0-3-4" class="anchor"> </a>crul 0.3.4</h1>
+<a href="#crul-0-3-4" class="anchor"></a>crul 0.3.4</h1>
 <div id="new-features" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features" class="anchor"> </a>NEW FEATURES</h3>
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>New utility functions <code>url_build</code> and <code>url_parse</code> (#31)</li>
 </ul>
 </div>
 <div id="minor-improvements" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements" class="anchor"> </a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Now using markdown for documentation (#32)</li>
 <li>Better documentation for <code>AsyncVaried</code> (#30)</li>
@@ -105,7 +107,7 @@
 </div>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"> </a>BUG FIXES</h3>
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fixed put/patch/delete as weren’t passing body correctly in <code>HttpClient</code> (#26)</li>
 <li>DRY out code for preparing requests - simplify to use helper functions (#27)</li>
@@ -114,10 +116,10 @@
 </div>
     <div id="crul-0-3-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crul-0-3-0" class="anchor"> </a>crul 0.3.0</h1>
+<a href="#crul-0-3-0" class="anchor"></a>crul 0.3.0</h1>
 <div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"> </a>NEW FEATURES</h3>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Added support for asynchronous HTTP requests, including two new R6 classes: <code>Async</code> and <code>AsyncVaried</code>. The former being a simpler interface treating all URLs with same options/HTTP method, and the latter allowing any type of request through the new R6 class <code>HttpRequest</code> (#8) (#24)</li>
 <li>New R6 class <code>HttpRequest</code> to support <code>AsyncVaried</code> - this method only defines a request, but does not execute it. (#8)</li>
@@ -125,14 +127,14 @@
 </div>
 <div id="minor-improvements-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-1" class="anchor"> </a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Added support for proxies (#22)</li>
 </ul>
 </div>
 <div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"> </a>BUG FIXES</h3>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Fixed parsing of headers from FTP servers (#21)</li>
 </ul>
@@ -140,10 +142,10 @@
 </div>
     <div id="crul-0-2-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crul-0-2-0" class="anchor"> </a>crul 0.2.0</h1>
+<a href="#crul-0-2-0" class="anchor"></a>crul 0.2.0</h1>
 <div id="minor-improvements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-2" class="anchor"> </a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Created new manual files for various tasks to document usage better (#19)</li>
 <li>URL encode paths - should fix any bugs where spaces between words caused errors previously (#17)</li>
@@ -156,10 +158,10 @@
 </div>
     <div id="crul-0-1-6" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crul-0-1-6" class="anchor"> </a>crul 0.1.6</h1>
+<a href="#crul-0-1-6" class="anchor"></a>crul 0.1.6</h1>
 <div id="new-features-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"> </a>NEW FEATURES</h3>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Improved options for using curl options. Can manually add to list of curl options or pass in via <code>...</code>. And we check that user doesn’t pass in prohibited options (<code>curl</code> package takes care of checking that options are valid) (#5)</li>
 <li>Incorporated <code>fauxpas</code> package for dealing with HTTP conditions. It’s a Suggest, so only used if installed (#6)</li>
@@ -169,14 +171,14 @@
 </div>
 <div id="minor-improvements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#minor-improvements-3" class="anchor"> </a>MINOR IMPROVEMENTS</h3>
+<a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Added missing <code>raise_for_status()</code> method on the <code>HttpResponse</code> class (#10)</li>
 </ul>
 </div>
 <div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"> </a>BUG FIXES</h3>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Was importing <code>httpcode</code> but wasn’t using it in the package. Now using the package in <code>HttpResponse</code>
 </li>
@@ -185,10 +187,10 @@
 </div>
     <div id="crul-0-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#crul-0-1-0" class="anchor"> </a>crul 0.1.0</h1>
+<a href="#crul-0-1-0" class="anchor"></a>crul 0.1.0</h1>
 <div id="new-features-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features-3" class="anchor"> </a>NEW FEATURES</h3>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Released to CRAN.</li>
 </ul>

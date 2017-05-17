@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -84,19 +86,26 @@
     <p>Build and parse URLs</p>
     
 
-    <pre><span class='fu'>url_build</span>(<span class='no'>url</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>url_build</span>(<span class='no'>url</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>url_parse</span>(<span class='no'>url</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>url</dt>
-      <dd>(character) a url</dd>
-      <dt>path</dt>
-      <dd>(character) a path</dd>
-      <dt>query</dt>
-      <dd>(list) a named list of query parameters</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>(character) a url</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>(character) a path</p></td>
+    </tr>
+    <tr>
+      <th>query</th>
+      <td><p>(list) a named list of query parameters</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -105,12 +114,12 @@ returns a list with URL components</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>)</div><div class='output co'>#&gt; [1] &quot;https://httpbin.org&quot;</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"get"</span>)</div><div class='output co'>#&gt; [1] &quot;https://httpbin.org/get&quot;</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"post"</span>)</div><div class='output co'>#&gt; [1] &quot;https://httpbin.org/post&quot;</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"get"</span>, <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; [1] &quot;https://httpbin.org/get?foo=bar&quot;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>)</div><div class='output co'>#&gt; [1] "https://httpbin.org"</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"get"</span>)</div><div class='output co'>#&gt; [1] "https://httpbin.org/get"</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"post"</span>)</div><div class='output co'>#&gt; [1] "https://httpbin.org/post"</div><div class='input'><span class='fu'>url_build</span>(<span class='st'>"https://httpbin.org"</span>, <span class='st'>"get"</span>, <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; [1] "https://httpbin.org/get?foo=bar"</div><div class='input'>
 <span class='fu'>url_parse</span>(<span class='st'>"httpbin.org"</span>)</div><div class='output co'>#&gt; $scheme
 #&gt; [1] NA
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
@@ -124,10 +133,10 @@ returns a list with URL components</p>
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='st'>"http://httpbin.org"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;http&quot;
+#&gt; [1] "http"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
@@ -141,10 +150,10 @@ returns a list with URL components</p>
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;https&quot;
+#&gt; [1] "https"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
@@ -158,16 +167,16 @@ returns a list with URL components</p>
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='st'>"https://httpbin.org/get"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;https&quot;
+#&gt; [1] "https"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
 #&gt; 
 #&gt; $path
-#&gt; [1] &quot;get&quot;
+#&gt; [1] "get"
 #&gt; 
 #&gt; $parameter
 #&gt; [1] NA
@@ -175,64 +184,64 @@ returns a list with URL components</p>
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='st'>"https://httpbin.org/get?foo=bar"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;https&quot;
+#&gt; [1] "https"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
 #&gt; 
 #&gt; $path
-#&gt; [1] &quot;get&quot;
+#&gt; [1] "get"
 #&gt; 
 #&gt; $parameter
 #&gt; $parameter$foo
-#&gt; [1] &quot;bar&quot;
+#&gt; [1] "bar"
 #&gt; 
 #&gt; 
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='st'>"https://httpbin.org/get?foo=bar&amp;stuff=things"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;https&quot;
+#&gt; [1] "https"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
 #&gt; 
 #&gt; $path
-#&gt; [1] &quot;get&quot;
+#&gt; [1] "get"
 #&gt; 
 #&gt; $parameter
 #&gt; $parameter$foo
-#&gt; [1] &quot;bar&quot;
+#&gt; [1] "bar"
 #&gt; 
 #&gt; $parameter$stuff
-#&gt; [1] &quot;things&quot;
+#&gt; [1] "things"
 #&gt; 
 #&gt; 
 #&gt; $fragment
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>url_parse</span>(<span class='st'>"https://httpbin.org/get?foo=bar&amp;stuff=things[]"</span>)</div><div class='output co'>#&gt; $scheme
-#&gt; [1] &quot;https&quot;
+#&gt; [1] "https"
 #&gt; 
 #&gt; $domain
-#&gt; [1] &quot;httpbin.org&quot;
+#&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $port
 #&gt; [1] NA
 #&gt; 
 #&gt; $path
-#&gt; [1] &quot;get&quot;
+#&gt; [1] "get"
 #&gt; 
 #&gt; $parameter
 #&gt; $parameter$foo
-#&gt; [1] &quot;bar&quot;
+#&gt; [1] "bar"
 #&gt; 
 #&gt; $parameter$stuff
-#&gt; [1] &quot;things[]&quot;
+#&gt; [1] "things[]"
 #&gt; 
 #&gt; 
 #&gt; $fragment
