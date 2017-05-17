@@ -1,6 +1,7 @@
 #' Mocking HTTP requests
 #'
 #' @export
+#' @param on (logical) turn mocking on with `TRUE` or turn off with `FALSE`
 #' @examples \dontrun{
 #' # load webmockr
 #' library(webmockr)

@@ -6,6 +6,9 @@
 \usage{
 mock(on = TRUE)
 }
+\arguments{
+\item{on}{(logical) turn mocking on with \code{TRUE} or turn off with \code{FALSE}}
+}
 \description{
 Mocking HTTP requests
 }
