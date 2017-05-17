@@ -27,7 +27,7 @@
 #'   url = "https://httpbin.org/basic-auth/user/passwd",
 #'   auth = auth(user = "user", pwd = "passwd")
 #' ))
-#' x$auth
+#' res$auth
 auth <- function(user, pwd, auth = "basic") {
   structure(ccp(list(
     userpwd = make_up(user, pwd),

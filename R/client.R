@@ -238,18 +238,30 @@ HttpClient <- R6::R6Class(
       }
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
-      resp <- crul_fetch(opts)
+
+      if (crul_opts$mock) {
+        adap <- webmockr::CrulAdapter$new()
+        resp <- adap$handle_request(opts)
+      } else {
+        resp <- crul_fetch(opts)
+      }
 
       HttpResponse$new(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
         request_headers = c(useragent = opts$options$useragent, opts$headers),
+        #response_headers = list(),
         response_headers = {
           if (grepl("^ftp://", resp$url)) {
             list()
           } else {
-            headers_parse(curl::parse_headers(rawToChar(resp$headers)))
+            hh <- rawToChar(resp$headers %||% raw(0))
+            if (is.null(hh) || nchar(hh) == 0) {
+              list()
+            } else {
+              headers_parse(curl::parse_headers(hh))
+            }
           }
         },
         modified = resp$modified,

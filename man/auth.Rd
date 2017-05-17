@@ -40,5 +40,5 @@ jsonlite::fromJSON(x$parse("UTF-8"))
   url = "https://httpbin.org/basic-auth/user/passwd",
   auth = auth(user = "user", pwd = "passwd")
 ))
-x$auth
+res$auth
 }

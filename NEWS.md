@@ -1,3 +1,29 @@
+crul 0.3.6
+==========
+
+* Note: This version gains support for integration with 
+`webmockr`, which is not yet on CRAN, but should be shortly.
+
+### NEW FEATURES
+
+* New function `auth()` to do simple authentication (#33)
+* New function `HttpStubbedResponse` for making a stubbed 
+response object for the `webmockr` integration (#4)
+* New function `mock()` to turn on mocking - it's off by 
+default (#4)
+
+### MINOR IMPROVEMENTS
+
+* Use `gzip-deflate` by deafult for each request 
+to make sure gzip compression is used if the server 
+can do it (#34)
+* Change `useragent` to `User-Agent` as default user 
+agent header (#35)
+* Now we make sure that user supplied headers override the 
+default headers if they are of the same name (#36)
+
+
+
 crul 0.3.4
 ==========
 
