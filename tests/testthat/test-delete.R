@@ -30,7 +30,7 @@ test_that("delete request with body", {
   expect_is(aa$method, "character")
   expect_equal(aa$method, "delete")
   expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_is(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
 
   expect_named(aa$request$fields, "hello")

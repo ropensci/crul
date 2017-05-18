@@ -1,7 +1,8 @@
 #' Mocking HTTP requests
 #'
 #' @export
-#' @param on (logical) turn mocking on with `TRUE` or turn off with `FALSE`
+#' @param on (logical) turn mocking on with `TRUE` or turn off with `FALSE`.
+#' By default is `FALSE`
 #' @examples \dontrun{
 #' # load webmockr
 #' library(webmockr)
@@ -15,7 +16,7 @@
 #' crul:::crul_opts$mock
 #'
 #' # stub a request
-#' stub_request("get", URL)
+#' stub_request("get", file.path(URL, "get"))
 #' webmockr:::webmockr_stub_registry
 #'
 #' # create an HTTP client
@@ -34,14 +35,9 @@
 #' }
 mock <- function(on = TRUE) crul_opts$mock <- on
 
-# crul_opts <- new.env()
-# crul_opts$mock <- FALSE
-
-
 ## FIXME: seems like the request signature made in webmockr is not
 ## matching correctly to whats made in crul itself, check that
 ## the signature is matching correctly
-
 
 ## FIXME: when http requests made, and webmock enabled,
 ## requests should fail with message about how to register a
