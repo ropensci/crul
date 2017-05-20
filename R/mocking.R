@@ -13,7 +13,6 @@
 #'
 #' # turn on mocking
 #' crul::mock()
-#' crul:::crul_opts$mock
 #'
 #' # stub a request
 #' stub_request("get", file.path(URL, "get"))

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
-[![cran version](http://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
+[![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's [requests](http://docs.python-requests.org/en/master/)
 
@@ -28,6 +28,11 @@ whose interface is similar to `HttpClient` - all URLs are treated the same.
 * `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`
 objects - with a different interface than `HttpClient`/`Async` due to the nature
 of handling requests with different HTTP methods, options, etc.
+
+Mocking:
+
+`crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock 
+HTTP requests.
 
 ## Installation
 
@@ -196,7 +201,6 @@ out$parse()
 
 Add integration for:
 
-* [webmockr](https://github.com/ropensci/webmockr)
 * [vcr](https://github.com/ropensci/vcr)
 
 for flexible and easy HTTP request caching

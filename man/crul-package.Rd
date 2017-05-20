@@ -28,6 +28,12 @@ We use \code{fauxpas} if you have it installed for handling HTTP
 conditions but if it's not installed we use \pkg{httpcode}
 }
 
+\section{Mocking}{
+
+Mocking HTTP requests is supported via the \pkg{webmockr}
+package. See \link{mock} for guidance.
+}
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
