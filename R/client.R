@@ -239,8 +239,6 @@ HttpClient <- R6::R6Class(
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
 
-      return(opts)
-
       if (crul_opts$mock) {
         adap <- webmockr::CrulAdapter$new()
         return(adap$handle_request(opts))
