@@ -26,7 +26,6 @@ Suggests:
     fauxpas (>= 0.1.0),
     webmockr,
     knitr,
-    covr,
     jsonlite
 VignetteBuilder: knitr
 Remotes: ropensci/webmockr
