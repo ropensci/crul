@@ -7,7 +7,8 @@
 mock(on = TRUE)
 }
 \arguments{
-\item{on}{(logical) turn mocking on with \code{TRUE} or turn off with \code{FALSE}}
+\item{on}{(logical) turn mocking on with \code{TRUE} or turn off with \code{FALSE}.
+By default is \code{FALSE}}
 }
 \description{
 Mocking HTTP requests
@@ -26,7 +27,7 @@ crul::mock()
 crul:::crul_opts$mock
 
 # stub a request
-stub_request("get", URL)
+stub_request("get", file.path(URL, "get"))
 webmockr:::webmockr_stub_registry
 
 # create an HTTP client
