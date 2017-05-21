@@ -93,7 +93,7 @@ x$post('post')
 # query params are URL encoded for you, so DO NOT do it yourself
 ## if you url encode yourself, it gets double encoded, and that's bad
 (x <- HttpClient$new(url = "https://httpbin.org"))
-res <- x$get("get", query = list(a = 'hello world'), verbose = TRUE)
+res <- x$get("get", query = list(a = 'hello world'))
 }
 \seealso{
 \link{post-requests}, \link{delete-requests}, \link{http-headers},

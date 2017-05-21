@@ -23,7 +23,6 @@ library(webmockr)
 library(crul)
 
 URL <- "https://httpbin.org"
-# URL <- "http://localhost:9000"
 
 # turn on mocking
 crul::mock()
@@ -35,15 +34,13 @@ webmockr:::webmockr_stub_registry
 # create an HTTP client
 (x <- HttpClient$new(url = URL))
 
-# make a request - first one is executed, and following requests
-# pull from the cache
-x$get('get') # http request made
-x$get('get') # not http request made, pulled from cache
+# make a request - matches stub - no real request made
+x$get('get')
 
 # allow net connect
 webmockr::webmockr_allow_net_connect()
-x$get('get')
+x$get('get', query = list(foo = "bar"))
 webmockr::webmockr_disable_net_connect()
-x$get('get')
+x$get('get', query = list(foo = "bar"))
 }
 }
