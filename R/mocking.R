@@ -3,6 +3,7 @@
 #' @export
 #' @param on (logical) turn mocking on with `TRUE` or turn off with `FALSE`.
 #' By default is `FALSE`
+#' @details `webmockr` package required for mocking behavior
 #' @examples \dontrun{
 #' # load webmockr
 #' library(webmockr)
@@ -32,7 +33,10 @@
 #' webmockr::webmockr_disable_net_connect()
 #' x$get('get')
 #' }
-mock <- function(on = TRUE) crul_opts$mock <- on
+mock <- function(on = TRUE) {
+  check_for_package("webmockr")
+  crul_opts$mock <- on
+}
 
 ## FIXME: seems like the request signature made in webmockr is not
 ## matching correctly to whats made in crul itself, check that

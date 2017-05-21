@@ -6,10 +6,13 @@
 #'  your http options, make http requests
 #'  \item [HttpResponse()] - mostly for internal use, handles
 #'  http responses
-#'  \item [HttpRequest()] - generate an HTTP request, mostly for
-#'  use in building requests to be used in `Async` or `AsyncVaried`
 #'  \item [Async()] - asynchronous requests
 #'  \item [AsyncVaried()] - varied asynchronous requests
+#'  \item [HttpRequest()] - generate an HTTP request, mostly for
+#'  use in building requests to be used in `Async` or `AsyncVaried`
+#'  \item [mock()] - Turn on/off mocking, via `webmockr`
+#'  \item [auth()] - Simple authentication helper
+#'  \item [proxy()] - Proxy helper
 #' }
 #'
 #' @section HTTP conditions:

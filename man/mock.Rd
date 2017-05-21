@@ -13,6 +13,9 @@ By default is \code{FALSE}}
 \description{
 Mocking HTTP requests
 }
+\details{
+\code{webmockr} package required for mocking behavior
+}
 \examples{
 \dontrun{
 # load webmockr

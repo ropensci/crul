@@ -15,10 +15,13 @@
 your http options, make http requests
 \item \code{\link[=HttpResponse]{HttpResponse()}} - mostly for internal use, handles
 http responses
-\item \code{\link[=HttpRequest]{HttpRequest()}} - generate an HTTP request, mostly for
-use in building requests to be used in \code{Async} or \code{AsyncVaried}
 \item \code{\link[=Async]{Async()}} - asynchronous requests
 \item \code{\link[=AsyncVaried]{AsyncVaried()}} - varied asynchronous requests
+\item \code{\link[=HttpRequest]{HttpRequest()}} - generate an HTTP request, mostly for
+use in building requests to be used in \code{Async} or \code{AsyncVaried}
+\item \code{\link[=mock]{mock()}} - Turn on/off mocking, via \code{webmockr}
+\item \code{\link[=auth]{auth()}} - Simple authentication helper
+\item \code{\link[=proxy]{proxy()}} - Proxy helper
 }
 }
 

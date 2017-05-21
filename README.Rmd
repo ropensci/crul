@@ -28,7 +28,7 @@ whose interface is similar to `HttpClient` - all URLs are treated the same.
 objects - with a different interface than `HttpClient`/`Async` due to the nature
 of handling requests with different HTTP methods, options, etc.
 * `HttpRequest` - HTTP request object, used for `AsyncVaried`
-* `mock()` - Turn on mocking, via `webmockr`
+* `mock()` - Turn on/off mocking, via `webmockr`
 * `auth()` - Simple authentication helper
 * `proxy()` - Proxy helper
 

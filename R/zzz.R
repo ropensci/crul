@@ -49,3 +49,11 @@ norm_headers <- function(x, y) {
   }
   return(x)
 }
+
+check_for_package <- function(x) {
+  if (!requireNamespace(x, quietly = TRUE)) {
+    stop(sprintf("Please install '%s'", x), call. = FALSE)
+  } else {
+    invisible(TRUE)
+  }
+}

@@ -240,6 +240,7 @@ HttpClient <- R6::R6Class(
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
 
       if (crul_opts$mock) {
+        check_for_package("webmockr")
         adap <- webmockr::CrulAdapter$new()
         return(adap$handle_request(opts))
       } else {
