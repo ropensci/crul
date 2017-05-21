@@ -24,10 +24,13 @@ Package API:
 different clients.
 * `Async` - Asynchronous HTTP requests - a simple interface for many URLS -
 whose interface is similar to `HttpClient` - all URLs are treated the same.
-* `HttpRequest` - HTTP request object, used for `AsyncVaried`
 * `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`
 objects - with a different interface than `HttpClient`/`Async` due to the nature
 of handling requests with different HTTP methods, options, etc.
+* `HttpRequest` - HTTP request object, used for `AsyncVaried`
+* `mock()` - Turn on mocking, via `webmockr`
+* `auth()` - Simple authentication helper
+* `proxy()` - Proxy helper
 
 Mocking:
 
