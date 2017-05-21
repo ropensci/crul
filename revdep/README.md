@@ -4,24 +4,23 @@
 
 |setting  |value                                       |
 |:--------|:-------------------------------------------|
-|version  |R version 3.4.0 Patched (2017-04-24 r72617) |
+|version  |R version 3.4.0 Patched (2017-05-19 r72708) |
 |system   |x86_64, darwin15.6.0                        |
-|ui       |RStudio (1.1.223)                           |
+|ui       |RStudio (1.1.238)                           |
 |language |(EN)                                        |
 |collate  |en_US.UTF-8                                 |
 |tz       |America/Vancouver                           |
-|date     |2017-05-16                                  |
+|date     |2017-05-21                                  |
 
 ## Packages
 
-|package  |*  |version    |date       |source                            |
-|:--------|:--|:----------|:----------|:---------------------------------|
-|crul     |   |0.3.5.9671 |2017-05-17 |local (ropensci/crul@NA)          |
-|webmockr |   |0.0.5.9120 |2017-05-17 |local (ropensci/webmockr@1002035) |
+|package |*  |version    |date       |source                   |
+|:-------|:--|:----------|:----------|:------------------------|
+|crul    |   |0.3.5.9991 |2017-05-21 |local (ropensci/crul@NA) |
 
 # Check results
 
-20 packages
+21 packages
 
 |package   |version | errors| warnings| notes|
 |:---------|:-------|------:|--------:|-----:|
@@ -43,6 +42,7 @@
 |ropenaq   |0.2.0   |      0|        0|     0|
 |rredlist  |0.3.0   |      0|        0|     0|
 |spocc     |0.7.0   |      0|        0|     0|
+|webmockr  |0.1.0   |      0|        0|     0|
 |wikitaxa  |0.1.4   |      0|        0|     0|
 |worrms    |0.1.0   |      0|        0|     0|
 
@@ -151,6 +151,12 @@ Bug reports: https://github.com/ropensci/rredlist/issues
 ## spocc (0.7.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/spocc/issues
+
+0 errors | 0 warnings | 0 notes
+
+## webmockr (0.1.0)
+Maintainer: Scott Chamberlain <myrmecocystus+r@gmail.com>  
+Bug reports: https://github.com/ropensci/webmockr/issues
 
 0 errors | 0 warnings | 0 notes
 

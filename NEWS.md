@@ -2,7 +2,7 @@ crul 0.3.6
 ==========
 
 * Note: This version gains support for integration with 
-`webmockr`, which is not yet on CRAN, but should be shortly.
+`webmockr`, which is now on CRAN.
 
 ### NEW FEATURES
 
@@ -10,7 +10,9 @@ crul 0.3.6
 * New function `HttpStubbedResponse` for making a stubbed 
 response object for the `webmockr` integration (#4)
 * New function `mock()` to turn on mocking - it's off by 
-default (#4)
+default. If `webmockr` is not installed but user attempts 
+to use mocking we error with message to install 
+`webmockr` (#4)
 
 ### MINOR IMPROVEMENTS
 
