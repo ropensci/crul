@@ -24,7 +24,7 @@ Imports:
 Suggests:
     testthat,
     fauxpas (>= 0.1.0),
-    webmockr,
+    webmockr (>= 0.1.0),
     knitr,
     jsonlite
 VignetteBuilder: knitr
