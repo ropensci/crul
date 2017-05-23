@@ -354,5 +354,3 @@ for flexible and easy HTTP request caching
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
 By participating in this project you agree to abide by its terms.
-
-[![ropensci_footer](http://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
