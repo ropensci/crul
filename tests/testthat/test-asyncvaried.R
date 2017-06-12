@@ -36,3 +36,24 @@ test_that("AsyncVaried fails well", {
   expect_error(AsyncVaried$new(), "must pass in at least one request")
   expect_error(AsyncVaried$new(5), "all inputs must be of class 'HttpRequest'")
 })
+
+context("AsyncVaried - order of results")
+test_that("AsyncVaried - order", {
+  skip_on_cran()
+
+  req1 <- HttpRequest$new(url = "https://httpbin.org/get?a=5")$get()
+  req2 <- HttpRequest$new(url = "https://httpbin.org/get?b=6")$get()
+  req3 <- HttpRequest$new(url = "https://httpbin.org/get?c=7")$get()
+  aa <- AsyncVaried$new(req1, req2, req3)
+  aa$request()
+  out <- aa$responses()
+
+  expect_is(out, "list")
+  expect_is(out[[1]], "HttpResponse")
+  expect_is(out[[2]], "HttpResponse")
+  expect_is(out[[3]], "HttpResponse")
+
+  expect_match(out[[1]]$url, "a=5")
+  expect_match(out[[2]]$url, "b=6")
+  expect_match(out[[3]]$url, "c=7")
+})

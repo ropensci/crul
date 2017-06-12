@@ -30,7 +30,7 @@ test_that("put request with body", {
   expect_is(aa$method, "character")
   expect_equal(aa$method, "put")
   expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_is(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
 
   expect_named(aa$request$fields, "hello")

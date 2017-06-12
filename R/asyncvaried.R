@@ -179,23 +179,23 @@ AsyncVaried <- R6::R6Class(
 
     async_request = function(reqs) {
       crulpool <- curl::new_pool()
+      multi_res <- list()
 
-      multi_res <- vector("list", length(reqs))
-      suc_cess <- function(res) multi_res <<- c(multi_res, list(res))
-
-      lapply(reqs, function(w) {
-        w <- w$payload
-        # setup handle
-        # h <- curl::new_handle(url = w$url$url)
+      make_request <- function(i) {
+        w <- reqs[[i]]$payload
         h <- w$url$handle
         curl::handle_setopt(h, .list = w$options)
         if (!is.null(w$fields)) {
           curl::handle_setform(h, .list = w$fields)
         }
         curl::handle_setheaders(h, .list = w$headers)
-        # add to pool
-        curl::multi_add(h, done = suc_cess, pool = crulpool)
-      })
+        curl::multi_add(handle = h,
+          done = function(res) multi_res[[i]] <<- res,
+          pool = crulpool
+        )
+      }
+
+      for (i in seq_along(reqs)) make_request(i)
 
       # run all requests
       curl::multi_run(pool = crulpool)

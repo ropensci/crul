@@ -129,3 +129,23 @@ test_that("Async - head", {
   expect_equal(out[[1]]$method, "head")
   expect_equal(out[[2]]$method, "head")
 })
+
+
+context("Async - order of results")
+test_that("Async - order", {
+  skip_on_cran()
+
+  aa <- Async$new(urls = c('https://httpbin.org/get?a=5',
+                           'https://httpbin.org/get?b=6',
+                           'https://httpbin.org/get?c=7'))
+  out <- aa$get()
+
+  expect_is(out, "list")
+  expect_is(out[[1]], "HttpResponse")
+  expect_is(out[[2]], "HttpResponse")
+  expect_is(out[[3]], "HttpResponse")
+
+  expect_match(out[[1]]$url, "a=5")
+  expect_match(out[[2]]$url, "b=6")
+  expect_match(out[[3]]$url, "c=7")
+})
