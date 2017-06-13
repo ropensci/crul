@@ -63,17 +63,17 @@ Make request with any HTTP method
 #> <crul response> 
 #>   url: https://httpbin.org/get?a=5
 #>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.6
+#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
-#>     date: Mon, 22 May 2017 19:45:09 GMT
+#>     date: Tue, 13 Jun 2017 22:26:33 GMT
 #>     content-type: application/json
 #>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
 #>     x-powered-by: Flask
-#>     x-processed-time: 0.000808000564575
+#>     x-processed-time: 0.000774145126343
 #>     content-length: 302
 #>     via: 1.1 vegur
 #>   params: 
@@ -82,43 +82,43 @@ Make request with any HTTP method
 #> 
 #> [[2]]
 #> <crul response> 
-#>   url: https://httpbin.org/ip
-#>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.6
-#>   response_headers: 
-#>     status: HTTP/1.1 200 OK
-#>     connection: keep-alive
-#>     server: meinheld/0.6.1
-#>     date: Mon, 22 May 2017 19:45:09 GMT
-#>     content-type: application/json
-#>     access-control-allow-origin: *
-#>     access-control-allow-credentials: true
-#>     x-powered-by: Flask
-#>     x-processed-time: 0.000504016876221
-#>     content-length: 33
-#>     via: 1.1 vegur
-#>   status: 200
-#> 
-#> [[3]]
-#> <crul response> 
 #>   url: https://httpbin.org/get?a=5&b=6
 #>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.6
+#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
-#>     date: Mon, 22 May 2017 19:45:10 GMT
+#>     date: Tue, 13 Jun 2017 22:26:33 GMT
 #>     content-type: application/json
 #>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
 #>     x-powered-by: Flask
-#>     x-processed-time: 0.000698089599609
+#>     x-processed-time: 0.00131487846375
 #>     content-length: 321
 #>     via: 1.1 vegur
 #>   params: 
 #>     a: 5
 #>     b: 6
+#>   status: 200
+#> 
+#> [[3]]
+#> <crul response> 
+#>   url: https://httpbin.org/ip
+#>   request_headers: 
+#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
+#>   response_headers: 
+#>     status: HTTP/1.1 200 OK
+#>     connection: keep-alive
+#>     server: meinheld/0.6.1
+#>     date: Tue, 13 Jun 2017 22:26:33 GMT
+#>     content-type: application/json
+#>     access-control-allow-origin: *
+#>     access-control-allow-credentials: true
+#>     x-powered-by: Flask
+#>     x-processed-time: 0.000844955444336
+#>     content-length: 33
+#>     via: 1.1 vegur
 #>   status: 200
 ```
 
@@ -133,7 +133,7 @@ res[[1]]$url
 res[[1]]$success()
 #> [1] TRUE
 res[[1]]$parse("UTF-8")
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 ```
 
 Or apply access/method calls aross many results, e.g., parse all results
@@ -142,13 +142,13 @@ Or apply access/method calls aross many results, e.g., parse all results
 ```r
 lapply(res, function(z) z$parse("UTF-8"))
 #> [[1]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 #> 
 #> [[2]]
-#> [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
 #> 
 #> [[3]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"
 ```
 
 ## varied request async
@@ -200,8 +200,8 @@ Parse all results
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       
-#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------b358f9eb048e9a09\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       
+#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------4cd6745fc264b623\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
 ```
 
 
@@ -217,7 +217,7 @@ lapply(res$parse(), jsonlite::prettify)
 #>         "Accept-Encoding": "gzip, deflate",
 #>         "Connection": "close",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6"
+#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
 #>     },
 #>     "origin": "157.130.179.86",
 #>     "url": "https://httpbin.org/get?a=5"
@@ -242,10 +242,10 @@ lapply(res$parse(), jsonlite::prettify)
 #>         "Accept-Encoding": "gzip, deflate",
 #>         "Connection": "close",
 #>         "Content-Length": "137",
-#>         "Content-Type": "multipart/form-data; boundary=------------------------b358f9eb048e9a09",
+#>         "Content-Type": "multipart/form-data; boundary=------------------------4cd6745fc264b623",
 #>         "Expect": "100-continue",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6"
+#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
 #>     },
 #>     "json": null,
 #>     "origin": "157.130.179.86",

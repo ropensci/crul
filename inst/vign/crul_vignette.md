@@ -116,7 +116,7 @@ res$content
 #> [162] 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65
 #> [185] 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 31
 #> [208] 2e 30 20 72 2d 63 75 72 6c 2f 32 2e 36 20 63 72 75 6c 2f 30 2e 33 2e
-#> [231] 36 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
+#> [231] 38 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
 #> [254] 35 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c
 #> [277] 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67
 #> [300] 2f 67 65 74 22 0a 7d 0a
@@ -136,7 +136,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.6"
+#> [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -160,7 +160,7 @@ res$response_headers
 #> [1] "meinheld/0.6.1"
 #> 
 #> $date
-#> [1] "Mon, 22 May 2017 19:45:49 GMT"
+#> [1] "Tue, 13 Jun 2017 22:26:40 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
@@ -175,7 +175,7 @@ res$response_headers
 #> [1] "Flask"
 #> 
 #> $`x-processed-time`
-#> [1] "0.000676155090332"
+#> [1] "0.000635147094727"
 #> 
 #> $`content-length`
 #> [1] "307"
@@ -189,7 +189,7 @@ And you can parse the content with a provided function:
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.6\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
@@ -211,7 +211,7 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.6"
+#> [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
 #> 
 #> 
 #> $origin
@@ -243,7 +243,7 @@ f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmprAVGwE/file423b7c9b1f2"
+#> [1] "/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//RtmpF4Mh1B/file6fcc2a328add"
 ```
 
 Read lines
@@ -275,11 +275,11 @@ readLines(res$content, n = 10)
 #>   auth: 
 #>   headers:
 res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
-#> {"url": "https://httpbin.org/stream/5", "id": 0, "args": {}, "origin": "157.130.179.86", "headers": {"Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6", "Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate"}}
-#> {"url": "https://httpbin.org/stream/5", "id": 1, "args": {}, "origin": "157.130.179.86", "headers": {"Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6", "Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate"}}
-#> {"url": "https://httpbin.org/stream/5", "id": 2, "args": {}, "origin": "157.130.179.86", "headers": {"Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6", "Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate"}}
-#> {"url": "https://httpbin.org/stream/5", "id": 3, "args": {}, "origin": "157.130.179.86", "headers": {"Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6", "Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate"}}
-#> {"url": "https://httpbin.org/stream/5", "id": 4, "args": {}, "origin": "157.130.179.86", "headers": {"Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.6", "Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate"}}
+#> {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"}, "args": {}, "origin": "157.130.179.86", "id": 0}
+#> {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"}, "args": {}, "origin": "157.130.179.86", "id": 1}
+#> {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"}, "args": {}, "origin": "157.130.179.86", "id": 2}
+#> {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"}, "args": {}, "origin": "157.130.179.86", "id": 3}
+#> {"url": "https://httpbin.org/stream/5", "headers": {"Host": "httpbin.org", "Connection": "close", "Accept-Encoding": "gzip, deflate", "Accept": "*/*", "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"}, "args": {}, "origin": "157.130.179.86", "id": 4}
 # when streaming, content is NULL
 res$content 
 #> NULL

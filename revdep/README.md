@@ -4,23 +4,23 @@
 
 |setting  |value                                       |
 |:--------|:-------------------------------------------|
-|version  |R version 3.4.0 Patched (2017-05-19 r72708) |
+|version  |R version 3.4.0 Patched (2017-06-05 r72770) |
 |system   |x86_64, darwin15.6.0                        |
-|ui       |RStudio (1.1.238)                           |
+|ui       |RStudio (1.1.258)                           |
 |language |(EN)                                        |
 |collate  |en_US.UTF-8                                 |
 |tz       |America/Vancouver                           |
-|date     |2017-05-21                                  |
+|date     |2017-06-13                                  |
 
 ## Packages
 
-|package |*  |version    |date       |source                   |
-|:-------|:--|:----------|:----------|:------------------------|
-|crul    |   |0.3.5.9991 |2017-05-21 |local (ropensci/crul@NA) |
+|package |*  |version |date       |source                   |
+|:-------|:--|:-------|:----------|:------------------------|
+|crul    |   |0.3.8   |2017-06-13 |local (ropensci/crul@NA) |
 
 # Check results
 
-21 packages
+20 packages
 
 |package   |version | errors| warnings| notes|
 |:---------|:-------|------:|--------:|-----:|
@@ -35,11 +35,10 @@
 |rbhl      |0.8.0   |      0|        0|     0|
 |rbison    |0.5.4   |      0|        0|     0|
 |rcrossref |0.7.0   |      0|        0|     0|
-|rgbif     |0.9.8   |      0|        0|     0|
 |rif       |0.2.0   |      0|        0|     0|
 |rjsonapi  |0.1.0   |      0|        0|     0|
 |rnoaa     |0.7.0   |      0|        0|     0|
-|ropenaq   |0.2.0   |      0|        0|     0|
+|ropenaq   |0.2.1   |      0|        0|     0|
 |rredlist  |0.3.0   |      0|        0|     0|
 |spocc     |0.7.0   |      0|        0|     0|
 |webmockr  |0.1.0   |      0|        0|     0|
@@ -112,12 +111,6 @@ Bug reports: https://github.com/ropensci/rcrossref/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rgbif (0.9.8)
-Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/ropensci/rgbif/issues
-
-0 errors | 0 warnings | 0 notes
-
 ## rif (0.2.0)
 Maintainer: Scott Chamberlain <myrmecocystus+r@gmail.com>  
 Bug reports: https://github.com/ropensci/rif/issues
@@ -136,7 +129,7 @@ Bug reports: https://github.com/ropensci/rnoaa/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ropenaq (0.2.0)
+## ropenaq (0.2.1)
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
 Bug reports: http://github.com/ropensci/ropenaq/issues
 
