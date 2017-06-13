@@ -4,7 +4,8 @@
 #' @param ...,.list Any number of objects of class [HttpRequest()],
 #' must supply inputs to one of these parameters, but not both
 #' @family async
-#' @return An object of class `AsyncVaried` with variables and methods
+#' @return An object of class `AsyncVaried` with variables and methods.
+#' Responses are returned in the order they are passed in.
 #' @details
 #' **Methods**
 #'   \describe{

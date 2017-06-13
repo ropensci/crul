@@ -9,7 +9,8 @@
 must supply inputs to one of these parameters, but not both}
 }
 \value{
-An object of class \code{AsyncVaried} with variables and methods
+An object of class \code{AsyncVaried} with variables and methods.
+Responses are returned in the order they are passed in.
 }
 \description{
 Async client for different request types

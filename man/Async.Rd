@@ -8,7 +8,8 @@
 \item{urls}{(character) one or more URLs (required)}
 }
 \value{
-a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}
+a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}.
+Responses are returned in the order they are passed in.
 }
 \description{
 A client to work with many URLs, but all with the same HTTP method
