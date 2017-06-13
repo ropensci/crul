@@ -16,6 +16,7 @@ curl output or not, setting a timeout for requests, and more. See
 A progress helper will be coming soon.
 }
 \examples{
+\dontrun{
 # set curl options on client initialization
 (res <- HttpClient$new(
   url = "https://httpbin.org",
@@ -30,13 +31,14 @@ res$get('get')
 # or set curl options when performing HTTP operation
 (res <- HttpClient$new(url = "https://httpbin.org"))
 res$get('get', verbose = TRUE)
-\dontrun{res$get('get', stuff = "things")}
-\dontrun{res$get('get', httpget = TRUE)}
+res$get('get', stuff = "things")
+res$get('get', httpget = TRUE)
 
 # set a timeout
 (res <- HttpClient$new(
   url = "https://httpbin.org",
   opts = list(timeout_ms = 1)
 ))
-\dontrun{res$get('get')}
+res$get('get')
+}
 }
