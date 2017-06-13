@@ -1,3 +1,15 @@
+crul 0.3.8
+==========
+
+### BUG FIXES
+
+* Fixed `AsyncVaried` to return async responses in the order that
+they were passed in. This also fixes this exact same behavior in 
+`Async` because `Async` uses `AsyncVaried` internally. (#41)
+thanks @dirkschumacher for reporting
+
+
+
 crul 0.3.6
 ==========
 

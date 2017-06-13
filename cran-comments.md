@@ -1,6 +1,6 @@
 ## Test environments
 
-* local OS X install, R 3.4.0
+* local OS X install, R 3.4.0 patched
 * ubuntu 12.04 (on travis-ci), R 3.4.0
 * win-builder (devel and release)
 
@@ -22,8 +22,7 @@ No problems were found. The two other maintainers were notified.
 
 ---
 
-This version adds a few new functions, improves some HTTP headers
-sent, and includes mocking integration.
+This version fixes a bug in Async and AsyncVaried methods.
 
 Thanks!
 Scott Chamberlain
