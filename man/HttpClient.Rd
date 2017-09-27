@@ -59,6 +59,13 @@ for help
 post, postfields, postfieldsize, and customrequest
 }
 }
+\section{handles}{
+
+curl handles are re-used on the level of the connection object, that is,
+each \code{HttpClient} object is separate from one another so as to better
+separate connections.
+}
+
 \examples{
 (x <- HttpClient$new(url = "https://httpbin.org"))
 x$url
@@ -97,6 +104,6 @@ res <- x$get("get", query = list(a = 'hello world'))
 }
 \seealso{
 \link{post-requests}, \link{delete-requests}, \link{http-headers},
-\link{writing-options}
+\link{writing-options}, \link{cookies}
 }
 \keyword{datasets}
