@@ -148,17 +148,12 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "get",
-        options = list(
-          httpget = TRUE
-        ),
-        headers = list(
-          `User-Agent` = make_ua(),
-          `Accept-Encoding` = 'gzip, deflate'
-        )
+        options = list(httpget = TRUE), headers = def_head()
       )
       rr$headers <- norm_headers(rr$headers, self$headers)
       rr$options <- utils::modifyList(
         rr$options, c(self$opts, self$proxies, self$auth, ...))
+      rr$options <- curl_opts_fil(rr$options)
       rr$disk <- disk
       rr$stream <- stream
       private$make_request(rr)

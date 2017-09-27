@@ -39,6 +39,7 @@ prep_opts <- function(method, url, self, opts, ...) {
     rr$options,
     c(self$opts, self$proxies, self$auth, ...)
   )
+  rr$options <- curl_opts_fil(rr$options)
   return(rr)
 }
 
@@ -56,4 +57,18 @@ check_for_package <- function(x) {
   } else {
     invisible(TRUE)
   }
+}
+
+def_head <- function() {
+  list(
+    `User-Agent` = make_ua(),
+    `Accept-Encoding` = 'gzip, deflate'
+  )
+}
+
+# drop any options that are not in the set of
+# valid curl options
+curl_opts_fil <- function(z) {
+  valco <- names(curl::curl_options())
+  z[names(z) %in% valco]
 }
