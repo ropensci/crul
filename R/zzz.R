@@ -23,7 +23,7 @@ prep_opts <- function(method, url, self, opts, ...) {
   rr <- list(
     url = url,
     method = method,
-    options = as.list(c(opts$opts)),
+    options = as.list(c(opts$opts, cainfo = find_cert_bundle())),
     headers = as.list(c(opts$type, def_head())),
     fields = opts$fields
   )
@@ -70,4 +70,21 @@ curl_opts_fil <- function(z) {
 # drop named things
 drop_name <- function(x, y) {
   x[!names(x) %in% y]
+}
+
+# adapted from https://github.com/hadley/httr
+find_cert_bundle <- function() {
+  if (.Platform$OS.type != "windows")
+    return()
+
+  env <- Sys.getenv("CURL_CA_BUNDLE")
+  if (!identical(env, ""))
+    return(env)
+
+  bundled <- file.path(R.home("etc"), "curl-ca-bundle.crt")
+  if (file.exists(bundled))
+    return(bundled)
+
+  # Fall back to certificate bundle in openssl
+  system.file("cacert.pem", package = "openssl")
 }
