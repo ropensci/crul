@@ -119,8 +119,8 @@ context("Async - head")
 test_that("Async - head", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/head',
-                           'https://httpbin.org/head'))
+  aa <- Async$new(urls = c('https://google.com',
+                           'https://nytimes.com'))
   out <- aa$head()
 
   expect_is(out, "list")

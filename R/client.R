@@ -20,7 +20,7 @@
 #'     \item{`delete(path, query, body, disk, stream, ...)`}{
 #'       Make a DELETE request
 #'     }
-#'     \item{`head(path, disk, stream, ...)`}{
+#'     \item{`head(path, ...)`}{
 #'       Make a HEAD request
 #'     }
 #'   }
@@ -203,7 +203,7 @@ HttpClient <- R6::R6Class(
       private$make_request(rr)
     },
 
-    head = function(path = NULL, disk = NULL, stream = NULL, ...) {
+    head = function(path = NULL, ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
@@ -216,10 +216,9 @@ HttpClient <- R6::R6Class(
         ),
         headers = self$headers
       )
-      rr$options <- utils::modifyList(rr$options,
-                                      c(self$opts, self$proxies, ...))
-      rr$disk <- disk
-      rr$stream <- stream
+      rr$options <- utils::modifyList(
+        rr$options,
+        c(self$opts, self$proxies, ...))
       private$make_request(rr)
     },
 

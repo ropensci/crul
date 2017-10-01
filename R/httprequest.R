@@ -33,7 +33,7 @@
 #'     \item{`delete(path, query, body, disk, stream, ...)`}{
 #'       Define a DELETE request
 #'     }
-#'     \item{`head(path, disk, stream, ...)`}{
+#'     \item{`head(path, ...)`}{
 #'       Define a HEAD request
 #'     }
 #'     \item{`method()`}{
@@ -196,7 +196,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
-    head = function(path = NULL, disk = NULL, stream = NULL, ...) {
+    head = function(path = NULL, ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
@@ -211,8 +211,6 @@ HttpRequest <- R6::R6Class(
       )
       rr$options <- utils::modifyList(rr$options,
                                       c(self$opts, self$proxies, ...))
-      rr$disk <- disk
-      rr$stream <- stream
       self$payload <- rr
       return(self)
     },

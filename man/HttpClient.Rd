@@ -38,7 +38,7 @@ Make a PATCH request
 \item{\code{delete(path, query, body, disk, stream, ...)}}{
 Make a DELETE request
 }
-\item{\code{head(path, disk, stream, ...)}}{
+\item{\code{head(path, ...)}}{
 Make a HEAD request
 }
 }

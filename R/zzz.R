@@ -72,3 +72,8 @@ curl_opts_fil <- function(z) {
   valco <- names(curl::curl_options())
   z[names(z) %in% valco]
 }
+
+# drop named things
+drop_name <- function(x, y) {
+  x[!names(x) %in% y]
+}
