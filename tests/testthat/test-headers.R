@@ -7,7 +7,7 @@ test_that("headers work - just default headers", {
   aa <- cli$get('get')
 
   expect_is(aa, "HttpResponse")
-  expect_named(aa$request_headers, c('User-Agent', 'Accept-Encoding'))
+  expect_named(aa$request_headers, c('User-Agent', 'Accept-Encoding', 'Accept'))
 })
 
 test_that("headers work - user headers passed", {
@@ -20,7 +20,8 @@ test_that("headers work - user headers passed", {
   bb <- cli$get('get')
 
   expect_is(bb, "HttpResponse")
-  expect_named(bb$request_headers, c('User-Agent', 'Accept-Encoding', 'hello'))
+  expect_named(bb$request_headers, c('User-Agent', 'Accept-Encoding',
+                                     'Accept', 'hello'))
   expect_true(
     any(grepl("Hello", names(jsonlite::fromJSON(bb$parse("UTF-8"))$headers))))
 })

@@ -49,7 +49,7 @@ Define a PATCH request
 \item{\code{delete(path, query, body, disk, stream, ...)}}{
 Define a DELETE request
 }
-\item{\code{head(path, disk, stream, ...)}}{
+\item{\code{head(path, ...)}}{
 Define a HEAD request
 }
 \item{\code{method()}}{

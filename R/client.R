@@ -210,10 +210,7 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "head",
-        options = c(
-          opts,
-          useragent = make_ua()
-        ),
+        options = c(opts, useragent = make_ua()),
         headers = self$headers
       )
       rr$options <- utils::modifyList(

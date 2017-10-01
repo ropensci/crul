@@ -13,7 +13,6 @@ assert <- function(x, y) {
 
 prep_opts <- function(method, url, self, opts, ...) {
   if (method != "post") {
-    opts$opts$post <- NULL
     opts$opts$customrequest <- toupper(method)
   }
   if (!is.null(opts$type)) {
@@ -24,14 +23,8 @@ prep_opts <- function(method, url, self, opts, ...) {
   rr <- list(
     url = url,
     method = method,
-    options = as.list(c(
-      opts$opts
-    )),
-    headers = as.list(c(
-      opts$type,
-      `User-Agent` = make_ua(),
-      `Accept-Encoding` = 'gzip, deflate'
-    )),
+    options = as.list(c(opts$opts)),
+    headers = as.list(c(opts$type, def_head())),
     fields = opts$fields
   )
   rr$headers <- norm_headers(rr$headers, self$headers)
@@ -62,7 +55,8 @@ check_for_package <- function(x) {
 def_head <- function() {
   list(
     `User-Agent` = make_ua(),
-    `Accept-Encoding` = 'gzip, deflate'
+    `Accept-Encoding` = 'gzip, deflate',
+    `Accept` = 'application/json, text/xml, application/xml, */*'
   )
 }
 
