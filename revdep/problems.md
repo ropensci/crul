@@ -4,19 +4,19 @@
 
 |setting  |value                                       |
 |:--------|:-------------------------------------------|
-|version  |R version 3.4.0 Patched (2017-06-05 r72770) |
+|version  |R version 3.4.2 Patched (2017-10-01 r73423) |
 |system   |x86_64, darwin15.6.0                        |
-|ui       |RStudio (1.1.258)                           |
+|ui       |X11                                         |
 |language |(EN)                                        |
 |collate  |en_US.UTF-8                                 |
-|tz       |America/Vancouver                           |
-|date     |2017-06-13                                  |
+|tz       |America/Los_Angeles                         |
+|date     |2017-10-02                                  |
 
 ## Packages
 
 |package |*  |version |date       |source                   |
 |:-------|:--|:-------|:----------|:------------------------|
-|crul    |   |0.3.8   |2017-06-13 |local (ropensci/crul@NA) |
+|crul    |   |0.4.0   |2017-10-02 |local (ropensci/crul@NA) |
 
 # Check results
 

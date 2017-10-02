@@ -68,7 +68,7 @@ make_request("https://httpbin.org/get")
 #> 
 #> $headers
 #> $headers$Accept
-#> [1] "*/*"
+#> [1] "application/json, text/xml, application/xml, */*"
 #> 
 #> $headers$`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -80,7 +80,7 @@ make_request("https://httpbin.org/get")
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
+#> [1] "libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0"
 #> 
 #> 
 #> $origin
@@ -144,7 +144,7 @@ make_request2("https://api.crossref.org/works?rows=0")
 #> named list()
 #> 
 #> $message$`total-results`
-#> [1] 89155073
+#> [1] 91794003
 #> 
 #> $message$items
 #> list()
@@ -189,7 +189,7 @@ make_request2("https://api.crossref.org/works", query = list(rows = 0))
 #> named list()
 #> 
 #> $message$`total-results`
-#> [1] 89155073
+#> [1] 91794003
 #> 
 #> $message$items
 #> list()

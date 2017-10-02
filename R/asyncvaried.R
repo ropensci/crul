@@ -190,8 +190,7 @@ AsyncVaried <- R6::R6Class(
           curl::handle_setform(h, .list = w$fields)
         }
         curl::handle_setheaders(h, .list = w$headers)
-        curl::multi_add(
-          handle = h,
+        curl::multi_add(handle = h,
           done = function(res) multi_res[[i]] <<- res,
           pool = crulpool
         )

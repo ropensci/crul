@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.4.0 patched
-* ubuntu 12.04 (on travis-ci), R 3.4.0
+* local OS X install, R 3.4.2 patched
+* ubuntu 12.04 (on travis-ci), R 3.4.2
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -16,13 +16,13 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 21 downstream dependencies
+* I have run R CMD check on the 31 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
 No problems were found. The two other maintainers were notified.
 
 ---
 
-This version fixes a bug in Async and AsyncVaried methods.
+This version adds a new function, and implements many fixes.
 
 Thanks!
 Scott Chamberlain

@@ -63,18 +63,17 @@ Make request with any HTTP method
 #> <crul response> 
 #>   url: https://httpbin.org/get?a=5
 #>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
-#>     date: Tue, 13 Jun 2017 22:26:33 GMT
+#>     date: Mon, 02 Oct 2017 19:21:08 GMT
 #>     content-type: application/json
 #>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
 #>     x-powered-by: Flask
-#>     x-processed-time: 0.000774145126343
-#>     content-length: 302
+#>     x-processed-time: 0.00125598907471
+#>     content-length: 349
 #>     via: 1.1 vegur
 #>   params: 
 #>     a: 5
@@ -84,18 +83,17 @@ Make request with any HTTP method
 #> <crul response> 
 #>   url: https://httpbin.org/get?a=5&b=6
 #>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
-#>     date: Tue, 13 Jun 2017 22:26:33 GMT
+#>     date: Mon, 02 Oct 2017 19:21:07 GMT
 #>     content-type: application/json
 #>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
 #>     x-powered-by: Flask
-#>     x-processed-time: 0.00131487846375
-#>     content-length: 321
+#>     x-processed-time: 0.00107097625732
+#>     content-length: 368
 #>     via: 1.1 vegur
 #>   params: 
 #>     a: 5
@@ -106,17 +104,16 @@ Make request with any HTTP method
 #> <crul response> 
 #>   url: https://httpbin.org/ip
 #>   request_headers: 
-#>     useragent: libcurl/7.51.0 r-curl/2.6 crul/0.3.8
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
-#>     date: Tue, 13 Jun 2017 22:26:33 GMT
+#>     date: Mon, 02 Oct 2017 19:21:08 GMT
 #>     content-type: application/json
 #>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
 #>     x-powered-by: Flask
-#>     x-processed-time: 0.000844955444336
+#>     x-processed-time: 0.000734090805054
 #>     content-length: 33
 #>     via: 1.1 vegur
 #>   status: 200
@@ -133,7 +130,7 @@ res[[1]]$url
 res[[1]]$success()
 #> [1] TRUE
 res[[1]]$parse("UTF-8")
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 ```
 
 Or apply access/method calls aross many results, e.g., parse all results
@@ -142,10 +139,10 @@ Or apply access/method calls aross many results, e.g., parse all results
 ```r
 lapply(res, function(z) z$parse("UTF-8"))
 #> [[1]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 #> 
 #> [[2]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
 #> 
 #> [[3]]
 #> [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"
@@ -200,8 +197,8 @@ Parse all results
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                                                       
-#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------4cd6745fc264b623\", \n    \"Expect\": \"100-continue\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.8\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                   
+#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------9223144570b5d592\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
 ```
 
 
@@ -213,11 +210,11 @@ lapply(res$parse(), jsonlite::prettify)
 #>         "a": "5"
 #>     },
 #>     "headers": {
-#>         "Accept": "*/*",
+#>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
 #>         "Connection": "close",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
+#>         "User-Agent": "libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0"
 #>     },
 #>     "origin": "157.130.179.86",
 #>     "url": "https://httpbin.org/get?a=5"
@@ -238,14 +235,13 @@ lapply(res$parse(), jsonlite::prettify)
 #>         "a": "5"
 #>     },
 #>     "headers": {
-#>         "Accept": "*/*",
+#>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
 #>         "Connection": "close",
 #>         "Content-Length": "137",
-#>         "Content-Type": "multipart/form-data; boundary=------------------------4cd6745fc264b623",
-#>         "Expect": "100-continue",
+#>         "Content-Type": "multipart/form-data; boundary=------------------------9223144570b5d592",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.51.0 r-curl/2.6 crul/0.3.8"
+#>         "User-Agent": "libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0"
 #>     },
 #>     "json": null,
 #>     "origin": "157.130.179.86",

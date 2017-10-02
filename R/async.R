@@ -32,7 +32,6 @@
 #'
 #' @format NULL
 #' @usage NULL
-#'
 #' @return a list, with objects of class [HttpResponse()].
 #' Responses are returned in the order they are passed in.
 #' @examples \dontrun{

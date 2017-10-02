@@ -1,3 +1,23 @@
+crul 0.4.0
+==========
+
+### NEW FEATURES
+
+* file uploads now work, see new function `upload()` and examples (#25)
+
+### MINOR IMPROVEMENTS
+
+* fixes to reused curl handles - within a connection object only,
+not across connection objects (#45)
+* `crul` now drops any options passed in to `opts` or to `...` that 
+are not in set of allowed curl options, see `curl::curl_options()` (#49)
+* cookies should now be persisted across requests within 
+a connection object, see new doc `?cookies` for how to set cookies (#44)
+* gather cainfo and use in curl options when applicable (#51)
+* remove `disk` and `stream` from `head` method in `HttpClient` 
+and `HttpRequest` as no body returned in a HEAD request
+
+
 crul 0.3.8
 ==========
 
