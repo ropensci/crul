@@ -23,7 +23,7 @@ prep_opts <- function(method, url, self, opts, ...) {
   rr <- list(
     url = url,
     method = method,
-    options = as.list(c(opts$opts, cainfo = find_cert_bundle())),
+    options = ccp(as.list(c(opts$opts, cainfo = find_cert_bundle()))),
     headers = as.list(c(opts$type, def_head())),
     fields = opts$fields
   )

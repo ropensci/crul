@@ -89,4 +89,13 @@ jsonlite::fromJSON(res$parse("UTF-8"))
 # FIXME, can't pass file not in a list
 # res <- x$post(path = "post", body = file)
 # jsonlite::fromJSON(res$parse("UTF-8"))
+
+file <- system.file("examples", "books2.json", package = "solrium")
+(x <- HttpClient$new(url = "https://httpbin.org", opts = list(verbose = TRUE)))
+res <- x$post(path = "post", body = upload(file))
+jsonlite::fromJSON(res$parse("UTF-8"))
+
+cli <- HttpClient$new(url = "http://127.0.0.1:8983", opts = list(verbose = TRUE))
+res <- cli$post("solr/books/update/json/docs", body = upload(file))
+jsonlite::fromJSON(res$parse("UTF-8"))
 }
