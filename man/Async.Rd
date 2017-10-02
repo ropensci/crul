@@ -17,19 +17,19 @@ A client to work with many URLs, but all with the same HTTP method
 \details{
 \strong{Methods}
 \describe{
-\item{\code{get(path, query, disk, stream, ...)}}{
+\item{\code{get(path, query, ...)}}{
 make async GET requests for all URLs
 }
-\item{\code{post(path, query, body, encode, disk, stream, ...)}}{
+\item{\code{post(path, query, body, encode, ...)}}{
 make async POST requests for all URLs
 }
-\item{\code{put(path, query, body, encode, disk, stream, ...)}}{
+\item{\code{put(path, query, body, encode, ...)}}{
 make async PUT requests for all URLs
 }
-\item{\code{patch(path, query, body, encode, disk, stream, ...)}}{
+\item{\code{patch(path, query, body, encode, ...)}}{
 make async PATCH requests for all URLs
 }
-\item{\code{delete(path, query, body, encode, disk, stream, ...)}}{
+\item{\code{delete(path, query, body, encode, ...)}}{
 make async DELETE requests for all URLs
 }
 \item{\code{head(path, ...)}}{
@@ -38,24 +38,6 @@ make async HEAD requests for all URLs
 }
 
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
-
-Possible parameters (not all are allowed in each HTTP verb):
-\itemize{
-\item path - URL path, appended to the base URL
-\item query - query terms, as a list
-\item body - body as an R list
-\item encode - one of form, multipart, json, or raw
-\item disk - one or more paths to write to - must be same length
-as number of URLs. If NULL (default), memory used.  See
-\code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.
-\item stream - an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
-for help. Unlike \code{disk} parameter this is a length one input as all
-URLs stream to same callback
-\item ... curl options, only those in the acceptable set from
-\code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost,
-post, postfields, postfieldsize, and customrequest
-}
 }
 \examples{
 \dontrun{

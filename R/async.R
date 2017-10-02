@@ -8,19 +8,19 @@
 #' @details
 #' **Methods**
 #'   \describe{
-#'     \item{`get(path, query, disk, stream, ...)`}{
+#'     \item{`get(path, query, ...)`}{
 #'       make async GET requests for all URLs
 #'     }
-#'     \item{`post(path, query, body, encode, disk, stream, ...)`}{
+#'     \item{`post(path, query, body, encode, ...)`}{
 #'       make async POST requests for all URLs
 #'     }
-#'     \item{`put(path, query, body, encode, disk, stream, ...)`}{
+#'     \item{`put(path, query, body, encode, ...)`}{
 #'       make async PUT requests for all URLs
 #'     }
-#'     \item{`patch(path, query, body, encode, disk, stream, ...)`}{
+#'     \item{`patch(path, query, body, encode, ...)`}{
 #'       make async PATCH requests for all URLs
 #'     }
-#'     \item{`delete(path, query, body, encode, disk, stream, ...)`}{
+#'     \item{`delete(path, query, body, encode, ...)`}{
 #'       make async DELETE requests for all URLs
 #'     }
 #'     \item{`head(path, ...)`}{
@@ -32,24 +32,6 @@
 #'
 #' @format NULL
 #' @usage NULL
-#'
-#' @details Possible parameters (not all are allowed in each HTTP verb):
-#' \itemize{
-#'  \item path - URL path, appended to the base URL
-#'  \item query - query terms, as a list
-#'  \item body - body as an R list
-#'  \item encode - one of form, multipart, json, or raw
-#'  \item disk - one or more paths to write to - must be same length
-#'  as number of URLs. If NULL (default), memory used.  See
-#'  [curl::curl_fetch_disk()] for help.
-#'  \item stream - an R function to determine how to stream data. if
-#'  NULL (default), memory used. See [curl::curl_fetch_stream()]
-#'  for help. Unlike `disk` parameter this is a length one input as all
-#'  URLs stream to same callback
-#'  \item ... curl options, only those in the acceptable set from
-#'  [curl::curl_options()] except the following: httpget, httppost,
-#'  post, postfields, postfieldsize, and customrequest
-#' }
 #'
 #' @return a list, with objects of class [HttpResponse()].
 #' Responses are returned in the order they are passed in.
@@ -92,34 +74,28 @@ Async <- R6::R6Class(
       self$urls <- urls
     },
 
-    get = function(path = NULL, query = list(), disk = NULL,
-                   stream = NULL, ...) {
-      private$gen_interface(self$urls, "get", path, query,
-                            disk = disk, stream = stream, ...)
+    get = function(path = NULL, query = list(), ...) {
+      private$gen_interface(self$urls, "get", path, query, ...)
     },
 
     post = function(path = NULL, query = list(), body = NULL,
-                    encode = "multipart", disk = NULL, stream = NULL, ...) {
-      private$gen_interface(self$urls, "post", path, query, body, encode,
-                            disk, stream, ...)
+                    encode = "multipart", ...) {
+      private$gen_interface(self$urls, "post", path, query, body, encode, ...)
     },
 
     put = function(path = NULL, query = list(), body = NULL,
-                   encode = "multipart", disk = NULL, stream = NULL, ...) {
-      private$gen_interface(self$urls, "put", path, query, body, encode,
-                            disk, stream, ...)
+                   encode = "multipart", ...) {
+      private$gen_interface(self$urls, "put", path, query, body, encode, ...)
     },
 
     patch = function(path = NULL, query = list(), body = NULL,
-                     encode = "multipart", disk = NULL, stream = NULL, ...) {
-      private$gen_interface(self$urls, "patch", path, query, body, encode,
-                            disk, stream, ...)
+                     encode = "multipart", ...) {
+      private$gen_interface(self$urls, "patch", path, query, body, encode, ...)
     },
 
     delete = function(path = NULL, query = list(), body = NULL,
-                      encode = "multipart", disk = NULL, stream = NULL, ...) {
-      private$gen_interface(self$urls, "delete", path, query, body, encode,
-                            disk, stream, ...)
+                      encode = "multipart", ...) {
+      private$gen_interface(self$urls, "delete", path, query, body, encode, ...)
     },
 
     head = function(path = NULL, ...) {
@@ -128,51 +104,20 @@ Async <- R6::R6Class(
   ),
 
   private = list(
-    gen_interface = function(x, method, path, query = NULL, body = NULL,
-                             encode = NULL, disk = NULL, stream = NULL, ...) {
-      if (!is.null(disk)) {
-        if (length(disk) > 1) {
-          stopifnot(length(x) == length(disk))
-          reqs <- Map(function(z, m) {
-            switch(
-              method,
-              get = HttpRequest$new(url = z)$get(path = path, query = query,
-                disk = m, stream = stream, ...),
-              post = HttpRequest$new(url = z)$post(path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              put = HttpRequest$new(url = z)$put(path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              patch = HttpRequest$new(url = z)$patch(path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              delete = HttpRequest$new(url = z)$delete(path = path,
-                query = query, body = body, encode = encode, disk = m,
-                stream = stream, ...),
-              head = HttpRequest$new(url = z)$head(path = path, ...)
-            )
-          }, x, disk)
-        }
-      } else {
-        reqs <- lapply(x, function(z) {
+    gen_interface = function(x, method, ...) {
+      tmp <- AsyncVaried$new(
+        .list = lapply(x, function(z) {
           switch(
             method,
-            get = HttpRequest$new(url = z)$get(path = path, query = query,
-              disk = disk, stream = stream, ...),
-            post = HttpRequest$new(url = z)$post(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            put = HttpRequest$new(url = z)$put(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            patch = HttpRequest$new(url = z)$patch(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            delete = HttpRequest$new(url = z)$delete(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            head = HttpRequest$new(url = z)$head(path = path, ...)
+            get = HttpRequest$new(url = z)$get(...),
+            post = HttpRequest$new(url = z)$post(...),
+            put = HttpRequest$new(url = z)$put(...),
+            patch = HttpRequest$new(url = z)$patch(...),
+            delete = HttpRequest$new(url = z)$delete(...),
+            head = HttpRequest$new(url = z)$head(...)
           )
         })
-      }
-      tmp <- AsyncVaried$new(.list = reqs)
+      )
       tmp$request()
       tmp$responses()
     }
