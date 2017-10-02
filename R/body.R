@@ -32,22 +32,24 @@ prep_body <- function(body, encode, type = NULL) {
   if (is.character(body) || is.raw(body)) {
     return(raw_body(body, type = type))
   }
-  if ("files" %in% names(body)) {
-    con <- file(body$files$path, "rb")
-    size <- file.info(body$files$path)$size
+  if (inherits(body, "form_file")) {
+    con <- file(body$path, "rb")
+    size <- file.info(body$path)$size
     return(
       list(
-        post = TRUE,
-        readfunction = function(nbytes, ...) {
-          if (is.null(con)) return(raw())
-          bin <- readBin(con, "raw", nbytes)
-          if (length(bin) < nbytes) {
-            close(con)
-            con <<- NULL
-          }
-          bin
-        },
-        postfieldsize_large = size,
+        opts = list(
+          post = TRUE,
+          readfunction = function(nbytes, ...) {
+            if (is.null(con)) return(raw())
+            bin <- readBin(con, "raw", nbytes)
+            if (length(bin) < nbytes) {
+              close(con)
+              con <<- NULL
+            }
+            bin
+          },
+          postfieldsize_large = size
+        ),
         type = make_type(body$type)
       )
     )

@@ -45,5 +45,4 @@ test_that("path - work with routes that have spaces", {
   expect_is(bb, "HttpResponse")
   urlsp <- strsplit(bb$url, "/")[[1]]
   expect_equal(urlsp[length(urlsp)], 'Platanista%20gangetica')
-  expect_equal(bb$status_code, 200)
 })

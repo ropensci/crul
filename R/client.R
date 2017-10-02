@@ -168,6 +168,7 @@ HttpClient <- R6::R6Class(
       rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
+      #rr
       private$make_request(rr)
     },
 

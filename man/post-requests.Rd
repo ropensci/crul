@@ -75,13 +75,18 @@ res <- x$patch("patch", body = "foo bar")
 jsonlite::fromJSON(res$parse("UTF-8"))
 
 
-# Upload files - STILL WORKING ON THIS
-# path <- file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg")
-# (x <- HttpClient$new(url = "https://httpbin.org"))
-# x$post("post",
-#    body = list(
-#      files = list(path = path)
-#    )
-# )
+# Upload files
+path <- file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg")
+(x <- HttpClient$new(url = "https://httpbin.org"))
+res <- x$post(path = "post", body = list(y = upload(path)))
+res$content
 
+(x <- HttpClient$new(url = "https://httpbin.org"))
+file <- upload(system.file("CITATION"))
+res <- x$post(path = "post", body = list(y = file))
+jsonlite::fromJSON(res$parse("UTF-8"))
+
+# FIXME, can't pass file not in a list
+# res <- x$post(path = "post", body = file)
+# jsonlite::fromJSON(res$parse("UTF-8"))
 }
