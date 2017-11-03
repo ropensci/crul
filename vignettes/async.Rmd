@@ -34,7 +34,7 @@ library("crul")
 
 ## simple async
 
-Build request objcect with 1 or more URLs
+Build request object with 1 or more URLs
 
 
 
@@ -133,7 +133,7 @@ res[[1]]$parse("UTF-8")
 #> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 ```
 
-Or apply access/method calls aross many results, e.g., parse all results
+Or apply access/method calls across many results, e.g., parse all results
 
 
 ```r
