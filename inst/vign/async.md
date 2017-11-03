@@ -13,19 +13,19 @@ Asynchronous requests with `crul`.
 
 There are two interfaces to asynchronous requests in `crul`:
 
-1. Simple async: any number of URLs, all treated with the same curl options, 
+1. Simple async: any number of URLs, all treated with the same curl options,
 headers, etc., and only one HTTP method type at a time.
 2. Varied request async: build any type of request and execute all asynchronously.
 
-The first option takes less thinking, less work, and is good solution when you 
+The first option takes less thinking, less work, and is good solution when you
 just want to hit a bunch of URLs asynchronously.
 
-The second option is ideal when you want to set curl options/headers on each 
+The second option is ideal when you want to set curl options/headers on each
 request and/or want to do different types of HTTP methods on each request.
 
-One thing to think about before using async is whether the data provider is 
+One thing to think about before using async is whether the data provider is
 okay with it. It's possible that a data provider's service may be brought down
-if you do too many async requests. 
+if you do too many async requests.
 
 
 ```r
@@ -34,7 +34,7 @@ library("crul")
 
 ## simple async
 
-Build request objcect with 1 or more URLs
+Build request object with 1 or more URLs
 
 
 
@@ -47,8 +47,8 @@ Build request objcect with 1 or more URLs
     'https://httpbin.org/ip'
   )
 ))
-#> <crul async connection> 
-#>   urls: 
+#> <crul async connection>
+#>   urls:
 #>    https://httpbin.org/get?a=5
 #>    https://httpbin.org/get?a=5&b=6
 #>    https://httpbin.org/ip
@@ -60,10 +60,10 @@ Make request with any HTTP method
 ```r
 (res <- cc$get())
 #> [[1]]
-#> <crul response> 
+#> <crul response>
 #>   url: https://httpbin.org/get?a=5
-#>   request_headers: 
-#>   response_headers: 
+#>   request_headers:
+#>   response_headers:
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
@@ -75,15 +75,15 @@ Make request with any HTTP method
 #>     x-processed-time: 0.00125598907471
 #>     content-length: 349
 #>     via: 1.1 vegur
-#>   params: 
+#>   params:
 #>     a: 5
 #>   status: 200
-#> 
+#>
 #> [[2]]
-#> <crul response> 
+#> <crul response>
 #>   url: https://httpbin.org/get?a=5&b=6
-#>   request_headers: 
-#>   response_headers: 
+#>   request_headers:
+#>   response_headers:
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
@@ -95,16 +95,16 @@ Make request with any HTTP method
 #>     x-processed-time: 0.00107097625732
 #>     content-length: 368
 #>     via: 1.1 vegur
-#>   params: 
+#>   params:
 #>     a: 5
 #>     b: 6
 #>   status: 200
-#> 
+#>
 #> [[3]]
-#> <crul response> 
+#> <crul response>
 #>   url: https://httpbin.org/ip
-#>   request_headers: 
-#>   response_headers: 
+#>   request_headers:
+#>   response_headers:
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: meinheld/0.6.1
@@ -133,17 +133,17 @@ res[[1]]$parse("UTF-8")
 #> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 ```
 
-Or apply access/method calls aross many results, e.g., parse all results
+Or apply access/method calls across many results, e.g., parse all results
 
 
 ```r
 lapply(res, function(z) z$parse("UTF-8"))
 #> [[1]]
 #> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
-#> 
+#>
 #> [[2]]
 #> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
-#> 
+#>
 #> [[3]]
 #> [1] "{\n  \"origin\": \"157.130.179.86\"\n}\n"
 ```
@@ -161,10 +161,10 @@ req1 <- HttpRequest$new(
 req1$get()
 #> <crul http request> get
 #>   url: https://httpbin.org/get?a=5
-#>   curl options: 
+#>   curl options:
 #>     verbose: TRUE
-#>   proxies: 
-#>   auth: 
+#>   proxies:
+#>   auth:
 #>   headers:
 
 req2 <- HttpRequest$new(
@@ -173,15 +173,15 @@ req2 <- HttpRequest$new(
 req2$post(body = list(a = 5))
 #> <crul http request> post
 #>   url: https://httpbin.org/post?a=5&b=6
-#>   curl options: 
-#>   proxies: 
-#>   auth: 
+#>   curl options:
+#>   proxies:
+#>   auth:
 #>   headers:
 
 (res <- AsyncVaried$new(req1, req2))
-#> <crul async varied connection> 
-#>   requests: 
-#>    get: https://httpbin.org/get?a=5 
+#> <crul async varied connection>
+#>   requests:
+#>    get: https://httpbin.org/get?a=5
 #>    post: https://httpbin.org/post?a=5&b=6
 ```
 
@@ -197,7 +197,7 @@ Parse all results
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                                   
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 #> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------9223144570b5d592\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/2.8.1 crul/0.4.0\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
 ```
 
@@ -219,8 +219,8 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "origin": "157.130.179.86",
 #>     "url": "https://httpbin.org/get?a=5"
 #> }
-#>  
-#> 
+#>
+#>
 #> [[2]]
 #> {
 #>     "args": {
@@ -229,7 +229,7 @@ lapply(res$parse(), jsonlite::prettify)
 #>     },
 #>     "data": "",
 #>     "files": {
-#> 
+#>
 #>     },
 #>     "form": {
 #>         "a": "5"
@@ -247,7 +247,7 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "origin": "157.130.179.86",
 #>     "url": "https://httpbin.org/post?a=5&b=6"
 #> }
-#> 
+#>
 ```
 
 Status codes

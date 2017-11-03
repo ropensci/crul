@@ -20,19 +20,19 @@ Asynchronous requests with `crul`.
 
 There are two interfaces to asynchronous requests in `crul`:
 
-1. Simple async: any number of URLs, all treated with the same curl options, 
+1. Simple async: any number of URLs, all treated with the same curl options,
 headers, etc., and only one HTTP method type at a time.
 2. Varied request async: build any type of request and execute all asynchronously.
 
-The first option takes less thinking, less work, and is good solution when you 
+The first option takes less thinking, less work, and is good solution when you
 just want to hit a bunch of URLs asynchronously.
 
-The second option is ideal when you want to set curl options/headers on each 
+The second option is ideal when you want to set curl options/headers on each
 request and/or want to do different types of HTTP methods on each request.
 
-One thing to think about before using async is whether the data provider is 
+One thing to think about before using async is whether the data provider is
 okay with it. It's possible that a data provider's service may be brought down
-if you do too many async requests. 
+if you do too many async requests.
 
 ```{r}
 library("crul")
@@ -40,7 +40,7 @@ library("crul")
 
 ## simple async
 
-Build request objcect with 1 or more URLs
+Build request object with 1 or more URLs
 
 ```{r echo=FALSE, eval=FALSE}
 (cc <- Async$new(
@@ -78,7 +78,7 @@ res[[1]]$success()
 res[[1]]$parse("UTF-8")
 ```
 
-Or apply access/method calls aross many results, e.g., parse all results
+Or apply access/method calls across many results, e.g., parse all results
 
 ```{r}
 lapply(res, function(z) z$parse("UTF-8"))
