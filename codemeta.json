@@ -31,7 +31,7 @@
       "givenName": "Scott",
       "familyName": "Chamberlain",
       "email": "myrmecocystus@gmail.com",
-      "@id": "orcid.org/0000-0003-1444-9135"
+      "@id": "http://orcid.org/0000-0003-1444-9135"
     }
   ],
   "maintainer": {
@@ -39,7 +39,7 @@
     "givenName": "Scott",
     "familyName": "Chamberlain",
     "email": "myrmecocystus@gmail.com",
-    "@id": "orcid.org/0000-0003-1444-9135"
+    "@id": "http://orcid.org/0000-0003-1444-9135"
   },
   "softwareSuggestions": [
     {
@@ -179,5 +179,5 @@
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/crul/blob/master/README.md",
-  "fileSize": "40.67KB"
+  "fileSize": "40.668KB"
 }
