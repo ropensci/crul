@@ -1,11 +1,11 @@
 #' Paginator client
 #'
-#' A client help you paginate, a wrapper around [HttpClient]
+#' A client to help you paginate
 #'
 #' @export
 #' @param client an object of class `HttpClient`, from a call to [HttpClient]
-#' @param by (character) how to paginate. One of query_params, link_headers, 
-#' or cursor. See Details.
+#' @param by (character) how to paginate. Only 'query_params' supported for
+#' now. In the future will support 'link_headers' and 'cursor'. See Details.
 #' @param limit_param (character) the name of the limit parameter. 
 #' Default: limit
 #' @param offset_param (character) the name of the offset parameter. 
@@ -72,9 +72,14 @@
 #' 
 #' @section Methods to paginate:
 #' 
+#' Supported now:
+#' 
 #' - `query_params`: the most common way, so is the default. This method
 #' involves setting how many records and what record to start at for each 
 #' request. We send these query parameters for you.
+#' 
+#' Supported later:
+#' 
 #' - `link_headers`: link headers are URLS for the next/previous/last 
 #' request given in the response header from the server. This is relatively
 #' uncommon, though is recommended by JSONAPI and is implemented by a 
@@ -88,13 +93,13 @@
 #' 
 #' @examples \dontrun{
 #' # by query parameters (here limit and skip for CouchDB)
-#' (cli <- HttpClient$new(url = "http://localhost:5984"))
-#' cc <- Paginator$new(client = cli, by = "query_params", limit_param = "limit",
-#'    offset_param = "skip", limit = 100, limit_chunk = 5)
+#' (cli <- HttpClient$new(url = "http://api.crossref.org"))
+#' cc <- Paginator$new(client = cli, by = "query_params", limit_param = "rows",
+#'    offset_param = "offset", limit = 50, limit_chunk = 10)
 #' cc
 #' #cc$requests()
-#' cli$get('omdb/_all_docs', query = list(limit = 3))$parse("UTF-8")
-#' cc$get('omdb/_all_docs')
+#' cli$get('works', query = list(rows = 3))$parse("UTF-8")
+#' cc$get('works')
 #' cc
 #' cc$responses()
 #' cc$status()
@@ -103,15 +108,9 @@
 #' cc$content()
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
-#' 
-#' # by link headers: GitHub
-#' ## eg to come
-#' 
-#' # by cursor: Crossref
-#' ## eg to come
 #' }
 Paginator <- R6::R6Class(
-  'Pagintor',
+  'Paginator',
   public = list(
     http_req = NULL,
     by = NULL,
@@ -123,11 +122,15 @@ Paginator <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul paginator> ", sep = "\n")
+      cat(paste0(
+        "  base url: ",
+        if (is.null(self$http_req)) self$http_req$handle$url else self$http_req$url),
+        sep = "\n")
       cat(paste0("  by: ", self$by), sep = "\n")
-      cat(paste0("  limit_chunk: ", self$limit_chunk), sep = "\n")
-      cat(paste0("  limit_param: ", self$limit_param), sep = "\n")
-      cat(paste0("  offset_param: ", self$offset_param), sep = "\n")
-      cat(paste0("  limit: ", self$limit), sep = "\n")
+      cat(paste0("  limit_chunk: ", self$limit_chunk %||% "<none>"), sep = "\n")
+      cat(paste0("  limit_param: ", self$limit_param %||% "<none>"), sep = "\n")
+      cat(paste0("  offset_param: ", self$offset_param %||% "<none>"), sep = "\n")
+      cat(paste0("  limit: ", self$limit %||% "<none>"), sep = "\n")
       cat(paste0("  status: ", 
         if (length(private$resps) == 0) {
           "not run yet" 
@@ -138,27 +141,22 @@ Paginator <- R6::R6Class(
     },
 
     initialize = function(client, by, limit_param, offset_param, limit, limit_chunk) {  
+      if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'", 
+        call. = FALSE)
       self$http_req <- client
-      if (!missing(by)) self$by <- by
+      if (by != "query_params") stop("'by' has to be 'query_params' for now", 
+        call. = FALSE)
+      self$by <- by
       if (!missing(limit_chunk)) self$limit_chunk <- limit_chunk
       if (!missing(limit_param)) self$limit_param <- limit_param
       if (!missing(offset_param)) self$offset_param <- offset_param
       if (!missing(limit)) self$limit <- limit
-      private$offset_iters <-  c(0, seq(from=0, to=self$limit, by=self$limit_chunk)[-1])
-      private$offset_args <- as.list(stats::setNames(private$offset_iters, 
-        rep(self$offset_param, length(private$offset_iters))))
-    },
-
-    requests = function() {
-      message("not working yet")
-      # req_name <- sub("\\$.+", "", deparse(self$req[[1]]$expr))
-      # req_obj <- lazy_eval(req_name, data = self$req[[1]])
-      # url <- req_obj$url
-      # lim_each <- self$limit / self$limit_chunk
-      # urls <- vector(mode = "character", length = lim_each)
-      # cat("base url: ", url)
-      # cat(sprintf("  requests: %s requests of %s records each", length(lim_each), self$limit_chunk), sep = "\n")
-      # return(invisible())
+      if (self$by == "query_params") {
+        private$offset_iters <-  c(0, seq(from=0, to=self$limit, by=self$limit_chunk)[-1])
+        private$offset_iters <-  private$offset_iters[-length(private$offset_iters)]
+        private$offset_args <- as.list(stats::setNames(private$offset_iters, 
+          rep(self$offset_param, length(private$offset_iters))))
+      }
     },
 
     # HTTP verbs
@@ -240,3 +238,29 @@ Paginator <- R6::R6Class(
     }
   )
 )
+
+# sttrim <- function(str) {
+#   gsub("^\\s+|\\s+$", "", str)
+# }
+
+# parse_links <- function(w) {
+#   if (is.null(w)) {
+#     NULL
+#   } else {
+#     if (inherits(w, "character")) {
+#       links <- sttrim(strsplit(w, ",")[[1]])
+#       lapply(links, each_link)
+#     } else {
+#       nms <- sapply(w, "[[", "name")
+#       tmp <- unlist(w[nms %in% "next"])
+#       grep("http", tmp, value = TRUE)
+#     }
+#   }
+# }
+
+# each_link <- function(z) {
+#   tmp <- sttrim(strsplit(z, ";")[[1]])
+#   nm <- gsub("\"|(rel)|=", "", tmp[2])
+#   url <- gsub("^<|>$", "", tmp[1])
+#   list(name = nm, url = url)
+# }

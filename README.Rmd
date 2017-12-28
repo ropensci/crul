@@ -22,6 +22,7 @@ Package API:
 * `HttpClient` - Main interface to making HTTP requests. Synchronous requests only.
 * `HttpResponse` - HTTP response object, used for all responses across the
 different clients.
+* `Paginator` - Auto-paginate through requests
 * `Async` - Asynchronous HTTP requests - a simple interface for many URLS -
 whose interface is similar to `HttpClient` - all URLs are treated the same.
 * `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`

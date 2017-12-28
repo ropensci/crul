@@ -7,11 +7,8 @@
 \arguments{
 \item{client}{an object of class \code{HttpClient}, from a call to \link{HttpClient}}
 
-\item{by}{(character) how to paginate. One of query_params, link_headers,
-or cursor. See Details.}
-
-\item{limit_chunk}{(numeric/integer) the number by which to chunk requests,
-e.g., 10 would be be each request gets 10 records}
+\item{by}{(character) how to paginate. Only 'query_params' supported for
+now. In the future will support 'link_headers' and 'cursor'. See Details.}
 
 \item{limit_param}{(character) the name of the limit parameter.
 Default: limit}
@@ -20,13 +17,16 @@ Default: limit}
 Default: offset}
 
 \item{limit}{(numeric/integer) the maximum records wanted}
+
+\item{limit_chunk}{(numeric/integer) the number by which to chunk requests,
+e.g., 10 would be be each request gets 10 records}
 }
 \value{
 a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}.
 Responses are returned in the order they are passed in.
 }
 \description{
-A client help you paginate, a wrapper around \link{HttpClient}
+A client to help you paginate
 }
 \details{
 \strong{Methods}
@@ -84,10 +84,16 @@ See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
 \section{Methods to paginate}{
 
+
+Supported now:
 \itemize{
 \item \code{query_params}: the most common way, so is the default. This method
 involves setting how many records and what record to start at for each
 request. We send these query parameters for you.
+}
+
+Supported later:
+\itemize{
 \item \code{link_headers}: link headers are URLS for the next/previous/last
 request given in the response header from the server. This is relatively
 uncommon, though is recommended by JSONAPI and is implemented by a
@@ -101,13 +107,13 @@ remain. This is common in Solr
 \examples{
 \dontrun{
 # by query parameters (here limit and skip for CouchDB)
-(cli <- HttpClient$new(url = "http://localhost:5984"))
-cc <- Paginator$new(client = cli, by = "query_params", limit_param = "limit",
-   offset_param = "skip", limit_chunk = 5, limit = 100)
+(cli <- HttpClient$new(url = "http://api.crossref.org"))
+cc <- Paginator$new(client = cli, by = "query_params", limit_param = "rows",
+   offset_param = "offset", limit = 50, limit_chunk = 10)
 cc
 #cc$requests()
-cli$get('omdb/_all_docs', query = list(limit = 3))$parse("UTF-8")
-cc$get('omdb/_all_docs')
+cli$get('works', query = list(rows = 3))$parse("UTF-8")
+cc$get('works')
 cc
 cc$responses()
 cc$status()
@@ -116,12 +122,6 @@ cc$times()
 cc$content()
 cc$parse()
 lapply(cc$parse(), jsonlite::fromJSON)
-
-# by link headers: GitHub
-## eg to come
-
-# by cursor: Crossref
-## eg to come
 }
 }
 \keyword{datasets}
