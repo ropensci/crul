@@ -12,3 +12,4 @@ docs
 .github
 inst/vign
 ^\.httr-oauth$
+^codemeta\.json$
