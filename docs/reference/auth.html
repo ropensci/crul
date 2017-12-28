@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -170,7 +192,7 @@ digest, digest_ie, gssnegotiate, ntlm, or any. optional</p></td>
 #&gt; [1] "auth"
 #&gt; attr(,"type")
 #&gt; [1] "basic"</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>res</span>$<span class='fu'>get</span>()
-<span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>x</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $authenticated
+<span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></span>(<span class='no'>x</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $authenticated
 #&gt; [1] TRUE
 #&gt; 
 #&gt; $user
@@ -187,7 +209,16 @@ digest, digest_ie, gssnegotiate, ntlm, or any. optional</p></td>
 #&gt;   auth: 
 #&gt;     - user:passwd
 #&gt;     - type:  1
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>auth</span></div><div class='output co'>#&gt; NULL</div></pre>
+#&gt;   headers: </div><div class='input'><span class='no'>res</span>$<span class='no'>auth</span></div><div class='output co'>#&gt; $userpwd
+#&gt; [1] "user:passwd"
+#&gt; 
+#&gt; $httpauth
+#&gt; [1] 1
+#&gt; 
+#&gt; attr(,"class")
+#&gt; [1] "auth"
+#&gt; attr(,"type")
+#&gt; [1] "basic"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

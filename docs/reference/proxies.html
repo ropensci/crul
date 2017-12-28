@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -113,7 +135,7 @@ digest, digest_ie, gssnegotiate, ntlm, or any. optional</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>See <a href = 'http://proxylist.hidemyass.com/'>http://proxylist.hidemyass.com/</a> for a list of proxies you
+    <p>See <a href='http://proxylist.hidemyass.com/'>http://proxylist.hidemyass.com/</a> for a list of proxies you
 can use</p>
     
 
@@ -198,8 +220,9 @@ can use</p>
 #&gt; [1] 1
 #&gt; 
 #&gt; attr(,"class")
-#&gt; [1] "proxy"</div><div class='input'><span class='co'>## Not run: res$get(verbose = TRUE)</span>
-
+#&gt; [1] "proxy"</div><span class='co'># NOT RUN {</span>
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'># vs. without proxy (look at request/outgoing headers)</span>
 (<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://www.google.com"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
 #&gt;   url: http://www.google.com
@@ -209,21 +232,23 @@ can use</p>
 #&gt;   headers: </div><div class='input'><span class='no'>res2</span>$<span class='fu'>get</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: http://www.google.com/
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
-#&gt;     date: Mon, 15 May 2017 18:12:05 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:40 GMT
 #&gt;     expires: -1
 #&gt;     cache-control: private, max-age=0
 #&gt;     content-type: text/html; charset=ISO-8859-1
-#&gt;     p3p: CP="This is not a P3P policy! See https://www.google.com/support/accounts/answer/151657?hl=en for more info."
+#&gt;     p3p: CP="This is not a P3P policy! See g.co/p3phelp for more info."
 #&gt;     content-encoding: gzip
 #&gt;     server: gws
-#&gt;     content-length: 4429
+#&gt;     content-length: 4732
 #&gt;     x-xss-protection: 1; mode=block
 #&gt;     x-frame-options: SAMEORIGIN
-#&gt;     set-cookie: NID=103=ObvUrbhn_tomJF4NAKQ62eNwjqfw4HmCTeQPuuC66nrvRLWk3NvTM6vMtdTE09M9Aj5DPzz080_q8scVQEUAf8oZQASRV0BMi79gOsFZPVqJlyFgsqL88NYuTRjh0R4Kr6yuc3z9FleOB_QeIQ; expires=Tue, 14-Nov-2017 18:12:05 GMT; path=/; domain=.google.com; HttpOnly
+#&gt;     set-cookie: 1P_JAR=2017-12-28-18; expires=Sat, 27-Jan-2018 18:00:40 GMT; path=/; domain=.google.com
+#&gt;     set-cookie: NID=120=Mu8OtnAzsK5UMt-T_kuZTdAPW8-aHIkTJRETvtKPPdL2sy4muFH4miwQvQcEAUNDeeGpLX03RYs5CDlbRmXBpTH80mVWpYurtQOi6CKSdvC0fpeHfO38f1niLk-oWrPX; expires=Fri, 29-Jun-2018 18:00:40 GMT; path=/; domain=.google.com; HttpOnly
 #&gt;   status: 200</div><div class='input'>
 
 <span class='co'># Use authentication</span>
@@ -247,7 +272,9 @@ can use</p>
 #&gt;   proxies: 
 #&gt;     - http://200.29.191.149:3128 (auth: FALSE)
 #&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='co'>## Not run: res$get()$parse("UTF-8")</span></div></pre>
+#&gt;   headers: </div><span class='co'># NOT RUN {</span>
+<span class='no'>res</span>$<span class='fu'>get</span>()$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

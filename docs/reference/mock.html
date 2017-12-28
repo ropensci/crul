@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a handle — handle • crul</title>
+<title>Mocking HTTP requests — mock • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -101,50 +101,65 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a handle</h1>
+    <h1>Mocking HTTP requests</h1>
     </div>
 
     
-    <p>Make a handle</p>
+    <p>Mocking HTTP requests</p>
     
 
-    <pre class="usage"><span class='fu'>handle</span>(<span class='no'>url</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>mock</span>(<span class='kw'>on</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>url</th>
-      <td><p>(character) A url. required.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>options passed on to <code><a href='http://www.rdocumentation.org/packages/curl/topics/handle'>curl::new_handle()</a></code></p></td>
+      <th>on</th>
+      <td><p>(logical) turn mocking on with <code>TRUE</code> or turn off with <code>FALSE</code>.
+By default is <code>FALSE</code></p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>webmockr</code> package required for mocking behavior</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>handle</span>(<span class='st'>"https://httpbin.org"</span>)</div><div class='output co'>#&gt; $url
-#&gt; [1] "https://httpbin.org"
-#&gt; 
-#&gt; $handle
-#&gt; &lt;curl handle&gt; (empty)
-#&gt; </div><div class='input'>
-<span class='co'># handles - pass in your own handle</span>
-<span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'>handle</span>(<span class='st'>"https://httpbin.org"</span>)
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>h</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>"get"</span>)</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># load webmockr</span>
+<span class='fu'>library</span>(<span class='no'>webmockr</span>)
+<span class='fu'>library</span>(<span class='no'>crul</span>)
+
+<span class='no'>URL</span> <span class='kw'>&lt;-</span> <span class='st'>"https://httpbin.org"</span>
+
+<span class='co'># turn on mocking</span>
+<span class='kw pkg'>crul</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/crul/topics/mock'>mock</a></span>()
+
+<span class='co'># stub a request</span>
+<span class='fu'><a href='http://www.rdocumentation.org/packages/webmockr/topics/stub_request'>stub_request</a></span>(<span class='st'>"get"</span>, <span class='fu'>file.path</span>(<span class='no'>URL</span>, <span class='st'>"get"</span>))
+<span class='kw pkg'>webmockr</span><span class='kw ns'>:::</span><span class='no'>webmockr_stub_registry</span>
+
+<span class='co'># create an HTTP client</span>
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>URL</span>))
+
+<span class='co'># make a request - matches stub - no real request made</span>
+<span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)
+
+<span class='co'># allow net connect</span>
+<span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/webmockr/topics/webmockr_configure'>webmockr_allow_net_connect</a></span>()
+<span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))
+<span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/webmockr/topics/webmockr_configure'>webmockr_disable_net_connect</a></span>()
+<span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

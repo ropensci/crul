@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a handle — handle • crul</title>
+<title>License • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -20,9 +20,9 @@
 
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
   
   
 <!-- mathjax -->
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-license">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -47,18 +47,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <a class="navbar-brand" href="index.html">crul</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -68,18 +68,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">UNKNOWN TITLE</a>
+      <a href="articles/async.html">UNKNOWN TITLE</a>
     </li>
     <li>
-      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+      <a href="articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
-      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+      <a href="articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="news/index.html">News</a>
 </li>
       </ul>
       
@@ -99,57 +99,19 @@
       </header>
 
       <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-12">
     <div class="page-header">
-    <h1>Make a handle</h1>
+      <h1>License</h1>
     </div>
 
-    
-    <p>Make a handle</p>
-    
-
-    <pre class="usage"><span class='fu'>handle</span>(<span class='no'>url</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>url</th>
-      <td><p>(character) A url. required.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>options passed on to <code><a href='http://www.rdocumentation.org/packages/curl/topics/handle'>curl::new_handle()</a></code></p></td>
-    </tr>
-    </table>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>handle</span>(<span class='st'>"https://httpbin.org"</span>)</div><div class='output co'>#&gt; $url
-#&gt; [1] "https://httpbin.org"
-#&gt; 
-#&gt; $handle
-#&gt; &lt;curl handle&gt; (empty)
-#&gt; </div><div class='input'>
-<span class='co'># handles - pass in your own handle</span>
-<span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'>handle</span>(<span class='st'>"https://httpbin.org"</span>)
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>h</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>"get"</span>)</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+<pre>YEAR: 2017
+COPYRIGHT HOLDER: Scott Chamberlain
+</pre>
 
   </div>
+
 </div>
+
 
       <footer>
       <div class="copyright">

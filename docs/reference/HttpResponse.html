@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -157,25 +179,29 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/get
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:12:01 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:38 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.00114893913269
-#&gt;     content-length: 287
+#&gt;     x-processed-time: 0.000702142715454
+#&gt;     content-length: 330
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'><span class='no'>res</span>$<span class='no'>request_headers</span></div><div class='output co'>#&gt; $`User-Agent`
-#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
+#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"
 #&gt; 
 #&gt; $`Accept-Encoding`
 #&gt; [1] "gzip, deflate"
+#&gt; 
+#&gt; $Accept
+#&gt; [1] "application/json, text/xml, application/xml, */*"
 #&gt; </div><div class='input'><span class='no'>res</span>$<span class='no'>response_headers</span></div><div class='output co'>#&gt; $status
 #&gt; [1] "HTTP/1.1 200 OK"
 #&gt; 
@@ -186,7 +212,7 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
 #&gt; [1] "meinheld/0.6.1"
 #&gt; 
 #&gt; $date
-#&gt; [1] "Mon, 15 May 2017 18:12:01 GMT"
+#&gt; [1] "Thu, 28 Dec 2017 18:00:38 GMT"
 #&gt; 
 #&gt; $`content-type`
 #&gt; [1] "application/json"
@@ -201,55 +227,60 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
 #&gt; [1] "Flask"
 #&gt; 
 #&gt; $`x-processed-time`
-#&gt; [1] "0.00114893913269"
+#&gt; [1] "0.000702142715454"
 #&gt; 
 #&gt; $`content-length`
-#&gt; [1] "287"
+#&gt; [1] "330"
 #&gt; 
 #&gt; $via
 #&gt; [1] "1.1 vegur"
-#&gt; </div><div class='input'><span class='no'>res</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</div><div class='input'><span class='no'>res</span>$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()</div><div class='output co'>#&gt; &lt;Status code: 200&gt;
+#&gt; </div><div class='input'><span class='no'>res</span>$<span class='fu'>parse</span>()</div><div class='output co'>#&gt; <span class='message'>No encoding supplied: defaulting to UTF-8.</span></div><div class='output co'>#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</div><div class='input'><span class='no'>res</span>$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()</div><div class='output co'>#&gt; &lt;Status code: 200&gt;
 #&gt;   Message: OK
 #&gt;   Explanation: Request fulfilled, document follows</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>status_code</span></div><div class='output co'>#&gt; [1] "200"</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>message</span></div><div class='output co'>#&gt; [1] "OK"</div><div class='input'><span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>explanation</span></div><div class='output co'>#&gt; [1] "Request fulfilled, document follows"</div><div class='input'><span class='no'>res</span>$<span class='fu'>success</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/404'</span>)
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/status/404
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 404 NOT FOUND
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:12:01 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:38 GMT
 #&gt;     content-type: text/html; charset=utf-8
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.000746965408325
+#&gt;     x-processed-time: 0.000736951828003
 #&gt;     content-length: 0
 #&gt;     via: 1.1 vegur
-#&gt;   status: 404</div><div class='input'> <span class='co'>## Not run: res$raise_for_status()</span>
-
+#&gt;   status: 404</div><div class='input'> </div><span class='co'># NOT RUN {</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_status</span>()
+<span class='co'># }</span><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/414'</span>)
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/status/414
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 414 REQUEST URI TOO LONG
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:12:01 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:38 GMT
 #&gt;     content-type: text/html; charset=utf-8
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.000998020172119
+#&gt;     x-processed-time: 0.000537157058716
 #&gt;     content-length: 0
 #&gt;     via: 1.1 vegur
-#&gt;   status: 414</div><div class='input'> <span class='co'>## Not run: res$raise_for_status()</span></div></pre>
+#&gt;   status: 414</div><div class='input'> </div><span class='co'># NOT RUN {</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_status</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -84,68 +106,69 @@
     </div>
 
     <div class="contents">
-    <div id="crul-0-3-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crul-0-3-4" class="anchor"></a>crul 0.3.4</h1>
-<div id="new-features" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
+    <section id="crul-0.4.0" class="level1"><h1>crul 0.4.0</h1>
+<section id="new-features" class="level3"><h3>NEW FEATURES</h3>
+<ul>
+<li>file uploads now work, see new function <code><a href="../reference/upload.html">upload()</a></code> and examples (#25)</li>
+</ul></section><section id="minor-improvements" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>fixes to reused curl handles - within a connection object only, not across connection objects (#45)</li>
+<li>
+<code>crul</code> now drops any options passed in to <code>opts</code> or to <code>...</code> that are not in set of allowed curl options, see <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_options">curl::curl_options()</a></code> (#49)</li>
+<li>cookies should now be persisted across requests within a connection object, see new doc <code><a href="../reference/cookies.html">?cookies</a></code> for how to set cookies (#44)</li>
+<li>gather cainfo and use in curl options when applicable (#51)</li>
+<li>remove <code>disk</code> and <code>stream</code> from <code>head</code> method in <code>HttpClient</code> and <code>HttpRequest</code> as no body returned in a HEAD request</li>
+</ul></section></section>
+    <section id="crul-0.3.8" class="level1"><h1>crul 0.3.8</h1>
+<section id="bug-fixes" class="level3"><h3>BUG FIXES</h3>
+<ul>
+<li>Fixed <code>AsyncVaried</code> to return async responses in the order that they were passed in. This also fixes this exact same behavior in <code>Async</code> because <code>Async</code> uses <code>AsyncVaried</code> internally. (#41) thanks <span class="citation" data-cites="dirkschumacher">@dirkschumacher</span> for reporting</li>
+</ul></section></section>
+    <section id="crul-0.3.6" class="level1"><h1>crul 0.3.6</h1>
+<ul>
+<li>Note: This version gains support for integration with <code>webmockr</code>, which is now on CRAN.</li>
+</ul>
+<section id="new-features-1" class="level3"><h3>NEW FEATURES</h3>
+<ul>
+<li>New function <code><a href="../reference/auth.html">auth()</a></code> to do simple authentication (#33)</li>
+<li>New function <code>HttpStubbedResponse</code> for making a stubbed response object for the <code>webmockr</code> integration (#4)</li>
+<li>New function <code><a href="../reference/mock.html">mock()</a></code> to turn on mocking - it’s off by default. If <code>webmockr</code> is not installed but user attempts to use mocking we error with message to install <code>webmockr</code> (#4)</li>
+</ul></section><section id="minor-improvements-1" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>Use <code>gzip-deflate</code> by deafult for each request to make sure gzip compression is used if the server can do it (#34)</li>
+<li>Change <code>useragent</code> to <code>User-Agent</code> as default user agent header (#35)</li>
+<li>Now we make sure that user supplied headers override the default headers if they are of the same name (#36)</li>
+</ul></section></section>
+    <section id="crul-0.3.4" class="level1"><h1>crul 0.3.4</h1>
+<section id="new-features-2" class="level3"><h3>NEW FEATURES</h3>
 <ul>
 <li>New utility functions <code>url_build</code> and <code>url_parse</code> (#31)</li>
-</ul>
-</div>
-<div id="minor-improvements" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minor-improvements" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+</ul></section><section id="minor-improvements-2" class="level3"><h3>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Now using markdown for documentation (#32)</li>
 <li>Better documentation for <code>AsyncVaried</code> (#30)</li>
 <li>New vignette on how to use <code>crul</code> in realistic scenarios rather than brief examples to demonstrate individual features (#29)</li>
 <li>Better documentation for <code>HttpRequest</code> (#28)</li>
 <li>Included more tests</li>
-</ul>
-</div>
-<div id="bug-fixes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+</ul></section><section id="bug-fixes-1" class="level3"><h3>BUG FIXES</h3>
 <ul>
 <li>Fixed put/patch/delete as weren’t passing body correctly in <code>HttpClient</code> (#26)</li>
 <li>DRY out code for preparing requests - simplify to use helper functions (#27)</li>
-</ul>
-</div>
-</div>
-    <div id="crul-0-3-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crul-0-3-0" class="anchor"></a>crul 0.3.0</h1>
-<div id="new-features-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+</ul></section></section>
+    <section id="crul-0.3.0" class="level1"><h1>crul 0.3.0</h1>
+<section id="new-features-3" class="level3"><h3>NEW FEATURES</h3>
 <ul>
 <li>Added support for asynchronous HTTP requests, including two new R6 classes: <code>Async</code> and <code>AsyncVaried</code>. The former being a simpler interface treating all URLs with same options/HTTP method, and the latter allowing any type of request through the new R6 class <code>HttpRequest</code> (#8) (#24)</li>
 <li>New R6 class <code>HttpRequest</code> to support <code>AsyncVaried</code> - this method only defines a request, but does not execute it. (#8)</li>
-</ul>
-</div>
-<div id="minor-improvements-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+</ul></section><section id="minor-improvements-3" class="level3"><h3>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Added support for proxies (#22)</li>
-</ul>
-</div>
-<div id="bug-fixes-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+</ul></section><section id="bug-fixes-2" class="level3"><h3>BUG FIXES</h3>
 <ul>
 <li>Fixed parsing of headers from FTP servers (#21)</li>
-</ul>
-</div>
-</div>
-    <div id="crul-0-2-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crul-0-2-0" class="anchor"></a>crul 0.2.0</h1>
-<div id="minor-improvements-2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+</ul></section></section>
+    <section id="crul-0.2.0" class="level1"><h1>crul 0.2.0</h1>
+<section id="minor-improvements-4" class="level3"><h3>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Created new manual files for various tasks to document usage better (#19)</li>
 <li>URL encode paths - should fix any bugs where spaces between words caused errors previously (#17)</li>
@@ -153,49 +176,27 @@
 <li>request headers now passed correctly to response object (#13)</li>
 <li>response headers now parsed to a list for easier access (#14)</li>
 <li>Now supporting multiple query parameters of the same name, wasn’t possible in last version (#15)</li>
-</ul>
-</div>
-</div>
-    <div id="crul-0-1-6" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crul-0-1-6" class="anchor"></a>crul 0.1.6</h1>
-<div id="new-features-2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+</ul></section></section>
+    <section id="crul-0.1.6" class="level1"><h1>crul 0.1.6</h1>
+<section id="new-features-4" class="level3"><h3>NEW FEATURES</h3>
 <ul>
 <li>Improved options for using curl options. Can manually add to list of curl options or pass in via <code>...</code>. And we check that user doesn’t pass in prohibited options (<code>curl</code> package takes care of checking that options are valid) (#5)</li>
 <li>Incorporated <code>fauxpas</code> package for dealing with HTTP conditions. It’s a Suggest, so only used if installed (#6)</li>
-<li>Added support for streaming via <code>curl::curl_fetch_stream</code>. <code>stream</code> param defaults to <code>NULL</code> (thus ignored), or pass in a function to use streaming. Only one of memory, streaming or disk allowed. (#9)</li>
-<li>Added support for streaming via <code>curl::curl_fetch_disk</code>. <code>disk</code> param defaults to <code>NULL</code> (thus ignored), or pass in a path to write to disk instead of use memory. Only one of memory, streaming or disk allowed. (#12)</li>
-</ul>
-</div>
-<div id="minor-improvements-3" class="section level3">
-<h3 class="hasAnchor">
-<a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_stream</a></code>. <code>stream</code> param defaults to <code>NULL</code> (thus ignored), or pass in a function to use streaming. Only one of memory, streaming or disk allowed. (#9)</li>
+<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_disk</a></code>. <code>disk</code> param defaults to <code>NULL</code> (thus ignored), or pass in a path to write to disk instead of use memory. Only one of memory, streaming or disk allowed. (#12)</li>
+</ul></section><section id="minor-improvements-5" class="level3"><h3>MINOR IMPROVEMENTS</h3>
 <ul>
 <li>Added missing <code>raise_for_status()</code> method on the <code>HttpResponse</code> class (#10)</li>
-</ul>
-</div>
-<div id="bug-fixes-2" class="section level3">
-<h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+</ul></section><section id="bug-fixes-3" class="level3"><h3>BUG FIXES</h3>
 <ul>
 <li>Was importing <code>httpcode</code> but wasn’t using it in the package. Now using the package in <code>HttpResponse</code>
 </li>
-</ul>
-</div>
-</div>
-    <div id="crul-0-1-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#crul-0-1-0" class="anchor"></a>crul 0.1.0</h1>
-<div id="new-features-3" class="section level3">
-<h3 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
+</ul></section></section>
+    <section id="crul-0.1.0" class="level1"><h1>crul 0.1.0</h1>
+<section id="new-features-5" class="level3"><h3>NEW FEATURES</h3>
 <ul>
 <li>Released to CRAN.</li>
-</ul>
-</div>
-</div>
+</ul></section></section>
     </div>
   </div>
 
@@ -203,11 +204,14 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#crul-0-3-4">0.3.4</a></li>
-        <li><a href="#crul-0-3-0">0.3.0</a></li>
-        <li><a href="#crul-0-2-0">0.2.0</a></li>
-        <li><a href="#crul-0-1-6">0.1.6</a></li>
-        <li><a href="#crul-0-1-0">0.1.0</a></li>
+        <li><a href="#crul-0.4.0">0.4.0</a></li>
+        <li><a href="#crul-0.3.8">0.3.8</a></li>
+        <li><a href="#crul-0.3.6">0.3.6</a></li>
+        <li><a href="#crul-0.3.4">0.3.4</a></li>
+        <li><a href="#crul-0.3.0">0.3.0</a></li>
+        <li><a href="#crul-0.2.0">0.2.0</a></li>
+        <li><a href="#crul-0.1.6">0.1.6</a></li>
+        <li><a href="#crul-0.1.0">0.1.0</a></li>
       </ul>
     </div>
   </div>

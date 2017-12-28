@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -130,7 +152,7 @@ you've added are added to the object itself.
 <dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a PUT request</p></dd>
 <dt><code>patch(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a PATCH request</p></dd>
 <dt><code>delete(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a DELETE request</p></dd>
-<dt><code>head(path, disk, stream, ...)</code></dt><dd><p>Define a HEAD request</p></dd>
+<dt><code>head(path, ...)</code></dt><dd><p>Define a HEAD request</p></dd>
 <dt><code>method()</code></dt><dd><p>Get the HTTP method (if defined)
 - returns character string</p></dd>
 </dl>
@@ -175,16 +197,16 @@ you've added are added to the object itself.
 #&gt; $options$httpget
 #&gt; [1] TRUE
 #&gt; 
-#&gt; $options$useragent
-#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
-#&gt; 
 #&gt; 
 #&gt; $headers
 #&gt; $headers$`User-Agent`
-#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
+#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
 #&gt; [1] "gzip, deflate"
+#&gt; 
+#&gt; $headers$Accept
+#&gt; [1] "application/json, text/xml, application/xml, */*"
 #&gt; 
 #&gt; </div><div class='input'>
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; 

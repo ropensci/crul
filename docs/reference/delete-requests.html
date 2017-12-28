@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -99,21 +121,22 @@
 (<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:35 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.00167107582092
-#&gt;     content-length: 533
+#&gt;     x-processed-time: 0.00100517272949
+#&gt;     content-length: 545
 #&gt;     via: 1.1 vegur
-#&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res1</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
+#&gt;   status: 200</div><div class='input'><span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></span>(<span class='no'>res1</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
@@ -129,7 +152,7 @@
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] "*/*"
+#&gt; [1] "application/json, text/xml, application/xml, */*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
 #&gt; [1] "gzip, deflate"
@@ -141,23 +164,20 @@
 #&gt; [1] "145"
 #&gt; 
 #&gt; $headers$`Content-Type`
-#&gt; [1] "multipart/form-data; boundary=------------------------dafaa88ba69e3b8c"
-#&gt; 
-#&gt; $headers$Expect
-#&gt; [1] "100-continue"
+#&gt; [1] "multipart/form-data; boundary=------------------------2e2d190f32d57c93"
 #&gt; 
 #&gt; $headers$Host
 #&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
+#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] "157.130.179.86"
+#&gt; [1] "24.21.229.59"
 #&gt; 
 #&gt; $url
 #&gt; [1] "https://httpbin.org/delete"
@@ -166,21 +186,22 @@
 (<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:35 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.0013370513916
-#&gt;     content-length: 465
+#&gt;     x-processed-time: 0.00139689445496
+#&gt;     content-length: 508
 #&gt;     via: 1.1 vegur
-#&gt;   status: 200</div><div class='input'><span class='kw'>jsonlite</span><span class='kw'>::</span><span class='fu'>fromJSON</span>(<span class='no'>res2</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
+#&gt;   status: 200</div><div class='input'><span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></span>(<span class='no'>res2</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>))</div><div class='output co'>#&gt; $args
 #&gt; named list()
 #&gt; 
 #&gt; $data
@@ -196,7 +217,7 @@
 #&gt; 
 #&gt; $headers
 #&gt; $headers$Accept
-#&gt; [1] "*/*"
+#&gt; [1] "application/json, text/xml, application/xml, */*"
 #&gt; 
 #&gt; $headers$`Accept-Encoding`
 #&gt; [1] "gzip, deflate"
@@ -214,14 +235,14 @@
 #&gt; [1] "httpbin.org"
 #&gt; 
 #&gt; $headers$`User-Agent`
-#&gt; [1] "libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110"
+#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"
 #&gt; 
 #&gt; 
 #&gt; $json
 #&gt; NULL
 #&gt; 
 #&gt; $origin
-#&gt; [1] "157.130.179.86"
+#&gt; [1] "24.21.229.59"
 #&gt; 
 #&gt; $url
 #&gt; [1] "https://httpbin.org/delete"
@@ -230,19 +251,20 @@
 <span class='no'>x</span>$<span class='fu'>delete</span>(<span class='st'>'delete'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
 #&gt;   url: https://httpbin.org/delete
 #&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
+#&gt;     User-Agent: libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112
 #&gt;     Accept-Encoding: gzip, deflate
+#&gt;     Accept: application/json, text/xml, application/xml, */*
 #&gt;   response_headers: 
 #&gt;     status: HTTP/1.1 200 OK
 #&gt;     connection: keep-alive
 #&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:11:56 GMT
+#&gt;     date: Thu, 28 Dec 2017 18:00:35 GMT
 #&gt;     content-type: application/json
 #&gt;     access-control-allow-origin: *
 #&gt;     access-control-allow-credentials: true
 #&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.000946998596191
-#&gt;     content-length: 439
+#&gt;     x-processed-time: 0.00167608261108
+#&gt;     content-length: 482
 #&gt;     via: 1.1 vegur
 #&gt;   status: 200</div><div class='input'>
 </div></pre>

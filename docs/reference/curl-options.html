@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/async.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -96,81 +118,31 @@ curl output or not, setting a timeout for requests, and more. See
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># set curl options on client initialization</span>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># set curl options on client initialization</span>
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(
     <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
     <span class='kw'>useragent</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>
   )
-))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;     verbose: TRUE
-#&gt;     useragent: hello world
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>res</span>$<span class='no'>opts</span></div><div class='output co'>#&gt; $verbose
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $useragent
-#&gt; [1] "hello world"
-#&gt; </div><div class='input'><span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
-#&gt;   url: https://httpbin.org/get
-#&gt;   request_headers: 
-#&gt;     useragent: hello world
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
-#&gt;     Accept-Encoding: gzip, deflate
-#&gt;   response_headers: 
-#&gt;     status: HTTP/1.1 200 OK
-#&gt;     connection: keep-alive
-#&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:11:53 GMT
-#&gt;     content-type: application/json
-#&gt;     access-control-allow-origin: *
-#&gt;     access-control-allow-credentials: true
-#&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.00115203857422
-#&gt;     content-length: 287
-#&gt;     via: 1.1 vegur
-#&gt;   status: 200</div><div class='input'>
+))
+<span class='no'>res</span>$<span class='no'>opts</span>
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)
+
 <span class='co'># or set curl options when performing HTTP operation</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; &lt;crul response&gt; 
-#&gt;   url: https://httpbin.org/get
-#&gt;   request_headers: 
-#&gt;     User-Agent: libcurl/7.51.0 r-curl/2.6 crul/0.3.5.9110
-#&gt;     Accept-Encoding: gzip, deflate
-#&gt;   response_headers: 
-#&gt;     status: HTTP/1.1 200 OK
-#&gt;     connection: keep-alive
-#&gt;     server: meinheld/0.6.1
-#&gt;     date: Mon, 15 May 2017 18:11:53 GMT
-#&gt;     content-type: application/json
-#&gt;     access-control-allow-origin: *
-#&gt;     access-control-allow-credentials: true
-#&gt;     x-powered-by: Flask
-#&gt;     x-processed-time: 0.00113105773926
-#&gt;     content-length: 287
-#&gt;     via: 1.1 vegur
-#&gt;   status: 200</div><div class='input'><span class='co'>## Not run: res$get('get', stuff = "things")</span>
-<span class='co'>## Not run: res$get('get', httpget = TRUE)</span>
+(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>stuff</span> <span class='kw'>=</span> <span class='st'>"things"</span>)
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>httpget</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># set a timeout</span>
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>timeout_ms</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;     timeout_ms: 1
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='co'>## Not run: res$get('get')</span></div></pre>
+))
+<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
