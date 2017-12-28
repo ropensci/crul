@@ -6,6 +6,7 @@
 #'  your http options, make http requests
 #'  \item [HttpResponse()] - mostly for internal use, handles
 #'  http responses
+#'  \item [Paginator()] - auto-paginate through requests
 #'  \item [Async()] - asynchronous requests
 #'  \item [AsyncVaried()] - varied asynchronous requests
 #'  \item [HttpRequest()] - generate an HTTP request, mostly for

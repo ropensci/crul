@@ -38,7 +38,7 @@ test_that("mocking with HttpClient", {
   expect_is(bb, "HttpResponse")
 
   expect_is(aa$content, "raw")
-  expect_null(bb$content)
+  expect_equal(length(bb$content), 0)
 
   expect_is(aa$times, "numeric")
   expect_null(bb$times)

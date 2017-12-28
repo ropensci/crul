@@ -15,6 +15,7 @@
 your http options, make http requests
 \item \code{\link[=HttpResponse]{HttpResponse()}} - mostly for internal use, handles
 http responses
+\item \code{\link[=Paginator]{Paginator()}} - auto-paginate through requests
 \item \code{\link[=Async]{Async()}} - asynchronous requests
 \item \code{\link[=AsyncVaried]{AsyncVaried()}} - varied asynchronous requests
 \item \code{\link[=HttpRequest]{HttpRequest()}} - generate an HTTP request, mostly for
