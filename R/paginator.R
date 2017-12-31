@@ -32,7 +32,8 @@
 #'       make a paginated DELETE request
 #'     }
 #'     \item{`head(path, ...)`}{
-#'       make a paginated HEAD request
+#'       make a paginated HEAD request - not sure if this makes any sense
+#'       or not yet
 #'     }
 #'     \item{`responses()`}{
 #'       list responses
@@ -215,7 +216,7 @@ Paginator <- R6::R6Class(
     offset_iters = NULL,
     offset_args = NULL,
     resps = NULL,
-    page = function(method, path, query, ...) {
+    page = function(method, path, query, body, encode, ...) {
       tmp <- list()
       for (i in seq_along(private$offset_iters)) {
         off <- private$offset_args[i]
@@ -223,15 +224,19 @@ Paginator <- R6::R6Class(
         tmp[[i]] <- switch(
           method,
           get = self$http_req$get(path, query = ccp(c(query, off)), ...),
-          post = self$http_req$post(...),
-          put = self$http_req$put(...),
-          patch = self$http_req$patch(...),
-          delete = self$http_req$delete(...),
-          head = self$http_req$head(...)
+          post = self$http_req$post(path, query = ccp(c(query, off)), 
+            body = body, encode = encode, ...),
+          put = self$http_req$put(path, query = ccp(c(query, off)), 
+            body = body, encode = encode, ...),
+          patch = self$http_req$patch(path, query = ccp(c(query, off)), 
+            body = body, encode = encode, ...),
+          delete = self$http_req$delete(path, query = ccp(c(query, off)), 
+            body = body, encode = encode, ...),
+          head = self$http_req$head(path, ...)
         )
       }
       private$resps <- tmp
-      cat("OK", sep = "\n")
+      message("OK\n")
     }
   )
 )

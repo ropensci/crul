@@ -47,7 +47,8 @@ make a paginated PATCH request
 make a paginated DELETE request
 }
 \item{\code{head(path, ...)}}{
-make a paginated HEAD request
+make a paginated HEAD request - not sure if this makes any sense
+or not yet
 }
 \item{\code{responses()}}{
 list responses
