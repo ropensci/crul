@@ -106,13 +106,10 @@ remain. This is common in Solr
 
 \examples{
 \dontrun{
-# by query parameters (here limit and skip for CouchDB)
 (cli <- HttpClient$new(url = "http://api.crossref.org"))
-cc <- Paginator$new(client = cli, by = "query_params", limit_param = "rows",
+cc <- Paginator$new(client = cli, limit_param = "rows",
    offset_param = "offset", limit = 50, limit_chunk = 10)
 cc
-#cc$requests()
-cli$get('works', query = list(rows = 3))$parse("UTF-8")
 cc$get('works')
 cc
 cc$responses()

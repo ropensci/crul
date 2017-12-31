@@ -92,13 +92,10 @@
 #' Responses are returned in the order they are passed in.
 #' 
 #' @examples \dontrun{
-#' # by query parameters (here limit and skip for CouchDB)
 #' (cli <- HttpClient$new(url = "http://api.crossref.org"))
-#' cc <- Paginator$new(client = cli, by = "query_params", limit_param = "rows",
+#' cc <- Paginator$new(client = cli, limit_param = "rows",
 #'    offset_param = "offset", limit = 50, limit_chunk = 10)
 #' cc
-#' #cc$requests()
-#' cli$get('works', query = list(rows = 3))$parse("UTF-8")
 #' cc$get('works')
 #' cc
 #' cc$responses()
@@ -113,7 +110,7 @@ Paginator <- R6::R6Class(
   'Paginator',
   public = list(
     http_req = NULL,
-    by = NULL,
+    by = "query_params",
     limit_chunk = NULL,
     limit_param = NULL,
     offset_param = NULL,
@@ -140,7 +137,7 @@ Paginator <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(client, by, limit_param, offset_param, limit, limit_chunk) {  
+    initialize = function(client, by = "query_params", limit_param, offset_param, limit, limit_chunk) {  
       if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'", 
         call. = FALSE)
       self$http_req <- client
