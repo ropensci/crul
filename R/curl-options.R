@@ -26,13 +26,12 @@
 #' (res <- HttpClient$new(url = "https://httpbin.org"))
 #' res$get('get', verbose = TRUE)
 #' res$get('get', stuff = "things")
-#' res$get('get', httpget = TRUE)
 #'
 #' # set a timeout
 #' (res <- HttpClient$new(
 #'   url = "https://httpbin.org",
 #'   opts = list(timeout_ms = 1)
 #' ))
-#' res$get('get')
+#' # res$get('get')
 #' }
 NULL

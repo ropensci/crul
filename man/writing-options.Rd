@@ -13,6 +13,7 @@ f <- tempfile()
 res <- x$get("get", disk = f)
 res$content # when using write to disk, content is a path
 readLines(res$content)
+close(file(f))
 
 # streaming response
 (x <- HttpClient$new(url = "https://httpbin.org"))
@@ -34,7 +35,6 @@ files <- replicate(5, tempfile())
 (res <- cc$get(disk = files, verbose = TRUE))
 lapply(files, readLines)
 
-
 ## Async varied
 ### disk
 f <- tempfile()
@@ -47,6 +47,8 @@ out$request()
 out$content()
 readLines(f)
 readLines(g)
+close(file(f))
+close(file(g))
 
 ### stream - to console
 fun <- function(x) cat(rawToChar(x))
