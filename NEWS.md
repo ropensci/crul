@@ -1,3 +1,21 @@
+crul 0.5.0
+==========
+
+### NEW FEATURES
+
+* Gains a new R6 class `Paginator` to help users automatically paginate through multiple requests. It only supports query parameter based paginating for now. We'll add support later for other types including cursors (e.g., used in Solr servers), and for link headers (e.g., used in the GitHub API). Please get in touch if you find any problems with `Paginator`. (#56)
+* Async classes `Async` and `Asyncvaried` gain ability to write to disk and stream data (to disk or elsewhere, e.g. R console or to an R object) (#46) thanks @artemklevtsov for the push to do this
+
+### MINOR IMPROVEMENTS
+
+* Improved documentation for `auth` to indicate that `user` and `pwd` are indeed required - and to further indicate that one can pass in `NULL` to those parameters (similar to an empty string `""` in `httr::authenticate`) when one e.g. may want to use `gssnegotiate` method (#43)
+* Fixed query builder so that one can now protect query parameters by wrapping them in `I()` (#55)
+
+### BUG FIXES
+
+* Fixed bug in `head` requests with `HttpClient` when passing `query` parameter - it was failing previously. Added `query` parameter back. (#52)
+
+
 crul 0.4.0
 ==========
 
