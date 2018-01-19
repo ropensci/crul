@@ -166,7 +166,7 @@ res$get(query = list(limit = 100), timeout_ms = 100)
 The simpler interface allows many requests (many URLs), but they all get the same
 options/headers, etc. and you have to use the same HTTP method on all of them:
 
-```{r}
+```{r eval=FALSE}
 (cc <- Async$new(
   urls = c(
     'https://httpbin.org/',
