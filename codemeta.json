@@ -5,20 +5,19 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "crul",
-  "description":
-    "A simple HTTP client, with tools for making HTTP requests,\n    and mocking HTTP requests. The package is built on R6, and takes\n    inspiration from Ruby's 'faraday' gem (<https://rubygems.org/gems/faraday>).\n    The package name is a play on curl, the widely used command line tool\n    for HTTP, and this package is built on top of the R package 'curl', an\n    interface to 'libcurl' (<https://curl.haxx.se/libcurl>).",
+  "description": "A simple HTTP client, with tools for making HTTP requests,\n    and mocking HTTP requests. The package is built on R6, and takes\n    inspiration from Ruby's 'faraday' gem (<https://rubygems.org/gems/faraday>).\n    The package name is a play on curl, the widely used command line tool\n    for HTTP, and this package is built on top of the R package 'curl', an\n    interface to 'libcurl' (<https://curl.haxx.se/libcurl>).",
   "name": "crul: HTTP Client",
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.4.0.9102",
+  "version": "0.5.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.4.2",
+    "version": "3.4.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.4.2 (2017-09-28)",
+  "runtimePlatform": "R version 3.4.3 Patched (2018-01-01 r74017)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -31,7 +30,7 @@
       "givenName": "Scott",
       "familyName": "Chamberlain",
       "email": "myrmecocystus@gmail.com",
-      "@id": "http://orcid.org/0000-0003-1444-9135"
+      "@id": "https://orcid.org/0000-0003-1444-9135"
     }
   ],
   "maintainer": {
@@ -39,7 +38,7 @@
     "givenName": "Scott",
     "familyName": "Chamberlain",
     "email": "myrmecocystus@gmail.com",
-    "@id": "http://orcid.org/0000-0003-1444-9135"
+    "@id": "https://orcid.org/0000-0003-1444-9135"
   },
   "softwareSuggestions": [
     {
@@ -105,7 +104,7 @@
       "@type": "SoftwareApplication",
       "identifier": "curl",
       "name": "curl",
-      "version": "2.8.1",
+      "version": "3.1",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -163,21 +162,10 @@
   ],
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": [
-    "http",
-    "https",
-    "API",
-    "web-services",
-    "curl",
-    "download",
-    "libcurl",
-    "async",
-    "mocking",
-    "caching"
-  ],
+  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching"],
   "contIntegration": "https://travis-ci.org/ropensci/crul",
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/crul/blob/master/README.md",
-  "fileSize": "40.668KB"
+  "fileSize": "46.275KB"
 }
