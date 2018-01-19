@@ -20,7 +20,7 @@
 #'     \item{`delete(path, query, body, disk, stream, ...)`}{
 #'       Make a DELETE request
 #'     }
-#'     \item{`head(path, ...)`}{
+#'     \item{`head(path, query, ...)`}{
 #'       Make a HEAD request
 #'     }
 #'   }
@@ -30,7 +30,7 @@
 #' @details Possible parameters (not all are allowed in each HTTP verb):
 #' \itemize{
 #'  \item path - URL path, appended to the base URL
-#'  \item query - query terms, as a list
+#'  \item query - query terms, as a named list
 #'  \item body - body as an R list
 #'  \item encode - one of form, multipart, json, or raw
 #'  \item disk - a path to write to. if NULL (default), memory used.
@@ -204,9 +204,9 @@ HttpClient <- R6::R6Class(
       private$make_request(rr)
     },
 
-    head = function(path = NULL, ...) {
+    head = function(path = NULL, query = list(), ...) {
       curl_opts_check(...)
-      url <- private$make_url(self$url, self$handle, path, NULL)
+      url <- private$make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
         url = url,
