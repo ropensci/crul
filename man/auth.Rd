@@ -7,18 +7,24 @@
 auth(user, pwd, auth = "basic")
 }
 \arguments{
-\item{user}{(character) username, optional}
+\item{user}{(character) username, required. see Details.}
 
-\item{pwd}{(character) password, optional}
+\item{pwd}{(character) password, required. see Details.}
 
 \item{auth}{(character) authentication type, one of basic (default),
-digest, digest_ie, gssnegotiate, ntlm, or any. optional}
+digest, digest_ie, gssnegotiate, ntlm, or any. required}
 }
 \description{
 Authentication
 }
 \details{
-Only supporting simple auth for now, OAuth later.
+Only supporting simple auth for now, OAuth later maybe.
+
+For \code{user} and \code{pwd} you are required to pass in some value.
+The value can be \code{NULL} to - which is equivalent to passing in an
+empty string like \code{""} in \code{httr::authenticate}. You may want to pass
+in \code{NULL} for both \code{user} and \code{pwd} for example if you are using
+\code{gssnegotiate} auth type. See example below.
 }
 \examples{
 auth(user = "foo", pwd = "bar", auth = "basic")
@@ -41,4 +47,7 @@ jsonlite::fromJSON(x$parse("UTF-8"))
   auth = auth(user = "user", pwd = "passwd")
 ))
 res$auth
+
+# gssnegotiate auth
+auth(NULL, NULL, "gssnegotiate")
 }
