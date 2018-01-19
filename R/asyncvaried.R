@@ -190,10 +190,33 @@ AsyncVaried <- R6::R6Class(
           curl::handle_setform(h, .list = w$fields)
         }
         curl::handle_setheaders(h, .list = w$headers)
-        curl::multi_add(handle = h,
-          done = function(res) multi_res[[i]] <<- res,
-          pool = crulpool
-        )
+
+        if (is.null(w$disk) && is.null(w$stream)) {
+          curl::multi_add(
+            handle = h,
+            done = function(res) multi_res[[i]] <<- res,
+            pool = crulpool
+          )
+        } else {
+          if (!is.null(w$disk) && is.null(w$stream)) {
+            stopifnot(inherits(w$disk, "character"))
+            ff <- file(w$disk, open = "wb")
+            curl::multi_add(
+              handle = h,
+              done = function(res) multi_res[[i]] <<- res,
+              data = ff,
+              pool = crulpool
+            )
+          } else if (is.null(w$disk) && !is.null(w$stream)) {
+            stopifnot(is.function(w$stream))
+            curl::multi_add(
+              handle = h,
+              done = function(res) multi_res[[i]] <<- res,
+              data = w$stream,
+              pool = crulpool
+            )
+          }
+        }
       }
 
       for (i in seq_along(reqs)) make_request(i)
