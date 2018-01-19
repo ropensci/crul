@@ -22,7 +22,8 @@ Package API:
 * `HttpClient` - Main interface to making HTTP requests. Synchronous requests only.
 * `HttpResponse` - HTTP response object, used for all responses across the
 different clients.
-* `Paginator` - Auto-paginate through requests
+* `Paginator` - Auto-paginate through requests - supports a subset of all possible
+pagination scenarios - will fill out more scenarios soon
 * `Async` - Asynchronous HTTP requests - a simple interface for many URLS -
 whose interface is similar to `HttpClient` - all URLs are treated the same.
 * `AsyncVaried` - Asynchronous HTTP requests - accepts any number of `HttpRequest`
@@ -33,11 +34,14 @@ of handling requests with different HTTP methods, options, etc.
 * `auth()` - Simple authentication helper
 * `proxy()` - Proxy helper
 * `upload()` - File upload helper
+* Writing to disk and streaming: available with both synchronous requests
+as well as async requests.
 
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests.
+HTTP requests. Integration with [vcr](https://github.com/ropensci/vcr) to mock specifically
+around tests is coming soon.
 
 ## Installation
 
