@@ -17,19 +17,19 @@ A client to work with many URLs, but all with the same HTTP method
 \details{
 \strong{Methods}
 \describe{
-\item{\code{get(path, query, ...)}}{
+\item{\code{get(path, query, disk, stream, ...)}}{
 make async GET requests for all URLs
 }
-\item{\code{post(path, query, body, encode, ...)}}{
+\item{\code{post(path, query, body, encode, disk, stream, ...)}}{
 make async POST requests for all URLs
 }
-\item{\code{put(path, query, body, encode, ...)}}{
+\item{\code{put(path, query, body, encode, disk, stream, ...)}}{
 make async PUT requests for all URLs
 }
-\item{\code{patch(path, query, body, encode, ...)}}{
+\item{\code{patch(path, query, body, encode, disk, stream, ...)}}{
 make async PATCH requests for all URLs
 }
-\item{\code{delete(path, query, body, encode, ...)}}{
+\item{\code{delete(path, query, body, encode, disk, stream, ...)}}{
 make async DELETE requests for all URLs
 }
 \item{\code{head(path, ...)}}{

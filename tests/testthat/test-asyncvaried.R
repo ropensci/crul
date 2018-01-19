@@ -57,3 +57,63 @@ test_that("AsyncVaried - order", {
   expect_match(out[[2]]$url, "b=6")
   expect_match(out[[3]]$url, "c=7")
 })
+
+
+context("AsyncVaried - disk")
+test_that("AsyncVaried - writing to disk works", {
+  skip_on_cran()
+
+  f <- tempfile()
+  g <- tempfile()
+  req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get(disk = f)
+  req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post(disk = g)
+  req3 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+  out <- AsyncVaried$new(req1, req2, req3)
+  out$request()
+  cont <- out$content()
+  lines_f <- readLines(f)
+  lines_g <- readLines(g)
+
+  expect_is(out, "AsyncVaried")
+
+  expect_is(cont, "list")
+  expect_is(cont[[1]], "raw")
+  expect_identical(cont[[1]], raw(0))
+  expect_is(cont[[2]], "raw")
+  expect_identical(cont[[2]], raw(0))
+  expect_is(cont[[3]], "raw")
+  expect_gt(length(cont[[3]]), 0)
+
+  expect_is(lines_f, "character")
+  expect_gt(length(lines_f), 0)
+
+  expect_is(lines_g, "character")
+  expect_gt(length(lines_g), 0)
+
+  # cleanup
+  closeAllConnections()
+})
+
+
+context("AsyncVaried - stream")
+test_that("AsyncVaried - streaming to disk works", {
+  skip_on_cran()
+
+  lst <- c()
+  fun <- function(x) lst <<- c(lst, x)
+  req1 <- HttpRequest$new(url = "https://httpbin.org/get"
+  )$get(query = list(foo = "bar"), stream = fun)
+  req2 <- HttpRequest$new(url = "https://httpbin.org/get"
+  )$get(query = list(hello = "world"), stream = fun)
+  out <- AsyncVaried$new(req1, req2)
+  suppressWarnings(out$request())
+
+  expect_is(out, "AsyncVaried")
+
+  expect_identical(out$responses()[[1]]$content, raw(0))
+  expect_identical(out$responses()[[2]]$content, raw(0))
+
+  expect_is(lst, "raw")
+  expect_is(rawToChar(lst), "character")
+  expect_match(rawToChar(lst), "application/json")
+})

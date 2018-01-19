@@ -149,3 +149,53 @@ test_that("Async - order", {
   expect_match(out[[2]]$url, "b=6")
   expect_match(out[[3]]$url, "c=7")
 })
+
+context("Async - disk")
+test_that("Async - writing to disk works", {
+  skip_on_cran()
+
+  cc <- Async$new(
+    urls = c(
+      'https://httpbin.org/get?a=5',
+      'https://httpbin.org/get?foo=bar',
+      'https://httpbin.org/get?b=4',
+      'https://httpbin.org/get?stuff=things',
+      'https://httpbin.org/get?b=4&g=7&u=9&z=1'
+    )
+  )
+  files <- replicate(5, tempfile())
+  res <- cc$get(disk = files)
+  out <- lapply(files, readLines)
+
+  # cleanup
+  closeAllConnections()
+
+  expect_is(res, "list")
+  expect_is(res[[1]], "HttpResponse")
+  expect_is(out, "list")
+  expect_is(out[[1]], "character")
+})
+
+context("Async - stream")
+test_that("Async - streaming to disk works", {
+  skip_on_cran()
+
+  bb <- Async$new(urls = c('https://httpbin.org/get?a=5',
+                           'https://httpbin.org/get?b=6',
+                           'https://httpbin.org/get?c=7'))
+  mylist <- c()
+  fun <- function(x) mylist <<- c(mylist, x)
+  out <- bb$get(stream = fun)
+
+  expect_is(bb, "Async")
+
+  expect_is(out[[1]], "HttpResponse")
+
+  expect_identical(out[[1]]$content, raw(0))
+  expect_identical(out[[2]]$content, raw(0))
+  expect_identical(out[[3]]$content, raw(0))
+
+  expect_is(mylist, "raw")
+  expect_is(rawToChar(mylist), "character")
+  expect_match(rawToChar(mylist), "application/json")
+})
