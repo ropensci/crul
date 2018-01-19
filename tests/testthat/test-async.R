@@ -167,6 +167,9 @@ test_that("Async - writing to disk works", {
   res <- cc$get(disk = files)
   out <- lapply(files, readLines)
 
+  # cleanup
+  closeAllConnections()
+
   expect_is(res, "list")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")

@@ -89,6 +89,9 @@ test_that("AsyncVaried - writing to disk works", {
 
   expect_is(lines_g, "character")
   expect_gt(length(lines_g), 0)
+
+  # cleanup
+  closeAllConnections()
 })
 
 
