@@ -145,15 +145,20 @@ Paginator <- R6::R6Class(
       if (by != "query_params") stop("'by' has to be 'query_params' for now", 
         call. = FALSE)
       self$by <- by
-      if (!missing(limit_chunk)) self$limit_chunk <- limit_chunk
-      if (!missing(limit_param)) self$limit_param <- limit_param
-      if (!missing(offset_param)) self$offset_param <- offset_param
-      if (!missing(limit)) self$limit <- limit
+      self$limit_chunk <- limit_chunk
+      self$limit_param <- limit_param
+      self$offset_param <- offset_param
+      self$limit <- limit
       if (self$by == "query_params") {
-        private$offset_iters <-  c(0, seq(from=0, to=self$limit, by=self$limit_chunk)[-1])
-        private$offset_iters <-  private$offset_iters[-length(private$offset_iters)]
+        private$offset_iters <-  c(0, seq(from=0, to=fround(self$limit, 10), 
+          by=self$limit_chunk)[-1])
         private$offset_args <- as.list(stats::setNames(private$offset_iters, 
           rep(self$offset_param, length(private$offset_iters))))
+        private$limit_chunks <- rep(self$limit_chunk, length(private$offset_iters))
+        diffy <- self$limit - private$offset_iters[length(private$offset_iters)]
+        if (diffy != self$limit_chunk) {
+          private$limit_chunks[length(private$limit_chunks)] <- diffy
+        }
       }
     },
 
@@ -215,12 +220,13 @@ Paginator <- R6::R6Class(
   private = list(
     offset_iters = NULL,
     offset_args = NULL,
+    limit_chunks = NULL,
     resps = NULL,
     page = function(method, path, query, body, encode, ...) {
       tmp <- list()
       for (i in seq_along(private$offset_iters)) {
         off <- private$offset_args[i]
-        off[self$limit_param] <- self$limit_chunk
+        off[self$limit_param] <- private$limit_chunks[i]
         tmp[[i]] <- switch(
           method,
           get = self$http_req$get(path, query = ccp(c(query, off)), ...),

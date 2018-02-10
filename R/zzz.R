@@ -88,3 +88,8 @@ find_cert_bundle <- function() {
   # Fall back to certificate bundle in openssl
   system.file("cacert.pem", package = "openssl")
 }
+
+fround <- function(x, accuracy) {
+  tmp <- floor(x/accuracy) * accuracy
+  if (tmp == x) x - accuracy else tmp
+}

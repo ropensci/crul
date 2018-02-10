@@ -34,7 +34,7 @@ test_that("Paginator fails well", {
   skip_on_cran()
 
   expect_error(Paginator$new(), "argument \"client\" is missing")
-  expect_error(Paginator$new(cli), "'to' must be of length 1")
+  expect_error(Paginator$new(cli), "argument \"limit_chunk\" is missing")
   expect_error(Paginator$new(cli, 5), "'by' has to be 'query_params' for now")
   expect_error(Paginator$new(5, "query_params"), 
     "'client' has to be an object of class 'HttpClient'")
