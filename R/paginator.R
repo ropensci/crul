@@ -139,17 +139,30 @@ Paginator <- R6::R6Class(
     },
 
     initialize = function(client, by = "query_params", limit_param, offset_param, limit, limit_chunk) {  
+      ## checks
       if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'", 
         call. = FALSE)
       self$http_req <- client
       if (by != "query_params") stop("'by' has to be 'query_params' for now", 
         call. = FALSE)
       self$by <- by
+      if (!missing(limit_chunk)) {
+        assert(limit_chunk, c("numeric", "integer"))
+        if (limit_chunk < 1 || limit_chunk %% 1 != 0) stop("'limit_chunk' must be an integer and > 0")
+      }
       self$limit_chunk <- limit_chunk
+      if (!missing(limit_param)) assert(limit_param, "character")
       self$limit_param <- limit_param
+      if (!missing(offset_param)) assert(offset_param, "character")
       self$offset_param <- offset_param
+      if (!missing(limit)) {
+        assert(limit, c("numeric", "integer"))
+        if (limit_chunk %% 1 != 0) stop("'limit' must be an integer")
+      }
       self$limit <- limit
+
       if (self$by == "query_params") {
+        # calculate pagination values
         private$offset_iters <-  c(0, seq(from=0, to=fround(self$limit, 10), 
           by=self$limit_chunk)[-1])
         private$offset_args <- as.list(stats::setNames(private$offset_iters, 
