@@ -59,6 +59,16 @@ for help
 post, postfields, postfieldsize, and customrequest
 }
 }
+\note{
+a little quark about \code{crul} is that because user agent string can
+be passed as either a header or a curl option (both lead to a \code{User-Agent}
+header being passed in the HTTP request), we return the user agent
+string in the \code{request_headers} list of the response even if you
+pass in a \code{useragent} string as a curl option. Note that whether you pass
+in as a header like \code{User-Agent} or as a curl option like \code{useragent},
+it is returned as \code{request_headers$User-Agent} so at least accessing
+it in the request headers is consistent.
+}
 \section{handles}{
 
 curl handles are re-used on the level of the connection object, that is,

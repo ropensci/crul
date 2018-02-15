@@ -47,6 +47,15 @@
 #' curl handles are re-used on the level of the connection object, that is,
 #' each `HttpClient` object is separate from one another so as to better
 #' separate connections.
+#' 
+#' @note a little quark about `crul` is that because user agent string can 
+#' be passed as either a header or a curl option (both lead to a `User-Agent` 
+#' header being passed in the HTTP request), we return the user agent 
+#' string in the `request_headers` list of the response even if you 
+#' pass in a `useragent` string as a curl option. Note that whether you pass
+#' in as a header like `User-Agent` or as a curl option like `useragent`,
+#' it is returned as `request_headers$User-Agent` so at least accessing 
+#' it in the request headers is consistent.
 #'
 #' @seealso [post-requests], [delete-requests], [http-headers],
 #' [writing-options], [cookies]
@@ -152,6 +161,9 @@ HttpClient <- R6::R6Class(
         headers = def_head()
       )
       rr$headers <- norm_headers(rr$headers, self$headers)
+      if (!"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))) {
+        rr$options$useragent <- make_ua()
+      }
       rr$options <- utils::modifyList(
         rr$options, c(self$opts, self$proxies, self$auth, ...))
       rr$options <- curl_opts_fil(rr$options)
@@ -214,6 +226,10 @@ HttpClient <- R6::R6Class(
         options = ccp(c(opts, cainfo = find_cert_bundle())),
         headers = self$headers
       )
+      # if (!"useragent" %in% self$opts) rr$options$useragent <- make_ua()
+      if (!"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))) {
+        rr$options$useragent <- make_ua()
+      }
       rr$options <- utils::modifyList(
         rr$options,
         c(self$opts, self$proxies, ...))
@@ -283,7 +299,7 @@ HttpClient <- R6::R6Class(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
-        request_headers = c(useragent = opts$options$useragent, opts$headers),
+        request_headers = c('User-Agent' = opts$options$useragent, opts$headers),
         response_headers = {
           if (grepl("^ftp://", resp$url)) {
             list()

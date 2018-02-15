@@ -28,6 +28,9 @@ prep_opts <- function(method, url, self, opts, ...) {
     fields = opts$fields
   )
   rr$headers <- norm_headers(rr$headers, self$headers)
+  if (!"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))) {
+    rr$options$useragent <- make_ua()
+  }
   rr$options <- utils::modifyList(
     rr$options,
     c(self$opts, self$proxies, self$auth, ...)
@@ -54,7 +57,7 @@ check_for_package <- function(x) {
 
 def_head <- function() {
   list(
-    `User-Agent` = make_ua(),
+    # `User-Agent` = make_ua(),
     `Accept-Encoding` = 'gzip, deflate',
     `Accept` = 'application/json, text/xml, application/xml, */*'
   )
