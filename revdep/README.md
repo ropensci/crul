@@ -10,17 +10,19 @@
 |language |(EN)                                        |
 |collate  |en_US.UTF-8                                 |
 |tz       |America/Los_Angeles                         |
-|date     |2018-01-19                                  |
+|date     |2018-02-23                                  |
 
 ## Packages
 
-|package |*  |version |date       |source                   |
-|:-------|:--|:-------|:----------|:------------------------|
-|crul    |   |0.5.0   |2018-01-19 |local (ropensci/crul@NA) |
+|package  |*  |version    |date       |source                                |
+|:--------|:--|:----------|:----------|:-------------------------------------|
+|crul     |   |0.5.2      |2018-02-24 |local (ropensci/crul@NA)              |
+|fauxpas  |   |0.1.2.9210 |2018-02-24 |Github (ropenscilabs/fauxpas@e3c8348) |
+|webmockr |   |0.1.5.9411 |2018-02-24 |Github (ropensci/webmockr@d4cb950)    |
 
 # Check results
 
-41 packages
+42 packages
 
 |package          |version | errors| warnings| notes|
 |:----------------|:-------|------:|--------:|-----:|
@@ -29,9 +31,9 @@
 |crminer          |0.1.4   |      0|        0|     0|
 |discgolf         |0.2.0   |      0|        0|     0|
 |duckduckr        |1.0.0   |      0|        0|     0|
-|enigma           |0.3.0   |      0|        0|     0|
 |fauxpas          |0.1.0   |      0|        0|     0|
-|fulltext         |1.0.0   |      0|        0|     0|
+|finch            |0.2.0   |      0|        0|     0|
+|fulltext         |1.0.1   |      0|        0|     0|
 |jaod             |0.1.0   |      0|        0|     0|
 |microdemic       |0.2.0   |      0|        0|     0|
 |natserv          |0.1.4   |      0|        0|     0|
@@ -53,6 +55,7 @@
 |rjsonapi         |0.1.0   |      0|        0|     0|
 |rnoaa            |0.7.0   |      0|        0|     0|
 |ropenaq          |0.2.5   |      0|        0|     0|
+|rorcid           |0.4.0   |      0|        0|     0|
 |rplos            |0.8.0   |      0|        0|     0|
 |rredlist         |0.4.0   |      0|        0|     0|
 |rtimes           |0.5.0   |      0|        0|     0|
@@ -96,19 +99,19 @@ Bug reports: https://github.com/dirkschumacher/duckduckr/issues
 
 0 errors | 0 warnings | 0 notes
 
-## enigma (0.3.0)
-Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/ropengov/enigma/issues
-
-0 errors | 0 warnings | 0 notes
-
 ## fauxpas (0.1.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropenscilabs/fauxpas/issues
 
 0 errors | 0 warnings | 0 notes
 
-## fulltext (1.0.0)
+## finch (0.2.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/finch/issues
+
+0 errors | 0 warnings | 0 notes
+
+## fulltext (1.0.1)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/fulltext/issues
 
@@ -236,6 +239,12 @@ Bug reports: https://github.com/ropensci/rnoaa/issues
 ## ropenaq (0.2.5)
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
 Bug reports: http://github.com/ropensci/ropenaq/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rorcid (0.4.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rorcid/issues
 
 0 errors | 0 warnings | 0 notes
 
