@@ -22,7 +22,7 @@ No problems were found. The two other maintainers were notified.
 
 ---
 
-This version includes a new R6 class for paginating requests, includes new support for writing to disk and streaming data for asynchronous requests, and some minor improvements.
+This version includes bug fixes.
 
 Thanks!
 Scott Chamberlain

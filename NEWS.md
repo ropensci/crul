@@ -1,3 +1,21 @@
+crul 0.5.2
+==========
+
+### MINOR IMPROVEMENTS
+
+* Fixed handling of user agent: you can pass a UA string 
+as a curl option or a header. Previously, we were wrongly overwriting
+the user input UA if given as a curl option - but were not doing 
+so if given as a header. This is fixed now.  (#63) thx to @maelle and @dpprdan
+
+### BUG FIXES
+
+* Fix to `Paginator` - it wasn't handling pagination correctly. 
+In addition, fixed to hopefully handle all scenarios now. added
+more tests (#62)
+* Fixed handling of query parameters. We were using `urltools::url_encode`
+to encode strings, but it wasn't encoding correctly in some locales. Using `curl::curl_escape` fixes the problem. Encoding is done on query values and names  (#67) (#68)
+
 crul 0.5.0
 ==========
 
