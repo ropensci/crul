@@ -117,3 +117,28 @@ test_that("AsyncVaried - streaming to disk works", {
   expect_is(rawToChar(lst), "character")
   expect_match(rawToChar(lst), "application/json")
 })
+
+
+context("AsyncVaried - basic auth")
+test_that("AsyncVaried - basic auth works", {
+  skip_on_cran()
+
+  url <- "https://httpbin.org/basic-auth/user/passwd"
+  auth <- auth(user = "user", pwd = "passwd")
+  reqlist <- list(
+    HttpRequest$new(url = url, auth = auth)$get(),
+    HttpRequest$new(url = url, auth = auth)$get(query = list(a=5)),
+    HttpRequest$new(url = url, auth = auth)$get(query = list(b=3))
+  )
+  out <- AsyncVaried$new(.list = reqlist)
+  out$request()
+
+  expect_is(out, "AsyncVaried")
+
+  expect_equal(length(out$responses()), 3)
+
+  resps <- out$responses()
+  expect_is(resps[[1]]$request$auth, "auth")
+  expect_equal(resps[[1]]$request$auth$userpwd, "user:passwd")
+  expect_equal(resps[[1]]$request$auth$httpauth, 1)
+})

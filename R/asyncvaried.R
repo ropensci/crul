@@ -109,6 +109,19 @@
 #' out$content()
 #' out$times()
 #' out$parse()
+#' 
+#' # using auth with async
+#' url <- "https://httpbin.org/basic-auth/user/passwd"
+#' auth <- auth(user = "user", pwd = "passwd")
+#' reqlist <- list(
+#'   HttpRequest$new(url = url, auth = auth)$get(),
+#'   HttpRequest$new(url = url, auth = auth)$get(query = list(a=5)),
+#'   HttpRequest$new(url = url, auth = auth)$get(query = list(b=3))
+#' )
+#' out <- AsyncVaried$new(.list = reqlist)
+#' out$request()
+#' out$status()
+#' out$parse()
 #' }
 AsyncVaried <- R6::R6Class(
   'AsyncVaried',

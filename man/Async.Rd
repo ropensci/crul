@@ -60,6 +60,14 @@ res[[1]]$content
 res[[1]]$parse("UTF-8")
 
 lapply(res, function(z) z$parse("UTF-8"))
+
+# using auth with async
+dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
+res <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+res
+vapply(res, function(z) z$status_code, double(1))
+vapply(res, function(z) z$success(), logical(1))
+lapply(res, function(z) z$parse("UTF-8"))
 }
 }
 \seealso{

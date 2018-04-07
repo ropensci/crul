@@ -54,6 +54,14 @@
 #' res[[1]]$parse("UTF-8")
 #'
 #' lapply(res, function(z) z$parse("UTF-8"))
+#' 
+#' # using auth with async
+#' dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
+#' res <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+#' res
+#' vapply(res, function(z) z$status_code, double(1))
+#' vapply(res, function(z) z$success(), logical(1))
+#' lapply(res, function(z) z$parse("UTF-8"))
 #' }
 Async <- R6::R6Class(
   'Async',
@@ -110,7 +118,7 @@ Async <- R6::R6Class(
 
   private = list(
     gen_interface = function(x, method, path, query = NULL, body = NULL,
-      encode = NULL, disk = NULL, stream = NULL, ...) {
+      encode = NULL, disk = NULL, stream = NULL, auth = NULL, ...) {
 
       if (!is.null(disk)) {
         if (length(disk) > 1) {
@@ -118,21 +126,21 @@ Async <- R6::R6Class(
           reqs <- Map(function(z, m) {
             switch(
               method,
-              get = HttpRequest$new(url = z)$get(path = path, query = query,
+              get = HttpRequest$new(url = z, auth = auth)$get(path = path, query = query,
                 disk = m, stream = stream, ...),
-              post = HttpRequest$new(url = z)$post(path = path, query = query,
+              post = HttpRequest$new(url = z, auth = auth)$post(path = path, query = query,
                 body = body, encode = encode, disk = m, stream = stream,
                 ...),
-              put = HttpRequest$new(url = z)$put(path = path, query = query,
+              put = HttpRequest$new(url = z, auth = auth)$put(path = path, query = query,
                 body = body, encode = encode, disk = m, stream = stream,
                 ...),
-              patch = HttpRequest$new(url = z)$patch(path = path, query = query,
+              patch = HttpRequest$new(url = z, auth = auth)$patch(path = path, query = query,
                 body = body, encode = encode, disk = m, stream = stream,
                 ...),
-              delete = HttpRequest$new(url = z)$delete(path = path,
+              delete = HttpRequest$new(url = z, auth = auth)$delete(path = path,
                 query = query, body = body, encode = encode, disk = m,
                 stream = stream, ...),
-              head = HttpRequest$new(url = z)$head(path = path, ...)
+              head = HttpRequest$new(url = z, auth = auth)$head(path = path, ...)
             )
           }, x, disk)
         }
@@ -140,17 +148,17 @@ Async <- R6::R6Class(
         reqs <- lapply(x, function(z) {
           switch(
             method,
-            get = HttpRequest$new(url = z)$get(path = path, query = query,
+            get = HttpRequest$new(url = z, auth = auth)$get(path = path, query = query,
               disk = disk, stream = stream, ...),
-            post = HttpRequest$new(url = z)$post(path = path, query = query,
+            post = HttpRequest$new(url = z, auth = auth)$post(path = path, query = query,
               body = body, encode = encode, disk = disk, stream = stream, ...),
-            put = HttpRequest$new(url = z)$put(path = path, query = query,
+            put = HttpRequest$new(url = z, auth = auth)$put(path = path, query = query,
               body = body, encode = encode, disk = disk, stream = stream, ...),
-            patch = HttpRequest$new(url = z)$patch(path = path, query = query,
+            patch = HttpRequest$new(url = z, auth = auth)$patch(path = path, query = query,
               body = body, encode = encode, disk = disk, stream = stream, ...),
-            delete = HttpRequest$new(url = z)$delete(path = path, query = query,
+            delete = HttpRequest$new(url = z, auth = auth)$delete(path = path, query = query,
               body = body, encode = encode, disk = disk, stream = stream, ...),
-            head = HttpRequest$new(url = z)$head(path = path, ...)
+            head = HttpRequest$new(url = z, auth = auth)$head(path = path, ...)
           )
         })
       }

@@ -199,3 +199,24 @@ test_that("Async - streaming to disk works", {
   expect_is(rawToChar(mylist), "character")
   expect_match(rawToChar(mylist), "application/json")
 })
+
+
+
+context("Async - basic auth")
+test_that("Async - with basic auth works", {
+  skip_on_cran()
+
+  dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
+  out <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+  
+  expect_is(dd, "Async")
+
+  expect_equal(length(out), 3)
+  expect_is(out[[1]], "HttpResponse")
+  expect_is(out[[2]], "HttpResponse")
+  expect_is(out[[3]], "HttpResponse")
+
+  expect_is(out[[1]]$request$auth, "auth")
+  expect_equal(out[[1]]$request$auth$userpwd, "user:passwd")
+  expect_equal(out[[1]]$request$auth$httpauth, 1)
+})
