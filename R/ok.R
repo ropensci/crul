@@ -34,21 +34,24 @@ ok <- function(x, status = 200L, info = TRUE, ...) {
   UseMethod("ok")
 }
 
+#' @export
 ok.default <- function(x, status = 200L, info = TRUE, ...) {
   stop("no 'ok' method for ", class(x)[[1L]], call. = FALSE)
 }
 
+#' @export
 ok.character <- function(x, status = 200L, info = TRUE, ...) {
   z <- crul::HttpClient$new(x, opts = list(...))
   ok(z, status, info, ...)
 }
 
+#' @export
 ok.HttpClient <- function(x, status = 200L, info = TRUE, ...) {
   assert(info, "logical")
   assert(status, "integer")
   find_status <- tryCatch(fauxpas::find_error_class(status), 
     error = function(e) e)
-  if (inherits(w, "error")) stop(status, " not in acceptable set")
+  if (inherits(find_status, "error")) stop("status [", status, "] not in acceptable set")
   w <- tryCatch(x$head(), error = function(e) e)
   if (inherits(w, "error")) {
     if (info) message(w$message)
