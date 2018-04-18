@@ -108,15 +108,28 @@ HttpRequest <- R6::R6Class(
 
     initialize = function(url, opts, proxies, auth, headers, handle) {
       if (!missing(url)) self$url <- url
+
+      # curl options: check for set_opts first
+      if (!is.null(crul_opts$opts)) self$opts <- crul_opts$opts
       if (!missing(opts)) self$opts <- opts
+
+      # proxy: check for set_proxy first
+      if (!is.null(crul_opts$proxies)) self$proxies <- crul_opts$proxies
       if (!missing(proxies)) {
         if (!inherits(proxies, "proxy")) {
           stop("proxies input must be of class proxy", call. = FALSE)
         }
         self$proxies <- proxies
       }
+
+      # auth: check for set_auth first
+      if (!is.null(crul_opts$auth)) self$auth <- crul_opts$auth
       if (!missing(auth)) self$auth <- auth
+
+      # headers: check for set_headers first
+      if (!is.null(crul_opts$headers)) self$headers <- crul_opts$headers
       if (!missing(headers)) self$headers <- headers
+      
       if (!missing(handle)) self$handle <- handle
       if (is.null(self$url) && is.null(self$handle)) {
         stop("need one of url or handle", call. = FALSE)
