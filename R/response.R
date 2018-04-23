@@ -130,7 +130,7 @@ HttpResponse <- R6::R6Class(
     },
 
     success = function() {
-      self$status_code <= 201
+      self$status_code < 400L && self$status_code >= 200L
     },
 
     status_http = function(verbose = FALSE) {

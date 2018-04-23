@@ -5,6 +5,7 @@
 #' @export
 #' @param urls (character) one or more URLs (required)
 #' @family async
+#' @template async-deets
 #' @details
 #' **Methods**
 #'   \describe{
