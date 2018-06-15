@@ -253,6 +253,7 @@ Paginator <- R6::R6Class(
             body = body, encode = encode, ...),
           head = self$http_req$head(path, ...)
         )
+        cat("\n")
       }
       private$resps <- tmp
       message("OK\n")
