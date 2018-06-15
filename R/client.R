@@ -105,6 +105,7 @@ HttpClient <- R6::R6Class(
     auth = list(),
     headers = list(),
     handle = NULL,
+    progress = NULL,
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
@@ -129,10 +130,11 @@ HttpClient <- R6::R6Class(
         cat(sprintf("    %s: %s", names(self$headers)[i],
                     self$headers[[i]]), sep = "\n")
       }
+      cat(paste0("  progress: ", !is.null(self$progress)), sep = "\n")
       invisible(self)
     },
 
-    initialize = function(url, opts, proxies, auth, headers, handle) {
+    initialize = function(url, opts, proxies, auth, headers, handle, progress) {
       private$crul_h_pool <- new.env(hash = TRUE, parent = emptyenv())
       if (!missing(url)) self$url <- url
       if (!missing(opts)) self$opts <- opts
@@ -141,6 +143,10 @@ HttpClient <- R6::R6Class(
           stop("proxies input must be of class proxy", call. = FALSE)
         }
         self$proxies <- proxies
+      }
+      if (!missing(progress)) {
+        assert(progress, "request")
+        self$progress <- progress$options
       }
       if (!missing(auth)) self$auth <- auth
       if (!missing(headers)) self$headers <- headers
@@ -165,7 +171,7 @@ HttpClient <- R6::R6Class(
         rr$options$useragent <- make_ua()
       }
       rr$options <- utils::modifyList(
-        rr$options, c(self$opts, self$proxies, self$auth, ...))
+        rr$options, c(self$opts, self$proxies, self$auth, self$progress, ...))
       rr$options <- curl_opts_fil(rr$options)
       rr$disk <- disk
       rr$stream <- stream
