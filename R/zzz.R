@@ -33,7 +33,7 @@ prep_opts <- function(method, url, self, opts, ...) {
   }
   rr$options <- utils::modifyList(
     rr$options,
-    c(self$opts, self$proxies, self$auth, ...)
+    c(self$opts, self$proxies, self$auth, self$progress, ...)
   )
   rr$options <- curl_opts_fil(rr$options)
   return(rr)
