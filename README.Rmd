@@ -208,6 +208,19 @@ out$status()
 out$parse()
 ```
 
+## Progress bars
+
+```{r}
+library(httr)
+(x <- HttpClient$new(
+  url = "https://httpbin.org/bytes/102400", 
+  progress = progress()
+))
+z <- x$get()
+w <- x$post()
+```
+
+
 ## TO DO
 
 * ...
