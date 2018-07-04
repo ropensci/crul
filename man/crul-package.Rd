@@ -35,7 +35,14 @@ conditions but if it's not installed we use \pkg{httpcode}
 \section{Mocking}{
 
 Mocking HTTP requests is supported via the \pkg{webmockr}
-package. See \link{mock} for guidance.
+package. See \link{mock} for guidance, and
+\url{https://ropensci.github.io/http-testing-book/}
+}
+
+\section{Caching}{
+
+Caching HTTP requests is supported via the \pkg{vcr}
+package. See \url{https://ropensci.github.io/http-testing-book/}
 }
 
 \author{

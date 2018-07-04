@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
+[![cran checks](https://cranchecks.info/badges/worst/crul)](https://cranchecks.info/pkgs/crul)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
@@ -40,8 +41,11 @@ as well as async requests.
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests. Integration with [vcr](https://github.com/ropensci/vcr) to mock specifically
-around tests is coming soon.
+HTTP requests. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+
+Caching:
+
+`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
 
 ## Installation
 
@@ -206,13 +210,7 @@ out$parse()
 
 ## TO DO
 
-### http caching
-
-Add integration for:
-
-* [vcr](https://github.com/ropensci/vcr)
-
-for flexible and easy HTTP request caching
+* ...
 
 ## Meta
 
@@ -221,3 +219,5 @@ for flexible and easy HTTP request caching
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
 * Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
+
+[![ropensci_footer](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
