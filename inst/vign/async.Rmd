@@ -1,5 +1,5 @@
 <!--
-%\VignetteIndexEntry{async with crul}
+%\VignetteIndexEntry{3. async with crul}
 %\VignetteEngine{knitr::rmarkdown}
 %\VignetteEncoding{UTF-8}
 -->
