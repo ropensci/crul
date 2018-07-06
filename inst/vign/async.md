@@ -67,7 +67,7 @@ Make request with any HTTP method
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: gunicorn/19.8.1
-#>     date: Thu, 05 Jul 2018 23:11:13 GMT
+#>     date: Fri, 06 Jul 2018 23:19:03 GMT
 #>     content-type: application/json
 #>     content-length: 300
 #>     access-control-allow-origin: *
@@ -85,7 +85,7 @@ Make request with any HTTP method
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: gunicorn/19.8.1
-#>     date: Thu, 05 Jul 2018 23:11:13 GMT
+#>     date: Fri, 06 Jul 2018 23:19:03 GMT
 #>     content-type: application/json
 #>     content-length: 312
 #>     access-control-allow-origin: *
@@ -104,7 +104,7 @@ Make request with any HTTP method
 #>     status: HTTP/1.1 200 OK
 #>     connection: keep-alive
 #>     server: gunicorn/19.8.1
-#>     date: Thu, 05 Jul 2018 23:11:13 GMT
+#>     date: Fri, 06 Jul 2018 23:19:03 GMT
 #>     content-type: application/json
 #>     content-length: 28
 #>     access-control-allow-origin: *
@@ -192,7 +192,7 @@ Parse all results
 ```r
 res$parse()
 #> [1] "{\"args\":{\"a\":\"5\"},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"R (3.5.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get?a=5\"}\n"                                                                                                                                                                                          
-#> [2] "{\"args\":{\"a\":\"5\",\"b\":\"6\"},\"data\":\"\",\"files\":{},\"form\":{\"a\":\"5\"},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"137\",\"Content-Type\":\"multipart/form-data; boundary=------------------------00062d9fd529091d\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521\"},\"json\":null,\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/post?a=5&b=6\"}\n"
+#> [2] "{\"args\":{\"a\":\"5\",\"b\":\"6\"},\"data\":\"\",\"files\":{},\"form\":{\"a\":\"5\"},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"137\",\"Content-Type\":\"multipart/form-data; boundary=------------------------961f988feb1a1cfe\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521\"},\"json\":null,\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/post?a=5&b=6\"}\n"
 ```
 
 
@@ -233,7 +233,7 @@ lapply(res$parse(), jsonlite::prettify)
 #>         "Accept-Encoding": "gzip, deflate",
 #>         "Connection": "close",
 #>         "Content-Length": "137",
-#>         "Content-Type": "multipart/form-data; boundary=------------------------00062d9fd529091d",
+#>         "Content-Type": "multipart/form-data; boundary=------------------------961f988feb1a1cfe",
 #>         "Host": "httpbin.org",
 #>         "User-Agent": "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521"
 #>     },

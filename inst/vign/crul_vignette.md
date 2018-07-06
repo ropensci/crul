@@ -99,7 +99,7 @@ Status code
 
 ```r
 res$status_code
-#> [1] 200
+#> [1] 503
 ```
 
 The content
@@ -107,19 +107,10 @@ The content
 
 ```r
 res$content
-#>   [1] 7b 22 61 72 67 73 22 3a 7b 7d 2c 22 68 65 61 64 65 72 73 22 3a 7b 22
-#>  [24] 41 22 3a 22 68 65 6c 6c 6f 20 77 6f 72 6c 64 22 2c 22 41 63 63 65 70
-#>  [47] 74 22 3a 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74
-#>  [70] 65 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d
-#>  [93] 6c 2c 20 2a 2f 2a 22 2c 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e
-#> [116] 67 22 3a 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 22 43 6f 6e
-#> [139] 6e 65 63 74 69 6f 6e 22 3a 22 63 6c 6f 73 65 22 2c 22 48 6f 73 74 22
-#> [162] 3a 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 22 55 73 65 72 2d 41 67
-#> [185] 65 6e 74 22 3a 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d
-#> [208] 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 35 2e 34 2e 39 35 32
-#> [231] 31 22 7d 2c 22 6f 72 69 67 69 6e 22 3a 22 31 35 37 2e 31 33 30 2e 31
-#> [254] 37 39 2e 38 36 22 2c 22 75 72 6c 22 3a 22 68 74 74 70 73 3a 2f 2f 68
-#> [277] 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 7d 0a
+#>  [1] 7b 22 73 74 61 74 75 73 22 3a 22 35 30 33 22 2c 22 64 65 73 63 72 69
+#> [24] 70 74 69 6f 6e 22 3a 22 54 68 65 20 64 65 70 6c 6f 79 6d 65 6e 74 20
+#> [47] 69 73 20 63 75 72 72 65 6e 74 6c 79 20 75 6e 61 76 61 69 6c 61 62 6c
+#> [70] 65 22 7d 0a
 ```
 
 HTTP method
@@ -154,31 +145,34 @@ Response headers
 ```r
 res$response_headers
 #> $status
-#> [1] "HTTP/1.1 200 OK"
-#> 
-#> $connection
-#> [1] "keep-alive"
-#> 
-#> $server
-#> [1] "gunicorn/19.8.1"
+#> [1] "HTTP/1.1 503 Service Temporarily Unavailable"
 #> 
 #> $date
-#> [1] "Thu, 05 Jul 2018 23:10:25 GMT"
+#> [1] "Fri, 06 Jul 2018 23:18:54 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
 #> 
 #> $`content-length`
-#> [1] "293"
+#> [1] "73"
 #> 
-#> $`access-control-allow-origin`
-#> [1] "*"
+#> $connection
+#> [1] "keep-alive"
 #> 
-#> $`access-control-allow-credentials`
-#> [1] "true"
+#> $etag
+#> [1] "\"5b22ab07-49\""
 #> 
-#> $via
-#> [1] "1.1 vegur"
+#> $vary
+#> [1] "Accept"
+#> 
+#> $`x-now-trace`
+#> [1] "sfo1"
+#> 
+#> $server
+#> [1] "now"
+#> 
+#> $`cache-control`
+#> [1] "max-age=0"
 ```
 
 And you can parse the content with a provided function:
@@ -186,36 +180,13 @@ And you can parse the content with a provided function:
 
 ```r
 res$parse()
-#> [1] "{\"args\":{},\"headers\":{\"A\":\"hello world\",\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get\"}\n"
+#> [1] "{\"status\":\"503\",\"description\":\"The deployment is currently unavailable\"}\n"
 jsonlite::fromJSON(res$parse())
-#> $args
-#> named list()
+#> $status
+#> [1] "503"
 #> 
-#> $headers
-#> $headers$A
-#> [1] "hello world"
-#> 
-#> $headers$Accept
-#> [1] "application/json, text/xml, application/xml, */*"
-#> 
-#> $headers$`Accept-Encoding`
-#> [1] "gzip, deflate"
-#> 
-#> $headers$Connection
-#> [1] "close"
-#> 
-#> $headers$Host
-#> [1] "httpbin.org"
-#> 
-#> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521"
-#> 
-#> 
-#> $origin
-#> [1] "157.130.179.86"
-#> 
-#> $url
-#> [1] "https://httpbin.org/get"
+#> $description
+#> [1] "The deployment is currently unavailable"
 ```
 
 With the `HttpClient` object, which holds any configuration stuff
@@ -240,7 +211,7 @@ f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/fc/n7g_vrvn0sx_st0p8lxb3ts40000gn/T//Rtmp0xY7UZ/file44dd30746052"
+#> [1] "/var/folders/fc/n7g_vrvn0sx_st0p8lxb3ts40000gn/T//Rtmpj01EFF/file7e173a5b4450"
 ```
 
 Read lines
@@ -248,16 +219,7 @@ Read lines
 
 ```r
 readLines(res$content, n = 10)
-#>  [1] "<!DOCTYPE html>"                                                                                                                                 
-#>  [2] "<html lang=\"en\">"                                                                                                                              
-#>  [3] "<head>"                                                                                                                                          
-#>  [4] "  <meta charset=\"UTF-8\">"                                                                                                                      
-#>  [5] "  <title>httpbin.org</title>"                                                                                                                    
-#>  [6] "  <link href=\"https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700\" rel=\"stylesheet\">"
-#>  [7] "  <link rel=\"stylesheet\" type=\"text/css\" href=\"/flasgger_static/swagger-ui.css\" >"                                                         
-#>  [8] "  <link rel=\"icon\" type=\"image/png\" href=\"/flasgger_static/favicon-32x32.png\" sizes=\"32x32\" />"                                          
-#>  [9] "  <link rel=\"icon\" type=\"image/png\" href=\"/flasgger_static/favicon-16x16.png\" sizes=\"16x16\" />"                                          
-#> [10] "  <style>"
+#> [1] "{\"status\":\"503\",\"description\":\"The deployment is currently unavailable\"}"
 ```
 
 ## stream data
