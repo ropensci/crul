@@ -48,6 +48,13 @@
 #' each `HttpClient` object is separate from one another so as to better
 #' separate connections.
 #' 
+#' If you don't pass in a curl handle to the `handle` parameter, 
+#' it gets created when a HTTP verb is called. Thus, if you try to get `handle`
+#' after creating a `HttpClient` object only passing `url` parameter, `handle` 
+#' will be `NULL`. If you pass a curl handle to the `handle parameter, then 
+#' you can get the handle from the `HttpClient` object. The response from a 
+#' http verb request does have the handle in the `handle` slot.
+#' 
 #' @note a little quark about `crul` is that because user agent string can 
 #' be passed as either a header or a curl option (both lead to a `User-Agent` 
 #' header being passed in the HTTP request), we return the user agent 
@@ -61,12 +68,30 @@
 #' [writing-options], [cookies]
 #'
 #' @examples
+#' # set your own handle 
+#' (h <- handle("https://httpbin.org"))
+#' (x <- HttpClient$new(handle = h))
+#' x$handle
+#' x$url
+#' (out <- x$get("get"))
+#' x$handle
+#' x$url
+#' class(out)
+#' out$handle
+#' 
+#' # if you just pass a url, we create a handle for you
+#' #  this is how most people will use HttpClient
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' x$url
-#' (res_get1 <- x$get('get'))
-#' res_get1$content
-#' res_get1$response_headers
-#' res_get1$parse()
+#' x$handle # is empty, it gets created when a HTTP verb is called
+#' (r1 <- x$get('get'))
+#' x$url
+#' x$handle 
+#' r1$url
+#' r1$handle
+#' r1$content
+#' r1$response_headers
+#' r1$parse()
 #'
 #' (res_get2 <- x$get('get', query = list(hello = "world")))
 #' res_get2$parse()
@@ -150,7 +175,12 @@ HttpClient <- R6::R6Class(
       }
       if (!missing(auth)) self$auth <- auth
       if (!missing(headers)) self$headers <- headers
-      if (!missing(handle)) self$handle <- handle
+      if (!missing(handle)) {
+        assert(handle, "list")
+        stopifnot(all(c("url", "handle") %in% names(handle)))
+        self$handle <- handle
+        # self$url <- handle$url
+      }
       if (is.null(self$url) && is.null(self$handle)) {
         stop("need one of url or handle", call. = FALSE)
       }
@@ -160,6 +190,7 @@ HttpClient <- R6::R6Class(
                    stream = NULL, ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       rr <- list(
         url = url,
         method = "get",
@@ -182,6 +213,7 @@ HttpClient <- R6::R6Class(
                     stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
@@ -193,6 +225,7 @@ HttpClient <- R6::R6Class(
                    stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
@@ -204,6 +237,7 @@ HttpClient <- R6::R6Class(
                      stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
@@ -215,6 +249,7 @@ HttpClient <- R6::R6Class(
                       stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
@@ -225,6 +260,7 @@ HttpClient <- R6::R6Class(
     head = function(path = NULL, query = list(), ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
+      self$handle <- url
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
         url = url,
