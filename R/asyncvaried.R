@@ -132,7 +132,7 @@
 #'   HttpRequest$new(url = "https://httpbin.org", 
 #'    opts = list(timeout_ms = 10))$head()
 #' )
-#' tmp <- AsyncVaried$new(.list = reqlist)
+#' (tmp <- AsyncVaried$new(.list = reqlist))
 #' tmp$request()
 #' tmp$responses()
 #' tmp$parse("UTF-8")
