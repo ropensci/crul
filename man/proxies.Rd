@@ -16,7 +16,7 @@ port (must be numeric). required.}
 \item{pwd}{(character) password, optional}
 
 \item{auth}{(character) authentication type, one of basic (default),
-digest, digest_ie, gssnegotiate, ntlm, or any. optional}
+digest, digest_ie, gssnegotiate, ntlm, any or \code{NULL}. optional}
 }
 \description{
 proxy options
@@ -31,6 +31,9 @@ proxy("97.77.104.22:3128")
 proxy("http://97.77.104.22:3128", "foo", "bar")
 proxy("http://97.77.104.22:3128", "foo", "bar", auth = "digest")
 proxy("http://97.77.104.22:3128", "foo", "bar", auth = "ntlm")
+
+# socks
+proxy("socks5://localhost:9050/", auth = NULL)
 
 # with proxy (look at request/outgoing headers)
 (res <- HttpClient$new(

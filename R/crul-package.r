@@ -22,13 +22,19 @@
 #'
 #' @section Mocking:
 #' Mocking HTTP requests is supported via the \pkg{webmockr}
-#' package. See [mock] for guidance.
+#' package. See [mock] for guidance, and 
+#' <https://ropensci.github.io/http-testing-book/>
+#' 
+#' @section Caching:
+#' Caching HTTP requests is supported via the \pkg{vcr}
+#' package. See <https://ropensci.github.io/http-testing-book/>
 #'
 #' @importFrom curl curl_escape curl_fetch_disk curl_fetch_memory
 #' curl_fetch_stream curl_options curl_version handle_reset handle_setform
 #' handle_setheaders handle_setopt multi_add multi_cancel multi_list
 #' multi_run new_handle new_pool parse_headers
 #' @importFrom R6 R6Class
+#' @importFrom httpcode http_code
 #' @name crul-package
 #' @aliases crul
 #' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}

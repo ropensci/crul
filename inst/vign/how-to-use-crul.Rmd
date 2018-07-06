@@ -1,5 +1,5 @@
 <!--
-%\VignetteIndexEntry{How to use crul}
+%\VignetteIndexEntry{2. crul workflows}
 %\VignetteEngine{knitr::rmarkdown}
 %\VignetteEncoding{UTF-8}
 -->
@@ -13,8 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-How to use crul
-===============
+crul workflows
+==============
 
 The following aims to help you decide how to use `crul` in different 
 scenarios.
