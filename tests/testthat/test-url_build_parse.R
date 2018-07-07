@@ -8,17 +8,17 @@ test_that("url build works", {
   cc <- url_build("http://localhost:80", "get", list(foo = "bar"))
 
   expect_is(aa, "character")
-  expect_match(aa, "https")
-  expect_match(aa, "httpbin.org")
+  expect_match(aa, "http")
+  expect_match(aa, "localhost")
 
   expect_is(bb, "character")
-  expect_match(bb, "https")
-  expect_match(bb, "httpbin.org")
+  expect_match(bb, "http")
+  expect_match(bb, "localhost")
   expect_match(bb, "get")
 
   expect_is(cc, "character")
-  expect_match(cc, "https")
-  expect_match(cc, "httpbin.org")
+  expect_match(cc, "http")
+  expect_match(cc, "localhost")
   expect_match(cc, "?foo=bar")
 })
 
@@ -52,7 +52,7 @@ test_that("url parse works", {
   expect_named(aa, c('scheme', 'domain', 'port', 'path', 'parameter',
                      'fragment'))
   expect_is(aa$scheme, "character")
-  expect_equal(aa$scheme, "https")
+  expect_equal(aa$scheme, "http")
   expect_is(aa$domain, "character")
   expect_true(is.na(aa$path))
   expect_true(is.na(aa$parameter))
@@ -61,7 +61,7 @@ test_that("url parse works", {
   expect_named(bb, c('scheme', 'domain', 'port', 'path', 'parameter',
                      'fragment'))
   expect_is(bb$scheme, "character")
-  expect_equal(bb$scheme, "https")
+  expect_equal(bb$scheme, "http")
   expect_is(bb$domain, "character")
   expect_equal(bb$path, "get")
   expect_is(bb$parameter, "list")
@@ -71,7 +71,7 @@ test_that("url parse works", {
   expect_named(cc, c('scheme', 'domain', 'port', 'path', 'parameter',
                      'fragment'))
   expect_is(cc$scheme, "character")
-  expect_equal(cc$scheme, "https")
+  expect_equal(cc$scheme, "http")
   expect_is(cc$domain, "character")
   expect_equal(cc$path, "get")
   expect_is(cc$parameter, "list")

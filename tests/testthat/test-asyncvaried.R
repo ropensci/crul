@@ -151,8 +151,8 @@ test_that("AsyncVaried - failure behavior", {
 
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(),
-    HttpRequest$new(url = "http://localhost:80")$head(),
-    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$head()
+    HttpRequest$new(url = "http://localhost:80/get")$head(),
+    HttpRequest$new(url = "http://localhost:80/get", opts = list(timeout_ms = 1))$head()
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -183,7 +183,8 @@ test_that("AsyncVaried - failure behavior", {
   g <- tempfile()
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(disk = f),
-    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$get(disk = g)
+    HttpRequest$new(url = "http://localhost:80", 
+      opts = list(timeout_ms = 1))$get(disk = g)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -199,7 +200,8 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[2]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
-  expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
+  expect_match(resps[[2]]$parse("UTF-8"), 
+    "Connection time-out")
   
   # cleanup
   closeAllConnections()
@@ -214,7 +216,8 @@ test_that("AsyncVaried - failure behavior", {
   fun <- function(x) lst <<- c(lst, x)
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(stream = fun),
-    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$get(stream = fun)
+    HttpRequest$new(url = "http://localhost:80/get", 
+      opts = list(timeout_ms = 1))$get(stream = fun)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -230,5 +233,6 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[2]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
-  expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
+  expect_match(resps[[2]]$parse("UTF-8"), 
+    "Connection time-out")
 })

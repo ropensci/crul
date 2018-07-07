@@ -6,7 +6,7 @@ test_that("handle - works", {
   expect_is(aa, "list")
   expect_is(aa$url, "character")
   expect_is(aa$handle, "curl_handle")
-  expect_match(aa$url, "https")
+  expect_match(aa$url, "http")
 })
 
 test_that("handle fails well", {
