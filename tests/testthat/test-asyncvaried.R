@@ -5,8 +5,8 @@ test_that("AsyncVaried works", {
 
   expect_is(AsyncVaried, "R6ClassGenerator")
 
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
-  req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
+  req1 <- HttpRequest$new(url = "http://localhost:80/get")$get()
+  req2 <- HttpRequest$new(url = "http://localhost:80/post")$post()
 
   aa <- AsyncVaried$new(req1, req2)
 
@@ -41,9 +41,9 @@ context("AsyncVaried - order of results")
 test_that("AsyncVaried - order", {
   skip_on_cran()
 
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get?a=5")$get()
-  req2 <- HttpRequest$new(url = "https://httpbin.org/get?b=6")$get()
-  req3 <- HttpRequest$new(url = "https://httpbin.org/get?c=7")$get()
+  req1 <- HttpRequest$new(url = "http://localhost:80/get?a=5")$get()
+  req2 <- HttpRequest$new(url = "http://localhost:80/get?b=6")$get()
+  req3 <- HttpRequest$new(url = "http://localhost:80/get?c=7")$get()
   aa <- AsyncVaried$new(req1, req2, req3)
   aa$request()
   out <- aa$responses()
@@ -65,9 +65,9 @@ test_that("AsyncVaried - writing to disk works", {
 
   f <- tempfile()
   g <- tempfile()
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get(disk = f)
-  req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post(disk = g)
-  req3 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+  req1 <- HttpRequest$new(url = "http://localhost:80/get")$get(disk = f)
+  req2 <- HttpRequest$new(url = "http://localhost:80/post")$post(disk = g)
+  req3 <- HttpRequest$new(url = "http://localhost:80/get")$get()
   out <- AsyncVaried$new(req1, req2, req3)
   out$request()
   cont <- out$content()
@@ -101,9 +101,9 @@ test_that("AsyncVaried - streaming to disk works", {
 
   lst <- c()
   fun <- function(x) lst <<- c(lst, x)
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get"
+  req1 <- HttpRequest$new(url = "http://localhost:80/get"
   )$get(query = list(foo = "bar"), stream = fun)
-  req2 <- HttpRequest$new(url = "https://httpbin.org/get"
+  req2 <- HttpRequest$new(url = "http://localhost:80/get"
   )$get(query = list(hello = "world"), stream = fun)
   out <- AsyncVaried$new(req1, req2)
   suppressWarnings(out$request())
@@ -123,7 +123,7 @@ context("AsyncVaried - basic auth")
 test_that("AsyncVaried - basic auth works", {
   skip_on_cran()
 
-  url <- "https://httpbin.org/basic-auth/user/passwd"
+  url <- "http://localhost:80/basic-auth/user/passwd"
   auth <- auth(user = "user", pwd = "passwd")
   reqlist <- list(
     HttpRequest$new(url = url, auth = auth)$get(),
@@ -151,8 +151,8 @@ test_that("AsyncVaried - failure behavior", {
 
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(),
-    HttpRequest$new(url = "https://httpbin.org")$head(),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$head()
+    HttpRequest$new(url = "http://localhost:80")$head(),
+    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$head()
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -183,7 +183,7 @@ test_that("AsyncVaried - failure behavior", {
   g <- tempfile()
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(disk = f),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(disk = g)
+    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$get(disk = g)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -214,7 +214,7 @@ test_that("AsyncVaried - failure behavior", {
   fun <- function(x) lst <<- c(lst, x)
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(stream = fun),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(stream = fun)
+    HttpRequest$new(url = "http://localhost:80", opts = list(timeout_ms = 10))$get(stream = fun)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()

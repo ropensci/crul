@@ -1,7 +1,7 @@
 context("handle")
 
 test_that("handle - works", {
-  aa <- handle("https://httpbin.org")
+  aa <- handle("http://localhost:80")
 
   expect_is(aa, "list")
   expect_is(aa$url, "character")
