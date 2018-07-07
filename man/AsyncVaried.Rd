@@ -10,7 +10,8 @@ must supply inputs to one of these parameters, but not both}
 }
 \value{
 An object of class \code{AsyncVaried} with variables and methods.
-Responses are returned in the order they are passed in.
+Responses are returned in the order they are passed in. We print the
+first 10.
 }
 \description{
 Async client for different request types
@@ -168,7 +169,7 @@ reqlist <- list(
   HttpRequest$new(url = "https://httpbin.org", 
    opts = list(timeout_ms = 10))$head()
 )
-tmp <- AsyncVaried$new(.list = reqlist)
+(tmp <- AsyncVaried$new(.list = reqlist))
 tmp$request()
 tmp$responses()
 tmp$parse("UTF-8")

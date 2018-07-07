@@ -6,7 +6,8 @@
 #' @family async
 #' @template async-deets
 #' @return An object of class `AsyncVaried` with variables and methods.
-#' Responses are returned in the order they are passed in. 
+#' Responses are returned in the order they are passed in. We print the 
+#' first 10.
 #' @details
 #' **Methods**
 #'   \describe{
@@ -142,11 +143,15 @@ AsyncVaried <- R6::R6Class(
   public = list(
     print = function(x, ...) {
       cat("<crul async varied connection> ", sep = "\n")
-      cat("  requests: ", sep = "\n")
-      for (i in seq_along(private$reqs)) {
+      cat(sprintf("  requests: (n: %s)", length(private$reqs)), sep = "\n")
+      print_urls <- private$reqs[1:min(c(length(private$reqs), 10))]
+      for (i in seq_along(print_urls)) {
         cat(sprintf("   %s: %s",
-                    private$reqs[[i]]$payload$method,
-                    private$reqs[[i]]$url), "\n")
+                    print_urls[[i]]$payload$method,
+                    print_urls[[i]]$url), "\n")
+      }
+      if (length(private$reqs) > 10) {
+        cat(sprintf("   # ... with %s more", length(private$reqs) - 10), sep = "\n")
       }
       invisible(self)
     },

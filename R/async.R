@@ -34,7 +34,8 @@
 #' @format NULL
 #' @usage NULL
 #' @return a list, with objects of class [HttpResponse()].
-#' Responses are returned in the order they are passed in.
+#' Responses are returned in the order they are passed in. We print the 
+#' first 10.
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(
@@ -81,9 +82,13 @@ Async <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul async connection> ", sep = "\n")
-      cat("  urls: ", sep = "\n")
-      for (i in seq_along(self$urls)) {
-        cat(paste0("   ", self$urls[[i]]), sep = "\n")
+      cat(sprintf("  urls: (n: %s)", length(self$urls)), sep = "\n")
+      print_urls <- self$urls[1:min(c(length(self$urls), 10))]
+      for (i in seq_along(print_urls)) {
+        cat(paste0("   ", print_urls[[i]]), sep = "\n")
+      }
+      if (length(self$urls) > 10) {
+        cat(sprintf("   # ... with %s more", length(self$urls) - 10), sep = "\n")
       }
       invisible(self)
     },

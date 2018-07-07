@@ -9,7 +9,8 @@
 }
 \value{
 a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}.
-Responses are returned in the order they are passed in.
+Responses are returned in the order they are passed in. We print the
+first 10.
 }
 \description{
 A client to work with many URLs, but all with the same HTTP method
@@ -100,11 +101,13 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 # failure behavior
 ## e.g. when a URL doesn't exist, a timeout, etc.
-urls <- c("http://stuffthings.gvb", "https://foo.com", "https://httpbin.org/get")
+urls <- c("http://stuffthings.gvb", "https://foo.com", 
+  "https://httpbin.org/get")
 conn <- Async$new(urls = urls)
 res <- conn$get()
-res[[1]]$parse("UTF-8")
-res[[2]]$parse("UTF-8")
+res[[1]]$parse("UTF-8") # a failure
+res[[2]]$parse("UTF-8") # a failure
+res[[3]]$parse("UTF-8") # a success
 }
 }
 \seealso{
