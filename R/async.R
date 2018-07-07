@@ -5,6 +5,7 @@
 #' @export
 #' @param urls (character) one or more URLs (required)
 #' @family async
+#' @template async-deets
 #' @details
 #' **Methods**
 #'   \describe{
@@ -33,7 +34,8 @@
 #' @format NULL
 #' @usage NULL
 #' @return a list, with objects of class [HttpResponse()].
-#' Responses are returned in the order they are passed in.
+#' Responses are returned in the order they are passed in. We print the 
+#' first 10.
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(
@@ -62,6 +64,16 @@
 #' vapply(res, function(z) z$status_code, double(1))
 #' vapply(res, function(z) z$success(), logical(1))
 #' lapply(res, function(z) z$parse("UTF-8"))
+#' 
+#' # failure behavior
+#' ## e.g. when a URL doesn't exist, a timeout, etc.
+#' urls <- c("http://stuffthings.gvb", "https://foo.com", 
+#'   "https://httpbin.org/get")
+#' conn <- Async$new(urls = urls)
+#' res <- conn$get()
+#' res[[1]]$parse("UTF-8") # a failure
+#' res[[2]]$parse("UTF-8") # a failure
+#' res[[3]]$parse("UTF-8") # a success
 #' }
 Async <- R6::R6Class(
   'Async',
@@ -70,9 +82,13 @@ Async <- R6::R6Class(
 
     print = function(x, ...) {
       cat("<crul async connection> ", sep = "\n")
-      cat("  urls: ", sep = "\n")
-      for (i in seq_along(self$urls)) {
-        cat(paste0("   ", self$urls[[i]]), sep = "\n")
+      cat(sprintf("  urls: (n: %s)", length(self$urls)), sep = "\n")
+      print_urls <- self$urls[1:min(c(length(self$urls), 10))]
+      for (i in seq_along(print_urls)) {
+        cat(paste0("   ", print_urls[[i]]), sep = "\n")
+      }
+      if (length(self$urls) > 10) {
+        cat(sprintf("   # ... with %s more", length(self$urls) - 10), sep = "\n")
       }
       invisible(self)
     },

@@ -4,8 +4,10 @@
 #' @param ...,.list Any number of objects of class [HttpRequest()],
 #' must supply inputs to one of these parameters, but not both
 #' @family async
+#' @template async-deets
 #' @return An object of class `AsyncVaried` with variables and methods.
-#' Responses are returned in the order they are passed in.
+#' Responses are returned in the order they are passed in. We print the 
+#' first 10.
 #' @details
 #' **Methods**
 #'   \describe{
@@ -122,17 +124,34 @@
 #' out$request()
 #' out$status()
 #' out$parse()
+#' 
+#' # failure behavior
+#' ## e.g. when a URL doesn't exist, a timeout, etc.
+#' reqlist <- list(
+#'   HttpRequest$new(url = "http://stuffthings.gvb")$get(),
+#'   HttpRequest$new(url = "https://httpbin.org")$head(),
+#'   HttpRequest$new(url = "https://httpbin.org", 
+#'    opts = list(timeout_ms = 10))$head()
+#' )
+#' (tmp <- AsyncVaried$new(.list = reqlist))
+#' tmp$request()
+#' tmp$responses()
+#' tmp$parse("UTF-8")
 #' }
 AsyncVaried <- R6::R6Class(
   'AsyncVaried',
   public = list(
     print = function(x, ...) {
       cat("<crul async varied connection> ", sep = "\n")
-      cat("  requests: ", sep = "\n")
-      for (i in seq_along(private$reqs)) {
+      cat(sprintf("  requests: (n: %s)", length(private$reqs)), sep = "\n")
+      print_urls <- private$reqs[1:min(c(length(private$reqs), 10))]
+      for (i in seq_along(print_urls)) {
         cat(sprintf("   %s: %s",
-                    private$reqs[[i]]$payload$method,
-                    private$reqs[[i]]$url), "\n")
+                    print_urls[[i]]$payload$method,
+                    print_urls[[i]]$url), "\n")
+      }
+      if (length(private$reqs) > 10) {
+        cat(sprintf("   # ... with %s more", length(private$reqs) - 10), sep = "\n")
       }
       invisible(self)
     },
@@ -208,6 +227,7 @@ AsyncVaried <- R6::R6Class(
           curl::multi_add(
             handle = h,
             done = function(res) multi_res[[i]] <<- res,
+            fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
             pool = crulpool
           )
         } else {
@@ -217,6 +237,7 @@ AsyncVaried <- R6::R6Class(
             curl::multi_add(
               handle = h,
               done = function(res) multi_res[[i]] <<- res,
+              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
               data = ff,
               pool = crulpool
             )
@@ -225,6 +246,7 @@ AsyncVaried <- R6::R6Class(
             curl::multi_add(
               handle = h,
               done = function(res) multi_res[[i]] <<- res,
+              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
               data = w$stream,
               pool = crulpool
             )
@@ -251,7 +273,12 @@ AsyncVaried <- R6::R6Class(
             if (grepl("^ftp://", z$url)) {
               list()
             } else {
-              headers_parse(curl::parse_headers(rawToChar(z$headers)))
+              head_char <- rawToChar(z$headers)
+              if (nzchar(head_char)) {
+                headers_parse(curl::parse_headers(head_char))
+              } else {
+                list()
+              }
             }
           },
           modified = z$modified,
@@ -264,3 +291,9 @@ AsyncVaried <- R6::R6Class(
     }
   )
 )
+
+make_async_error <- function(x, req) {
+  list(url = req$url$url, status_code = 0, headers = raw(0), 
+    modified = NA_character_, times = NA_character_, 
+    content = charToRaw(x))
+}

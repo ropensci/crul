@@ -74,15 +74,38 @@ it in the request headers is consistent.
 curl handles are re-used on the level of the connection object, that is,
 each \code{HttpClient} object is separate from one another so as to better
 separate connections.
+
+If you don't pass in a curl handle to the \code{handle} parameter,
+it gets created when a HTTP verb is called. Thus, if you try to get \code{handle}
+after creating a \code{HttpClient} object only passing \code{url} parameter, \code{handle}
+will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then you can get the handle from the}HttpClient\code{object. The response from a http verb request does have the handle in the}handle` slot.
 }
 
 \examples{
+# set your own handle 
+(h <- handle("https://httpbin.org"))
+(x <- HttpClient$new(handle = h))
+x$handle
+x$url
+(out <- x$get("get"))
+x$handle
+x$url
+class(out)
+out$handle
+
+# if you just pass a url, we create a handle for you
+#  this is how most people will use HttpClient
 (x <- HttpClient$new(url = "https://httpbin.org"))
 x$url
-(res_get1 <- x$get('get'))
-res_get1$content
-res_get1$response_headers
-res_get1$parse()
+x$handle # is empty, it gets created when a HTTP verb is called
+(r1 <- x$get('get'))
+x$url
+x$handle 
+r1$url
+r1$handle
+r1$content
+r1$response_headers
+r1$parse()
 
 (res_get2 <- x$get('get', query = list(hello = "world")))
 res_get2$parse()

@@ -10,7 +10,8 @@ must supply inputs to one of these parameters, but not both}
 }
 \value{
 An object of class \code{AsyncVaried} with variables and methods.
-Responses are returned in the order they are passed in.
+Responses are returned in the order they are passed in. We print the
+first 10.
 }
 \description{
 Async client for different request types
@@ -59,6 +60,35 @@ requests made
 }
 }
 }
+\section{Failure behavior}{
+
+HTTP requests mostly fail in ways that you are probably familiar with, 
+including when there's a 400 response (the URL not found), and when the 
+server made a mistake (a 500 series HTTP status code). 
+
+But requests can fail sometimes where there is no HTTP status code, and 
+no agreed upon way to handle it other than to just fail immediately. 
+
+When a request fails when using synchronous requests (see [HttpClient]) 
+you get an error message that stops your code progression 
+immediately saying for example:
+
+- "Could not resolve host: https://foo.com"
+- "Failed to connect to foo.com"
+- "Resolving timed out after 10 milliseconds"
+
+However, for async requests we don't want to fail immediately because
+that would stop the subsequent requests from occurring. Thus, when 
+we find that a request fails for one of the reasons above we 
+give back a [HttpResponse] object just like any other response, and:
+
+- capture the error message and put it in the `content` slot of the 
+response object (thus calls to `content` and `parse()` work correctly)
+- give back a `0` HTTP status code. we handle this specially when testing 
+whether the request was successful or not with e.g., the `success()` 
+method
+}
+
 \examples{
 \dontrun{
 # pass in requests via ...
@@ -130,6 +160,19 @@ out <- AsyncVaried$new(.list = reqlist)
 out$request()
 out$status()
 out$parse()
+
+# failure behavior
+## e.g. when a URL doesn't exist, a timeout, etc.
+reqlist <- list(
+  HttpRequest$new(url = "http://stuffthings.gvb")$get(),
+  HttpRequest$new(url = "https://httpbin.org")$head(),
+  HttpRequest$new(url = "https://httpbin.org", 
+   opts = list(timeout_ms = 10))$head()
+)
+(tmp <- AsyncVaried$new(.list = reqlist))
+tmp$request()
+tmp$responses()
+tmp$parse("UTF-8")
 }
 }
 \seealso{

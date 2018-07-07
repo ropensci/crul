@@ -6,6 +6,7 @@ crul
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
+[![cran checks](https://cranchecks.info/badges/worst/crul)](https://cranchecks.info/pkgs/crul)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
@@ -34,8 +35,11 @@ as well as async requests.
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests. Integration with [vcr](https://github.com/ropensci/vcr) to mock specifically
-around tests is coming soon.
+HTTP requests. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+
+Caching:
+
+`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
 
 ## Installation
 
@@ -81,6 +85,7 @@ library("crul")
 #>   auth: 
 #>   headers: 
 #>     a: hello world
+#>   progress: FALSE
 ```
 
 Makes a R6 class, that has all the bits and bobs you'd expect for doing HTTP
@@ -145,22 +150,19 @@ The content
 
 ```r
 res$content
-#>   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61
-#>  [24] 64 65 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c
-#>  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22
-#>  [70] 3a 20 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74 65
-#>  [93] 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c
-#> [116] 2c 20 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e
-#> [139] 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65
-#> [162] 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22
-#> [185] 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68
-#> [208] 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72
-#> [231] 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e
-#> [254] 30 20 72 2d 63 75 72 6c 2f 33 2e 31 20 63 72 75 6c 2f 30 2e 35 2e 32
-#> [277] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31 33
-#> [300] 36 2e 31 35 32 2e 32 30 39 2e 34 34 22 2c 20 0a 20 20 22 75 72 6c 22
-#> [323] 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f
-#> [346] 67 65 74 22 0a 7d 0a
+#>   [1] 7b 22 61 72 67 73 22 3a 7b 7d 2c 22 68 65 61 64 65 72 73 22 3a 7b 22
+#>  [24] 41 22 3a 22 68 65 6c 6c 6f 20 77 6f 72 6c 64 22 2c 22 41 63 63 65 70
+#>  [47] 74 22 3a 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74
+#>  [70] 65 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d
+#>  [93] 6c 2c 20 2a 2f 2a 22 2c 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e
+#> [116] 67 22 3a 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 22 43 6f 6e
+#> [139] 6e 65 63 74 69 6f 6e 22 3a 22 63 6c 6f 73 65 22 2c 22 48 6f 73 74 22
+#> [162] 3a 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 22 55 73 65 72 2d 41 67
+#> [185] 65 6e 74 22 3a 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d
+#> [208] 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 35 2e 34 2e 39 34 31
+#> [231] 30 22 7d 2c 22 6f 72 69 67 69 6e 22 3a 22 32 34 2e 32 31 2e 32 32 39
+#> [254] 2e 35 39 22 2c 22 75 72 6c 22 3a 22 68 74 74 70 73 3a 2f 2f 68 74 74
+#> [277] 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 7d 0a
 ```
 
 HTTP method
@@ -177,7 +179,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.1 crul/0.5.2"
+#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -201,28 +203,22 @@ res$response_headers
 #> [1] "keep-alive"
 #> 
 #> $server
-#> [1] "meinheld/0.6.1"
+#> [1] "gunicorn/19.8.1"
 #> 
 #> $date
-#> [1] "Sat, 24 Feb 2018 03:15:04 GMT"
+#> [1] "Wed, 04 Jul 2018 23:54:24 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
+#> 
+#> $`content-length`
+#> [1] "291"
 #> 
 #> $`access-control-allow-origin`
 #> [1] "*"
 #> 
 #> $`access-control-allow-credentials`
 #> [1] "true"
-#> 
-#> $`x-powered-by`
-#> [1] "Flask"
-#> 
-#> $`x-processed-time`
-#> [1] "0"
-#> 
-#> $`content-length`
-#> [1] "352"
 #> 
 #> $via
 #> [1] "1.1 vegur"
@@ -234,7 +230,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.5.2\"\n  }, \n  \"origin\": \"136.152.209.44\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\"args\":{},\"headers\":{\"A\":\"hello world\",\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410\"},\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/get\"}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -257,11 +253,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.1 crul/0.5.2"
+#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410"
 #> 
 #> 
 #> $origin
-#> [1] "136.152.209.44"
+#> [1] "24.21.229.59"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -331,19 +327,27 @@ out$status()
 #>   Message: OK
 #>   Explanation: Request fulfilled, document follows
 out$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.4.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"136.152.209.44\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                   
-#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.5.2\"\n  }, \n  \"json\": null, \n  \"origin\": \"136.152.209.44\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
+#> [1] "{\"args\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Foo\":\"bar\",\"Host\":\"httpbin.org\",\"User-Agent\":\"R (3.5.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"},\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/get\"}\n"                                                                                                        
+#> [2] "{\"args\":{},\"data\":\"\",\"files\":{},\"form\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"0\",\"Content-Type\":\"application/x-www-form-urlencoded\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410\"},\"json\":null,\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/post\"}\n"
 ```
+
+## Progress bars
+
+
+```r
+library(httr)
+x <- HttpClient$new(
+  url = "https://httpbin.org/bytes/102400", 
+  progress = progress()
+)
+z <- x$get()
+|==============================================| 100%
+```
+
 
 ## TO DO
 
-### http caching
-
-Add integration for:
-
-* [vcr](https://github.com/ropensci/vcr)
-
-for flexible and easy HTTP request caching
+* ...
 
 ## Meta
 

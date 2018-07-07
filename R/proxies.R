@@ -6,7 +6,7 @@
 #' @param user (character) username, optional
 #' @param pwd (character) password, optional
 #' @param auth (character) authentication type, one of basic (default),
-#' digest, digest_ie, gssnegotiate, ntlm, or any. optional
+#' digest, digest_ie, gssnegotiate, ntlm, any or `NULL`. optional
 #'
 #' @details See <http://proxylist.hidemyass.com/> for a list of proxies you
 #' can use
@@ -18,6 +18,9 @@
 #' proxy("http://97.77.104.22:3128", "foo", "bar", auth = "digest")
 #' proxy("http://97.77.104.22:3128", "foo", "bar", auth = "ntlm")
 #'
+#' # socks
+#' proxy("socks5://localhost:9050/", auth = NULL)
+#' 
 #' # with proxy (look at request/outgoing headers)
 #' (res <- HttpClient$new(
 #'   url = "http://www.google.com",
@@ -50,7 +53,7 @@ NULL
 proxy <- function(url, user = NULL, pwd = NULL, auth = "basic") {
   url <- proxy_url(url)
   structure(ccp(list(
-    proxy = url$domain,
+    proxy = if (grepl("socks", url$url)) url$url else url$domain,
     proxyport = url$port,
     proxyuserpwd = make_up(user, pwd),
     proxyauth = auth_type(auth)
@@ -65,7 +68,11 @@ proxy_url <- function(x) {
   port <- tryCatch(as.numeric(tmp$port), warning = function(w) w)
   if (inherits(port, "warning")) stop("port ", tmp$port, " was not numeric",
                                       call. = FALSE)
+  tmp$url <- urltools::url_compose(tmp)
   tmp$port <- port
+  if (grepl("socks", tmp$scheme)) {
+    tmp$port <- NULL 
+  }
   as.list(tmp)
 }
 
@@ -79,6 +86,7 @@ make_up <- function(user, pwd) {
 }
 
 auth_type <- function(x) {
+  if (is.null(x)) return(NULL)
   stopifnot(inherits(x, "character"))
   switch(
     x,
@@ -93,6 +101,10 @@ auth_type <- function(x) {
 }
 
 purl <- function(x) {
-  sprintf("http://%s:%s (auth: %s)",
-          x$proxy, x$proxyport, !is.null(x$proxyuserpwd))
+  if (grepl("socks", x$proxy)) {
+    sprintf("%s (auth: %s)", x$proxy, !is.null(x$proxyuserpwd))
+  } else {
+    sprintf("http://%s:%s (auth: %s)",
+            x$proxy, x$proxyport %||% "", !is.null(x$proxyuserpwd))
+  }
 }
