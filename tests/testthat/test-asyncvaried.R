@@ -142,3 +142,93 @@ test_that("AsyncVaried - basic auth works", {
   expect_equal(resps[[1]]$request$auth$userpwd, "user:passwd")
   expect_equal(resps[[1]]$request$auth$httpauth, 1)
 })
+
+
+
+context("AsyncVaried - failure behavior w/ bad URLs/etc.")
+test_that("AsyncVaried - failure behavior", {
+  skip_on_cran()
+
+  reqlist <- list(
+    HttpRequest$new(url = "http://stuffthings.gvb")$get(),
+    HttpRequest$new(url = "https://httpbin.org")$head(),
+    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$head()
+  )
+  tmp <- AsyncVaried$new(.list = reqlist)
+  tmp$request()
+
+  expect_is(tmp, "AsyncVaried")
+  expect_equal(length(tmp$responses()), 3)
+
+  resps <- tmp$responses()
+  expect_equal(resps[[1]]$status_code, 0)
+  expect_equal(resps[[2]]$status_code, 200)
+  expect_equal(resps[[3]]$status_code, 0)
+
+  expect_false(resps[[1]]$success())
+  expect_true(resps[[2]]$success())
+  expect_false(resps[[3]]$success())
+
+  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[3]]$parse("UTF-8"), "timed out")
+})
+
+
+# disk and stream behave the same was as w/o either of them
+context("AsyncVaried - failure behavior w/ bad URLs/etc. - disk")
+test_that("AsyncVaried - failure behavior", {
+  skip_on_cran()
+
+  f <- tempfile()
+  g <- tempfile()
+  reqlist <- list(
+    HttpRequest$new(url = "http://stuffthings.gvb")$get(disk = f),
+    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(disk = g)
+  )
+  tmp <- AsyncVaried$new(.list = reqlist)
+  tmp$request()
+
+  expect_is(tmp, "AsyncVaried")
+  expect_equal(length(tmp$responses()), 2)
+
+  resps <- tmp$responses()
+  expect_equal(resps[[1]]$status_code, 0)
+  expect_equal(resps[[2]]$status_code, 0)
+
+  expect_false(resps[[1]]$success())
+  expect_false(resps[[2]]$success())
+
+  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
+  
+  # cleanup
+  closeAllConnections()
+})
+
+# disk and stream behave the same was as w/o either of them
+context("AsyncVaried - failure behavior w/ bad URLs/etc. - stream")
+test_that("AsyncVaried - failure behavior", {
+  skip_on_cran()
+
+  lst <- c()
+  fun <- function(x) lst <<- c(lst, x)
+  reqlist <- list(
+    HttpRequest$new(url = "http://stuffthings.gvb")$get(stream = fun),
+    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(stream = fun)
+  )
+  tmp <- AsyncVaried$new(.list = reqlist)
+  tmp$request()
+
+  expect_is(tmp, "AsyncVaried")
+  expect_equal(length(tmp$responses()), 2)
+
+  resps <- tmp$responses()
+  expect_equal(resps[[1]]$status_code, 0)
+  expect_equal(resps[[2]]$status_code, 0)
+
+  expect_false(resps[[1]]$success())
+  expect_false(resps[[2]]$success())
+
+  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
+})

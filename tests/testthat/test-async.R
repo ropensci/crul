@@ -220,3 +220,100 @@ test_that("Async - with basic auth works", {
   expect_equal(out[[1]]$request$auth$userpwd, "user:passwd")
   expect_equal(out[[1]]$request$auth$httpauth, 1)
 })
+
+
+context("Async - failure behavior w/ bad URLs/etc.")
+test_that("Async - failure behavior", {
+  skip_on_cran()
+
+  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  conn <- Async$new(urls = urls)
+  res <- conn$get()
+
+  expect_is(res, "list")
+  
+  expect_is(res[[1]], "HttpResponse")
+  expect_is(res[[2]], "HttpResponse")
+  expect_is(res[[3]], "HttpResponse")
+
+  expect_equal(res[[1]]$status_code, 0)
+  expect_equal(res[[2]]$status_code, 0)
+  expect_equal(res[[3]]$status_code, 200)
+
+  expect_false(res[[1]]$success())
+  expect_false(res[[2]]$success())
+  expect_true(res[[3]]$success())
+
+  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
+})
+
+context("Async - failure behavior w/ bad URLs/etc. - disk")
+test_that("Async - failure behavior", {
+  skip_on_cran()
+
+  files <- replicate(3, tempfile())
+  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  conn <- Async$new(urls = urls)
+  res <- conn$get(disk = files)
+
+  expect_is(res, "list")
+  
+  expect_is(res[[1]], "HttpResponse")
+  expect_is(res[[2]], "HttpResponse")
+  expect_is(res[[3]], "HttpResponse")
+
+  expect_equal(res[[1]]$status_code, 0)
+  expect_equal(res[[2]]$status_code, 0)
+  expect_equal(res[[3]]$status_code, 200)
+
+  expect_false(res[[1]]$success())
+  expect_false(res[[2]]$success())
+  expect_true(res[[3]]$success())
+
+  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
+  expect_equal(res[[3]]$parse("UTF-8"), "")
+
+  expect_equal(length(readLines(files[1])), 0)
+  expect_equal(length(readLines(files[2])), 0)
+  expect_gt(length(readLines(files[3])), 10)
+
+  closeAllConnections()
+})
+
+
+context("Async - failure behavior w/ bad URLs/etc. - stream")
+test_that("Async - failure behavior", {
+  skip_on_cran()
+
+  mylist <- c()
+  fun <- function(x) mylist <<- c(mylist, x)
+
+  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  conn <- Async$new(urls = urls)
+  res <- conn$get(stream = fun)
+
+  expect_is(res, "list")
+  
+  expect_is(res[[1]], "HttpResponse")
+  expect_is(res[[2]], "HttpResponse")
+  expect_is(res[[3]], "HttpResponse")
+
+  expect_equal(res[[1]]$status_code, 0)
+  expect_equal(res[[2]]$status_code, 0)
+  expect_equal(res[[3]]$status_code, 200)
+
+  expect_false(res[[1]]$success())
+  expect_false(res[[2]]$success())
+  expect_true(res[[3]]$success())
+
+  # when fails on async, has the error message
+  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve")
+  expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
+  # when not a fail, has nothing
+  expect_identical(res[[3]]$parse("UTF-8"), "")
+
+  closeAllConnections()
+})
+

@@ -5,6 +5,7 @@
 #' @export
 #' @param urls (character) one or more URLs (required)
 #' @family async
+#' @template async-deets
 #' @details
 #' **Methods**
 #'   \describe{
@@ -62,6 +63,16 @@
 #' vapply(res, function(z) z$status_code, double(1))
 #' vapply(res, function(z) z$success(), logical(1))
 #' lapply(res, function(z) z$parse("UTF-8"))
+#' 
+#' # failure behavior
+#' ## e.g. when a URL doesn't exist, a timeout, etc.
+#' urls <- c("http://stuffthings.gvb", "https://foo.com", 
+#'   "https://httpbin.org/get")
+#' conn <- Async$new(urls = urls)
+#' res <- conn$get()
+#' res[[1]]$parse("UTF-8") # a failure
+#' res[[2]]$parse("UTF-8") # a failure
+#' res[[3]]$parse("UTF-8") # a success
 #' }
 Async <- R6::R6Class(
   'Async',
