@@ -3,7 +3,7 @@ context("request: get")
 test_that("get request works", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$get("get")
 
   expect_is(aa, "HttpResponse")
@@ -19,7 +19,7 @@ test_that("get request works", {
 test_that("get request - query parameters", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   querya <- list(a = "Asdfadsf", hello = "world")
   aa <- cli$get("get", query = querya)
 

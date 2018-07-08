@@ -3,7 +3,7 @@ context("HttpRequest")
 test_that("HttpRequest works", {
   expect_is(HttpRequest, "R6ClassGenerator")
 
-  aa <- HttpRequest$new(url = "https://httpbin.org")
+  aa <- HttpRequest$new(url = hb())
 
   expect_is(aa, "HttpRequest")
   expect_null(aa$handle)
@@ -18,51 +18,51 @@ test_that("HttpRequest works", {
 })
 
 test_that("HttpRequest - get", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$get()
+  aa <- HttpRequest$new(url = hb())$get()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "get")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 test_that("HttpRequest - post", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$post()
+  aa <- HttpRequest$new(url = hb())$post()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "post")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 test_that("HttpRequest - put", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$put()
+  aa <- HttpRequest$new(url = hb())$put()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "put")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 test_that("HttpRequest - patch", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$patch()
+  aa <- HttpRequest$new(url = hb())$patch()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "patch")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 test_that("HttpRequest - delete", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$delete()
+  aa <- HttpRequest$new(url = hb())$delete()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "delete")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 test_that("HttpRequest - head", {
-  aa <- HttpRequest$new(url = "https://httpbin.org")$head()
+  aa <- HttpRequest$new(url = hb())$head()
 
   expect_is(aa, "HttpRequest")
   expect_equal(aa$method(), "head")
-  expect_equal(aa$url, "https://httpbin.org")
+  expect_equal(aa$url, hb())
 })
 
 

@@ -3,7 +3,7 @@ context("request: status")
 test_that("HTTP status is as expected", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
 
   # im a teapot
   aa <- cli$get("status/418")

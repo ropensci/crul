@@ -24,7 +24,7 @@ test_that("auth construction works", {
 
 test_that("auth works with HttpClient", {
   aa <- HttpClient$new(
-    url = "https://httpbin.org/basic-auth/user/passwd",
+    url = hb("/basic-auth/user/passwd"),
     auth = auth(user = "foo", pwd = "bar")
   )
 
@@ -36,7 +36,7 @@ test_that("auth works with HttpClient", {
 
 test_that("auth works with HttpRequest", {
   aa <- HttpRequest$new(
-    url = "https://httpbin.org/basic-auth/user/passwd",
+    url = hb("/basic-auth/user/passwd"),
     auth = auth(user = "foo", pwd = "bar")
   )
 

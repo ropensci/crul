@@ -5,7 +5,7 @@ test_that("HttpResponse works", {
 
   aa <- HttpResponse$new(
     method = "get",
-    url = "https://httpbin.org",
+    url = hb(),
     status_code = 201,
     request_headers = list(useragent = "foo bar"),
     content = charToRaw("hello world"),

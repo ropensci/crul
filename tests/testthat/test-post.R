@@ -3,7 +3,7 @@ context("request: post")
 test_that("post request works", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$post("post")
 
   expect_is(aa, "HttpResponse")
@@ -21,7 +21,7 @@ test_that("post request works", {
 test_that("post request with body", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$post("post", body = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")
@@ -44,7 +44,7 @@ test_that("post request with file upload", {
   # txt file
   ## as file
   file <- upload(system.file("CITATION"))
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$post("post", body = list(a = file))
 
   expect_is(aa, "HttpResponse")
@@ -67,7 +67,7 @@ test_that("post request with file upload", {
 
   # binary file: jpeg
   file <- upload(file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg"))
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$post("post", body = list(a = file))
 
   expect_is(aa, "HttpResponse")

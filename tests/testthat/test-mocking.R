@@ -21,7 +21,7 @@ test_that("mocking with HttpClient", {
   skip_on_cran()
 
   library(webmockr)
-  url <- "https://httpbin.org"
+  url <- hb()
   st <- stub_request("get", file.path(url, "get"))
   #webmockr:::webmockr_stub_registry
 
@@ -49,7 +49,7 @@ test_that("mocking with HttpClient: ", {
   skip_on_cran()
 
   library(webmockr)
-  url <- "https://httpbin.org"
+  url <- hb()
   st <- stub_request("get", file.path(url, "get"))
   #webmockr:::webmockr_stub_registry
 

@@ -4,7 +4,7 @@ test_that("HttpClient works", {
 
   expect_is(HttpClient, "R6ClassGenerator")
 
-  aa <- HttpClient$new(url = "https://httpbin.org")
+  aa <- HttpClient$new(url = hb())
 
   expect_is(aa, "HttpClient")
   expect_null(aa$handle)
@@ -26,7 +26,7 @@ context("HttpClient - disk")
 test_that("HttpClient works", {
   skip_on_cran()
 
-  aa <- HttpClient$new(url = "https://httpbin.org")
+  aa <- HttpClient$new(url = hb())
   f <- tempfile()
   res <- aa$get("get", disk = f)
   lns <- readLines(res$content, n = 10)
@@ -41,7 +41,7 @@ test_that("HttpClient works", {
 test_that("HttpClient disk fails well", {
   skip_on_cran()
 
-  aa <- HttpClient$new(url = "https://httpbin.org")
+  aa <- HttpClient$new(url = hb())
   expect_error(aa$get("get", disk = 5), "invalid 'path' argument")
 })
 
@@ -50,7 +50,7 @@ context("HttpClient - stream")
 test_that("HttpClient works", {
   skip_on_cran()
 
-  aa <- HttpClient$new(url = "https://httpbin.org")
+  aa <- HttpClient$new(url = hb())
   expect_output(
     res <- aa$get('stream/50', stream = function(x) cat(rawToChar(x))),
     "headers"
@@ -63,6 +63,6 @@ test_that("HttpClient works", {
 test_that("HttpClient disk fails well", {
   skip_on_cran()
 
-  aa <- HttpClient$new(url = "https://httpbin.org")
+  aa <- HttpClient$new(url = hb())
   expect_error(aa$get("get", stream = 5), "could not find function \"fun\"")
 })
