@@ -61,6 +61,7 @@ Get the HTTP method (if defined)
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
 \examples{
+\dontrun{
 x <- HttpRequest$new(url = "https://httpbin.org/get")
 ## note here how the HTTP method is shown on the first line to the right
 x$get()
@@ -83,6 +84,7 @@ HttpRequest$new(
     `Content-Type` = "application/json"
   )
 )
+}
 }
 \seealso{
 \link{post-requests}, \link{delete-requests},

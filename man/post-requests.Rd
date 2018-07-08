@@ -7,6 +7,7 @@
 HTTP POST/PUT/PATCH requests
 }
 \examples{
+\dontrun{
 (x <- HttpClient$new(url = "https://httpbin.org"))
 
 # POST requests
@@ -20,7 +21,6 @@ HTTP POST/PUT/PATCH requests
 x$post('post')
 
 ## form requests
-\dontrun{
 (cli <- HttpClient$new(
   url = "http://apps.kew.org/wcsp/advsearch.do"
 ))
@@ -33,7 +33,6 @@ cli$post(
     selectedLevel = 'cont'
   )
 )
-}
 
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$post("post",
@@ -91,4 +90,5 @@ jsonlite::fromJSON(res$parse("UTF-8"))
 ## text file, as data
 res <- x$post(path = "post", body = file)
 jsonlite::fromJSON(res$parse("UTF-8"))
+}
 }

@@ -20,7 +20,11 @@
 #' auth(user = "foo", pwd = "bar", auth = "digest")
 #' auth(user = "foo", pwd = "bar", auth = "ntlm")
 #' auth(user = "foo", pwd = "bar", auth = "any")
-#'
+#' 
+#' # gssnegotiate auth
+#' auth(NULL, NULL, "gssnegotiate")
+#' 
+#' \dontrun{
 #' # with HttpClient
 #' (res <- HttpClient$new(
 #'   url = "https://httpbin.org/basic-auth/user/passwd",
@@ -36,9 +40,7 @@
 #'   auth = auth(user = "user", pwd = "passwd")
 #' ))
 #' res$auth
-#' 
-#' # gssnegotiate auth
-#' auth(NULL, NULL, "gssnegotiate")
+#' }
 auth <- function(user, pwd, auth = "basic") {
   structure(ccp(list(
     userpwd = make_up(user, pwd),

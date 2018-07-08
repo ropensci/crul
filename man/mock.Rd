@@ -18,29 +18,33 @@ Mocking HTTP requests
 }
 \examples{
 \dontrun{
-# load webmockr
-library(webmockr)
-library(crul)
 
-URL <- "https://httpbin.org"
+if (interactive()) {
+  # load webmockr
+  library(webmockr)
+  library(crul)
 
-# turn on mocking
-crul::mock()
+  URL <- "https://httpbin.org"
 
-# stub a request
-stub_request("get", file.path(URL, "get"))
-webmockr:::webmockr_stub_registry
+  # turn on mocking
+  crul::mock()
 
-# create an HTTP client
-(x <- HttpClient$new(url = URL))
+  # stub a request
+  stub_request("get", file.path(URL, "get"))
+  webmockr:::webmockr_stub_registry
 
-# make a request - matches stub - no real request made
-x$get('get')
+  # create an HTTP client
+  (x <- HttpClient$new(url = URL))
 
-# allow net connect
-webmockr::webmockr_allow_net_connect()
-x$get('get', query = list(foo = "bar"))
-webmockr::webmockr_disable_net_connect()
-x$get('get', query = list(foo = "bar"))
+  # make a request - matches stub - no real request made
+  x$get('get')
+
+  # allow net connect
+  webmockr::webmockr_allow_net_connect()
+  x$get('get', query = list(foo = "bar"))
+  webmockr::webmockr_disable_net_connect()
+  x$get('get', query = list(foo = "bar"))
+}
+
 }
 }

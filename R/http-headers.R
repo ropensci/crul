@@ -1,7 +1,7 @@
 #' Working with HTTP headers
 #'
 #' @name http-headers
-#' @examples
+#' @examples \dontrun{
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #'
 #' # set headers
@@ -32,4 +32,5 @@
 #'   headers = list(`Content-Type` = "application/json")
 #' ))
 #' res$get('get')
+#' }
 NULL

@@ -7,6 +7,7 @@
 HTTP DELETE requests
 }
 \examples{
+\dontrun{
 (x <- HttpClient$new(url = "https://httpbin.org"))
 
 ## a list
@@ -19,5 +20,5 @@ jsonlite::fromJSON(res2$parse("UTF-8"))
 
 ## empty body request
 x$delete('delete', verbose = TRUE)
-
+}
 }

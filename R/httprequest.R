@@ -47,7 +47,7 @@
 #' @format NULL
 #' @usage NULL
 #'
-#' @examples
+#' @examples \dontrun{
 #' x <- HttpRequest$new(url = "https://httpbin.org/get")
 #' ## note here how the HTTP method is shown on the first line to the right
 #' x$get()
@@ -70,6 +70,7 @@
 #'     `Content-Type` = "application/json"
 #'   )
 #' )
+#' }
 HttpRequest <- R6::R6Class(
   'HttpRequest',
   public = list(

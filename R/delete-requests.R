@@ -1,7 +1,7 @@
 #' HTTP DELETE requests
 #'
 #' @name delete-requests
-#' @examples
+#' @examples \dontrun{
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #'
 #' ## a list
@@ -14,5 +14,5 @@
 #'
 #' ## empty body request
 #' x$delete('delete', verbose = TRUE)
-#'
+#' }
 NULL

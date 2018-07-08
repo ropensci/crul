@@ -82,6 +82,7 @@ will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, th
 }
 
 \examples{
+\dontrun{
 # set your own handle 
 (h <- handle("https://httpbin.org"))
 (x <- HttpClient$new(handle = h))
@@ -134,6 +135,7 @@ x$post('post')
 ## if you url encode yourself, it gets double encoded, and that's bad
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$get("get", query = list(a = 'hello world'))
+}
 }
 \seealso{
 \link{post-requests}, \link{delete-requests}, \link{http-headers},

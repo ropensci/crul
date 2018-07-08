@@ -21,13 +21,14 @@
 #' # socks
 #' proxy("socks5://localhost:9050/", auth = NULL)
 #' 
+#' \dontrun{
 #' # with proxy (look at request/outgoing headers)
 #' (res <- HttpClient$new(
 #'   url = "http://www.google.com",
 #'   proxies = proxy("http://97.77.104.22:3128")
 #' ))
 #' res$proxies
-#' \dontrun{res$get(verbose = TRUE)}
+#' res$get(verbose = TRUE)
 #'
 #' # vs. without proxy (look at request/outgoing headers)
 #' (res2 <- HttpClient$new(url = "http://www.google.com"))
@@ -45,7 +46,8 @@
 #'   url = "http://ip.tyk.nu/",
 #'   proxies = proxy("http://200.29.191.149:3128")
 #' ))
-#' \dontrun{res$get()$parse("UTF-8")}
+#' res$get()$parse("UTF-8")
+#' }
 NULL
 
 #' @export

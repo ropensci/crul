@@ -7,9 +7,11 @@
 #' handle("https://httpbin.org")
 #'
 #' # handles - pass in your own handle
+#' \dontrun{
 #' h <- handle("https://httpbin.org")
 #' (res <- HttpClient$new(handle = h))
 #' out <- res$get("get")
+#' }
 handle <- function(url, ...) {
   list(url = url, handle = curl::new_handle(...))
 }
