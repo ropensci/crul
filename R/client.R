@@ -67,7 +67,7 @@
 #' @seealso [post-requests], [delete-requests], [http-headers],
 #' [writing-options], [cookies]
 #'
-#' @examples
+#' @examples \dontrun{
 #' # set your own handle 
 #' (h <- handle("https://httpbin.org"))
 #' (x <- HttpClient$new(handle = h))
@@ -120,6 +120,7 @@
 #' ## if you url encode yourself, it gets double encoded, and that's bad
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' res <- x$get("get", query = list(a = 'hello world'))
+#' }
 
 HttpClient <- R6::R6Class(
   'HttpClient',

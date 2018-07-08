@@ -14,7 +14,7 @@
 #' if `FALSE` it is down.
 #' @details We internally verify that status is an integer and 
 #' in the known set of HTTP status codes, and that info is a boolean
-#' @examples
+#' @examples \dontrun{
 #' # 200
 #' ok("https://google.com") 
 #' # 200
@@ -30,6 +30,7 @@
 #' z <- crul::HttpClient$new("https://httpbin.org/status/404", 
 #'  opts = list(verbose = TRUE))
 #' ok(z)
+#' }
 ok <- function(x, status = 200L, info = TRUE, ...) {
   UseMethod("ok")
 }

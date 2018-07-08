@@ -1,7 +1,7 @@
 #' Working with cookies
 #'
 #' @name cookies
-#' @examples
+#' @examples \dontrun{
 #' x <- HttpClient$new(
 #'   url = "https://httpbin.org",
 #'   opts = list(
@@ -39,4 +39,5 @@
 #' ## cookies no longer sent, as handle reset
 #' res2 <- x$get("api/v1/journals/9abfb36b06404e8a8566e1a44180bbdc",
 #'   verbose = TRUE)
+#' }
 NULL

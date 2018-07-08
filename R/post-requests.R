@@ -1,7 +1,7 @@
 #' HTTP POST/PUT/PATCH requests
 #'
 #' @name post-requests
-#' @examples
+#' @examples \dontrun{
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #'
 #' # POST requests
@@ -15,7 +15,6 @@
 #' x$post('post')
 #'
 #' ## form requests
-#' \dontrun{
 #' (cli <- HttpClient$new(
 #'   url = "http://apps.kew.org/wcsp/advsearch.do"
 #' ))
@@ -28,7 +27,6 @@
 #'     selectedLevel = 'cont'
 #'   )
 #' )
-#' }
 #'
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' res <- x$post("post",
@@ -86,4 +84,5 @@
 #' ## text file, as data
 #' res <- x$post(path = "post", body = file)
 #' jsonlite::fromJSON(res$parse("UTF-8"))
+#' }
 NULL

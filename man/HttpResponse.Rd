@@ -52,6 +52,7 @@ otherwise use \pkg{httpcode}
 }
 }
 \examples{
+\dontrun{
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 x$url
 x$method
@@ -70,10 +71,11 @@ res$success()
 
 x <- HttpClient$new(url = 'https://httpbin.org/status/404')
 (res <- x$get())
- \dontrun{res$raise_for_status()}
+# res$raise_for_status()
 
 x <- HttpClient$new(url = 'https://httpbin.org/status/414')
 (res <- x$get())
- \dontrun{res$raise_for_status()}
+# res$raise_for_status()
+}
 }
 \keyword{datasets}

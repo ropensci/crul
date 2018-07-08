@@ -7,6 +7,7 @@
 Writing data options
 }
 \examples{
+\dontrun{
 # write to disk
 (x <- HttpClient$new(url = "https://httpbin.org"))
 f <- tempfile()
@@ -71,4 +72,5 @@ req2 <- HttpRequest$new(url = "https://httpbin.org/get"
 out$request()
 lst
 cat(rawToChar(lst))
+}
 }

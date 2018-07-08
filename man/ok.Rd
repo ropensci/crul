@@ -32,6 +32,7 @@ We internally verify that status is an integer and
 in the known set of HTTP status codes, and that info is a boolean
 }
 \examples{
+\dontrun{
 # 200
 ok("https://google.com") 
 # 200
@@ -47,4 +48,5 @@ ok("stuff")
 z <- crul::HttpClient$new("https://httpbin.org/status/404", 
  opts = list(verbose = TRUE))
 ok(z)
+}
 }
