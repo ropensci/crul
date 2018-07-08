@@ -169,7 +169,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[3]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
-  expect_match(resps[[3]]$parse("UTF-8"), "time")
+  expect_true(grepl("time", resps[[3]]$parse("UTF-8")))
 })
 
 
@@ -198,7 +198,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[2]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
-  expect_match(resps[[2]]$parse("UTF-8"), "time")
+  expect_true(grepl("time", resps[[2]]$parse("UTF-8")))
   
   # cleanup
   closeAllConnections()
@@ -229,5 +229,5 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[2]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
-  expect_match(resps[[2]]$parse("UTF-8"), "time")
+  expect_true(grepl("time", resps[[2]]$parse("UTF-8")))
 })
