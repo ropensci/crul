@@ -3,7 +3,7 @@ context("paths")
 test_that("paths work", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$get(path = 'get')
 
   expect_is(aa, "HttpResponse")
@@ -15,7 +15,7 @@ test_that("paths work", {
 test_that("path - multiple route paths work", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   bb <- cli$get('status/200')
 
   expect_is(bb, "HttpResponse")
@@ -27,7 +27,7 @@ test_that("path - multiple route paths work", {
 test_that("path - paths don't work if paths already on URL", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org/get/adsfasdf")
+  cli <- HttpClient$new(url = hb("/get/adsfasdf"))
   bb <- cli$get('stuff')
 
   expect_is(bb, "HttpResponse")

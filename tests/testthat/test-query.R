@@ -3,7 +3,7 @@ context("query")
 test_that("query works", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$get('get', query = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")
@@ -16,7 +16,7 @@ test_that("query works", {
 test_that("query - multiple params of same name work", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$get('get', query = list(hello = 5, hello = 6))
 
   expect_is(aa, "HttpResponse")
@@ -28,7 +28,7 @@ test_that("query - multiple params of same name work", {
 test_that("query - length 0 query list works", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$get('get', query = list())
 
   expect_is(aa, "HttpResponse")

@@ -115,7 +115,6 @@ test_that("AsyncVaried - streaming to disk works", {
 
   expect_is(lst, "raw")
   expect_is(rawToChar(lst), "character")
-  expect_match(rawToChar(lst), "application/json")
 })
 
 
@@ -151,8 +150,8 @@ test_that("AsyncVaried - failure behavior", {
 
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(),
-    HttpRequest$new(url = "https://httpbin.org")$head(),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$head()
+    HttpRequest$new(url = base_url)$head(),
+    HttpRequest$new(url = base_url, opts = list(timeout_ms = 10))$head()
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -169,7 +168,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_true(resps[[2]]$success())
   expect_false(resps[[3]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[3]]$parse("UTF-8"), "timed out")
 })
 
@@ -183,7 +182,7 @@ test_that("AsyncVaried - failure behavior", {
   g <- tempfile()
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(disk = f),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(disk = g)
+    HttpRequest$new(url = base_url, opts = list(timeout_ms = 10))$get(disk = g)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -198,7 +197,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[1]]$success())
   expect_false(resps[[2]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
   
   # cleanup
@@ -214,7 +213,7 @@ test_that("AsyncVaried - failure behavior", {
   fun <- function(x) lst <<- c(lst, x)
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(stream = fun),
-    HttpRequest$new(url = "https://httpbin.org", opts = list(timeout_ms = 10))$get(stream = fun)
+    HttpRequest$new(url = base_url, opts = list(timeout_ms = 10))$get(stream = fun)
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()
@@ -229,6 +228,6 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[1]]$success())
   expect_false(resps[[2]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
 })

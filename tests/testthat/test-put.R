@@ -3,7 +3,7 @@ context("request: put")
 test_that("put request works", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$put("put")
 
   expect_is(aa, "HttpResponse")
@@ -21,7 +21,7 @@ test_that("put request works", {
 test_that("put request with body", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   aa <- cli$put("put", body = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")

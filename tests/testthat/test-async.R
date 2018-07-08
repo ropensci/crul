@@ -5,7 +5,7 @@ test_that("Async works", {
 
   expect_is(Async, "R6ClassGenerator")
 
-  aa <- Async$new(urls = c('https://httpbin.org/get', 'https://google.com'))
+  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'))
 
   expect_is(aa, "Async")
   expect_null(aa$handle)
@@ -41,7 +41,7 @@ context("Async - get")
 test_that("Async - get", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/get',
+  aa <- Async$new(urls = c(hb('/get'),
                            'https://google.com'))
   out <- aa$get()
 
@@ -57,8 +57,8 @@ context("Async - post")
 test_that("Async - post", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/post',
-                           'https://httpbin.org/post'))
+  aa <- Async$new(urls = c(hb('/post'),
+                           hb('/post')))
   out <- aa$post()
 
   expect_is(out, "list")
@@ -71,8 +71,8 @@ context("Async - put")
 test_that("Async - put", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/put',
-                           'https://httpbin.org/put'))
+  aa <- Async$new(urls = c(hb('/put'),
+                           hb('/put')))
   out <- aa$put()
 
   expect_is(out, "list")
@@ -87,8 +87,8 @@ context("Async - patch")
 test_that("Async - patch", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/patch',
-                           'https://httpbin.org/patch'))
+  aa <- Async$new(urls = c(hb('/patch'),
+                           hb('/patch')))
   out <- aa$patch()
 
   expect_is(out, "list")
@@ -103,8 +103,8 @@ context("Async - delete")
 test_that("Async - delete", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/delete',
-                           'https://httpbin.org/delete'))
+  aa <- Async$new(urls = c(hb('/delete'),
+                           hb('/delete')))
   out <- aa$delete()
 
   expect_is(out, "list")
@@ -135,9 +135,9 @@ context("Async - order of results")
 test_that("Async - order", {
   skip_on_cran()
 
-  aa <- Async$new(urls = c('https://httpbin.org/get?a=5',
-                           'https://httpbin.org/get?b=6',
-                           'https://httpbin.org/get?c=7'))
+  aa <- Async$new(urls = c(hb('/get?a=5'),
+                           hb('/get?b=6'),
+                           hb('/get?c=7')))
   out <- aa$get()
 
   expect_is(out, "list")
@@ -156,11 +156,11 @@ test_that("Async - writing to disk works", {
 
   cc <- Async$new(
     urls = c(
-      'https://httpbin.org/get?a=5',
-      'https://httpbin.org/get?foo=bar',
-      'https://httpbin.org/get?b=4',
-      'https://httpbin.org/get?stuff=things',
-      'https://httpbin.org/get?b=4&g=7&u=9&z=1'
+      hb('/get?a=5'),
+      hb('/get?foo=bar'),
+      hb('/get?b=4'),
+      hb('/get?stuff=things'),
+      hb('/get?b=4&g=7&u=9&z=1')
     )
   )
   files <- replicate(5, tempfile())
@@ -180,9 +180,9 @@ context("Async - stream")
 test_that("Async - streaming to disk works", {
   skip_on_cran()
 
-  bb <- Async$new(urls = c('https://httpbin.org/get?a=5',
-                           'https://httpbin.org/get?b=6',
-                           'https://httpbin.org/get?c=7'))
+  bb <- Async$new(urls = c(hb('/get?a=5'),
+                           hb('/get?b=6'),
+                           hb('/get?c=7')))
   mylist <- c()
   fun <- function(x) mylist <<- c(mylist, x)
   out <- bb$get(stream = fun)
@@ -197,7 +197,6 @@ test_that("Async - streaming to disk works", {
 
   expect_is(mylist, "raw")
   expect_is(rawToChar(mylist), "character")
-  expect_match(rawToChar(mylist), "application/json")
 })
 
 
@@ -206,7 +205,7 @@ context("Async - basic auth")
 test_that("Async - with basic auth works", {
   skip_on_cran()
 
-  dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
+  dd <- Async$new(urls = rep(hb('/basic-auth/user/passwd'), 3))
   out <- dd$get(auth = auth(user = "user", pwd = "passwd"))
   
   expect_is(dd, "Async")
@@ -271,7 +270,7 @@ test_that("Async - failure behavior", {
   expect_false(res[[2]]$success())
   expect_true(res[[3]]$success())
 
-  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(res[[1]]$parse("UTF-8"), "resolve host")
   expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
   expect_equal(res[[3]]$parse("UTF-8"), "")
 
@@ -309,7 +308,7 @@ test_that("Async - failure behavior", {
   expect_true(res[[3]]$success())
 
   # when fails on async, has the error message
-  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve")
+  expect_match(res[[1]]$parse("UTF-8"), "resolve host")
   expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
   # when not a fail, has nothing
   expect_identical(res[[3]]$parse("UTF-8"), "")

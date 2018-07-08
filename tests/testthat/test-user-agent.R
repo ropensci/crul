@@ -15,7 +15,7 @@ test_that("user-agent internal helper fxn works as expected", {
 test_that("user-agent: default behavior", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org")
+  cli <- HttpClient$new(url = hb())
   res_get <- cli$get("get")
   res_head <- cli$head("get")
   res_post <- cli$post("post")
@@ -31,7 +31,7 @@ test_that("user-agent: default behavior", {
 test_that("user-agent: passed as option", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org", 
+  cli <- HttpClient$new(url = hb(), 
     opts = list(useragent = "hello world"))
   res_get <- cli$get("get")
   res_head <- cli$head("get")
@@ -48,7 +48,7 @@ test_that("user-agent: passed as option", {
 test_that("user-agent: passed as header", {
   skip_on_cran()
 
-  cli <- HttpClient$new(url = "https://httpbin.org", 
+  cli <- HttpClient$new(url = hb(), 
     headers = list(`User-Agent` = "hello world")
   )
   res_get <- cli$get("get")

@@ -3,9 +3,9 @@ context("url build")
 test_that("url build works", {
   skip_on_cran()
 
-  aa <- url_build("https://httpbin.org")
-  bb <- url_build("https://httpbin.org", "get")
-  cc <- url_build("https://httpbin.org", "get", list(foo = "bar"))
+  aa <- url_build(hb())
+  bb <- url_build(hb(), "get")
+  cc <- url_build(hb(), "get", list(foo = "bar"))
 
   expect_is(aa, "character")
   expect_match(aa, "https")
@@ -44,9 +44,9 @@ context("url parse")
 test_that("url parse works", {
   skip_on_cran()
 
-  aa <- url_parse("https://httpbin.org")
-  bb <- url_parse("https://httpbin.org/get?foo=bar")
-  cc <- url_parse("https://httpbin.org/get?foo=bar&stuff=things")
+  aa <- url_parse(hb())
+  bb <- url_parse(hb("/get?foo=bar"))
+  cc <- url_parse(hb("/get?foo=bar&stuff=things"))
 
   expect_is(aa, "list")
   expect_named(aa, c('scheme', 'domain', 'port', 'path', 'parameter',
