@@ -168,7 +168,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_true(resps[[2]]$success())
   expect_false(resps[[3]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[3]]$parse("UTF-8"), "timed out")
 })
 
@@ -197,7 +197,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[1]]$success())
   expect_false(resps[[2]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
   
   # cleanup
@@ -228,6 +228,6 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[1]]$success())
   expect_false(resps[[2]]$success())
 
-  expect_match(resps[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
   expect_match(resps[[2]]$parse("UTF-8"), "Connection timed out")
 })

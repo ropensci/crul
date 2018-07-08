@@ -270,7 +270,7 @@ test_that("Async - failure behavior", {
   expect_false(res[[2]]$success())
   expect_true(res[[3]]$success())
 
-  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve host")
+  expect_match(res[[1]]$parse("UTF-8"), "resolve host")
   expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
   expect_equal(res[[3]]$parse("UTF-8"), "")
 
@@ -308,7 +308,7 @@ test_that("Async - failure behavior", {
   expect_true(res[[3]]$success())
 
   # when fails on async, has the error message
-  expect_match(res[[1]]$parse("UTF-8"), "Could not resolve")
+  expect_match(res[[1]]$parse("UTF-8"), "resolve host")
   expect_match(res[[2]]$parse("UTF-8"), "Failed to connect")
   # when not a fail, has nothing
   expect_identical(res[[3]]$parse("UTF-8"), "")
