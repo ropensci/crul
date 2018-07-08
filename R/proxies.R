@@ -23,30 +23,30 @@
 #' 
 #' \dontrun{
 #' # with proxy (look at request/outgoing headers)
-#' (res <- HttpClient$new(
-#'   url = "http://www.google.com",
-#'   proxies = proxy("http://97.77.104.22:3128")
-#' ))
-#' res$proxies
-#' res$get(verbose = TRUE)
+#' # (res <- HttpClient$new(
+#' #   url = "http://www.google.com",
+#' #   proxies = proxy("http://97.77.104.22:3128")
+#' # ))
+#' # res$proxies
+#' # res$get(verbose = TRUE)
 #'
 #' # vs. without proxy (look at request/outgoing headers)
-#' (res2 <- HttpClient$new(url = "http://www.google.com"))
-#' res2$get(verbose = TRUE)
+#' # (res2 <- HttpClient$new(url = "http://www.google.com"))
+#' # res2$get(verbose = TRUE)
 #'
 #'
 #' # Use authentication
-#' (res <- HttpClient$new(
-#'   url = "http://google.com",
-#'   proxies = proxy("http://97.77.104.22:3128", user = "foo", pwd = "bar")
-#' ))
+#' # (res <- HttpClient$new(
+#' #   url = "http://google.com",
+#' #   proxies = proxy("http://97.77.104.22:3128", user = "foo", pwd = "bar")
+#' # ))
 #'
 #' # another example
-#' (res <- HttpClient$new(
-#'   url = "http://ip.tyk.nu/",
-#'   proxies = proxy("http://200.29.191.149:3128")
-#' ))
-#' res$get()$parse("UTF-8")
+#' # (res <- HttpClient$new(
+#' #   url = "http://ip.tyk.nu/",
+#' #   proxies = proxy("http://200.29.191.149:3128")
+#' # ))
+#' # res$get()$parse("UTF-8")
 #' }
 NULL
 
