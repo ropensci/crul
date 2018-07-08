@@ -3,3 +3,6 @@
 .RData
 .DS_Store
 .httr-oauth
+revdep/checks.noindex
+revdep/data.sqlite
+revdep/library.noindex

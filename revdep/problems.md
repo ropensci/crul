@@ -1,29 +1,107 @@
-# Setup
+# fauxpas
 
-## Platform
+Version: 0.2.0
 
-|setting  |value                                       |
-|:--------|:-------------------------------------------|
-|version  |R version 3.4.3 Patched (2018-01-01 r74017) |
-|system   |x86_64, darwin15.6.0                        |
-|ui       |X11                                         |
-|language |(EN)                                        |
-|collate  |en_US.UTF-8                                 |
-|tz       |America/Los_Angeles                         |
-|date     |2018-02-23                                  |
+## In both
 
-## Packages
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘whisker’
+      All declared Imports should be used.
+    ```
 
-|package  |*  |version    |date       |source                                |
-|:--------|:--|:----------|:----------|:-------------------------------------|
-|crul     |   |0.5.2      |2018-02-24 |local (ropensci/crul@NA)              |
-|fauxpas  |   |0.1.2.9210 |2018-02-24 |Github (ropenscilabs/fauxpas@e3c8348) |
-|webmockr |   |0.1.5.9411 |2018-02-24 |Github (ropensci/webmockr@d4cb950)    |
+# finch
 
-# Check results
+Version: 0.2.0
 
-0 packages with problems
+## In both
 
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘rappdirs’
+      All declared Imports should be used.
+    ```
 
+# HIBPwned
 
+Version: 0.1.7
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘memoise’ ‘ratelimitr’
+      All declared Imports should be used.
+    ```
+
+# originr
+
+Version: 0.3.0
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 2 marked UTF-8 strings
+    ```
+
+# rjsonapi
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘crul’
+      All declared Imports should be used.
+    ```
+
+# rsunlight
+
+Version: 0.7.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘stringr’
+      All declared Imports should be used.
+    ```
+
+# seaaroundus
+
+Version: 1.2.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘rgdal’
+      All declared Imports should be used.
+    ```
+
+# vcr
+
+Version: 0.1.0
+
+## In both
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘crul’
+      All declared Imports should be used.
+    ```
+
+# wikitaxa
+
+Version: 0.2.0
+
+## In both
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 166 marked UTF-8 strings
+    ```
 
