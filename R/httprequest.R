@@ -80,6 +80,7 @@ HttpRequest <- R6::R6Class(
     auth = list(),
     headers = list(),
     handle = NULL,
+    progress = NULL,
     payload = NULL,
 
     print = function(x, ...) {
@@ -104,10 +105,11 @@ HttpRequest <- R6::R6Class(
         cat(sprintf("    %s: %s", names(self$headers)[i],
                     self$headers[[i]]), sep = "\n")
       }
+      cat(paste0("  progress: ", !is.null(self$progress)), sep = "\n")
       invisible(self)
     },
 
-    initialize = function(url, opts, proxies, auth, headers, handle) {
+    initialize = function(url, opts, proxies, auth, headers, handle, progress) {
       if (!missing(url)) self$url <- url
 
       # curl options: check for set_opts first
@@ -126,6 +128,12 @@ HttpRequest <- R6::R6Class(
       # auth: check for set_auth first
       if (!is.null(crul_opts$auth)) self$auth <- crul_opts$auth
       if (!missing(auth)) self$auth <- auth
+
+      # progress
+      if (!missing(progress)) {
+        assert(progress, "request")
+        self$progress <- progress$options
+      }
 
       # headers: check for set_headers first
       if (!is.null(crul_opts$headers)) self$headers <- crul_opts$headers
@@ -149,7 +157,7 @@ HttpRequest <- R6::R6Class(
       )
       rr$headers <- norm_headers(rr$headers, self$headers)
       rr$options <- utils::modifyList(
-        rr$options, c(self$opts, self$proxies, self$auth, ...))
+        rr$options, c(self$opts, self$proxies, self$auth, self$progress, ...))
       rr$disk <- disk
       rr$stream <- stream
       self$payload <- rr
