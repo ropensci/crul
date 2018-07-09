@@ -13,9 +13,16 @@
 \item{proxies}{an object of class \code{proxy}, as returned from the
 \code{\link{proxy}} function. Supports one proxy for now}
 
+\item{auth}{result of a call to the \code{\link{auth}} function, 
+e.g. \code{auth(user = "foo", pwd = "bar")}}
+
 \item{headers}{(list) a named list of headers}
 
 \item{handle}{A handle, see \code{\link{handle}}}
+
+\item{progress}{a function with logic for printing a progress
+bar for an HTTP request, ultimiately passed down to \pkg{curl}.
+only supports httr::progress() for now}
 }
 \description{
 HTTP client
