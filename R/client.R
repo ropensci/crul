@@ -206,7 +206,6 @@ HttpClient <- R6::R6Class(
                    stream = NULL, ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       rr <- list(
         url = url,
         method = "get",
@@ -229,7 +228,6 @@ HttpClient <- R6::R6Class(
                     stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
@@ -241,7 +239,6 @@ HttpClient <- R6::R6Class(
                    stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
@@ -253,7 +250,6 @@ HttpClient <- R6::R6Class(
                      stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
@@ -265,7 +261,6 @@ HttpClient <- R6::R6Class(
                       stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       opts <- prep_body(body, encode)
       rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
@@ -276,7 +271,6 @@ HttpClient <- R6::R6Class(
     head = function(path = NULL, query = list(), ...) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
-      self$handle <- url
       opts <- list(customrequest = "HEAD", nobody = TRUE)
       rr <- list(
         url = url,
