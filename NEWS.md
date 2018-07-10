@@ -1,3 +1,27 @@
+crul 0.6.0
+==========
+
+### NEW FEATURES
+
+* `Async` and `AsyncVaried` now support simple auth, see `?auth`  (#70)
+* gains new function `ok()` to ping a URL to see if it's up or not, returns a single boolean (#71) (#73)
+* `HttpClient` and `HttpRequest` gain new parameter `progress` that accepts a function to use to construct a progress bar. For now accepts `httr::progress()` but will accept other options in the future (#20) (#81)
+* gains a new vignette for curl options (#7)
+* can now set curl options globally using new functions `set_auth()`, `set_headers()`, `set_opts()`, `set_proxy()`, and `crul_settings()` (#48) (#85)
+
+### MINOR IMPROVEMENTS
+
+* explicitly import `httpcode::http_code` (#80)
+* fix vignette names to make them more clear and add numbers to order them (#64)
+* change print function for `Async` and `AsyncVaried` to print max of 10 and tell user how many total and remaining not shown (#72)
+* added support to `proxy()` for socks, e.g. to use with TOR (#79)
+* now when `Async` and `AsyncVaried` requests fail, they don't error but instead we capture the error and pass it back in the result. this way any failure requests don't stop progress of the entire async request suite (#74) (#84)
+
+### BUG FIXES
+
+* changed behavior in `Async`/`AsyncVaried`:  (#74)
+
+
 crul 0.5.2
 ==========
 

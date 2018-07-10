@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.4.3 patched
-* ubuntu 12.04 (on travis-ci), R 3.4.3
+* local OS X install, R 3.5.1 RC
+* ubuntu 14.04 (on travis-ci), R 3.5.1 RC
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -16,13 +16,13 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 42 downstream dependencies
+* I have run R CMD check on the 54 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
-No problems were found.
+No problems were found related to this package.
 
 ---
 
-This version includes bug fixes.
+This version includes a few new functions and improvements, as well as fixes for a failing cran check.
 
 Thanks!
 Scott Chamberlain
