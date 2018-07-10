@@ -16,7 +16,7 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 54 downstream dependencies
+* I have run R CMD check on the 51 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
 No problems were found related to this package.
 

@@ -3,29 +3,21 @@
 |field    |value                                  |
 |:--------|:--------------------------------------|
 |version  |R version 3.5.1 RC (2018-06-29 r74946) |
-|os       |macOS High Sierra 10.13.5              |
+|os       |macOS High Sierra 10.13.6              |
 |system   |x86_64, darwin15.6.0                   |
 |ui       |X11                                    |
 |language |(EN)                                   |
 |collate  |en_US.UTF-8                            |
 |tz       |US/Pacific                             |
-|date     |2018-07-08                             |
+|date     |2018-07-10                             |
 
 # Dependencies
 
-|package |old   |new        |Δ  |
-|:-------|:-----|:----------|:--|
-|crul    |0.5.2 |0.5.7.9421 |*  |
+|package |old   |new   |Δ  |
+|:-------|:-----|:-----|:--|
+|crul    |0.5.2 |0.6.0 |*  |
 
 # Revdeps
-
-## Couldn't check (3)
-
-|package   |version |error |warning |note |
-|:---------|:-------|:-----|:-------|:----|
-|codemetar |?       |      |        |     |
-|rcoreoa   |?       |      |        |     |
-|ritis     |?       |      |        |     |
 
 ## All (51)
 
@@ -34,7 +26,7 @@
 |bold                                   |0.5.0   |      |        |     |
 |brranching                             |0.3.0   |      |        |     |
 |ccafs                                  |0.1.0   |      |        |     |
-|codemetar                              |?       |      |        |     |
+|[codemetar](problems.md#codemetar)     |0.1.6   |      |        |1    |
 |crminer                                |0.1.4   |      |        |     |
 |discgolf                               |0.2.0   |      |        |     |
 |duckduckr                              |1.0.0   |      |        |     |
@@ -55,14 +47,14 @@
 |rbhl                                   |0.8.0   |      |        |     |
 |rbison                                 |0.6.0   |      |        |     |
 |rbraries                               |0.1.0   |      |        |     |
-|rcoreoa                                |?       |      |        |     |
+|rcoreoa                                |0.1.0   |      |        |     |
 |rcrossref                              |0.8.0   |      |        |     |
 |rdatacite                              |0.4.0   |      |        |     |
 |rdpla                                  |0.2.0   |      |        |     |
 |rdryad                                 |0.4.0   |      |        |     |
 |rgbif                                  |1.0.2   |      |        |     |
 |rif                                    |0.2.0   |      |        |     |
-|ritis                                  |?       |      |        |     |
+|ritis                                  |0.7.2   |      |        |     |
 |[rjsonapi](problems.md#rjsonapi)       |0.1.0   |      |        |1    |
 |rnoaa                                  |0.7.0   |      |        |     |
 |ropenaq                                |0.2.6   |      |        |     |
