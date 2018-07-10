@@ -5,8 +5,8 @@ test_that("AsyncVaried works", {
 
   expect_is(AsyncVaried, "R6ClassGenerator")
 
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
-  req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
+  req1 <- HttpRequest$new(url = hb("/get"))$get()
+  req2 <- HttpRequest$new(url = hb("/post"))$post()
 
   aa <- AsyncVaried$new(req1, req2)
 
@@ -41,9 +41,9 @@ context("AsyncVaried - order of results")
 test_that("AsyncVaried - order", {
   skip_on_cran()
 
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get?a=5")$get()
-  req2 <- HttpRequest$new(url = "https://httpbin.org/get?b=6")$get()
-  req3 <- HttpRequest$new(url = "https://httpbin.org/get?c=7")$get()
+  req1 <- HttpRequest$new(url = hb("/get?a=5"))$get()
+  req2 <- HttpRequest$new(url = hb("/get?b=6"))$get()
+  req3 <- HttpRequest$new(url = hb("/get?c=7"))$get()
   aa <- AsyncVaried$new(req1, req2, req3)
   aa$request()
   out <- aa$responses()
@@ -65,9 +65,9 @@ test_that("AsyncVaried - writing to disk works", {
 
   f <- tempfile()
   g <- tempfile()
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get")$get(disk = f)
-  req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post(disk = g)
-  req3 <- HttpRequest$new(url = "https://httpbin.org/get")$get()
+  req1 <- HttpRequest$new(url = hb("/get"))$get(disk = f)
+  req2 <- HttpRequest$new(url = hb("/post"))$post(disk = g)
+  req3 <- HttpRequest$new(url = hb("/get"))$get()
   out <- AsyncVaried$new(req1, req2, req3)
   out$request()
   cont <- out$content()
@@ -101,9 +101,9 @@ test_that("AsyncVaried - streaming to disk works", {
 
   lst <- c()
   fun <- function(x) lst <<- c(lst, x)
-  req1 <- HttpRequest$new(url = "https://httpbin.org/get"
+  req1 <- HttpRequest$new(url = hb("/get")
   )$get(query = list(foo = "bar"), stream = fun)
-  req2 <- HttpRequest$new(url = "https://httpbin.org/get"
+  req2 <- HttpRequest$new(url = hb("/get")
   )$get(query = list(hello = "world"), stream = fun)
   out <- AsyncVaried$new(req1, req2)
   suppressWarnings(out$request())
@@ -122,7 +122,7 @@ context("AsyncVaried - basic auth")
 test_that("AsyncVaried - basic auth works", {
   skip_on_cran()
 
-  url <- "https://httpbin.org/basic-auth/user/passwd"
+  url <- hb("/basic-auth/user/passwd")
   auth <- auth(user = "user", pwd = "passwd")
   reqlist <- list(
     HttpRequest$new(url = url, auth = auth)$get(),

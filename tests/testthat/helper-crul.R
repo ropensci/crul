@@ -1,3 +1,5 @@
+# skip_on_cran()
+
 hb <- function(x = NULL) if (is.null(x)) base_url else paste0(base_url, x)
 
 # check various httpbin servers

@@ -17,10 +17,6 @@ crul 0.6.0
 * added support to `proxy()` for socks, e.g. to use with TOR (#79)
 * now when `Async` and `AsyncVaried` requests fail, they don't error but instead we capture the error and pass it back in the result. this way any failure requests don't stop progress of the entire async request suite (#74) (#84)
 
-### BUG FIXES
-
-* changed behavior in `Async`/`AsyncVaried`:  (#74)
-
 
 crul 0.5.2
 ==========

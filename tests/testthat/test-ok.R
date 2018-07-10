@@ -18,11 +18,11 @@ test_that("ok works with HttpClient input", {
   skip_on_cran()
 
   # good
-  z <- crul::HttpClient$new("https://httpbin.org/status/200")
+  z <- crul::HttpClient$new(hb("/status/200"))
   expect_true(ok(z))
   
   # bad
-  z <- crul::HttpClient$new("https://httpbin.org/status/404")
+  z <- crul::HttpClient$new(hb("/status/404"))
   expect_false(ok(z))
 })
 
