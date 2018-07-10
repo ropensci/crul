@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +87,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +107,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,154 +115,168 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.4.1.9112</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Async.html">Async</a></code> </p>
-          </td>
-          <td><p>Simple async client</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="AsyncVaried.html">AsyncVaried</a></code> </p>
-          </td>
-          <td><p>Async client for different request types</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="auth.html">auth</a></code> </p>
-          </td>
-          <td><p>Authentication</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="cookies.html">cookies</a></code> </p>
-          </td>
-          <td><p>Working with cookies</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="crul-package.html">crul-package</a></code> </p>
-          </td>
-          <td><p><strong>HTTP R client</strong></p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="curl-options.html">curl-options</a></code> </p>
-          </td>
-          <td><p>curl options</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="delete-requests.html">delete-requests</a></code> </p>
-          </td>
-          <td><p>HTTP DELETE requests</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="handle.html">handle</a></code> </p>
-          </td>
-          <td><p>Make a handle</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="http-headers.html">http-headers</a></code> </p>
-          </td>
-          <td><p>Working with HTTP headers</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="HttpClient.html">HttpClient</a></code> </p>
-          </td>
-          <td><p>HTTP client</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="HttpRequest.html">HttpRequest</a></code> </p>
-          </td>
-          <td><p>HTTP request object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="HttpResponse.html">HttpResponse</a></code> </p>
-          </td>
-          <td><p>Base response object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="HttpStubbedResponse.html">HttpStubbedResponse</a></code> </p>
-          </td>
-          <td><p>stubbed response object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="mock.html">mock</a></code> </p>
-          </td>
-          <td><p>Mocking HTTP requests</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Paginator.html">Paginator</a></code> </p>
-          </td>
-          <td><p>Paginator client</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="post-requests.html">post-requests</a></code> </p>
-          </td>
-          <td><p>HTTP POST/PUT/PATCH requests</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="proxies.html">proxy</a></code> </p>
-          </td>
-          <td><p>proxy options</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="upload.html">upload</a></code> </p>
-          </td>
-          <td><p>upload file</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="url_build.html">url_build</a></code> <code><a href="url_build.html">url_parse</a></code> </p>
-          </td>
-          <td><p>Build and parse URLs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="writing-options.html">writing-options</a></code> </p>
-          </td>
-          <td><p>Writing data options</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="Async.html">Async</a></code> </p>
+        </td>
+        <td><p>Simple async client</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="AsyncVaried.html">AsyncVaried</a></code> </p>
+        </td>
+        <td><p>Async client for different request types</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="HttpClient.html">HttpClient</a></code> </p>
+        </td>
+        <td><p>HTTP client</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="HttpRequest.html">HttpRequest</a></code> </p>
+        </td>
+        <td><p>HTTP request object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="HttpResponse.html">HttpResponse</a></code> </p>
+        </td>
+        <td><p>Base response object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="HttpStubbedResponse.html">HttpStubbedResponse</a></code> </p>
+        </td>
+        <td><p>stubbed response object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Paginator.html">Paginator</a></code> </p>
+        </td>
+        <td><p>Paginator client</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="auth.html">auth()</a></code> </p>
+        </td>
+        <td><p>Authentication</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cookies.html">cookies</a></code> </p>
+        </td>
+        <td><p>Working with cookies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="crul-options.html">set_opts()</a></code> <code><a href="crul-options.html">set_proxy()</a></code> <code><a href="crul-options.html">set_auth()</a></code> <code><a href="crul-options.html">set_headers()</a></code> <code><a href="crul-options.html">crul_settings()</a></code> </p>
+        </td>
+        <td><p>Set curl options, proxy, and basic auth</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="crul-package.html">crul-package</a></code> </p>
+        </td>
+        <td><p><strong>HTTP R client</strong></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="curl-options.html">curl-options</a></code> </p>
+        </td>
+        <td><p>curl options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="delete-requests.html">delete-requests</a></code> </p>
+        </td>
+        <td><p>HTTP DELETE requests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="handle.html">handle()</a></code> </p>
+        </td>
+        <td><p>Make a handle</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="http-headers.html">http-headers</a></code> </p>
+        </td>
+        <td><p>Working with HTTP headers</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mock.html">mock()</a></code> </p>
+        </td>
+        <td><p>Mocking HTTP requests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ok.html">ok()</a></code> </p>
+        </td>
+        <td><p>check if a url is okay</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="post-requests.html">post-requests</a></code> </p>
+        </td>
+        <td><p>HTTP POST/PUT/PATCH requests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="progress.html">progress</a></code> </p>
+        </td>
+        <td><p>progress bars</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proxies.html">proxy()</a></code> </p>
+        </td>
+        <td><p>proxy options</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="upload.html">upload()</a></code> </p>
+        </td>
+        <td><p>upload file</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="url_build.html">url_build()</a></code> <code><a href="url_build.html">url_parse()</a></code> </p>
+        </td>
+        <td><p>Build and parse URLs</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="writing-options.html">writing-options</a></code> </p>
+        </td>
+        <td><p>Writing data options</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -262,11 +293,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

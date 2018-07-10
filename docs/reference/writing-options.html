@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Writing data options — writing-options" />
+
+<meta property="og:description" content="Writing data options" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +90,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +110,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,95 +118,89 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Writing data options</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/writing-options.R'><code>R/writing-options.R</code></a></small>
+    <div class="hidden name"><code>writing-options.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Writing data options</p>
     
+    </div>
 
         
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># write to disk</span>
-(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># write to disk</span>
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>"get"</span>, <span class='kw'>disk</span> <span class='kw'>=</span> <span class='no'>f</span>)
-<span class='no'>res</span>$<span class='no'>content</span> <span class='co'># when using write to disk, content is a path</span></div><div class='output co'>#&gt; [1] "/var/folders/fc/n7g_vrvn0sx_st0p8lxb3ts40000gn/T//RtmpWRHsLK/file142b213e1f10d"</div><div class='input'><span class='fu'>readLines</span>(<span class='no'>res</span>$<span class='no'>content</span>)</div><div class='output co'>#&gt;  [1] "{"                                                                     
-#&gt;  [2] "  \"args\": {}, "                                                      
-#&gt;  [3] "  \"headers\": {"                                                      
-#&gt;  [4] "    \"Accept\": \"application/json, text/xml, application/xml, */*\", "
-#&gt;  [5] "    \"Accept-Encoding\": \"gzip, deflate\", "                          
-#&gt;  [6] "    \"Connection\": \"close\", "                                       
-#&gt;  [7] "    \"Host\": \"httpbin.org\", "                                       
-#&gt;  [8] "    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112\""     
-#&gt;  [9] "  }, "                                                                 
-#&gt; [10] "  \"origin\": \"24.21.229.59\", "                                      
-#&gt; [11] "  \"url\": \"https://httpbin.org/get\""                                
-#&gt; [12] "}"                                                                     </div><div class='input'>
+<span class='no'>res</span>$<span class='no'>content</span> <span class='co'># when using write to disk, content is a path</span>
+<span class='fu'>readLines</span>(<span class='no'>res</span>$<span class='no'>content</span>)
+<span class='fu'>close</span>(<span class='fu'>file</span>(<span class='no'>f</span>))
+
 <span class='co'># streaming response</span>
-(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))</div><div class='output co'>#&gt; &lt;crul connection&gt; 
-#&gt;   url: https://httpbin.org
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'stream/50'</span>, <span class='kw'>stream</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>cat</span>(<span class='fu'>rawToChar</span>(<span class='no'>x</span>)))</div><div class='output co'>#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 0}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 1}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 2}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 3}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 4}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 5}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 6}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 7}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 8}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 9}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 10}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 11}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 12}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 13}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 14}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 15}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 16}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 17}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 18}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 19}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 20}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 21}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 22}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 23}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 24}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 25}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 26}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 27}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 28}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 29}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 30}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 31}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 32}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 33}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 34}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 35}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 36}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 37}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 38}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 39}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 40}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 41}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 42}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 43}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 44}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 45}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 46}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 47}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 48}
-#&gt; {"headers": {"Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "Connection": "close", "Host": "httpbin.org", "User-Agent": "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"}, "args": {}, "url": "https://httpbin.org/stream/50", "origin": "24.21.229.59", "id": 49}</div><div class='input'><span class='no'>res</span>$<span class='no'>content</span> <span class='co'># when streaming, content is NULL</span></div><div class='output co'>#&gt; NULL</div></pre>
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'stream/50'</span>, <span class='kw'>stream</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>cat</span>(<span class='fu'>rawToChar</span>(<span class='no'>x</span>)))
+<span class='no'>res</span>$<span class='no'>content</span> <span class='co'># when streaming, content is NULL</span>
+
+
+<span class='co'>## Async</span>
+(<span class='no'>cc</span> <span class='kw'>&lt;-</span> <span class='no'>Async</span>$<span class='fu'>new</span>(
+  <span class='kw'>urls</span> <span class='kw'>=</span> <span class='fu'>c</span>(
+    <span class='st'>'https://httpbin.org/get?a=5'</span>,
+    <span class='st'>'https://httpbin.org/get?foo=bar'</span>,
+    <span class='st'>'https://httpbin.org/get?b=4'</span>,
+    <span class='st'>'https://httpbin.org/get?stuff=things'</span>,
+    <span class='st'>'https://httpbin.org/get?b=4&amp;g=7&amp;u=9&amp;z=1'</span>
+  )
+))
+<span class='no'>files</span> <span class='kw'>&lt;-</span> <span class='fu'>replicate</span>(<span class='fl'>5</span>, <span class='fu'>tempfile</span>())
+(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>cc</span>$<span class='fu'>get</span>(<span class='kw'>disk</span> <span class='kw'>=</span> <span class='no'>files</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'>lapply</span>(<span class='no'>files</span>, <span class='no'>readLines</span>)
+
+<span class='co'>## Async varied</span>
+<span class='co'>### disk</span>
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+<span class='no'>req1</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>(<span class='kw'>disk</span> <span class='kw'>=</span> <span class='no'>f</span>)
+<span class='no'>req2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>)$<span class='fu'>post</span>(<span class='kw'>disk</span> <span class='kw'>=</span> <span class='no'>g</span>)
+<span class='no'>req3</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>()
+(<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='no'>req1</span>, <span class='no'>req2</span>, <span class='no'>req3</span>))
+<span class='no'>out</span>$<span class='fu'>request</span>()
+<span class='no'>out</span>$<span class='fu'>content</span>()
+<span class='fu'>readLines</span>(<span class='no'>f</span>)
+<span class='fu'>readLines</span>(<span class='no'>g</span>)
+<span class='fu'>close</span>(<span class='fu'>file</span>(<span class='no'>f</span>))
+<span class='fu'>close</span>(<span class='fu'>file</span>(<span class='no'>g</span>))
+
+<span class='co'>### stream - to console</span>
+<span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>cat</span>(<span class='fu'>rawToChar</span>(<span class='no'>x</span>))
+<span class='no'>req1</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>
+)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>), <span class='kw'>stream</span> <span class='kw'>=</span> <span class='no'>fun</span>)
+<span class='no'>req2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>
+)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>stream</span> <span class='kw'>=</span> <span class='no'>fun</span>)
+(<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='no'>req1</span>, <span class='no'>req2</span>))
+<span class='no'>out</span>$<span class='fu'>request</span>()
+<span class='no'>out</span>$<span class='fu'>content</span>()
+
+<span class='co'>### stream - to an R object</span>
+<span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>()
+<span class='no'>fun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>lst</span> <span class='kw'>&lt;&lt;-</span> <span class='fu'>c</span>(<span class='no'>lst</span>, <span class='no'>x</span>)
+<span class='no'>req1</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>
+)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>), <span class='kw'>stream</span> <span class='kw'>=</span> <span class='no'>fun</span>)
+<span class='no'>req2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>
+)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>), <span class='kw'>stream</span> <span class='kw'>=</span> <span class='no'>fun</span>)
+(<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='no'>req1</span>, <span class='no'>req2</span>))
+<span class='no'>out</span>$<span class='fu'>request</span>()
+<span class='no'>lst</span>
+<span class='fu'>cat</span>(<span class='fu'>rawToChar</span>(<span class='no'>lst</span>))
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -204,11 +218,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

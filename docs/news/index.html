@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • crul</title>
+<title>Changelog • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Changelog" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +87,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +107,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,120 +115,293 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/ropensci/crul/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="contents">
-    <section id="crul-0.4.0" class="level1"><h1>crul 0.4.0</h1>
-<section id="new-features" class="level3"><h3>NEW FEATURES</h3>
+    <div id="crul-0-6-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-6-0" class="anchor"></a>crul 0.6.0<small> Unreleased </small>
+</h1>
+<div id="new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>file uploads now work, see new function <code><a href="../reference/upload.html">upload()</a></code> and examples (#25)</li>
-</ul></section><section id="minor-improvements" class="level3"><h3>MINOR IMPROVEMENTS</h3>
-<ul>
-<li>fixes to reused curl handles - within a connection object only, not across connection objects (#45)</li>
 <li>
-<code>crul</code> now drops any options passed in to <code>opts</code> or to <code>...</code> that are not in set of allowed curl options, see <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_options">curl::curl_options()</a></code> (#49)</li>
-<li>cookies should now be persisted across requests within a connection object, see new doc <code><a href="../reference/cookies.html">?cookies</a></code> for how to set cookies (#44)</li>
-<li>gather cainfo and use in curl options when applicable (#51)</li>
-<li>remove <code>disk</code> and <code>stream</code> from <code>head</code> method in <code>HttpClient</code> and <code>HttpRequest</code> as no body returned in a HEAD request</li>
-</ul></section></section>
-    <section id="crul-0.3.8" class="level1"><h1>crul 0.3.8</h1>
-<section id="bug-fixes" class="level3"><h3>BUG FIXES</h3>
+<code>Async</code> and <code>AsyncVaried</code> now support simple auth, see <code><a href="../reference/auth.html">?auth</a></code> (<a href='https://github.com/ropensci/crul/issues/70'>#70</a>)</li>
+<li>gains new function <code><a href="../reference/ok.html">ok()</a></code> to ping a URL to see if it’s up or not, returns a single boolean (<a href='https://github.com/ropensci/crul/issues/71'>#71</a>) (<a href='https://github.com/ropensci/crul/issues/73'>#73</a>)</li>
+<li>
+<code>HttpClient</code> and <code>HttpRequest</code> gain new parameter <code>progress</code> that accepts a function to use to construct a progress bar. For now accepts <code><a href="http://www.rdocumentation.org/packages/httr/topics/progress">httr::progress()</a></code> but will accept other options in the future (<a href='https://github.com/ropensci/crul/issues/20'>#20</a>) (<a href='https://github.com/ropensci/crul/issues/81'>#81</a>)</li>
+<li>gains a new vignette for curl options (<a href='https://github.com/ropensci/crul/issues/7'>#7</a>)</li>
+<li>can now set curl options globally using new functions <code><a href="../reference/crul-options.html">set_auth()</a></code>, <code><a href="../reference/crul-options.html">set_headers()</a></code>, <code><a href="../reference/crul-options.html">set_opts()</a></code>, <code><a href="../reference/crul-options.html">set_proxy()</a></code>, and <code><a href="../reference/crul-options.html">crul_settings()</a></code> (<a href='https://github.com/ropensci/crul/issues/48'>#48</a>) (<a href='https://github.com/ropensci/crul/issues/85'>#85</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Fixed <code>AsyncVaried</code> to return async responses in the order that they were passed in. This also fixes this exact same behavior in <code>Async</code> because <code>Async</code> uses <code>AsyncVaried</code> internally. (#41) thanks <span class="citation" data-cites="dirkschumacher">@dirkschumacher</span> for reporting</li>
-</ul></section></section>
-    <section id="crul-0.3.6" class="level1"><h1>crul 0.3.6</h1>
+<li>explicitly import <code><a href="http://www.rdocumentation.org/packages/httpcode/topics/http">httpcode::http_code</a></code> (<a href='https://github.com/ropensci/crul/issues/80'>#80</a>)</li>
+<li>fix vignette names to make them more clear and add numbers to order them (<a href='https://github.com/ropensci/crul/issues/64'>#64</a>)</li>
+<li>change print function for <code>Async</code> and <code>AsyncVaried</code> to print max of 10 and tell user how many total and remaining not shown (<a href='https://github.com/ropensci/crul/issues/72'>#72</a>)</li>
+<li>added support to <code><a href="../reference/proxies.html">proxy()</a></code> for socks, e.g. to use with TOR (<a href='https://github.com/ropensci/crul/issues/79'>#79</a>)</li>
+<li>now when <code>Async</code> and <code>AsyncVaried</code> requests fail, they don’t error but instead we capture the error and pass it back in the result. this way any failure requests don’t stop progress of the entire async request suite (<a href='https://github.com/ropensci/crul/issues/74'>#74</a>) (<a href='https://github.com/ropensci/crul/issues/84'>#84</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>changed behavior in <code>Async</code>/<code>AsyncVaried</code>: (<a href='https://github.com/ropensci/crul/issues/74'>#74</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-5-2" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-5-2" class="anchor"></a>crul 0.5.2<small> 2018-02-24 </small>
+</h1>
+<div id="minor-improvements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-1" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>Fixed handling of user agent: you can pass a UA string as a curl option or a header. Previously, we were wrongly overwriting the user input UA if given as a curl option - but were not doing so if given as a header. This is fixed now. (<a href='https://github.com/ropensci/crul/issues/63'>#63</a>) thx to <a href='http://github.com/maelle'>@maelle</a> and <a href='http://github.com/dpprdan'>@dpprdan</a></li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>Fix to <code>Paginator</code> - it wasn’t handling pagination correctly. In addition, fixed to hopefully handle all scenarios now. added more tests (<a href='https://github.com/ropensci/crul/issues/62'>#62</a>)</li>
+<li>Fixed handling of query parameters. We were using <code><a href="http://www.rdocumentation.org/packages/urltools/topics/encoder">urltools::url_encode</a></code> to encode strings, but it wasn’t encoding correctly in some locales. Using <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_escape">curl::curl_escape</a></code> fixes the problem. Encoding is done on query values and names (<a href='https://github.com/ropensci/crul/issues/67'>#67</a>) (<a href='https://github.com/ropensci/crul/issues/68'>#68</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-5-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-5-0" class="anchor"></a>crul 0.5.0<small> 2018-01-22 </small>
+</h1>
+<div id="new-features-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li>Gains a new R6 class <code>Paginator</code> to help users automatically paginate through multiple requests. It only supports query parameter based paginating for now. We’ll add support later for other types including cursors (e.g., used in Solr servers), and for link headers (e.g., used in the GitHub API). Please get in touch if you find any problems with <code>Paginator</code>. (<a href='https://github.com/ropensci/crul/issues/56'>#56</a>)</li>
+<li>Async classes <code>Async</code> and <code>Asyncvaried</code> gain ability to write to disk and stream data (to disk or elsewhere, e.g. R console or to an R object) (<a href='https://github.com/ropensci/crul/issues/46'>#46</a>) thanks <a href='http://github.com/artemklevtsov'>@artemklevtsov</a> for the push to do this</li>
+</ul>
+</div>
+<div id="minor-improvements-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-2" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>Improved documentation for <code>auth</code> to indicate that <code>user</code> and <code>pwd</code> are indeed required - and to further indicate that one can pass in <code>NULL</code> to those parameters (similar to an empty string <code>""</code> in <code><a href="http://www.rdocumentation.org/packages/httr/topics/authenticate">httr::authenticate</a></code>) when one e.g. may want to use <code>gssnegotiate</code> method (<a href='https://github.com/ropensci/crul/issues/43'>#43</a>)</li>
+<li>Fixed query builder so that one can now protect query parameters by wrapping them in <code>I()</code> (<a href='https://github.com/ropensci/crul/issues/55'>#55</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>Fixed bug in <code>head</code> requests with <code>HttpClient</code> when passing <code>query</code> parameter - it was failing previously. Added <code>query</code> parameter back. (<a href='https://github.com/ropensci/crul/issues/52'>#52</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-4-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-4-0" class="anchor"></a>crul 0.4.0<small> 2017-10-02 </small>
+</h1>
+<div id="new-features-2" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h3>
+<ul>
+<li>file uploads now work, see new function <code><a href="../reference/upload.html">upload()</a></code> and examples (<a href='https://github.com/ropensci/crul/issues/25'>#25</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-3" class="anchor"></a>MINOR IMPROVEMENTS</h3>
+<ul>
+<li>fixes to reused curl handles - within a connection object only, not across connection objects (<a href='https://github.com/ropensci/crul/issues/45'>#45</a>)</li>
+<li>
+<code>crul</code> now drops any options passed in to <code>opts</code> or to <code>...</code> that are not in set of allowed curl options, see <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_options">curl::curl_options()</a></code> (<a href='https://github.com/ropensci/crul/issues/49'>#49</a>)</li>
+<li>cookies should now be persisted across requests within a connection object, see new doc <code><a href="../reference/cookies.html">?cookies</a></code> for how to set cookies (<a href='https://github.com/ropensci/crul/issues/44'>#44</a>)</li>
+<li>gather cainfo and use in curl options when applicable (<a href='https://github.com/ropensci/crul/issues/51'>#51</a>)</li>
+<li>remove <code>disk</code> and <code>stream</code> from <code>head</code> method in <code>HttpClient</code> and <code>HttpRequest</code> as no body returned in a HEAD request</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-3-8" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-3-8" class="anchor"></a>crul 0.3.8<small> 2017-06-14 </small>
+</h1>
+<div id="bug-fixes-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h3>
+<ul>
+<li>Fixed <code>AsyncVaried</code> to return async responses in the order that they were passed in. This also fixes this exact same behavior in <code>Async</code> because <code>Async</code> uses <code>AsyncVaried</code> internally. (<a href='https://github.com/ropensci/crul/issues/41'>#41</a>) thanks <a href='http://github.com/dirkschumacher'>@dirkschumacher</a> for reporting</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-3-6" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-3-6" class="anchor"></a>crul 0.3.6<small> 2017-05-23 </small>
+</h1>
 <ul>
 <li>Note: This version gains support for integration with <code>webmockr</code>, which is now on CRAN.</li>
 </ul>
-<section id="new-features-1" class="level3"><h3>NEW FEATURES</h3>
+<div id="new-features-3" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>New function <code><a href="../reference/auth.html">auth()</a></code> to do simple authentication (#33)</li>
-<li>New function <code>HttpStubbedResponse</code> for making a stubbed response object for the <code>webmockr</code> integration (#4)</li>
-<li>New function <code><a href="../reference/mock.html">mock()</a></code> to turn on mocking - it’s off by default. If <code>webmockr</code> is not installed but user attempts to use mocking we error with message to install <code>webmockr</code> (#4)</li>
-</ul></section><section id="minor-improvements-1" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<li>New function <code><a href="../reference/auth.html">auth()</a></code> to do simple authentication (<a href='https://github.com/ropensci/crul/issues/33'>#33</a>)</li>
+<li>New function <code>HttpStubbedResponse</code> for making a stubbed response object for the <code>webmockr</code> integration (<a href='https://github.com/ropensci/crul/issues/4'>#4</a>)</li>
+<li>New function <code><a href="../reference/mock.html">mock()</a></code> to turn on mocking - it’s off by default. If <code>webmockr</code> is not installed but user attempts to use mocking we error with message to install <code>webmockr</code> (<a href='https://github.com/ropensci/crul/issues/4'>#4</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements-4" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-4" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Use <code>gzip-deflate</code> by deafult for each request to make sure gzip compression is used if the server can do it (#34)</li>
-<li>Change <code>useragent</code> to <code>User-Agent</code> as default user agent header (#35)</li>
-<li>Now we make sure that user supplied headers override the default headers if they are of the same name (#36)</li>
-</ul></section></section>
-    <section id="crul-0.3.4" class="level1"><h1>crul 0.3.4</h1>
-<section id="new-features-2" class="level3"><h3>NEW FEATURES</h3>
+<li>Use <code>gzip-deflate</code> by deafult for each request to make sure gzip compression is used if the server can do it (<a href='https://github.com/ropensci/crul/issues/34'>#34</a>)</li>
+<li>Change <code>useragent</code> to <code>User-Agent</code> as default user agent header (<a href='https://github.com/ropensci/crul/issues/35'>#35</a>)</li>
+<li>Now we make sure that user supplied headers override the default headers if they are of the same name (<a href='https://github.com/ropensci/crul/issues/36'>#36</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-3-4" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-3-4" class="anchor"></a>crul 0.3.4<small> 2017-03-31 </small>
+</h1>
+<div id="new-features-4" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>New utility functions <code>url_build</code> and <code>url_parse</code> (#31)</li>
-</ul></section><section id="minor-improvements-2" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<li>New utility functions <code>url_build</code> and <code>url_parse</code> (<a href='https://github.com/ropensci/crul/issues/31'>#31</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements-5" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-5" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Now using markdown for documentation (#32)</li>
-<li>Better documentation for <code>AsyncVaried</code> (#30)</li>
-<li>New vignette on how to use <code>crul</code> in realistic scenarios rather than brief examples to demonstrate individual features (#29)</li>
-<li>Better documentation for <code>HttpRequest</code> (#28)</li>
+<li>Now using markdown for documentation (<a href='https://github.com/ropensci/crul/issues/32'>#32</a>)</li>
+<li>Better documentation for <code>AsyncVaried</code> (<a href='https://github.com/ropensci/crul/issues/30'>#30</a>)</li>
+<li>New vignette on how to use <code>crul</code> in realistic scenarios rather than brief examples to demonstrate individual features (<a href='https://github.com/ropensci/crul/issues/29'>#29</a>)</li>
+<li>Better documentation for <code>HttpRequest</code> (<a href='https://github.com/ropensci/crul/issues/28'>#28</a>)</li>
 <li>Included more tests</li>
-</ul></section><section id="bug-fixes-1" class="level3"><h3>BUG FIXES</h3>
+</ul>
+</div>
+<div id="bug-fixes-4" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>Fixed put/patch/delete as weren’t passing body correctly in <code>HttpClient</code> (#26)</li>
-<li>DRY out code for preparing requests - simplify to use helper functions (#27)</li>
-</ul></section></section>
-    <section id="crul-0.3.0" class="level1"><h1>crul 0.3.0</h1>
-<section id="new-features-3" class="level3"><h3>NEW FEATURES</h3>
+<li>Fixed put/patch/delete as weren’t passing body correctly in <code>HttpClient</code> (<a href='https://github.com/ropensci/crul/issues/26'>#26</a>)</li>
+<li>DRY out code for preparing requests - simplify to use helper functions (<a href='https://github.com/ropensci/crul/issues/27'>#27</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-3-0" class="anchor"></a>crul 0.3.0<small> 2017-02-17 </small>
+</h1>
+<div id="new-features-5" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>Added support for asynchronous HTTP requests, including two new R6 classes: <code>Async</code> and <code>AsyncVaried</code>. The former being a simpler interface treating all URLs with same options/HTTP method, and the latter allowing any type of request through the new R6 class <code>HttpRequest</code> (#8) (#24)</li>
-<li>New R6 class <code>HttpRequest</code> to support <code>AsyncVaried</code> - this method only defines a request, but does not execute it. (#8)</li>
-</ul></section><section id="minor-improvements-3" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<li>Added support for asynchronous HTTP requests, including two new R6 classes: <code>Async</code> and <code>AsyncVaried</code>. The former being a simpler interface treating all URLs with same options/HTTP method, and the latter allowing any type of request through the new R6 class <code>HttpRequest</code> (<a href='https://github.com/ropensci/crul/issues/8'>#8</a>) (<a href='https://github.com/ropensci/crul/issues/24'>#24</a>)</li>
+<li>New R6 class <code>HttpRequest</code> to support <code>AsyncVaried</code> - this method only defines a request, but does not execute it. (<a href='https://github.com/ropensci/crul/issues/8'>#8</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements-6" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-6" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Added support for proxies (#22)</li>
-</ul></section><section id="bug-fixes-2" class="level3"><h3>BUG FIXES</h3>
+<li>Added support for proxies (<a href='https://github.com/ropensci/crul/issues/22'>#22</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes-5" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h3>
 <ul>
-<li>Fixed parsing of headers from FTP servers (#21)</li>
-</ul></section></section>
-    <section id="crul-0.2.0" class="level1"><h1>crul 0.2.0</h1>
-<section id="minor-improvements-4" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<li>Fixed parsing of headers from FTP servers (<a href='https://github.com/ropensci/crul/issues/21'>#21</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-2-0" class="anchor"></a>crul 0.2.0<small> 2017-01-03 </small>
+</h1>
+<div id="minor-improvements-7" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-7" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Created new manual files for various tasks to document usage better (#19)</li>
-<li>URL encode paths - should fix any bugs where spaces between words caused errors previously (#17)</li>
-<li>URL encode query parameters - should fix any bugs where spaces between words caused errors previously (#11)</li>
-<li>request headers now passed correctly to response object (#13)</li>
-<li>response headers now parsed to a list for easier access (#14)</li>
-<li>Now supporting multiple query parameters of the same name, wasn’t possible in last version (#15)</li>
-</ul></section></section>
-    <section id="crul-0.1.6" class="level1"><h1>crul 0.1.6</h1>
-<section id="new-features-4" class="level3"><h3>NEW FEATURES</h3>
+<li>Created new manual files for various tasks to document usage better (<a href='https://github.com/ropensci/crul/issues/19'>#19</a>)</li>
+<li>URL encode paths - should fix any bugs where spaces between words caused errors previously (<a href='https://github.com/ropensci/crul/issues/17'>#17</a>)</li>
+<li>URL encode query parameters - should fix any bugs where spaces between words caused errors previously (<a href='https://github.com/ropensci/crul/issues/11'>#11</a>)</li>
+<li>request headers now passed correctly to response object (<a href='https://github.com/ropensci/crul/issues/13'>#13</a>)</li>
+<li>response headers now parsed to a list for easier access (<a href='https://github.com/ropensci/crul/issues/14'>#14</a>)</li>
+<li>Now supporting multiple query parameters of the same name, wasn’t possible in last version (<a href='https://github.com/ropensci/crul/issues/15'>#15</a>)</li>
+</ul>
+</div>
+</div>
+    <div id="crul-0-1-6" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-1-6" class="anchor"></a>crul 0.1.6<small> 2016-12-17 </small>
+</h1>
+<div id="new-features-6" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h3>
 <ul>
-<li>Improved options for using curl options. Can manually add to list of curl options or pass in via <code>...</code>. And we check that user doesn’t pass in prohibited options (<code>curl</code> package takes care of checking that options are valid) (#5)</li>
-<li>Incorporated <code>fauxpas</code> package for dealing with HTTP conditions. It’s a Suggest, so only used if installed (#6)</li>
-<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_stream</a></code>. <code>stream</code> param defaults to <code>NULL</code> (thus ignored), or pass in a function to use streaming. Only one of memory, streaming or disk allowed. (#9)</li>
-<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_disk</a></code>. <code>disk</code> param defaults to <code>NULL</code> (thus ignored), or pass in a path to write to disk instead of use memory. Only one of memory, streaming or disk allowed. (#12)</li>
-</ul></section><section id="minor-improvements-5" class="level3"><h3>MINOR IMPROVEMENTS</h3>
+<li>Improved options for using curl options. Can manually add to list of curl options or pass in via <code>...</code>. And we check that user doesn’t pass in prohibited options (<code>curl</code> package takes care of checking that options are valid) (<a href='https://github.com/ropensci/crul/issues/5'>#5</a>)</li>
+<li>Incorporated <code>fauxpas</code> package for dealing with HTTP conditions. It’s a Suggest, so only used if installed (<a href='https://github.com/ropensci/crul/issues/6'>#6</a>)</li>
+<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_stream</a></code>. <code>stream</code> param defaults to <code>NULL</code> (thus ignored), or pass in a function to use streaming. Only one of memory, streaming or disk allowed. (<a href='https://github.com/ropensci/crul/issues/9'>#9</a>)</li>
+<li>Added support for streaming via <code><a href="http://www.rdocumentation.org/packages/curl/topics/curl_fetch">curl::curl_fetch_disk</a></code>. <code>disk</code> param defaults to <code>NULL</code> (thus ignored), or pass in a path to write to disk instead of use memory. Only one of memory, streaming or disk allowed. (<a href='https://github.com/ropensci/crul/issues/12'>#12</a>)</li>
+</ul>
+</div>
+<div id="minor-improvements-8" class="section level3">
+<h3 class="hasAnchor">
+<a href="#minor-improvements-8" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>Added missing <code>raise_for_status()</code> method on the <code>HttpResponse</code> class (#10)</li>
-</ul></section><section id="bug-fixes-3" class="level3"><h3>BUG FIXES</h3>
+<li>Added missing <code>raise_for_status()</code> method on the <code>HttpResponse</code> class (<a href='https://github.com/ropensci/crul/issues/10'>#10</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes-6" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h3>
 <ul>
 <li>Was importing <code>httpcode</code> but wasn’t using it in the package. Now using the package in <code>HttpResponse</code>
 </li>
-</ul></section></section>
-    <section id="crul-0.1.0" class="level1"><h1>crul 0.1.0</h1>
-<section id="new-features-5" class="level3"><h3>NEW FEATURES</h3>
+</ul>
+</div>
+</div>
+    <div id="crul-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#crul-0-1-0" class="anchor"></a>crul 0.1.0<small> 2016-11-09 </small>
+</h1>
+<div id="new-features-7" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h3>
 <ul>
 <li>Released to CRAN.</li>
-</ul></section></section>
-    </div>
+</ul>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#crul-0.4.0">0.4.0</a></li>
-        <li><a href="#crul-0.3.8">0.3.8</a></li>
-        <li><a href="#crul-0.3.6">0.3.6</a></li>
-        <li><a href="#crul-0.3.4">0.3.4</a></li>
-        <li><a href="#crul-0.3.0">0.3.0</a></li>
-        <li><a href="#crul-0.2.0">0.2.0</a></li>
-        <li><a href="#crul-0.1.6">0.1.6</a></li>
-        <li><a href="#crul-0.1.0">0.1.0</a></li>
+        <li><a href="#crul-0-6-0">0.6.0</a></li>
+        <li><a href="#crul-0-5-2">0.5.2</a></li>
+        <li><a href="#crul-0-5-0">0.5.0</a></li>
+        <li><a href="#crul-0-4-0">0.4.0</a></li>
+        <li><a href="#crul-0-3-8">0.3.8</a></li>
+        <li><a href="#crul-0-3-6">0.3.6</a></li>
+        <li><a href="#crul-0-3-4">0.3.4</a></li>
+        <li><a href="#crul-0-3-0">0.3.0</a></li>
+        <li><a href="#crul-0-2-0">0.2.0</a></li>
+        <li><a href="#crul-0-1-6">0.1.6</a></li>
+        <li><a href="#crul-0-1-0">0.1.0</a></li>
       </ul>
     </div>
   </div>
@@ -224,11 +414,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

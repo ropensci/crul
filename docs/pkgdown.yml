@@ -1,0 +1,9 @@
+pandoc: 2.2.1
+pkgdown: 1.1.0
+pkgdown_sha: ~
+articles:
+  async: async.html
+  crul_vignette: crul_vignette.html
+  curl-options: curl-options.html
+  how-to-use-crul: how-to-use-crul.html
+

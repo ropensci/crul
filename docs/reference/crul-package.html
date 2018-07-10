@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="<strong>HTTP R client</strong> — crul-package" />
+
+<meta property="og:description" content="HTTP R client" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +90,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +110,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,15 +118,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1><strong>HTTP R client</strong></h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/crul-package.r'><code>R/crul-package.r</code></a></small>
+    <div class="hidden name"><code>crul-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><strong>HTTP R client</strong></p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="package-api"><a class="anchor" href="#package-api"></a>Package API</h2>
@@ -137,7 +161,14 @@ conditions but if it's not installed we use <span class="pkg">httpcode</span></p
 
     
     <p>Mocking HTTP requests is supported via the <span class="pkg">webmockr</span>
-package. See <a href='mock.html'>mock</a> for guidance.</p>
+package. See <a href='mock.html'>mock</a> for guidance, and
+<a href='https://ropensci.github.io/http-testing-book/'>https://ropensci.github.io/http-testing-book/</a></p>
+    
+    <h2 class="hasAnchor" id="caching"><a class="anchor" href="#caching"></a>Caching</h2>
+
+    
+    <p>Caching HTTP requests is supported via the <span class="pkg">vcr</span>
+package. See <a href='https://ropensci.github.io/http-testing-book/'>https://ropensci.github.io/http-testing-book/</a></p>
     
 
   </div>
@@ -150,6 +181,8 @@ package. See <a href='mock.html'>mock</a> for guidance.</p>
       <li><a href="#http-conditions">HTTP conditions</a></li>
 
       <li><a href="#mocking">Mocking</a></li>
+
+      <li><a href="#caching">Caching</a></li>
           </ul>
 
     <h2>Author</h2>
@@ -165,11 +198,14 @@ Scott Chamberlain <a href='mailto:myrmecocystus@gmail.com'>myrmecocystus@gmail.c
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

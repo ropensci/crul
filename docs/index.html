@@ -8,14 +8,22 @@
 <title>HTTP Client • crul</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="HTTP Client">
+<meta property="og:description" content="A simple HTTP client, with tools for making HTTP requests,
+    and mocking HTTP requests. The package is built on R6, and takes
+    inspiration from Ruby's 'faraday' gem (&lt;https://rubygems.org/gems/faraday&gt;).
+    The package name is a play on curl, the widely used command line tool
+    for HTTP, and this package is built on top of the R package 'curl', an
+    interface to 'libcurl' (&lt;https://curl.haxx.se/libcurl&gt;).">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -24,8 +32,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -51,12 +63,15 @@
       <a href="articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">News</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -76,13 +91,14 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
-<section id="crul" class="level1"><div class="page-header"><h1>crul</h1></div>
+<div id="crul" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#crul" class="anchor"></a>crul</h1></div>
 
 <p>An HTTP client, taking inspiration from Ruby’s <a href="https://rubygems.org/gems/faraday">faraday</a> and Python’s <a href="http://docs.python-requests.org/en/master/">requests</a></p>
 <p>Package API:</p>
@@ -92,7 +108,7 @@
 <li>
 <code>HttpResponse</code> - HTTP response object, used for all responses across the different clients.</li>
 <li>
-<code>Paginator</code> - Auto-paginate through requests</li>
+<code>Paginator</code> - Auto-paginate through requests - supports a subset of all possible pagination scenarios - will fill out more scenarios soon</li>
 <li>
 <code>Async</code> - Asynchronous HTTP requests - a simple interface for many URLS - whose interface is similar to <code>HttpClient</code> - all URLs are treated the same.</li>
 <li>
@@ -109,16 +125,26 @@
 <code><a href="reference/proxies.html">proxy()</a></code> - Proxy helper</li>
 <li>
 <code><a href="reference/upload.html">upload()</a></code> - File upload helper</li>
+<li>set curl options globally: <code><a href="reference/crul-options.html">set_auth()</a></code>, <code><a href="reference/crul-options.html">set_headers()</a></code>, <code><a href="reference/crul-options.html">set_opts()</a></code>, <code><a href="reference/crul-options.html">set_proxy()</a></code>, and <code><a href="reference/crul-options.html">crul_settings()</a></code>
+</li>
+<li>Writing to disk and streaming: available with both synchronous requests as well as async requests.</li>
 </ul>
 <p>Mocking:</p>
-<p><code>crul</code> now integrates with <a href="https://github.com/ropensci/webmockr">webmockr</a> to mock HTTP requests.</p>
-<section id="installation" class="level2"><h2>Installation</h2>
+<p><code>crul</code> now integrates with <a href="https://github.com/ropensci/webmockr">webmockr</a> to mock HTTP requests. Checkout the <a href="https://ropensci.github.io/http-testing-book/">http testing book</a></p>
+<p>Caching:</p>
+<p><code>crul</code> also integrates with <a href="https://github.com/ropensci/vcr">vcr</a> to cache http requests/responses. Checkout the <a href="https://ropensci.github.io/http-testing-book/">http testing book</a></p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>CRAN version</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"crul"</span>)</a></code></pre></div>
 <p>Dev version</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"ropensci/crul"</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(<span class="st">"crul"</span>)</a></code></pre></div>
-</section><section id="the-client" class="level2"><h2>the client</h2>
+</div>
+<div id="the-client" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-client" class="anchor"></a>the client</h2>
 <p><code>HttpClient</code> is where to start</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">(x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org"</span>,</a>
@@ -136,7 +162,8 @@
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;   proxies: </span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;   auth: </span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;   headers: </span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;     a: hello world</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;     a: hello world</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   progress: FALSE</span></a></code></pre></div>
 <p>Makes a R6 class, that has all the bits and bobs you’d expect for doing HTTP requests. When it prints, it gives any defaults you’ve set. As you update the object you can see what’s been set</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">x<span class="op">$</span>opts</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; $timeout</span></a>
@@ -145,7 +172,10 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; $a</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; [1] "hello world"</span></a></code></pre></div>
 <p>You can also pass in curl options when you make HTTP requests, see below for examples.</p>
-</section><section id="do-some-http" class="level2"><h2>do some http</h2>
+</div>
+<div id="do-some-http" class="section level2">
+<h2 class="hasAnchor">
+<a href="#do-some-http" class="anchor"></a>do some http</h2>
 <p>The client object created above has http methods that you can call, and pass paths to, as well as query parameters, body values, and any other curl options.</p>
 <p>Here, we’ll do a <strong>GET</strong> request on the route <code>/get</code> on our base url <code>https://httpbin.org</code> (the full url is then <code>https://httpbin.org/get</code>)</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">res &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw">get</span>(<span class="st">"get"</span>)</a></code></pre></div>
@@ -160,29 +190,26 @@
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a></code></pre></div>
 <p>The content</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">res<span class="op">$</span>content</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;  [24] 64 65 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  [70] 3a 20 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74 65</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  [93] 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [116] 2c 20 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; [139] 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [162] 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22</span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; [185] 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; [208] 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; [231] 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; [254] 30 20 72 2d 63 75 72 6c 2f 33 2e 31 20 63 72 75 6c 2f 30 2e 34 2e 30</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; [277] 2e 39 31 30 32 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; [300] 3a 20 22 32 34 2e 32 31 2e 32 32 39 2e 35 39 22 2c 20 0a 20 20 22 75</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; [323] 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; [346] 72 67 2f 67 65 74 22 0a 7d 0a</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;   [1] 7b 22 61 72 67 73 22 3a 7b 7d 2c 22 68 65 61 64 65 72 73 22 3a 7b 22</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;  [24] 41 22 3a 22 68 65 6c 6c 6f 20 77 6f 72 6c 64 22 2c 22 41 63 63 65 70</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;  [47] 74 22 3a 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  [70] 65 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  [93] 6c 2c 20 2a 2f 2a 22 2c 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [116] 67 22 3a 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 22 43 6f 6e</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; [139] 6e 65 63 74 69 6f 6e 22 3a 22 63 6c 6f 73 65 22 2c 22 48 6f 73 74 22</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [162] 3a 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 22 55 73 65 72 2d 41 67</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; [185] 65 6e 74 22 3a 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; [208] 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 36 2e 30 22 7d 2c 22</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; [231] 6f 72 69 67 69 6e 22 3a 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; [254] 22 2c 22 75 72 6c 22 3a 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; [277] 6e 2e 6f 72 67 2f 67 65 74 22 7d 0a</span></a></code></pre></div>
 <p>HTTP method</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">res<span class="op">$</span>method</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] "get"</span></a></code></pre></div>
 <p>Request headers</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">res<span class="op">$</span>request_headers</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; $`User-Agent`</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102"</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.0"</span></a>
 <a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; $`Accept-Encoding`</span></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
@@ -201,35 +228,29 @@
 <a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [1] "keep-alive"</span></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; $server</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; [1] "meinheld/0.6.1"</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; [1] "gunicorn/19.8.1"</span></a>
 <a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; $date</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; [1] "Thu, 28 Dec 2017 18:00:23 GMT"</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; [1] "Tue, 10 Jul 2018 17:53:02 GMT"</span></a>
 <a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; $`content-type`</span></a>
 <a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; [1] "application/json"</span></a>
 <a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; $`access-control-allow-origin`</span></a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [1] "*"</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; $`content-length`</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [1] "288"</span></a>
 <a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; $`access-control-allow-credentials`</span></a>
-<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; [1] "true"</span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; $`access-control-allow-origin`</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; [1] "*"</span></a>
 <a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; $`x-powered-by`</span></a>
-<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; [1] "Flask"</span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; $`access-control-allow-credentials`</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; [1] "true"</span></a>
 <a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; $`x-processed-time`</span></a>
-<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt; [1] "0.0013370513916"</span></a>
-<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; $`content-length`</span></a>
-<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; [1] "355"</span></a>
-<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="co">#&gt; $via</span></a>
-<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; [1] "1.1 vegur"</span></a></code></pre></div>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; $via</span></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt; [1] "1.1 vegur"</span></a></code></pre></div>
 <p>And you can parse the content with <code>parse()</code></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">res<span class="op">$</span><span class="kw">parse</span>()</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; [1] "{\"args\":{},\"headers\":{\"A\":\"hello world\",\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.6.0\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get\"}\n"</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">jsonlite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/jsonlite/topics/fromJSON">fromJSON</a></span>(res<span class="op">$</span><span class="kw">parse</span>())</a>
 <a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
 <a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; $args</span></a>
@@ -252,20 +273,26 @@
 <a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; [1] "httpbin.org"</span></a>
 <a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; $headers$`User-Agent`</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102"</span></a>
+<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.0"</span></a>
 <a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb14-28" data-line-number="28"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb14-29" data-line-number="29"><span class="co">#&gt; $origin</span></a>
-<a class="sourceLine" id="cb14-30" data-line-number="30"><span class="co">#&gt; [1] "24.21.229.59"</span></a>
+<a class="sourceLine" id="cb14-30" data-line-number="30"><span class="co">#&gt; [1] "157.130.179.86"</span></a>
 <a class="sourceLine" id="cb14-31" data-line-number="31"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb14-32" data-line-number="32"><span class="co">#&gt; $url</span></a>
 <a class="sourceLine" id="cb14-33" data-line-number="33"><span class="co">#&gt; [1] "https://httpbin.org/get"</span></a></code></pre></div>
-</section><section id="curl-options" class="level2"><h2>curl options</h2>
+</div>
+<div id="curl-options" class="section level2">
+<h2 class="hasAnchor">
+<a href="#curl-options" class="anchor"></a>curl options</h2>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">res &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"http://api.gbif.org/v1/occurrence/search"</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">res<span class="op">$</span><span class="kw">get</span>(<span class="dt">query =</span> <span class="kw">list</span>(<span class="dt">limit =</span> <span class="dv">100</span>), <span class="dt">timeout_ms =</span> <span class="dv">100</span>)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :</span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;   Timeout was reached</span></a></code></pre></div>
-</section><section id="asynchronous-requests" class="level2"><h2>Asynchronous requests</h2>
+</div>
+<div id="asynchronous-requests" class="section level2">
+<h2 class="hasAnchor">
+<a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h2>
 <p>The simpler interface allows many requests (many URLs), but they all get the same options/headers, etc. and you have to use the same HTTP method on all of them:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">(cc &lt;-<span class="st"> </span>Async<span class="op">$</span><span class="kw">new</span>(</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2">  <span class="dt">urls =</span> <span class="kw">c</span>(</a>
@@ -274,21 +301,8 @@
 <a class="sourceLine" id="cb16-5" data-line-number="5">    <span class="st">'https://httpbin.org/get?foo=bar'</span></a>
 <a class="sourceLine" id="cb16-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb16-7" data-line-number="7">))</a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; &lt;crul async connection&gt; </span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt;   urls: </span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt;    https://httpbin.org/</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt;    https://httpbin.org/get?a=5</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt;    https://httpbin.org/get?foo=bar</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13">res &lt;-<span class="st"> </span>cc<span class="op">$</span><span class="kw">get</span>()</a>
-<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="kw">lapply</span>(res, <span class="cf">function</span>(z) z<span class="op">$</span><span class="kw">parse</span>(<span class="st">"UTF-8"</span>))</a>
-<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt; [1] "&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;meta http-equiv='content-type' value='text/html;charset=utf8'&gt;\n  &lt;meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'&gt;\n  &lt;title&gt;httpbin(1): HTTP Client Testing Service&lt;/title&gt;\n  &lt;style type='text/css' media='all'&gt;\n  /* style: man */\n  body#manpage {margin:0}\n  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}\n  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}\n  .mp h2 {margin:10px 0 0 0}\n  .mp &gt; p,.mp &gt; pre,.mp &gt; ul,.mp &gt; ol,.mp &gt; dl {margin-left:8ex}\n  .mp h3 {margin:0 0 0 4ex}\n  .mp dt {margin:0;clear:left}\n  .mp dt.flush {float:left;width:8ex}\n  .mp dd {margin:0 0 0 9ex}\n  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}\n  .mp pre {margin-bottom:20px}\n  .mp pre+h2,.mp pre+h3 {margin-top:22px}\n  .mp h2+pre,.mp h3+pre {margin-top:5px}\n  .mp img {display:block;margin:auto}\n  .mp h1.man-title {display:none}\n  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}\n  .mp h2 {font-size:16px;line-height:1.25}\n  .mp h1 {font-size:20px;line-height:2}\n  .mp {text-align:justify;background:#fff}\n  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}\n  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}\n  .mp u {text-decoration:underline}\n  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}\n  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}\n  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}\n  .mp b.man-ref {font-weight:normal;color:#434241}\n  .mp pre {padding:0 4ex}\n  .mp pre code {font-weight:normal;color:#434241}\n  .mp h2+pre,h3+pre {padding-left:0}\n  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}\n  ol.man-decor {width:100%}\n  ol.man-decor li.tl {text-align:left}\n  ol.man-decor li.tc {text-align:center;letter-spacing:4px}\n  ol.man-decor li.tr {text-align:right;float:right}\n  &lt;/style&gt;\n  &lt;style type='text/css' media='all'&gt;\n  /* style: 80c */\n  .mp {max-width:86ex}\n  ul {list-style: None; margin-left: 1em!important}\n  .man-navigation {left:101ex}\n  &lt;/style&gt;\n&lt;/head&gt;\n\n&lt;body id='manpage'&gt;\n&lt;a href=\"http://github.com/kennethreitz/httpbin\"&gt;&lt;img style=\"position: absolute; top: 0; right: 0; border: 0;\" src=\"https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png\" alt=\"Fork me on GitHub\"&gt;&lt;/a&gt;\n\n\n\n&lt;div class='mp'&gt;\n&lt;h1&gt;httpbin(1): HTTP Request &amp;amp; Response Service&lt;/h1&gt;\n&lt;p&gt;Freely hosted in &lt;a href=\"http://httpbin.org\"&gt;HTTP&lt;/a&gt;, &lt;a href=\"https://httpbin.org\"&gt;HTTPS&lt;/a&gt;, &amp;amp; &lt;a href=\"http://eu.httpbin.org/\"&gt;EU&lt;/a&gt; flavors by &lt;a href=\"http://kennethreitz.org/bitcoin\"&gt;Kenneth Reitz&lt;/a&gt; &amp;amp; &lt;a href=\"https://www.runscope.com/\"&gt;Runscope&lt;/a&gt;.&lt;/p&gt;\n\n&lt;h2 id=\"BONUSPOINTS\"&gt;BONUSPOINTS&lt;/h2&gt;\n\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\"https://now.httpbin.org/\" data-bare-link=\"true\"&gt;&lt;code&gt;now.httpbin.org&lt;/code&gt;&lt;/a&gt; The current time, in a variety of formats.&lt;/li&gt;\n&lt;/ul&gt;\n\n&lt;h2 id=\"ENDPOINTS\"&gt;ENDPOINTS&lt;/h2&gt;\n\n&lt;ul&gt;\n&lt;li&gt;&lt;a href=\"/\" data-bare-link=\"true\"&gt;&lt;code&gt;/&lt;/code&gt;&lt;/a&gt; This page.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/ip\" data-bare-link=\"true\"&gt;&lt;code&gt;/ip&lt;/code&gt;&lt;/a&gt; Returns Origin IP.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/uuid\" data-bare-link=\"true\"&gt;&lt;code&gt;/uuid&lt;/code&gt;&lt;/a&gt; Returns UUID4.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/user-agent\" data-bare-link=\"true\"&gt;&lt;code&gt;/user-agent&lt;/code&gt;&lt;/a&gt; Returns user-agent.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/headers\" data-bare-link=\"true\"&gt;&lt;code&gt;/headers&lt;/code&gt;&lt;/a&gt; Returns header dict.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/get\" data-bare-link=\"true\"&gt;&lt;code&gt;/get&lt;/code&gt;&lt;/a&gt; Returns GET data.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/post&lt;/code&gt; Returns POST data.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/patch&lt;/code&gt; Returns PATCH data.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/put&lt;/code&gt; Returns PUT data.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/delete&lt;/code&gt; Returns DELETE data&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/anything\" data-bare-link=\"true\"&gt;&lt;code&gt;/anything&lt;/code&gt;&lt;/a&gt; Returns request data, including method used.&lt;/li&gt;\n&lt;li&gt;&lt;code&gt;/anything/:anything&lt;/code&gt; Returns request data, including the URL.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/encoding/utf8\"&gt;&lt;code&gt;/encoding/utf8&lt;/code&gt;&lt;/a&gt; Returns page containing UTF-8 data.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/gzip\" data-bare-link=\"true\"&gt;&lt;code&gt;/gzip&lt;/code&gt;&lt;/a&gt; Returns gzip-encoded data.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/deflate\" data-bare-link=\"true\"&gt;&lt;code&gt;/deflate&lt;/code&gt;&lt;/a&gt; Returns deflate-encoded data.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/brotli\" data-bare-link=\"true\"&gt;&lt;code&gt;/brotli&lt;/code&gt;&lt;/a&gt; Returns brotli-encoded data.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/status/418\"&gt;&lt;code&gt;/status/:code&lt;/code&gt;&lt;/a&gt; Returns given HTTP Status code.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/response-headers?Server=httpbin&amp;amp;Content-Type=text%2Fplain%3B+charset%3DUTF-8\"&gt;&lt;code&gt;/response-headers?key=val&lt;/code&gt;&lt;/a&gt; Returns given response headers.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/redirect/6\"&gt;&lt;code&gt;/redirect/:n&lt;/code&gt;&lt;/a&gt; 302 Redirects &lt;em&gt;n&lt;/em&gt; times.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/redirect-to?url=http%3A%2F%2Fexample.com%2F\"&gt;&lt;code&gt;/redirect-to?url=foo&lt;/code&gt;&lt;/a&gt; 302 Redirects to the &lt;em&gt;foo&lt;/em&gt; URL.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/redirect-to?status_code=307&amp;amp;url=http%3A%2F%2Fexample.com%2F\"&gt;&lt;code&gt;/redirect-to?url=foo&amp;status_code=307&lt;/code&gt;&lt;/a&gt; 307 Redirects to the &lt;em&gt;foo&lt;/em&gt; URL.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/relative-redirect/6\"&gt;&lt;code&gt;/relative-redirect/:n&lt;/code&gt;&lt;/a&gt; 302 Relative redirects &lt;em&gt;n&lt;/em&gt; times.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/absolute-redirect/6\"&gt;&lt;code&gt;/absolute-redirect/:n&lt;/code&gt;&lt;/a&gt; 302 Absolute redirects &lt;em&gt;n&lt;/em&gt; times.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/cookies\" data-bare-link=\"true\"&gt;&lt;code&gt;/cookies&lt;/code&gt;&lt;/a&gt; Returns cookie data.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/cookies/set?k1=v1&amp;amp;k2=v2\"&gt;&lt;code&gt;/cookies/set?name=value&lt;/code&gt;&lt;/a&gt; Sets one or more simple cookies.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/cookies/delete?k1=&amp;amp;k2=\"&gt;&lt;code&gt;/cookies/delete?name&lt;/code&gt;&lt;/a&gt; Deletes one or more simple cookies.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/basic-auth/user/passwd\"&gt;&lt;code&gt;/basic-auth/:user/:passwd&lt;/code&gt;&lt;/a&gt; Challenges HTTPBasic Auth.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/hidden-basic-auth/user/passwd\"&gt;&lt;code&gt;/hidden-basic-auth/:user/:passwd&lt;/code&gt;&lt;/a&gt; 404'd BasicAuth.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/digest-auth/auth/user/passwd/MD5/never\"&gt;&lt;code&gt;/digest-auth/:qop/:user/:passwd/:algorithm&lt;/code&gt;&lt;/a&gt; Challenges HTTP Digest Auth.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/digest-auth/auth/user/passwd/MD5/never\"&gt;&lt;code&gt;/digest-auth/:qop/:user/:passwd&lt;/code&gt;&lt;/a&gt; Challenges HTTP Digest Auth.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/stream/20\"&gt;&lt;code&gt;/stream/:n&lt;/code&gt;&lt;/a&gt; Streams &lt;em&gt;min(n, 100)&lt;/em&gt; lines.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/delay/3\"&gt;&lt;code&gt;/delay/:n&lt;/code&gt;&lt;/a&gt; Delays responding for &lt;em&gt;min(n, 10)&lt;/em&gt; seconds.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/drip?code=200&amp;amp;numbytes=5&amp;amp;duration=5\"&gt;&lt;code&gt;/drip?numbytes=n&amp;amp;duration=s&amp;amp;delay=s&amp;amp;code=code&lt;/code&gt;&lt;/a&gt; Drips data over a duration after an optional initial delay, then (optionally) returns with the given status code.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/range/1024\"&gt;&lt;code&gt;/range/1024?duration=s&amp;amp;chunk_size=code&lt;/code&gt;&lt;/a&gt; Streams &lt;em&gt;n&lt;/em&gt; bytes, and allows specifying a &lt;em&gt;Range&lt;/em&gt; header to select a subset of the data. Accepts a &lt;em&gt;chunk_size&lt;/em&gt; and request &lt;em&gt;duration&lt;/em&gt; parameter.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/html\" data-bare-link=\"true\"&gt;&lt;code&gt;/html&lt;/code&gt;&lt;/a&gt; Renders an HTML Page.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/robots.txt\" data-bare-link=\"true\"&gt;&lt;code&gt;/robots.txt&lt;/code&gt;&lt;/a&gt; Returns some robots.txt rules.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/deny\" data-bare-link=\"true\"&gt;&lt;code&gt;/deny&lt;/code&gt;&lt;/a&gt; Denied by robots.txt file.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/cache\" data-bare-link=\"true\"&gt;&lt;code&gt;/cache&lt;/code&gt;&lt;/a&gt; Returns 200 unless an If-Modified-Since or If-None-Match header is provided, when it returns a 304.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/etag/etag\"&gt;&lt;code&gt;/etag/:etag&lt;/code&gt;&lt;/a&gt; Assumes the resource has the given etag and responds to If-None-Match header with a 200 or 304 and If-Match with a 200 or 412 as appropriate.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/cache/60\"&gt;&lt;code&gt;/cache/:n&lt;/code&gt;&lt;/a&gt; Sets a Cache-Control header for &lt;em&gt;n&lt;/em&gt; seconds.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/bytes/1024\"&gt;&lt;code&gt;/bytes/:n&lt;/code&gt;&lt;/a&gt; Generates &lt;em&gt;n&lt;/em&gt; random bytes of binary data, accepts optional &lt;em&gt;seed&lt;/em&gt; integer parameter.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/stream-bytes/1024\"&gt;&lt;code&gt;/stream-bytes/:n&lt;/code&gt;&lt;/a&gt; Streams &lt;em&gt;n&lt;/em&gt; random bytes of binary data in chunked encoding, accepts optional &lt;em&gt;seed&lt;/em&gt; and &lt;em&gt;chunk_size&lt;/em&gt; integer parameters.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/links/10\"&gt;&lt;code&gt;/links/:n&lt;/code&gt;&lt;/a&gt; Returns page containing &lt;em&gt;n&lt;/em&gt; HTML links.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/image\"&gt;&lt;code&gt;/image&lt;/code&gt;&lt;/a&gt; Returns page containing an image based on sent Accept header.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/image/png\"&gt;&lt;code&gt;/image/png&lt;/code&gt;&lt;/a&gt; Returns a PNG image.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/image/jpeg\"&gt;&lt;code&gt;/image/jpeg&lt;/code&gt;&lt;/a&gt; Returns a JPEG image.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/image/webp\"&gt;&lt;code&gt;/image/webp&lt;/code&gt;&lt;/a&gt; Returns a WEBP image.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/image/svg\"&gt;&lt;code&gt;/image/svg&lt;/code&gt;&lt;/a&gt; Returns a SVG image.&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/forms/post\" data-bare-link=\"true\"&gt;&lt;code&gt;/forms/post&lt;/code&gt;&lt;/a&gt; HTML form that submits to &lt;em&gt;/post&lt;/em&gt;&lt;/li&gt;\n&lt;li&gt;&lt;a href=\"/xml\" data-bare-link=\"true\"&gt;&lt;code&gt;/xml&lt;/code&gt;&lt;/a&gt; Returns some XML&lt;/li&gt;\n&lt;/ul&gt;\n\n&lt;h2 id=\"DESCRIPTION\"&gt;DESCRIPTION&lt;/h2&gt;\n\n&lt;p&gt;Testing an HTTP Library can become difficult sometimes. &lt;a href=\"http://requestb.in\"&gt;RequestBin&lt;/a&gt; is fantastic for testing POST requests, but doesn't let you control the response. This exists to cover all kinds of HTTP scenarios. Additional endpoints are being considered.&lt;/p&gt;\n\n&lt;p&gt;All endpoint responses are JSON-encoded.&lt;/p&gt;\n\n&lt;h2 id=\"EXAMPLES\"&gt;EXAMPLES&lt;/h2&gt;\n\n&lt;h3 id=\"-curl-http-httpbin-org-ip\"&gt;$ curl http://httpbin.org/ip&lt;/h3&gt;\n\n&lt;pre&gt;&lt;code&gt;{\"origin\": \"24.127.96.129\"}\n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;h3 id=\"-curl-http-httpbin-org-user-agent\"&gt;$ curl http://httpbin.org/user-agent&lt;/h3&gt;\n\n&lt;pre&gt;&lt;code&gt;{\"user-agent\": \"curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3\"}\n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;h3 id=\"-curl-http-httpbin-org-get\"&gt;$ curl http://httpbin.org/get&lt;/h3&gt;\n\n&lt;pre&gt;&lt;code&gt;{\n   \"args\": {},\n   \"headers\": {\n      \"Accept\": \"*/*\",\n      \"Connection\": \"close\",\n      \"Content-Length\": \"\",\n      \"Content-Type\": \"\",\n      \"Host\": \"httpbin.org\",\n      \"User-Agent\": \"curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7 OpenSSL/0.9.8l zlib/1.2.3\"\n   },\n   \"origin\": \"24.127.96.129\",\n   \"url\": \"http://httpbin.org/get\"\n}\n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;h3 id=\"-curl-I-http-httpbin-org-status-418\"&gt;$ curl -I http://httpbin.org/status/418&lt;/h3&gt;\n\n&lt;pre&gt;&lt;code&gt;HTTP/1.1 418 I'M A TEAPOT\nServer: nginx/0.7.67\nDate: Mon, 13 Jun 2011 04:25:38 GMT\nConnection: close\nx-more-info: http://tools.ietf.org/html/rfc2324\nContent-Length: 135\n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;h3 id=\"-curl-https-httpbin-org-get-show_env-1\"&gt;$ curl https://httpbin.org/get?show_env=1&lt;/h3&gt;\n\n&lt;pre&gt;&lt;code&gt;{\n  \"headers\": {\n    \"Content-Length\": \"\",\n    \"Accept-Language\": \"en-US,en;q=0.8\",\n    \"Accept-Encoding\": \"gzip,deflate,sdch\",\n    \"X-Forwarded-Port\": \"443\",\n    \"X-Forwarded-For\": \"109.60.101.240\",\n    \"Host\": \"httpbin.org\",\n    \"Accept\": \"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\",\n    \"User-Agent\": \"Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11\",\n    \"X-Request-Start\": \"1350053933441\",\n    \"Accept-Charset\": \"ISO-8859-1,utf-8;q=0.7,*;q=0.3\",\n    \"Connection\": \"keep-alive\",\n    \"X-Forwarded-Proto\": \"https\",\n    \"Cookie\": \"_gauges_unique_day=1; _gauges_unique_month=1; _gauges_unique_year=1; _gauges_unique=1; _gauges_unique_hour=1\",\n    \"Content-Type\": \"\"\n  },\n  \"args\": {\n    \"show_env\": \"1\"\n  },\n  \"origin\": \"109.60.101.240\",\n  \"url\": \"http://httpbin.org/get?show_env=1\"\n}\n&lt;/code&gt;&lt;/pre&gt;\n\n&lt;h2 id=\"Installing-and-running-from-PyPI\"&gt;Installing and running from PyPI&lt;/h2&gt;\n\n&lt;p&gt;You can install httpbin as a library from PyPI and run it as a WSGI app.  For example, using Gunicorn:&lt;/p&gt;\n\n&lt;pre&gt;&lt;code class=\"bash\"&gt;$ pip install httpbin\n$ gunicorn httpbin:app\n&lt;/code&gt;&lt;/pre&gt;\n\n\n&lt;h2 id=\"AUTHOR\"&gt;AUTHOR&lt;/h2&gt;\n\n&lt;p&gt;A &lt;a href=\"http://kennethreitz.com/\"&gt;Kenneth Reitz&lt;/a&gt; project.&lt;/p&gt;\n&lt;p&gt;BTC: &lt;a href=\"https://www.kennethreitz.org/bitcoin\"&gt;&lt;code&gt;1Me2iXTJ91FYZhrGvaGaRDCBtnZ4KdxCug&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;\n\n&lt;h2 id=\"SEE-ALSO\"&gt;SEE ALSO&lt;/h2&gt;\n\n&lt;p&gt;&lt;a href=\"https://www.hurl.it\"&gt;Hurl.it&lt;/a&gt; - Make HTTP requests.&lt;/p&gt;\n&lt;p&gt;&lt;a href=\"http://requestb.in\"&gt;RequestBin&lt;/a&gt; - Inspect HTTP requests.&lt;/p&gt;\n&lt;p&gt;&lt;a href=\"http://python-requests.org\" data-bare-link=\"true\"&gt;http://python-requests.org&lt;/a&gt;&lt;/p&gt;\n\n&lt;/div&gt;\n\n\n    \n&lt;script type=\"text/javascript\"&gt;\n  (function() {\n    window._pa = window._pa || {};\n    _pa.productId = \"httpbin\";\n    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;\n    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + \"//tag.perfectaudience.com/serve/5226171f87bc6890da0000a0.js\";\n    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);\n  })();\n&lt;/script&gt;\n\n&lt;script type=\"text/javascript\"&gt;\n  var _gauges = _gauges || [];\n  (function() {\n    var t   = document.createElement('script');\n    t.type  = 'text/javascript';\n    t.async = true;\n    t.id    = 'gauges-tracker';\n    t.setAttribute('data-site-id', '58cb2e71c88d9043ac01d000');\n    t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');\n    t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';\n    var s = document.getElementsByTagName('script')[0];\n    s.parentNode.insertBefore(t, s);\n  })();\n&lt;/script&gt;\n\n\n&lt;/body&gt;\n&lt;/html&gt;"</span></a>
-<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#&gt; [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"</span></a>
-<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-21" data-line-number="21"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb16-22" data-line-number="22"><span class="co">#&gt; [1] "{\n  \"args\": {\n    \"foo\": \"bar\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?foo=bar\"\n}\n"</span></a></code></pre></div>
+<a class="sourceLine" id="cb16-8" data-line-number="8">res &lt;-<span class="st"> </span>cc<span class="op">$</span><span class="kw">get</span>()</a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="kw">lapply</span>(res, <span class="cf">function</span>(z) z<span class="op">$</span><span class="kw">parse</span>(<span class="st">"UTF-8"</span>))</a></code></pre></div>
 <p>The <code>AsyncVaried</code> interface accepts any number of <code>HttpRequest</code> objects, which can define any type of HTTP request of any HTTP method:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">req1 &lt;-<span class="st"> </span>HttpRequest<span class="op">$</span><span class="kw">new</span>(</a>
 <a class="sourceLine" id="cb17-2" data-line-number="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/get"</span>,</a>
@@ -311,52 +325,80 @@
 <a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt;   Message: OK</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
 <a class="sourceLine" id="cb19-11" data-line-number="11">out<span class="op">$</span><span class="kw">parse</span>()</a>
-<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                                      </span></a>
-<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.1 crul/0.4.0.9102\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></a></code></pre></div>
-</section><section id="to-do" class="level2"><h2>TO DO</h2>
-<section id="http-caching" class="level3"><h3>http caching</h3>
-<p>Add integration for:</p>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt; [1] "{\"args\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Foo\":\"bar\",\"Host\":\"httpbin.org\",\"User-Agent\":\"R (3.5.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get\"}\n"                                                                                                   </span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt; [2] "{\"args\":{},\"data\":\"\",\"files\":{},\"form\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"0\",\"Content-Type\":\"application/x-www-form-urlencoded\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.6.0\"},\"json\":null,\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/post\"}\n"</span></a></code></pre></div>
+</div>
+<div id="progress-bars" class="section level2">
+<h2 class="hasAnchor">
+<a href="#progress-bars" class="anchor"></a>Progress bars</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>(httr)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/bytes/102400"</span>, </a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="dt">progress =</span> <span class="kw"><a href="reference/progress.html">progress</a></span>()</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">z &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw">get</span>()</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="op">|</span><span class="er">==============================================|</span><span class="st"> </span><span class="dv">100</span>%</a></code></pre></div>
+</div>
+<div id="to-do" class="section level2">
+<h2 class="hasAnchor">
+<a href="#to-do" class="anchor"></a>TO DO</h2>
 <ul>
-<li><a href="https://github.com/ropensci/vcr">vcr</a></li>
+<li>…</li>
 </ul>
-<p>for flexible and easy HTTP request caching</p>
-</section></section><section id="meta" class="level2"><h2>Meta</h2>
+</div>
+<div id="meta" class="section level2">
+<h2 class="hasAnchor">
+<a href="#meta" class="anchor"></a>Meta</h2>
 <ul>
 <li>Please <a href="https://github.com/ropensci/crul/issues">report any issues or bugs</a>.</li>
 <li>License: MIT</li>
 <li>Get citation information for <code>crul</code> in R doing <code>citation(package = 'crul')</code>
 </li>
-<li>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
-</ul></section></section>
+<li>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
+</ul>
+<p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/github_footer.png" alt="ropensci_footer"></a></p>
+</div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2 class="hasAnchor">
-<a href="#sidebar" class="anchor"></a>Links</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=crul">https://​cran.r-project.org/​package=crul</a>
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=crul">https://​cloud.r-project.org/​package=crul</a>
 </li>
 <li>Browse source code at <br><a href="https://github.com/ropensci/crul">https://​github.com/​ropensci/​crul</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/ropensci/crul/issues">https://​github.com/​ropensci/​crul/​issues</a>
 </li>
 </ul>
+</div>
+<div class="license">
 <h2>License</h2>
-<p><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE.html">LICENSE</a></p>
-<h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Scott Chamberlain <br><small class="roles"> Author, maintainer </small> <br><small>(0000-0003-1444-9135)</small>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
+</div>
+<div class="developers">
+<h2>Developers</h2>
+<ul class="list-unstyled">
+<li>Scott Chamberlain <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1444-9135" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
+</ul>
+</div>
+
+      <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active - The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://travis-ci.org/ropensci/crul"><img src="https://travis-ci.org/ropensci/crul.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://codecov.io/gh/ropensci/crul"><img src="https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cranchecks.info/pkgs/crul"><img src="https://cranchecks.info/badges/worst/crul" alt="cran checks"></a></li>
 <li><a href="https://github.com/metacran/cranlogs.app"><img src="http://cranlogs.r-pkg.org/badges/crul" alt="rstudio mirror downloads"></a></li>
 <li><a href="https://cran.r-project.org/package=crul"><img src="https://www.r-pkg.org/badges/version/crul" alt="cran version"></a></li>
 </ul>
+</div>
 </div>
 
 </div>
@@ -367,11 +409,13 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

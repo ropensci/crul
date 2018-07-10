@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="Async client for different request types — AsyncVaried" />
+
+<meta property="og:description" content="Async client for different request types" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +90,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +110,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,18 +118,22 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Async client for different request types</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/asyncvaried.R'><code>R/asyncvaried.R</code></a></small>
+    <div class="hidden name"><code>AsyncVaried.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Async client for different request types</p>
     
+    </div>
 
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -122,7 +146,8 @@ must supply inputs to one of these parameters, but not both</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>AsyncVaried</code> with variables and methods.
-Responses are returned in the order they are passed in.</p>
+Responses are returned in the order they are passed in. We print the
+first 10.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -152,9 +177,33 @@ requests made</p></dd>
 requests made</p></dd>
 </dl>
     
+    <h2 class="hasAnchor" id="failure-behavior"><a class="anchor" href="#failure-behavior"></a>Failure behavior</h2>
+
+    
+    <p>HTTP requests mostly fail in ways that you are probably familiar with, 
+including when there's a 400 response (the URL not found), and when the 
+server made a mistake (a 500 series HTTP status code).</p>
+<p>But requests can fail sometimes where there is no HTTP status code, and 
+no agreed upon way to handle it other than to just fail immediately.</p>
+<p>When a request fails when using synchronous requests (see [HttpClient]) 
+you get an error message that stops your code progression 
+immediately saying for example:</p>
+<p>- "Could not resolve host: https://foo.com"
+- "Failed to connect to foo.com"
+- "Resolving timed out after 10 milliseconds"</p>
+<p>However, for async requests we don't want to fail immediately because
+that would stop the subsequent requests from occurring. Thus, when 
+we find that a request fails for one of the reasons above we 
+give back a [HttpResponse] object just like any other response, and:</p>
+<p>- capture the error message and put it in the `content` slot of the 
+response object (thus calls to `content` and `parse()` work correctly)
+- give back a `0` HTTP status code. we handle this specially when testing 
+whether the request was successful or not with e.g., the `success()` 
+method</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other async: <code><a href='Async.html'>Async</a></code></p>
+    <div class='dont-index'><p>Other async: <code><a href='Async.html'>Async</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,6 +264,32 @@ requests made</p></dd>
 <span class='no'>out</span>$<span class='fu'>content</span>()
 <span class='no'>out</span>$<span class='fu'>times</span>()
 <span class='no'>out</span>$<span class='fu'>parse</span>()
+
+<span class='co'># using auth with async</span>
+<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://httpbin.org/basic-auth/user/passwd"</span>
+<span class='no'>auth</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='auth.html'>auth</a></span>(<span class='kw'>user</span> <span class='kw'>=</span> <span class='st'>"user"</span>, <span class='kw'>pwd</span> <span class='kw'>=</span> <span class='st'>"passwd"</span>)
+<span class='no'>reqlist</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='no'>auth</span>)$<span class='fu'>get</span>(),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='no'>auth</span>)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>5</span>)),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>auth</span> <span class='kw'>=</span> <span class='no'>auth</span>)$<span class='fu'>get</span>(<span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>3</span>))
+)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='kw'>.list</span> <span class='kw'>=</span> <span class='no'>reqlist</span>)
+<span class='no'>out</span>$<span class='fu'>request</span>()
+<span class='no'>out</span>$<span class='fu'>status</span>()
+<span class='no'>out</span>$<span class='fu'>parse</span>()
+
+<span class='co'># failure behavior</span>
+<span class='co'>## e.g. when a URL doesn't exist, a timeout, etc.</span>
+<span class='no'>reqlist</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"http://stuffthings.gvb"</span>)$<span class='fu'>get</span>(),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>)$<span class='fu'>head</span>(),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
+   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>timeout_ms</span> <span class='kw'>=</span> <span class='fl'>10</span>))$<span class='fu'>head</span>()
+)
+(<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='kw'>.list</span> <span class='kw'>=</span> <span class='no'>reqlist</span>))
+<span class='no'>tmp</span>$<span class='fu'>request</span>()
+<span class='no'>tmp</span>$<span class='fu'>responses</span>()
+<span class='no'>tmp</span>$<span class='fu'>parse</span>(<span class='st'>"UTF-8"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -225,6 +300,8 @@ requests made</p></dd>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#failure-behavior">Failure behavior</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
@@ -240,11 +317,14 @@ requests made</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

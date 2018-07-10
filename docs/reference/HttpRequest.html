@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
+<meta property="og:title" content="HTTP request object — HttpRequest" />
+
+<meta property="og:description" content="HTTP request object" />
+<meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">crul</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">crul</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,12 +90,15 @@
       <a href="../articles/crul_vignette.html">UNKNOWN TITLE</a>
     </li>
     <li>
+      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+    </li>
+    <li>
       <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -91,6 +110,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,18 +118,22 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>HTTP request object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/httprequest.R'><code>R/httprequest.R</code></a></small>
+    <div class="hidden name"><code>HttpRequest.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>HTTP request object</p>
     
+    </div>
 
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -127,12 +151,23 @@
 <code><a href='proxies.html'>proxy</a></code> function. Supports one proxy for now</p></td>
     </tr>
     <tr>
+      <th>auth</th>
+      <td><p>result of a call to the <code><a href='auth.html'>auth</a></code> function, 
+e.g. <code><a href='auth.html'>auth(user = "foo", pwd = "bar")</a></code></p></td>
+    </tr>
+    <tr>
       <th>headers</th>
       <td><p>(list) a named list of headers</p></td>
     </tr>
     <tr>
       <th>handle</th>
       <td><p>A handle, see <code><a href='handle.html'>handle</a></code></p></td>
+    </tr>
+    <tr>
+      <th>progress</th>
+      <td><p>a function with logic for printing a progress
+bar for an HTTP request, ultimiately passed down to <span class="pkg">curl</span>.
+only supports httr::progress() for now</p></td>
     </tr>
     </table>
     
@@ -145,8 +180,8 @@ requests in <code><a href='AsyncVaried.html'>AsyncVaried()</a></code></p>
 object, just as you can with <code>HttpClient</code>. See examples for usage.</p>
 <p>Also note that when you call HTTP verbs on a <code>HttpRequest</code> object you
 don't need to assign the new object to a variable as the new details
-you've added are added to the object itself.
-    <strong>Methods</strong></p><dl class='dl-horizontal'>
+you've added are added to the object itself.</p>
+<p><strong>Methods</strong></p><dl class='dl-horizontal'>
 <dt><code>get(path, query, disk, stream, ...)</code></dt><dd><p>Define a GET request</p></dd>
 <dt><code>post(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a POST request</p></dd>
 <dt><code>put(path, query, body, disk, stream, ...)</code></dt><dd><p>Define a PUT request</p></dd>
@@ -160,78 +195,35 @@ you've added are added to the object itself.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='post-requests.html'>post-requests</a>, <a href='delete-requests.html'>delete-requests</a>,
-<a href='http-headers.html'>http-headers</a>, <a href='writing-options.html'>writing-options</a></p>
+    <div class='dont-index'><p><a href='post-requests.html'>post-requests</a>, <a href='delete-requests.html'>delete-requests</a>,
+<a href='http-headers.html'>http-headers</a>, <a href='writing-options.html'>writing-options</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)
 <span class='co'>## note here how the HTTP method is shown on the first line to the right</span>
-<span class='no'>x</span>$<span class='fu'>get</span>()</div><div class='output co'>#&gt; &lt;crul http request&gt; get
-#&gt;   url: https://httpbin.org/get
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'>
+<span class='no'>x</span>$<span class='fu'>get</span>()
+
 <span class='co'>## assign to a new object to keep the output</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>()
 <span class='co'>### get the HTTP method</span>
-<span class='no'>z</span>$<span class='fu'>method</span>()</div><div class='output co'>#&gt; [1] "get"</div><div class='input'>
-(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>())</div><div class='output co'>#&gt; &lt;crul http request&gt; get
-#&gt;   url: https://httpbin.org/get
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='no'>url</span></div><div class='output co'>#&gt; [1] "https://httpbin.org/get"</div><div class='input'><span class='no'>x</span>$<span class='no'>payload</span></div><div class='output co'>#&gt; $url
-#&gt; $url$url
-#&gt; [1] "https://httpbin.org/get"
-#&gt; 
-#&gt; $url$handle
-#&gt; &lt;curl handle&gt; (https://httpbin.org/get)
-#&gt; 
-#&gt; 
-#&gt; $method
-#&gt; [1] "get"
-#&gt; 
-#&gt; $options
-#&gt; $options$httpget
-#&gt; [1] TRUE
-#&gt; 
-#&gt; 
-#&gt; $headers
-#&gt; $headers$`User-Agent`
-#&gt; [1] "libcurl/7.54.0 r-curl/3.1 crul/0.4.1.9112"
-#&gt; 
-#&gt; $headers$`Accept-Encoding`
-#&gt; [1] "gzip, deflate"
-#&gt; 
-#&gt; $headers$Accept
-#&gt; [1] "application/json, text/xml, application/xml, */*"
-#&gt; 
-#&gt; </div><div class='input'>
-(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; 
-#&gt;   url: https://httpbin.org/post
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'><span class='no'>x</span>$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))</div><div class='output co'>#&gt; &lt;crul http request&gt; post
-#&gt;   url: https://httpbin.org/post
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: </div><div class='input'>
+<span class='no'>z</span>$<span class='fu'>method</span>()
+
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'>get</span>())
+<span class='no'>x</span>$<span class='no'>url</span>
+<span class='no'>x</span>$<span class='no'>payload</span>
+
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>))
+<span class='no'>x</span>$<span class='fu'>post</span>(<span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))
+
 <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>,
   <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'>list</span>(
     <span class='kw'>`Content-Type`</span> <span class='kw'>=</span> <span class='st'>"application/json"</span>
   )
-)</div><div class='output co'>#&gt; &lt;crul http request&gt; 
-#&gt;   url: https://httpbin.org/get
-#&gt;   curl options: 
-#&gt;   proxies: 
-#&gt;   auth: 
-#&gt;   headers: 
-#&gt;     Content-Type: application/json</div></pre>
+)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -254,11 +246,14 @@ you've added are added to the object itself.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

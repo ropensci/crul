@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>curl options — curl-options • crul</title>
+<title>progress bars — progress • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,14 +30,9 @@
 
 
 
-<meta property="og:title" content="curl options — curl-options" />
+<meta property="og:title" content="progress bars — progress" />
 
-<meta property="og:description" content="With the opts parameter you can pass in various
-curl options, including user agent string, whether to get verbose
-curl output or not, setting a timeout for requests, and more. See
-curl::curl_options() for all the options you can use. Note that
-you need to give curl options exactly as given in
-curl::curl_options()." />
+<meta property="og:description" content="progress bars" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,59 +121,34 @@ curl::curl_options()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>curl options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/curl-options.R'><code>R/curl-options.R</code></a></small>
-    <div class="hidden name"><code>curl-options.Rd</code></div>
+    <h1>progress bars</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/progress.R'><code>R/progress.R</code></a></small>
+    <div class="hidden name"><code>progress.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>With the <code>opts</code> parameter you can pass in various
-curl options, including user agent string, whether to get verbose
-curl output or not, setting a timeout for requests, and more. See
-<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl::curl_options()</a></code> for all the options you can use. Note that
-you need to give curl options exactly as given in
-<code><a href='http://www.rdocumentation.org/packages/curl/topics/curl_options'>curl::curl_options()</a></code>.</p>
+    <p>progress bars</p>
     
     </div>
 
         
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://httpbin.org"</span>
+    <p>pass <code><a href='http://www.rdocumentation.org/packages/httr/topics/progress'>httr::progress()</a></code> to <code>progress</code> param in <a href='HttpClient.html'>HttpClient</a>,
+which pulls out relevant info to pass down to <span class="pkg">curl</span></p>
+<p>if file sizes known you get progress bar; if file sizes not
+known you get bytes downloaded</p>
+<p>See the README for examples</p>
+    
 
-<span class='co'># set curl options on client initialization</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))
-<span class='no'>res</span>$<span class='no'>opts</span>
-<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>)
-
-<span class='co'># or set curl options when performing HTTP operation</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>))
-<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>res</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>, <span class='kw'>stuff</span> <span class='kw'>=</span> <span class='st'>"things"</span>)
-
-<span class='co'># set a timeout</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>timeout_ms</span> <span class='kw'>=</span> <span class='fl'>1</span>)))
-<span class='co'># res$get('get')</span>
-
-<span class='co'># set user agent either as a header or an option</span>
-<span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>,
-  <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>`User-Agent`</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>),
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)$<span class='fu'>get</span>(<span class='st'>'get'</span>)
-
-<span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>useragent</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>)
-)$<span class='fu'>get</span>(<span class='st'>'get'</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

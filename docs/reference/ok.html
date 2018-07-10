@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Base response object — HttpResponse • crul</title>
+<title>check if a url is okay — ok • crul</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Base response object — HttpResponse" />
+<meta property="og:title" content="check if a url is okay — ok" />
 
-<meta property="og:description" content="Base response object" />
+<meta property="og:description" content="check if a url is okay" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,106 +121,73 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Base response object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/response.R'><code>R/response.R</code></a></small>
-    <div class="hidden name"><code>HttpResponse.Rd</code></div>
+    <h1>check if a url is okay</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/ok.R'><code>R/ok.R</code></a></small>
+    <div class="hidden name"><code>ok.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Base response object</p>
+    <p>check if a url is okay</p>
     
     </div>
 
+    <pre class="usage"><span class='fu'>ok</span>(<span class='no'>x</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='fl'>200L</span>, <span class='kw'>info</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>url</th>
-      <td><p>(character) A url, required</p></td>
+      <th>x</th>
+      <td><p>either a URL as a character string, or an object of
+class <a href='HttpClient.html'>HttpClient</a></p></td>
     </tr>
     <tr>
-      <th>opts</th>
-      <td><p>(list) curl options</p></td>
+      <th>status</th>
+      <td><p>(integer) an HTTP status code, must be an integer.
+By default this is 200L, since this is the most common signal
+that a URL is okay, but there may be cases in which your URL
+is okay if it's a 201L, or some other status code.</p></td>
     </tr>
     <tr>
-      <th>handle</th>
-      <td><p>A handle</p></td>
+      <th>info</th>
+      <td><p>(logical) in the case of an error, do you want a
+<code>message()</code> about it? Default: <code>TRUE</code></p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>(character) HTTP method</p></td>
-    </tr>
-    <tr>
-      <th>status_code</th>
-      <td><p>(integer) status code</p></td>
-    </tr>
-    <tr>
-      <th>request_headers</th>
-      <td><p>(list) request headers, named list</p></td>
-    </tr>
-    <tr>
-      <th>response_headers</th>
-      <td><p>(list) response headers, named list</p></td>
-    </tr>
-    <tr>
-      <th>modified</th>
-      <td><p>(character) modified date</p></td>
-    </tr>
-    <tr>
-      <th>times</th>
-      <td><p>(vector) named vector</p></td>
-    </tr>
-    <tr>
-      <th>content</th>
-      <td><p>(raw) raw binary content response</p></td>
-    </tr>
-    <tr>
-      <th>request</th>
-      <td><p>request object, with all details</p></td>
+      <th>...</th>
+      <td><p>args passed on to <a href='HttpClient.html'>HttpClient</a></p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a single boolean, if <code>TRUE</code> the URL is up and okay,
+if <code>FALSE</code> it is down.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Methods</strong></p><dl class='dl-horizontal'>
-<dt><code>parse()</code></dt><dd><p>Parse the raw response content to text</p></dd>
-<dt><code>success()</code></dt><dd><p>Was status code less than or equal to 201.
-returns boolean</p></dd>
-<dt><code>status_http()</code></dt><dd><p>Get HTTP status code, message, and explanation</p></dd>
-<dt><code>raise_for_status()</code></dt><dd><p>Check HTTP status and stop with appropriate
-HTTP error code and message if &gt;= 300.
-- If you have <code>fauxpas</code> installed we use that,
-otherwise use <span class="pkg">httpcode</span></p></dd>
-</dl>
+    <p>We internally verify that status is an integer and
+in the known set of HTTP status codes, and that info is a boolean</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpResponse</span>$<span class='fu'>new</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"get"</span>, <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>)
-<span class='no'>x</span>$<span class='no'>url</span>
-<span class='no'>x</span>$<span class='no'>method</span>
+<span class='co'># 200</span>
+<span class='fu'>ok</span>(<span class='st'>"https://google.com"</span>)
+<span class='co'># 200</span>
+<span class='fu'>ok</span>(<span class='st'>"https://httpbin.org/status/200"</span>)
+<span class='co'># 404</span>
+<span class='fu'>ok</span>(<span class='st'>"https://httpbin.org/status/404"</span>)
+<span class='co'># doesn't exist</span>
+<span class='fu'>ok</span>(<span class='st'>"https://stuff.bar"</span>)
+<span class='co'># doesn't exist</span>
+<span class='fu'>ok</span>(<span class='st'>"stuff"</span>)
 
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org'</span>)
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>(<span class='st'>'get'</span>))
-<span class='no'>res</span>$<span class='no'>request_headers</span>
-<span class='no'>res</span>$<span class='no'>response_headers</span>
-<span class='no'>res</span>$<span class='fu'>parse</span>()
-<span class='no'>res</span>$<span class='no'>status_code</span>
-<span class='no'>res</span>$<span class='fu'>status_http</span>()
-<span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>status_code</span>
-<span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>message</span>
-<span class='no'>res</span>$<span class='fu'>status_http</span>()$<span class='no'>explanation</span>
-<span class='no'>res</span>$<span class='fu'>success</span>()
-
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/404'</span>)
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())
-<span class='co'># res$raise_for_status()</span>
-
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/414'</span>)
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>get</span>())
-<span class='co'># res$raise_for_status()</span>
+<span class='co'># with HttpClient</span>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>crul</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/crul/topics/HttpClient'>HttpClient</a></span>$<span class='fu'>new</span>(<span class='st'>"https://httpbin.org/status/404"</span>,
+ <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'>ok</span>(<span class='no'>z</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -228,6 +195,8 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
