@@ -29,6 +29,7 @@ of handling requests with different HTTP methods, options, etc.
 * `auth()` - Simple authentication helper
 * `proxy()` - Proxy helper
 * `upload()` - File upload helper
+* set curl options globally: `set_auth()`, `set_headers()`, `set_opts()`, `set_proxy()`, and `crul_settings()`
 * Writing to disk and streaming: available with both synchronous requests
 as well as async requests.
 
@@ -159,10 +160,10 @@ res$content
 #> [139] 6e 65 63 74 69 6f 6e 22 3a 22 63 6c 6f 73 65 22 2c 22 48 6f 73 74 22
 #> [162] 3a 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 22 55 73 65 72 2d 41 67
 #> [185] 65 6e 74 22 3a 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d
-#> [208] 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 35 2e 34 2e 39 34 31
-#> [231] 30 22 7d 2c 22 6f 72 69 67 69 6e 22 3a 22 32 34 2e 32 31 2e 32 32 39
-#> [254] 2e 35 39 22 2c 22 75 72 6c 22 3a 22 68 74 74 70 73 3a 2f 2f 68 74 74
-#> [277] 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 7d 0a
+#> [208] 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 36 2e 30 22 7d 2c 22
+#> [231] 6f 72 69 67 69 6e 22 3a 22 31 35 37 2e 31 33 30 2e 31 37 39 2e 38 36
+#> [254] 22 2c 22 75 72 6c 22 3a 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69
+#> [277] 6e 2e 6f 72 67 2f 67 65 74 22 7d 0a
 ```
 
 HTTP method
@@ -179,7 +180,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410"
+#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.0"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -206,13 +207,13 @@ res$response_headers
 #> [1] "gunicorn/19.8.1"
 #> 
 #> $date
-#> [1] "Wed, 04 Jul 2018 23:54:24 GMT"
+#> [1] "Tue, 10 Jul 2018 17:53:28 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
 #> 
 #> $`content-length`
-#> [1] "291"
+#> [1] "288"
 #> 
 #> $`access-control-allow-origin`
 #> [1] "*"
@@ -230,7 +231,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\"args\":{},\"headers\":{\"A\":\"hello world\",\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410\"},\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/get\"}\n"
+#> [1] "{\"args\":{},\"headers\":{\"A\":\"hello world\",\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.6.0\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get\"}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -253,11 +254,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410"
+#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.0"
 #> 
 #> 
 #> $origin
-#> [1] "24.21.229.59"
+#> [1] "157.130.179.86"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -327,8 +328,8 @@ out$status()
 #>   Message: OK
 #>   Explanation: Request fulfilled, document follows
 out$parse()
-#> [1] "{\"args\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Foo\":\"bar\",\"Host\":\"httpbin.org\",\"User-Agent\":\"R (3.5.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"},\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/get\"}\n"                                                                                                        
-#> [2] "{\"args\":{},\"data\":\"\",\"files\":{},\"form\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"0\",\"Content-Type\":\"application/x-www-form-urlencoded\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9410\"},\"json\":null,\"origin\":\"24.21.229.59\",\"url\":\"https://httpbin.org/post\"}\n"
+#> [1] "{\"args\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Foo\":\"bar\",\"Host\":\"httpbin.org\",\"User-Agent\":\"R (3.5.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"},\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/get\"}\n"                                                                                                   
+#> [2] "{\"args\":{},\"data\":\"\",\"files\":{},\"form\":{},\"headers\":{\"Accept\":\"application/json, text/xml, application/xml, */*\",\"Accept-Encoding\":\"gzip, deflate\",\"Connection\":\"close\",\"Content-Length\":\"0\",\"Content-Type\":\"application/x-www-form-urlencoded\",\"Host\":\"httpbin.org\",\"User-Agent\":\"libcurl/7.54.0 r-curl/3.2 crul/0.6.0\"},\"json\":null,\"origin\":\"157.130.179.86\",\"url\":\"https://httpbin.org/post\"}\n"
 ```
 
 ## Progress bars

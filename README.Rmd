@@ -35,6 +35,7 @@ of handling requests with different HTTP methods, options, etc.
 * `auth()` - Simple authentication helper
 * `proxy()` - Proxy helper
 * `upload()` - File upload helper
+* set curl options globally: `set_auth()`, `set_headers()`, `set_opts()`, `set_proxy()`, and `crul_settings()`
 * Writing to disk and streaming: available with both synchronous requests
 as well as async requests.
 
