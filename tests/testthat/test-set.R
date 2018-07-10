@@ -62,8 +62,7 @@ test_that("set_opts works", {
 crul_settings(reset = TRUE)
 
 test_that("set_opts in a http request", { 
-  set_opts(timeout_ms = 10)
-  crul_settings()
+  set_opts(timeout_ms = 1)
   expect_error(
     HttpClient$new('https://httpbin.org')$get('get')
   )
