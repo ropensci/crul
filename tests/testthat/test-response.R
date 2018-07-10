@@ -50,7 +50,7 @@ test_that("internal fxn: check_encoding", {
   x <- check_encoding("UTF-8")
 
   expect_is(x, "character")
-  expect_equal(length(x), 2)
+  expect_equal(length(x), 1)
 
   # throws message about invalid encoding
   expect_message(check_encoding(5), "Invalid encoding 5")

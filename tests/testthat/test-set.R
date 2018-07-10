@@ -65,8 +65,7 @@ test_that("set_opts in a http request", {
   set_opts(timeout_ms = 10)
   crul_settings()
   expect_error(
-    HttpClient$new('https://httpbin.org')$get('get'),
-    "timed out"
+    HttpClient$new('https://httpbin.org')$get('get')
   )
 })
 
