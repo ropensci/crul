@@ -79,6 +79,12 @@ curl request times
 - returns: list of named numeric vectors, empty list before
 requests made
 }
+\item{\code{url_fetch(path, query)}}{
+get URLs that would be sent (i.e., before executing the request).
+the only things that change the URL are path and query
+parameters; body and any curl options don't change the URL
+- returns: character vector of URLs
+}
 }
 
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
@@ -107,7 +113,7 @@ remain. This is common in Solr
 
 \examples{
 \dontrun{
-(cli <- HttpClient$new(url = "http://api.crossref.org"))
+(cli <- HttpClient$new(url = "https://api.crossref.org"))
 cc <- Paginator$new(client = cli, limit_param = "rows",
    offset_param = "offset", limit = 50, limit_chunk = 10)
 cc
@@ -120,6 +126,10 @@ cc$times()
 cc$content()
 cc$parse()
 lapply(cc$parse(), jsonlite::fromJSON)
+
+# get full URLs for each request to be made
+cc$url_fetch('works')
+cc$url_fetch('works', query = list(query = "NSF"))
 }
 }
 \keyword{datasets}

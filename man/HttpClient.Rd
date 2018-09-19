@@ -13,7 +13,7 @@
 \item{proxies}{an object of class \code{proxy}, as returned from the
 \code{\link{proxy}} function. Supports one proxy for now}
 
-\item{auth}{result of a call to the \code{\link{auth}} function, 
+\item{auth}{result of a call to the \code{\link{auth}} function,
 e.g. \code{auth(user = "foo", pwd = "bar")}}
 
 \item{headers}{(list) a named list of headers}
@@ -47,6 +47,15 @@ Make a DELETE request
 }
 \item{\code{head(path, query, ...)}}{
 Make a HEAD request
+}
+\item{\code{handle_pop()}}{
+reset your curl handle
+}
+\item{\code{url_fetch(path, query)}}{
+get the URL that would be sent (i.e., before executing the request).
+the only things that change the URL are path and query
+parameters; body and any curl options don't change the URL
+- returns: URL as a character vector
 }
 }
 
@@ -142,6 +151,13 @@ x$post('post')
 ## if you url encode yourself, it gets double encoded, and that's bad
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$get("get", query = list(a = 'hello world'))
+
+# get full url before the request is made
+(x <- HttpClient$new(url = "https://httpbin.org"))
+x$url_fetch()
+x$url_fetch('get')
+x$url_fetch('post')
+x$url_fetch('get', query = list(foo = "bar"))
 }
 }
 \seealso{

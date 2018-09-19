@@ -23,6 +23,15 @@
 #'     \item{`head(path, query, ...)`}{
 #'       Make a HEAD request
 #'     }
+#'     \item{`handle_pop()`}{
+#'       reset your curl handle
+#'     }
+#'     \item{`url_fetch(path, query)`}{
+#'       get the URL that would be sent (i.e., before executing the request).
+#'       the only things that change the URL are path and query
+#'       parameters; body and any curl options don't change the URL
+#'       - returns: URL as a character vector
+#'     }
 #'   }
 #'
 #' @format NULL
@@ -120,6 +129,13 @@
 #' ## if you url encode yourself, it gets double encoded, and that's bad
 #' (x <- HttpClient$new(url = "https://httpbin.org"))
 #' res <- x$get("get", query = list(a = 'hello world'))
+#' 
+#' # get full url before the request is made
+#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' x$url_fetch()
+#' x$url_fetch('get')
+#' x$url_fetch('post')
+#' x$url_fetch('get', query = list(foo = "bar"))
 #' }
 
 HttpClient <- R6::R6Class(
@@ -293,6 +309,10 @@ HttpClient <- R6::R6Class(
       if (exists(name, envir = private$crul_h_pool)) {
         rm(list = name, envir = private$crul_h_pool)
       }
+    },
+
+    url_fetch = function(path = NULL, query = list()) {
+      private$make_url(self$url, path = path, query = query)$url
     }
   ),
 

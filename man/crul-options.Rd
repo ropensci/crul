@@ -3,13 +3,9 @@
 \name{crul-options}
 \alias{crul-options}
 \alias{set_opts}
-\alias{crul-options}
 \alias{set_proxy}
-\alias{crul-options}
 \alias{set_auth}
-\alias{crul-options}
 \alias{set_headers}
-\alias{crul-options}
 \alias{crul_settings}
 \title{Set curl options, proxy, and basic auth}
 \usage{

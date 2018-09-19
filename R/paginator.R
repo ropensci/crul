@@ -64,6 +64,12 @@
 #'       - returns: list of named numeric vectors, empty list before
 #'       requests made
 #'     }
+#'     \item{`url_fetch(path, query)`}{
+#'       get URLs that would be sent (i.e., before executing the request).
+#'       the only things that change the URL are path and query
+#'       parameters; body and any curl options don't change the URL
+#'       - returns: character vector of URLs
+#'     }
 #'   }
 #'
 #' See [HttpClient()] for information on parameters.
@@ -93,7 +99,7 @@
 #' Responses are returned in the order they are passed in.
 #' 
 #' @examples \dontrun{
-#' (cli <- HttpClient$new(url = "http://api.crossref.org"))
+#' (cli <- HttpClient$new(url = "https://api.crossref.org"))
 #' cc <- Paginator$new(client = cli, limit_param = "rows",
 #'    offset_param = "offset", limit = 50, limit_chunk = 10)
 #' cc
@@ -106,6 +112,10 @@
 #' cc$content()
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
+#' 
+#' # get full URLs for each request to be made
+#' cc$url_fetch('works')
+#' cc$url_fetch('works', query = list(query = "NSF"))
 #' }
 Paginator <- R6::R6Class(
   'Paginator',
@@ -227,6 +237,16 @@ Paginator <- R6::R6Class(
 
     times = function() {
       lapply(private$resps, function(z) z$times)
+    },
+
+    url_fetch = function(path = NULL, query = list()) {
+      urls <- c()
+      for (i in seq_along(private$offset_iters)) {
+        off <- private$offset_args[i]
+        off[self$limit_param] <- private$limit_chunks[i]
+        urls[i] <- self$http_req$url_fetch(path, query = ccp(c(query, off)))
+      }
+      return(urls)
     }
   ),
 
