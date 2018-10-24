@@ -1,0 +1,148 @@
+<!--
+%\VignetteIndexEntry{5. API package best practices}
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteEncoding{UTF-8}
+-->
+
+API package best practices
+==========================
+
+## Importing crul
+
+In most cases you'll only need to import one thing from `crul`: 
+`HttpClient`. Add crul to `Imports` in your `DESCRIPTION` file,
+and ad an entry like `@importFrom crul HttpClient` somewhere in 
+your package documentation, for example:
+
+```r
+#' Some function
+#' 
+#' @export
+#' @importFrom crul HttpClient
+#' ...
+```
+
+## HTTP request function
+
+If you have more than one function that needs to make an HTTP request
+it's probably useful to have a function for doing HTTP requests. The
+following is an example of a function.
+
+```{r eval=FALSE}
+xGET <- function(url, path, args = list(), ...) {
+  cli <- crul::HttpClient$new(url, opts = list(...))
+  res <- cli$get(path = path, query = args)
+  res$raise_for_status()
+  res$parse("UTF-8")
+}
+```
+
+There's some features to note in the above function:
+
+* `url`: this really depends on your setup. In some cases the base URL 
+doesn't change, so you can remove the `url` parameter and define the 
+url in the `crul::HttpClient$new()` call. 
+* `path`: this likely will hold anything after the base path
+* `args`: named list of query arguments. the default of `list()` 
+means you can then use the function and not have to pass `args` 
+in cases where no query args are needed.
+* `...`: it's called an ellipsis. see example and discussion below.
+
+You can use the function like:
+
+```{r eval=FALSE}
+x <- xGET("https://httpbin.org", "get", args = list(foo = "bar"))
+# parse the JSON to a list
+jsonlite::fromJSON(x)
+# more parsing
+```
+
+Because we used an ellipsis, anyone can pass in curl options like:
+
+```{r eval=FALSE}
+xGET("https://xxx.org", args = list(foo = "bar"), verbose = TRUE)
+```
+
+Curl options are important for digging into the details of HTTP 
+requests, and go a long way towards users being able to sort out 
+their own problems, and help you diagnose problems as well.
+
+Alternatively, you can just do the HTTP request in your `xGET` function
+and return the response object - and line by line, or with 
+another function, parse results as needed.
+
+## Failing with fauxpas
+
+coming soon ...
+
+## Mocking with webmockr
+
+[webmockr][] is a package for stubbing and setting expectations on 
+HTTP requests. It has support for working with two HTTP request 
+packages: [crul][] and [httr][]. 
+
+There are a variety of use cases for `webmockr`. 
+
+* Use it in an interactive R sesssion where you're working 
+on a project and want to mock HTTP requests and set certain responses. 
+* You can be on a plane and still allow requests to work without an 
+internet connection by setting a response to give back. 
+* Test hard to test scenarios in your code or package. `webmockr` 
+allows you to give back exact reponses just as you describe and 
+even fail with certain HTTP conditions. Getting certain failures 
+to happen with a remote server can sometimes be difficult. 
+* Package test suite: you can use `webmockr` in a test suite, 
+although the next section covers `vcr` which builds on top of 
+`webmockr` and is ideal for tests.
+
+
+## Testing with vcr
+
+[vcr][] records and replays HTTP requests. It's main use case is for 
+caching HTTP requests in test suites in R packages. It has support 
+for working with two HTTP request packages: [crul][] and [httr][]. 
+
+To use `vcr` for testing the setup is pretty easy. 
+
+1. Add `vcr` to Suggests in your DESCRIPTION file
+2. Make a file in your `tests/testthat/` directory called 
+`helper-yourpackage.R` (or skip if as similar file already exists). 
+In that file use the following lines to setup your path for storing 
+cassettes (change path to whatever you want):
+
+```r
+library("vcr")
+invisible(vcr::vcr_configure())
+```
+
+3. In your tests, for whichever tests you want to use `vcr`, wrap 
+the tests in a `vcr::use_cassette()` call like:
+
+```r
+library(testthat)
+test_that("my test", {
+  vcr::use_cassette("rl_citation", {
+    aa <- rl_citation()
+
+    expect_is(aa, "character")
+    expect_match(aa, "IUCN")
+    expect_match(aa, "www.iucnredlist.org")
+  })
+})
+```
+
+That's it! Just run your tests are you normally would and any HTTP 
+requests done by `crul` or `httr` will be cached on the first test run
+then the cached responses used every time thereafter. 
+
+
+## What else?
+
+Let us know if there's anything else you'd like to see in this 
+document and/or if there's anything that can be explained better.
+
+
+[crul]: https://github.com/ropensci/crul
+[webmockr]: https://github.com/ropensci/webmockr
+[vcr]: https://github.com/ropensci/vcr
+[httr]: https://github.com/r-lib/httr
