@@ -21,18 +21,19 @@ HTTP POST/PUT/PATCH requests
 x$post('post')
 
 ## form requests
-(cli <- HttpClient$new(
-  url = "http://apps.kew.org/wcsp/advsearch.do"
-))
-cli$post(
-  encode = "form",
-  body = list(
-    page = 'advancedSearch',
-    genus = 'Gagea',
-    species = 'pratensis',
-    selectedLevel = 'cont'
-  )
-)
+## FIXME: this url no longer works
+# (cli <- HttpClient$new(
+#   url = "http://apps.kew.org/wcsp/advsearch.do"
+# ))
+# cli$post(
+#   encode = "form",
+#   body = list(
+#     page = 'advancedSearch',
+#     genus = 'Gagea',
+#     species = 'pratensis',
+#     selectedLevel = 'cont'
+#   )
+# )
 
 (x <- HttpClient$new(url = "https://httpbin.org"))
 res <- x$post("post",
