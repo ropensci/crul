@@ -48,6 +48,12 @@ Make a DELETE request
 \item{\code{head(path, query, ...)}}{
 Make a HEAD request
 }
+\item{\code{retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3, terminate_on, retry_only_on)}}{
+Retries the request given by \code{verb} until successful (HTTP response
+status < 400), or a condition for giving up is met. Automatically
+recognizes \code{Retry-After} and \code{X-RateLimit-Reset} headers in the
+response for rate-limited remote APIs.
+}
 \item{\code{handle_pop()}}{
 reset your curl handle
 }
@@ -61,22 +67,36 @@ parameters; body and any curl options don't change the URL
 
 Possible parameters (not all are allowed in each HTTP verb):
 \itemize{
-\item path - URL path, appended to the base URL
-\item query - query terms, as a named list
-\item body - body as an R list
-\item encode - one of form, multipart, json, or raw
-\item disk - a path to write to. if NULL (default), memory used.
+\item \code{path} - URL path, appended to the base URL
+\item \code{query} - query terms, as a named list
+\item \code{body} - body as an R list
+\item \code{encode} - one of form, multipart, json, or raw
+\item \code{disk} - a path to write to. if NULL (default), memory used.
 See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.
-\item stream - an R function to determine how to stream data. if
+\item \code{stream} - an R function to determine how to stream data. if
 NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
 for help
-\item ... curl options, only those in the acceptable set from
-\code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost,
-post, postfields, postfieldsize, and customrequest
+\item \code{...} For \code{retry}, the options to be passed on to the method
+implementing the requested verb, including curl options. Otherwise,
+curl options, only those in the acceptable set from \code{\link[curl:curl_options]{curl::curl_options()}}
+except the following: httpget, httppost, post, postfields, postfieldsize,
+and customrequest
+\item \code{pause_base,pause_cap,pause_min} - basis, maximum, and minimum for
+calculating wait time for retry. Wait time is calculated according to the
+exponential backoff with full jitter algorithm. Specifically, wait time is
+chosen randomly between \code{pause_min} and the lesser of \code{pause_base * 2} and
+\code{pause_cap}, with \code{pause_base} doubling on each subsequent retry attempt.
+Use \code{pause_cap = Inf} to not terminate retrying due to cap of wait time
+reached.
+\item \code{times} - the maximum number of times to retry. Set to \code{Inf} to
+not stop retrying due to exhausting the number of attempts.
+\item \code{terminate_on,retry_only_on} - a vector of HTTP status codes. For
+\code{terminate_on}, the status codes for which to terminate retrying, and for
+\code{retry_only_on}, the status codes for which to retry the request.
 }
 }
 \note{
-a little quark about \code{crul} is that because user agent string can
+A little quirk about \code{crul} is that because user agent string can
 be passed as either a header or a curl option (both lead to a \code{User-Agent}
 header being passed in the HTTP request), we return the user agent
 string in the \code{request_headers} list of the response even if you
@@ -94,12 +114,12 @@ separate connections.
 If you don't pass in a curl handle to the \code{handle} parameter,
 it gets created when a HTTP verb is called. Thus, if you try to get \code{handle}
 after creating a \code{HttpClient} object only passing \code{url} parameter, \code{handle}
-will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then  you can get the handle from the }HttpClient\code{object. The response from a  http verb request does have the handle in the}handle` slot.
+will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then you can get the handle from the }HttpClient\code{object. The response from a http verb request does have the handle in the}handle` slot.
 }
 
 \examples{
 \dontrun{
-# set your own handle 
+# set your own handle
 (h <- handle("https://httpbin.org"))
 (x <- HttpClient$new(handle = h))
 x$handle
@@ -117,7 +137,7 @@ x$url
 x$handle # is empty, it gets created when a HTTP verb is called
 (r1 <- x$get('get'))
 x$url
-x$handle 
+x$handle
 r1$url
 r1$handle
 r1$content
@@ -146,6 +166,15 @@ x$post('post')
 
 # head request
 (res_head <- x$head())
+
+# retry, by default at most 3 times
+(res_get <- x$retry("GET", path = "status/400"))
+
+# retry, but not for 404 NOT FOUND
+(res_get <- x$retry("GET", path = "status/404", terminate_on = c(404)))
+
+# retry, but only for exceeding rate limit (note that e.g. Github uses 403)
+(res_get <- x$retry("GET", path = "status/429", retry_only_on = c(403, 429)))
 
 # query params are URL encoded for you, so DO NOT do it yourself
 ## if you url encode yourself, it gets double encoded, and that's bad

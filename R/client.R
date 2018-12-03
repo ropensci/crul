@@ -23,6 +23,13 @@
 #'     \item{`head(path, query, ...)`}{
 #'       Make a HEAD request
 #'     }
+#'     \item{`retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
+#'                  terminate_on, retry_only_on)`}{
+#'       Retries the request given by `verb` until successful (HTTP response
+#'       status < 400), or a condition for giving up is met. Automatically
+#'       recognizes `Retry-After` and `X-RateLimit-Reset` headers in the
+#'       response for rate-limited remote APIs.
+#'     }
 #'     \item{`handle_pop()`}{
 #'       reset your curl handle
 #'     }
@@ -38,18 +45,32 @@
 #' @usage NULL
 #' @details Possible parameters (not all are allowed in each HTTP verb):
 #' \itemize{
-#'  \item path - URL path, appended to the base URL
-#'  \item query - query terms, as a named list
-#'  \item body - body as an R list
-#'  \item encode - one of form, multipart, json, or raw
-#'  \item disk - a path to write to. if NULL (default), memory used.
+#'  \item `path` - URL path, appended to the base URL
+#'  \item `query` - query terms, as a named list
+#'  \item `body` - body as an R list
+#'  \item `encode` - one of form, multipart, json, or raw
+#'  \item `disk` - a path to write to. if NULL (default), memory used.
 #'  See [curl::curl_fetch_disk()] for help.
-#'  \item stream - an R function to determine how to stream data. if
+#'  \item `stream` - an R function to determine how to stream data. if
 #'  NULL (default), memory used. See [curl::curl_fetch_stream()]
 #'  for help
-#'  \item ... curl options, only those in the acceptable set from
-#'  [curl::curl_options()] except the following: httpget, httppost,
-#'  post, postfields, postfieldsize, and customrequest
+#'  \item `...` For `retry`, the options to be passed on to the method
+#'  implementing the requested verb, including curl options. Otherwise,
+#'  curl options, only those in the acceptable set from [curl::curl_options()]
+#'  except the following: httpget, httppost, post, postfields, postfieldsize,
+#'  and customrequest
+#'  \item `pause_base,pause_cap,pause_min` - basis, maximum, and minimum for
+#'  calculating wait time for retry. Wait time is calculated according to the
+#'  exponential backoff with full jitter algorithm. Specifically, wait time is
+#'  chosen randomly between `pause_min` and the lesser of `pause_base * 2` and
+#'  `pause_cap`, with `pause_base` doubling on each subsequent retry attempt.
+#'  Use `pause_cap = Inf` to not terminate retrying due to cap of wait time
+#'  reached.
+#'  \item `times` - the maximum number of times to retry. Set to `Inf` to
+#'  not stop retrying due to exhausting the number of attempts.
+#'  \item `terminate_on,retry_only_on` - a vector of HTTP status codes. For
+#'  `terminate_on`, the status codes for which to terminate retrying, and for
+#'  `retry_only_on`, the status codes for which to retry the request.
 #' }
 #'
 #' @section handles:
@@ -63,8 +84,8 @@
 #' will be `NULL`. If you pass a curl handle to the `handle parameter, then 
 #' you can get the handle from the `HttpClient` object. The response from a 
 #' http verb request does have the handle in the `handle` slot.
-#' 
-#' @note a little quark about `crul` is that because user agent string can 
+#'
+#' @note A little quirk about `crul` is that because user agent string can
 #' be passed as either a header or a curl option (both lead to a `User-Agent` 
 #' header being passed in the HTTP request), we return the user agent 
 #' string in the `request_headers` list of the response even if you 
@@ -124,6 +145,15 @@
 #'
 #' # head request
 #' (res_head <- x$head())
+#'
+#' # retry, by default at most 3 times
+#' (res_get <- x$retry("GET", path = "status/400"))
+#'
+#' # retry, but not for 404 NOT FOUND
+#' (res_get <- x$retry("GET", path = "status/404", terminate_on = c(404)))
+#'
+#' # retry, but only for exceeding rate limit (note that e.g. Github uses 403)
+#' (res_get <- x$retry("GET", path = "status/429", retry_only_on = c(403, 429)))
 #'
 #' # query params are URL encoded for you, so DO NOT do it yourself
 #' ## if you url encode yourself, it gets double encoded, and that's bad
@@ -302,6 +332,45 @@ HttpClient <- R6::R6Class(
         rr$options,
         c(self$opts, self$proxies, ...))
       private$make_request(rr)
+    },
+
+    retry = function(verb, ...,
+                     pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
+                     terminate_on = NULL, retry_only_on = NULL) {
+      stopifnot(is.character(verb), length(verb) > 0)
+      verbFunc <- self[[tolower(verb)]]
+      stopifnot(is.function(verbFunc))
+      resp <- verbFunc(...)
+      if ((resp$status_code >= 400) &&
+          (! resp$status_code %in% terminate_on) &&
+          (is.null(retry_only_on) || resp$status_code %in% retry_only_on) &&
+          (times > 0) &&
+          (pause_base < pause_cap)) {
+        rh <- resp$response_headers
+        if (! is.null(rh[["retry-after"]])) {
+          waitTime <- as.numeric(rh[["retry-after"]])
+        } else if (identical(rh[["x-ratelimit-remaining"]], "0") &&
+                   ! is.null(rh[["x-ratelimit-reset"]])) {
+          waitTime <- max(0, as.numeric(rh[["x-ratelimit-reset"]]) - as.numeric(Sys.time()))
+        } else {
+          if (is.null(pause_min)) pause_min <- pause_base
+          # exponential backoff with full jitter
+          waitTime <- stats::runif(1,
+                                   min = pause_min,
+                                   max = min(pause_base * 2, pause_cap))
+        }
+        if (! (waitTime > pause_cap)) {
+          Sys.sleep(waitTime)
+          resp <- self$retry(verb = verb, ...,
+                             pause_base = pause_base * 2,
+                             pause_cap = pause_cap,
+                             pause_min = pause_min,
+                             times = times - 1,
+                             terminate_on = terminate_on,
+                             retry_only_on = retry_only_on)
+        }
+      }
+      resp
     },
 
     handle_pop = function() {
