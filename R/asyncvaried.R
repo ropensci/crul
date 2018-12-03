@@ -237,7 +237,10 @@ AsyncVaried <- R6::R6Class(
             curl::multi_add(
               handle = h,
               done = function(res) multi_res[[i]] <<- res,
-              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
+              fail = function(res) {
+                close(ff)
+                multi_res[[i]] <<- make_async_error(res, w)
+              },
               data = ff,
               pool = crulpool
             )
