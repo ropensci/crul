@@ -19,10 +19,11 @@ test_that("mock function", {
 context("mocking: HttpClient")
 test_that("mocking with HttpClient", {
   skip_on_cran()
+  skip_if_not_installed("webmockr")
 
-  library(webmockr)
+  loadNamespace("webmockr")
   url <- hb()
-  st <- stub_request("get", file.path(url, "get"))
+  st <- webmockr::stub_request("get", file.path(url, "get"))
   #webmockr:::webmockr_stub_registry
 
   # webmockr IS NOT enabled
@@ -42,15 +43,19 @@ test_that("mocking with HttpClient", {
 
   expect_is(aa$times, "numeric")
   expect_null(bb$times)
+
+  # clean up
+  webmockr::stub_registry_clear()
 })
 
 context("mocking: HttpClient when not stubbed yet")
 test_that("mocking with HttpClient: ", {
   skip_on_cran()
+  skip_if_not_installed("webmockr")
 
-  library(webmockr)
+  loadNamespace("webmockr")
   url <- hb()
-  st <- stub_request("get", file.path(url, "get"))
+  st <- webmockr::stub_request("get", file.path(url, "get"))
   #webmockr:::webmockr_stub_registry
 
   # webmockr IS NOT enabled
@@ -67,6 +72,9 @@ test_that("mocking with HttpClient: ", {
     cli$post("post"),
     "registered request stubs"
   )
+
+  # clean up
+  webmockr::stub_registry_clear()
 })
 
 # turn mocking off
