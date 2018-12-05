@@ -261,7 +261,7 @@ test_that("retry recognizes retry headers", {
                               status = 429,
                               headers = list("x-ratelimit-remaining" = "0",
                                              "x-ratelimit-reset" =
-                                               as.character(as.integer(Sys.time()) + 3)))
+                                               ceiling(as.numeric(Sys.time())) + 3))
   tt1 <- system.time(cli$retry("GET", path = "get", pause_base = 0, pause_min = 0, times = 1))
   expect_gt(tt1["elapsed"], 2.0)
   webmockr::stub_registry_clear()
