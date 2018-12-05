@@ -48,7 +48,7 @@ Make a DELETE request
 \item{\code{head(path, query, ...)}}{
 Make a HEAD request
 }
-\item{\code{retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3, terminate_on, retry_only_on)}}{
+\item{\code{retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3, terminate_on, retry_only_on, onwait)}}{
 Retries the request given by \code{verb} until successful (HTTP response
 status < 400), or a condition for giving up is met. Automatically
 recognizes \code{Retry-After} and \code{X-RateLimit-Reset} headers in the
@@ -93,6 +93,11 @@ not stop retrying due to exhausting the number of attempts.
 \item \code{terminate_on,retry_only_on} - a vector of HTTP status codes. For
 \code{terminate_on}, the status codes for which to terminate retrying, and for
 \code{retry_only_on}, the status codes for which to retry the request.
+\item \code{onwait} - a callback function if the request will be retried and
+a wait time is being applied. The function will be passed two parameters,
+the response object from the failed request, and the wait time in seconds.
+Note that the time spent in the function effectively adds to the wait time,
+so it should be kept simple.
 }
 }
 \note{
@@ -114,12 +119,12 @@ separate connections.
 If you don't pass in a curl handle to the \code{handle} parameter,
 it gets created when a HTTP verb is called. Thus, if you try to get \code{handle}
 after creating a \code{HttpClient} object only passing \code{url} parameter, \code{handle}
-will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then you can get the handle from the }HttpClient\code{object. The response from a http verb request does have the handle in the}handle` slot.
+will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then  you can get the handle from the }HttpClient\code{object. The response from a  http verb request does have the handle in the}handle` slot.
 }
 
 \examples{
 \dontrun{
-# set your own handle
+# set your own handle 
 (h <- handle("https://httpbin.org"))
 (x <- HttpClient$new(handle = h))
 x$handle
@@ -137,7 +142,7 @@ x$url
 x$handle # is empty, it gets created when a HTTP verb is called
 (r1 <- x$get('get'))
 x$url
-x$handle
+x$handle 
 r1$url
 r1$handle
 r1$content
