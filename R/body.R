@@ -33,13 +33,15 @@ prep_body <- function(body, encode, type = NULL) {
     return(raw_body(body, type = type))
   }
   if (inherits(body, "form_file")) {
-    con <- file(body$path, "rb")
-    size <- file.info(body$path)$size
+    filePath <- body$path
+    size <- file.info(filePath)$size
+    con <- NULL
     return(
       list(
         opts = list(
           post = TRUE,
           readfunction = function(nbytes, ...) {
+            if (is.null(con)) con <<- file(filePath, "rb")
             if (is.null(con)) return(raw())
             bin <- readBin(con, "raw", nbytes)
             if (length(bin) < nbytes) {
