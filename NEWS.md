@@ -1,3 +1,16 @@
+crul 0.6.1.9100
+==========
+
+### NEW FEATURES
+
+* `HttpClient` gains a `retry` method: retries any request verb until successful (HTTP response status < 400) or a condition for giving up is met. (#89) (#95) thanks @hlapp
+* `HttpClient` and `Paginator` gain a `url_fetch` method: get the URL that would be sent in an HTTP request without sending the HTTP request. Useful for getting the URL before executing an HTTP request if you need to check something about the URL first.
+* new vignette for "API package best practices" (#65)
+
+### BUG FIXES
+
+* some dangling file connections were left open - now fixed (#95)
+
 crul 0.6.0
 ==========
 
