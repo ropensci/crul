@@ -236,7 +236,10 @@ AsyncVaried <- R6::R6Class(
             ff <- file(w$disk, open = "wb")
             curl::multi_add(
               handle = h,
-              done = function(res) multi_res[[i]] <<- res,
+              done = function(res) {
+                close(ff)
+                multi_res[[i]] <<- res
+              },
               fail = function(res) {
                 close(ff)
                 multi_res[[i]] <<- make_async_error(res, w)
