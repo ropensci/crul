@@ -24,7 +24,7 @@
 #'       Make a HEAD request
 #'     }
 #'     \item{`retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
-#'                  terminate_on, retry_only_on)`}{
+#'                  terminate_on, retry_only_on, onwait)`}{
 #'       Retries the request given by `verb` until successful (HTTP response
 #'       status < 400), or a condition for giving up is met. Automatically
 #'       recognizes `Retry-After` and `X-RateLimit-Reset` headers in the
@@ -71,6 +71,11 @@
 #'  \item `terminate_on,retry_only_on` - a vector of HTTP status codes. For
 #'  `terminate_on`, the status codes for which to terminate retrying, and for
 #'  `retry_only_on`, the status codes for which to retry the request.
+#'  \item `onwait` - a callback function if the request will be retried and
+#'  a wait time is being applied. The function will be passed two parameters,
+#'  the response object from the failed request, and the wait time in seconds.
+#'  Note that the time spent in the function effectively adds to the wait time,
+#'  so it should be kept simple.
 #' }
 #'
 #' @section handles:
@@ -336,8 +341,10 @@ HttpClient <- R6::R6Class(
 
     retry = function(verb, ...,
                      pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
-                     terminate_on = NULL, retry_only_on = NULL) {
+                     terminate_on = NULL, retry_only_on = NULL,
+                     onwait = NULL) {
       stopifnot(is.character(verb), length(verb) > 0)
+      stopifnot(is.null(onwait) || is.function(onwait))
       verbFunc <- self[[tolower(verb)]]
       stopifnot(is.function(verbFunc))
       resp <- verbFunc(...)
@@ -360,6 +367,7 @@ HttpClient <- R6::R6Class(
                                    max = min(pause_base * 2, pause_cap))
         }
         if (! (waitTime > pause_cap)) {
+          if (is.function(onwait)) onwait(resp, waitTime)
           Sys.sleep(waitTime)
           resp <- self$retry(verb = verb, ...,
                              pause_base = pause_base * 2,
@@ -367,7 +375,8 @@ HttpClient <- R6::R6Class(
                              pause_min = pause_min,
                              times = times - 1,
                              terminate_on = terminate_on,
-                             retry_only_on = retry_only_on)
+                             retry_only_on = retry_only_on,
+                             onwait = onwait)
         }
       }
       resp

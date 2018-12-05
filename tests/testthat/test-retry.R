@@ -300,3 +300,23 @@ test_that("retry doesn't retry on error unless triggered", {
   expect_lt(abs(tt1["elapsed"] - tt["elapsed"]), 1)
 
 })
+
+context("retry: using callback")
+test_that("retry invokes callback function if provided", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb())
+  codes <- c()
+  waittimes <- c()
+  tt <- system.time(cli$retry("GET", path = "status/400", times = 2,
+                              onwait = function(resp, secs) {
+                                codes <<- c(codes, resp$status_code)
+                                waittimes <<- c(waittimes, secs)
+                              }))
+  expect_length(codes, 2)
+  expect_length(waittimes, 2)
+  expect_identical(codes, c(400, 400))
+  expect_true(waittimes[1] >= 1 && waittimes[1] <= 2)
+  expect_true(waittimes[2] >= 1 && waittimes[2] <= 4)
+})
+
