@@ -30,6 +30,19 @@ test_that("Paginator works", {
   expect_equal(length(aa$times()), 5)
 })
 
+test_that("Paginator print method", {
+  skip_on_cran()
+
+  expect_is(aa$print, "function")
+  expect_output(aa$print(), "api.crossref.org")
+  expect_output(aa$print(), "query_params")
+  expect_output(aa$print(), "limit_chunk: 10")
+  expect_output(aa$print(), "limit_param: rows")
+  expect_output(aa$print(), "offset_param: offset")
+  expect_output(aa$print(), "limit: 50")
+  expect_output(aa$print(), "status: not run yet")
+})
+
 
 test_that("Paginator works with many different limit and limit_chunk combinations", {
   skip_on_cran()

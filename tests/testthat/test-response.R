@@ -29,6 +29,44 @@ test_that("HttpResponse works", {
   expect_true(aa$success())
   expect_null(aa$times)
   expect_is(aa$request, "list")
+
+
+  aa <- HttpResponse$new(
+    method = "get",
+    url = hb(),
+    status_code = 404,
+    request_headers = list(useragent = "foo bar"),
+    content = charToRaw("hello world"),
+    request = list()
+  )
+
+  expect_error(aa$raise_for_status(), "Not Found \\(HTTP 404\\)")
+})
+
+test_that("HttpResponse print method", {
+  skip_on_cran()
+  
+  aa <- HttpResponse$new(
+    method = "get",
+    url = hb("/stuff?g=6"),
+    status_code = 201,
+    request_headers = list(useragent = "foo bar"),
+    response_headers = list(`content-type` = "application/json"),
+    content = charToRaw("hello world"),
+    request = list()
+  )
+
+  expect_is(aa, "HttpResponse")
+  expect_is(aa$print, "function")
+  expect_output(aa$print(), "crul response")
+  expect_output(aa$print(), "url:")
+  expect_output(aa$print(), "request_headers:")
+  expect_output(aa$print(), 'useragent')
+  expect_output(aa$print(), "response_headers:")
+  expect_output(aa$print(), 'content-type')
+  expect_output(aa$print(), 'params')
+  expect_output(aa$print(), 'g: 6')
+  expect_output(aa$print(), 'status: 201')
 })
 
 test_that("HttpResponse fails well", {
