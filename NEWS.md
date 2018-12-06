@@ -11,6 +11,10 @@ crul 0.6.1.9100
 
 * some dangling file connections were left open - now fixed (#93) (#95)
 
+### DEFUNCT
+
+* `HttpStubbedResponse` was removed from the package - it may have been used at some point, but is not used in the package anymore (#88)
+
 crul 0.6.0
 ==========
 
