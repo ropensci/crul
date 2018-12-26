@@ -1,4 +1,4 @@
-context("retry: basics")
+context("HttpClient retry: basics")
 
 test_that("retry has basic error checking", {
   cli <- HttpClient$new(url = hb())
@@ -10,7 +10,7 @@ test_that("retry has basic error checking", {
   expect_error(cli$retry("FOO", times = 10))
 })
 
-context("retry: get")
+context("HttpClient retry: get")
 
 test_that("retry wrapping get request works", {
   skip_on_cran()
@@ -54,7 +54,7 @@ test_that("retry wrapping get request - query parameters", {
   expect_equal(params, querya)
 })
 
-context("retry: post")
+context("HttpClient retry: post")
 
 test_that("retry wrapping post request works", {
   skip_on_cran()
@@ -134,7 +134,7 @@ test_that("retry wrapping post request with file upload", {
   expect_match(out$files$a, "data:image/jpeg")
 })
 
-context("retry: put")
+context("HttpClient retry: put")
 
 test_that("retry wrapping put request works", {
   skip_on_cran()
@@ -173,7 +173,7 @@ test_that("retry wrapping put request with body", {
   expect_equal(aa$request$fields[[1]], "world")
 })
 
-context("retry: delete")
+context("HttpClient retry: delete")
 
 test_that("retry wrapping delete request works", {
   skip_on_cran()
@@ -212,7 +212,7 @@ test_that("retry wrapping delete request with body", {
   expect_equal(aa$request$fields[[1]], "world")
 })
 
-context("retry: retry")
+context("HttpClient retry: retry")
 
 test_that("retry actually retries on error", {
   skip_on_cran()
@@ -301,7 +301,7 @@ test_that("retry doesn't retry on error unless triggered", {
 
 })
 
-context("retry: using callback")
+context("HttpClient retry: using callback")
 test_that("retry invokes callback function if provided", {
   skip_on_cran()
 
