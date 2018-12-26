@@ -356,7 +356,7 @@ HttpClient <- R6::R6Class(
     verb = function(verb, ...) {
       stopifnot(is.character(verb), length(verb) > 0)
       verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head', 'retry')
-      if (!verb %in% verbs) stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
+      if (!tolower(verb) %in% verbs) stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
       verbFunc <- self[[tolower(verb)]]
       stopifnot(is.function(verbFunc))
       verbFunc(...)
