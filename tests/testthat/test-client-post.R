@@ -1,4 +1,4 @@
-context("request: post")
+context("HttpClient: post")
 
 test_that("post request works", {
   skip_on_cran()

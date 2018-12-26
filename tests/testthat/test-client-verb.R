@@ -1,4 +1,4 @@
-context("request: verb")
+context("HttpClient: verb")
 
 test_that("verb: works", {
   skip_on_cran()

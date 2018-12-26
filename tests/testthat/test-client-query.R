@@ -1,4 +1,4 @@
-context("query")
+context("HttpClient: query")
 
 test_that("query works", {
   skip_on_cran()

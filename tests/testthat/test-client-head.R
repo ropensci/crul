@@ -1,4 +1,4 @@
-context("request: head")
+context("HttpClient: head")
 
 test_that("head request works", {
   skip_on_cran()

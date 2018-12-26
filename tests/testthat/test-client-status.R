@@ -1,4 +1,4 @@
-context("request: status")
+context("HttpClient: status")
 
 test_that("HTTP status is as expected", {
   skip_on_cran()

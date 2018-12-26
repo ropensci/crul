@@ -1,16 +1,16 @@
-context("request: patch")
+context("HttpClient: delete")
 
-test_that("patch request works", {
+test_that("delete request works", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = hb())
-  aa <- cli$patch("patch")
+  aa <- cli$delete("delete")
 
   expect_is(aa, "HttpResponse")
   expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "patch")
+  expect_equal(aa$method, "delete")
   expect_is(aa$parse, "function")
   expect_is(aa$parse(), "character")
   expect_true(aa$success())
@@ -18,19 +18,19 @@ test_that("patch request works", {
   expect_null(aa$request$fields)
 })
 
-test_that("patch request with body", {
+test_that("delete request with body", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = hb())
-  aa <- cli$patch("patch", body = list(hello = "world"))
+  aa <- cli$delete("delete", body = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")
   expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "patch")
+  expect_equal(aa$method, "delete")
   expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_is(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
 
   expect_named(aa$request$fields, "hello")

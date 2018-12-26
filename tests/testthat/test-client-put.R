@@ -1,16 +1,16 @@
-context("request: delete")
+context("HttpClient: put")
 
-test_that("delete request works", {
+test_that("put request works", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = hb())
-  aa <- cli$delete("delete")
+  aa <- cli$put("put")
 
   expect_is(aa, "HttpResponse")
   expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "delete")
+  expect_equal(aa$method, "put")
   expect_is(aa$parse, "function")
   expect_is(aa$parse(), "character")
   expect_true(aa$success())
@@ -18,17 +18,17 @@ test_that("delete request works", {
   expect_null(aa$request$fields)
 })
 
-test_that("delete request with body", {
+test_that("put request with body", {
   skip_on_cran()
 
   cli <- HttpClient$new(url = hb())
-  aa <- cli$delete("delete", body = list(hello = "world"))
+  aa <- cli$put("put", body = list(hello = "world"))
 
   expect_is(aa, "HttpResponse")
   expect_is(aa$handle, 'curl_handle')
   expect_is(aa$content, "raw")
   expect_is(aa$method, "character")
-  expect_equal(aa$method, "delete")
+  expect_equal(aa$method, "put")
   expect_is(aa$parse, "function")
   expect_is(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
