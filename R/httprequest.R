@@ -36,6 +36,10 @@
 #'     \item{`head(path, ...)`}{
 #'       Define a HEAD request
 #'     }
+#'     \item{`verb(verb, ...)`}{
+#'       Use an arbitrary HTTP verb supported on this class
+#'       Supported verbs: get, post, put, patch, delete, head
+#'     }
 #'     \item{`method()`}{
 #'       Get the HTTP method (if defined)
 #'       - returns character string
@@ -70,6 +74,11 @@
 #'     `Content-Type` = "application/json"
 #'   )
 #' )
+#' 
+#' # verb: get any http method
+#' z <- HttpRequest$new(url = "https://httpbin.org/get")
+#' res <- z$verb('get', query = list(hello = "world"))
+#' res$payload
 #' }
 HttpRequest <- R6::R6Class(
   'HttpRequest',
@@ -226,6 +235,15 @@ HttpRequest <- R6::R6Class(
                                       c(self$opts, self$proxies, ...))
       self$payload <- rr
       return(self)
+    },
+
+    verb = function(verb, ...) {
+      stopifnot(is.character(verb), length(verb) > 0)
+      verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head')
+      if (!verb %in% verbs) stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
+      verbFunc <- self[[tolower(verb)]]
+      stopifnot(is.function(verbFunc))
+      verbFunc(...)
     },
 
     method = function() self$payload$method

@@ -48,6 +48,11 @@ Make a DELETE request
 \item{\code{head(path, query, ...)}}{
 Make a HEAD request
 }
+\item{\code{verb(verb, ...)}}{
+Use an arbitrary HTTP verb supported on this class
+Supported verbs: get, post, put, patch, delete, head. Also supports
+retry
+}
 \item{\code{retry(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3, terminate_on, retry_only_on, onwait)}}{
 Retries the request given by \code{verb} until successful (HTTP response
 status < 400), or a condition for giving up is met. Automatically
@@ -76,7 +81,9 @@ See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.
 \item \code{stream} - an R function to determine how to stream data. if
 NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
 for help
-\item \code{...} For \code{retry}, the options to be passed on to the method
+\item \code{verb} - an HTTP verb supported on this class: get, post, put,
+patch, delete, head. Also supports retry.
+\item \code{...} - For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
 curl options, only those in the acceptable set from \code{\link[curl:curl_options]{curl::curl_options()}}
 except the following: httpget, httppost, post, postfields, postfieldsize,
@@ -171,6 +178,13 @@ x$post('post')
 
 # head request
 (res_head <- x$head())
+
+# arbitrary verb
+(x <- HttpClient$new(url = "https://httpbin.org"))
+x$verb('get')
+x$verb('GET')
+x$verb('GET', query = list(foo = "bar"))
+x$verb('retry', 'GET', path = "status/400")
 
 # retry, by default at most 3 times
 (res_get <- x$retry("GET", path = "status/400"))

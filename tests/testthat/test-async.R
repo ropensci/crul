@@ -148,6 +148,21 @@ test_that("Async - head", {
   expect_equal(out[[2]]$method, "head")
 })
 
+context("Async - verb")
+test_that("Async - verb", {
+  skip_on_cran()
+
+  aa <- Async$new(urls = c('https://google.com',
+                           'https://nytimes.com'))
+  out <- aa$verb('get')
+
+  expect_is(out, "list")
+  expect_is(out[[1]], "HttpResponse")
+  expect_is(out[[2]], "HttpResponse")
+  expect_equal(out[[1]]$method, "get")
+  expect_equal(out[[2]]$method, "get")
+})
+
 
 context("Async - order of results")
 test_that("Async - order", {

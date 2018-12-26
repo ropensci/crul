@@ -59,6 +59,10 @@ Define a DELETE request
 \item{\code{head(path, ...)}}{
 Define a HEAD request
 }
+\item{\code{verb(verb, ...)}}{
+Use an arbitrary HTTP verb supported on this class
+Supported verbs: get, post, put, patch, delete, head
+}
 \item{\code{method()}}{
 Get the HTTP method (if defined)
 - returns character string
@@ -91,6 +95,11 @@ HttpRequest$new(
     `Content-Type` = "application/json"
   )
 )
+
+# verb: get any http method
+z <- HttpRequest$new(url = "https://httpbin.org/get")
+res <- z$verb('get', query = list(hello = "world"))
+res$payload
 }
 }
 \seealso{

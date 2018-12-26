@@ -27,6 +27,9 @@
 #'     \item{`head(path, ...)`}{
 #'       make async HEAD requests for all URLs
 #'     }
+#'     \item{`verb(verb, ...)`}{
+#'       make async requests with an arbitrary HTTP verb
+#'     }
 #'   }
 #'
 #' See [HttpClient()] for information on parameters.
@@ -54,7 +57,6 @@
 #' res[[1]]$method
 #' res[[1]]$content
 #' res[[1]]$parse("UTF-8")
-#'
 #' lapply(res, function(z) z$parse("UTF-8"))
 #' 
 #' # using auth with async
@@ -74,6 +76,18 @@
 #' res[[1]]$parse("UTF-8") # a failure
 #' res[[2]]$parse("UTF-8") # a failure
 #' res[[3]]$parse("UTF-8") # a success
+#' 
+#' # use arbitrary http verb
+#' cc <- Async$new(
+#'   urls = c(
+#'     'https://httpbin.org/',
+#'     'https://httpbin.org/get?a=5',
+#'     'https://httpbin.org/get?foo=bar'
+#'   )
+#' )
+#' method <- 'get'
+#' (res <- cc$verb(method))
+#' lapply(res, function(z) z$parse("UTF-8"))
 #' }
 Async <- R6::R6Class(
   'Async',
@@ -129,6 +143,15 @@ Async <- R6::R6Class(
 
     head = function(path = NULL, ...) {
       private$gen_interface(self$urls, "head", path, ...)
+    },
+
+    verb = function(verb, ...) {
+      stopifnot(is.character(verb), length(verb) > 0)
+      verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head')
+      if (!verb %in% verbs) stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
+      verbFunc <- self[[tolower(verb)]]
+      stopifnot(is.function(verbFunc))
+      verbFunc(...)
     }
   ),
 

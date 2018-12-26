@@ -36,6 +36,9 @@ make async DELETE requests for all URLs
 \item{\code{head(path, ...)}}{
 make async HEAD requests for all URLs
 }
+\item{\code{verb(verb, ...)}}{
+make async requests with an arbitrary HTTP verb
+}
 }
 
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
@@ -90,7 +93,6 @@ res[[1]]$response_headers
 res[[1]]$method
 res[[1]]$content
 res[[1]]$parse("UTF-8")
-
 lapply(res, function(z) z$parse("UTF-8"))
 
 # using auth with async
@@ -110,6 +112,18 @@ res <- conn$get()
 res[[1]]$parse("UTF-8") # a failure
 res[[2]]$parse("UTF-8") # a failure
 res[[3]]$parse("UTF-8") # a success
+
+# use arbitrary http verb
+cc <- Async$new(
+  urls = c(
+    'https://httpbin.org/',
+    'https://httpbin.org/get?a=5',
+    'https://httpbin.org/get?foo=bar'
+  )
+)
+method <- 'get'
+(res <- cc$verb(method))
+lapply(res, function(z) z$parse("UTF-8"))
 }
 }
 \seealso{

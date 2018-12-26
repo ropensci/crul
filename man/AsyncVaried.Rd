@@ -129,6 +129,19 @@ out$parse()
 ## response objects
 out$responses()
 
+# use $verb() method to select http verb
+method <- "post"
+req1 <- HttpRequest$new(
+  url = "https://httpbin.org/post",
+  opts = list(verbose = TRUE),
+  headers = list(foo = "bar")
+)$verb(method)
+req2 <- HttpRequest$new(url = "https://httpbin.org/post")$verb(method)
+out <- AsyncVaried$new(req1, req2)
+out
+out$request()
+out$responses()
+
 # pass in requests in a list via .list param
 reqlist <- list(
   HttpRequest$new(url = "https://httpbin.org/get")$get(),

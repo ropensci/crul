@@ -65,6 +65,22 @@ test_that("HttpRequest - head", {
   expect_equal(aa$url, hb())
 })
 
+test_that("HttpRequest - verb", {
+  aa <- HttpRequest$new(url = hb())$verb('get')
+
+  expect_is(aa, "HttpRequest")
+  expect_equal(aa$method(), "get")
+  expect_equal(aa$url, hb())
+
+  bb <- HttpRequest$new(url = hb())$verb('post')
+  expect_equal(bb$method(), "post")
+
+  # fails well
+  expect_error(HttpRequest$new(url = hb())$verb(), "missing")
+  expect_error(HttpRequest$new(url = hb())$verb('verb'), "must be one of")
+  expect_error(HttpRequest$new(url = hb())$verb(5), "is not TRUE")
+})
+
 
 test_that("HttpRequest fails well", {
   expect_error(HttpRequest$new(), "need one of url or handle")
