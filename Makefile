@@ -1,3 +1,5 @@
+RSCRIPT = Rscript --no-init-file
+
 all: move rmd2md
 
 move:
@@ -12,3 +14,15 @@ rmd2md:
 		mv how-to-use-crul.md how-to-use-crul.Rmd;\
 		mv async.md async.Rmd;\
 		mv curl-options.md curl-options.Rmd
+
+install: doc build
+	R CMD INSTALL . && rm *.tar.gz
+
+build:
+	R CMD build .
+
+doc:
+	${RSCRIPT} -e "devtools::document()"
+
+eg:
+	${RSCRIPT} -e "devtools::run_examples()"
