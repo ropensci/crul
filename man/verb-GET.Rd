@@ -59,6 +59,8 @@ x$get(path = 'get')
 \url{https://tools.ietf.org/html/rfc7231#section-4.3.1}
 }
 \seealso{
+\link{crul-package}
+
 Other verbs: \code{\link{verb-DELETE}},
   \code{\link{verb-HEAD}}, \code{\link{verb-PATCH}},
   \code{\link{verb-POST}}, \code{\link{verb-PUT}}

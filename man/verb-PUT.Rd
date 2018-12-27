@@ -46,6 +46,8 @@ x$put(path = 'put', body = list(foo = "bar"))
 \url{https://tools.ietf.org/html/rfc7231#section-4.3.4}
 }
 \seealso{
+\link{crul-package}
+
 Other verbs: \code{\link{verb-DELETE}},
   \code{\link{verb-GET}}, \code{\link{verb-HEAD}},
   \code{\link{verb-PATCH}}, \code{\link{verb-POST}}

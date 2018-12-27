@@ -49,6 +49,7 @@
 #'
 #' @name verb-GET
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc7231#section-4.3.1>
 NULL
 
@@ -76,6 +77,7 @@ NULL
 #'
 #' @name verb-POST
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc7231#section-4.3.3>
 NULL
 
@@ -117,6 +119,7 @@ NULL
 #'
 #' @name verb-PUT
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc7231#section-4.3.4>
 NULL
 
@@ -143,6 +146,7 @@ NULL
 #'
 #' @name verb-PATCH
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc5789>
 NULL
 
@@ -168,6 +172,7 @@ NULL
 #'
 #' @name verb-DELETE
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc7231#section-4.3.5>
 NULL
 
@@ -198,5 +203,6 @@ NULL
 #'
 #' @name verb-HEAD
 #' @family verbs
+#' @seealso [crul-package]
 #' @references <https://tools.ietf.org/html/rfc7231#section-4.3.2>
 NULL

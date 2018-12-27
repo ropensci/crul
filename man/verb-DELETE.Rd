@@ -30,6 +30,8 @@ x$delete(path = 'delete')
 \url{https://tools.ietf.org/html/rfc7231#section-4.3.5}
 }
 \seealso{
+\link{crul-package}
+
 Other verbs: \code{\link{verb-GET}},
   \code{\link{verb-HEAD}}, \code{\link{verb-PATCH}},
   \code{\link{verb-POST}}, \code{\link{verb-PUT}}

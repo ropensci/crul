@@ -35,6 +35,8 @@ x$head()
 \url{https://tools.ietf.org/html/rfc7231#section-4.3.2}
 }
 \seealso{
+\link{crul-package}
+
 Other verbs: \code{\link{verb-DELETE}},
   \code{\link{verb-GET}}, \code{\link{verb-PATCH}},
   \code{\link{verb-POST}}, \code{\link{verb-PUT}}
