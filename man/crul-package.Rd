@@ -23,6 +23,27 @@ use in building requests to be used in \code{Async} or \code{AsyncVaried}
 \item \code{\link[=mock]{mock()}} - Turn on/off mocking, via \code{webmockr}
 \item \code{\link[=auth]{auth()}} - Simple authentication helper
 \item \code{\link[=proxy]{proxy()}} - Proxy helper
+\item \code{\link[=upload]{upload()}} - File upload helper
+\item set curl options globally: \code{\link[=set_auth]{set_auth()}}, \code{\link[=set_headers]{set_headers()}},
+\code{\link[=set_opts]{set_opts()}}, \code{\link[=set_proxy]{set_proxy()}}, and \code{\link[=crul_settings]{crul_settings()}}
+}
+}
+
+\section{HTTP verbs (or HTTP request methods)}{
+
+
+See \link{verb-GET}, \link{verb-POST}, \link{verb-PUT}, \link{verb-PATCH}, \link{verb-DELETE},
+\link{verb-HEAD} for details.
+\itemize{
+\item \link{HttpClient} is the main interface for making HTTP requests,
+and includes methods for each HTTP verb
+\item \link{HttpRequest} allows you to prepare a HTTP payload for use with
+\link{AsyncVaried}, which provides asynchronous requests for varied
+HTTP methods
+\item \link{Async} provides asynchronous requests for a single HTTP method
+at a time
+\item the \code{verb()} method can be used on all the above to request
+a specific HTTP verb
 }
 }
 
@@ -43,6 +64,14 @@ package. See \link{mock} for guidance, and
 
 Caching HTTP requests is supported via the \pkg{vcr}
 package. See \url{https://ropensci.github.io/http-testing-book/}
+}
+
+\section{Links}{
+
+
+Source code: \url{https://github.com/ropensci/crul}
+
+Bug reports/feature requests: \url{https://github.com/ropensci/crul/issues}
 }
 
 \author{
