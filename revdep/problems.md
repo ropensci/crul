@@ -96,24 +96,14 @@ Version: 1.2.0
 
 # vcr
 
-Version: 0.1.0
+Version: 0.2.0
 
 ## In both
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘crul’
+    Namespaces in Imports field not imported from:
+      ‘crul’ ‘httr’
       All declared Imports should be used.
-    ```
-
-# wikitaxa
-
-Version: 0.2.0
-
-## In both
-
-*   checking data for non-ASCII characters ... NOTE
-    ```
-      Note: found 166 marked UTF-8 strings
     ```
 
