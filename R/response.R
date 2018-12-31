@@ -8,6 +8,8 @@
 #' @param status_code (integer) status code
 #' @param request_headers (list) request headers, named list
 #' @param response_headers (list) response headers, named list
+#' @param response_headers_all (list) all response headers, including
+#' intermediate redirect headers, unnamed list of named lists
 #' @param modified (character) modified date
 #' @param times (vector) named vector
 #' @param content (raw) raw binary content response
@@ -69,6 +71,7 @@ HttpResponse <- R6::R6Class(
     status_code = NULL,
     request_headers = NULL,
     response_headers = NULL,
+    response_headers_all = NULL,
     modified = NULL,
     times = NULL,
     content = NULL,
@@ -107,7 +110,8 @@ HttpResponse <- R6::R6Class(
     },
 
     initialize = function(method, url, opts, handle, status_code,
-                          request_headers, response_headers, modified, times,
+                          request_headers, response_headers, 
+                          response_headers_all, modified, times,
                           content, request) {
 
       if (!missing(method)) self$method <- method
@@ -117,6 +121,8 @@ HttpResponse <- R6::R6Class(
       if (!missing(status_code)) self$status_code <- as.numeric(status_code)
       if (!missing(request_headers)) self$request_headers <- request_headers
       if (!missing(response_headers)) self$response_headers <- response_headers
+      if (!missing(response_headers_all)) 
+        self$response_headers_all <- response_headers_all
       if (!missing(modified)) self$modified <- modified
       if (!missing(times)) self$times <- times
       if (!missing(content)) self$content <- content

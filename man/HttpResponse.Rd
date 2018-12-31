@@ -19,6 +19,9 @@
 
 \item{response_headers}{(list) response headers, named list}
 
+\item{response_headers_all}{(list) all response headers, including
+intermediate redirect headers, unnamed list of named lists}
+
 \item{modified}{(character) modified date}
 
 \item{times}{(vector) named vector}

@@ -120,6 +120,9 @@
 #' x$url
 #' class(out)
 #' out$handle
+#' out$request_headers
+#' out$response_headers
+#' out$response_headers_all
 #' 
 #' # if you just pass a url, we create a handle for you
 #' #  this is how most people will use HttpClient
@@ -467,24 +470,25 @@ HttpClient <- R6::R6Class(
         resp <- crul_fetch(opts)
       }
 
+      # prep headers
+      if (grepl("^ftp://", resp$url)) {
+        headers <- list()
+      } else {
+        hh <- rawToChar(resp$headers %||% raw(0))
+        if (is.null(hh) || nchar(hh) == 0) {
+          headers <- list()
+        } else {
+          headers <- lapply(curl::parse_headers(hh, multiple = TRUE), headers_parse)
+        }
+      }
       # build response
       HttpResponse$new(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
         request_headers = c('User-Agent' = opts$options$useragent, opts$headers),
-        response_headers = {
-          if (grepl("^ftp://", resp$url)) {
-            list()
-          } else {
-            hh <- rawToChar(resp$headers %||% raw(0))
-            if (is.null(hh) || nchar(hh) == 0) {
-              list()
-            } else {
-              headers_parse(curl::parse_headers(hh))
-            }
-          }
-        },
+        response_headers = headers[[length(headers)]],
+        response_headers_all = headers,
         modified = resp$modified,
         times = resp$times,
         content = resp$content,

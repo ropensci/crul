@@ -141,6 +141,9 @@ x$handle
 x$url
 class(out)
 out$handle
+out$request_headers
+out$response_headers
+out$response_headers_all
 
 # if you just pass a url, we create a handle for you
 #  this is how most people will use HttpClient
