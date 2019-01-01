@@ -23,6 +23,7 @@ test_that("HttpResponse works", {
   expect_is(aa$raise_for_status, "function")
   expect_is(aa$request_headers, "list")
   expect_null(aa$response_headers)
+  expect_null(aa$response_headers_all)
   expect_equal(aa$status_code, 201)
   expect_is(aa$status_http, "function")
   expect_is(aa$success, "function")

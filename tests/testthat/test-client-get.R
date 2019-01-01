@@ -12,8 +12,16 @@ test_that("get request works", {
   expect_is(aa$method, "character")
   expect_equal(aa$method, "get")
   expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_is(suppressMessages(aa$parse()), "character")
   expect_true(aa$success())
+
+  # headers
+  expect_is(aa$response_headers, "list")
+  expect_named(aa$response_headers)
+  expect_is(aa$response_headers_all, "list")
+  expect_named(aa$response_headers_all, NULL)
+  ## identical when no intermediate headers
+  expect_identical(aa$response_headers, aa$response_headers_all[[1]])
 })
 
 test_that("get request - query parameters", {

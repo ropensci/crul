@@ -86,3 +86,13 @@ test_that("HttpClient disk fails well", {
   aa <- HttpClient$new(url = hb())
   expect_error(aa$get("get", stream = 5), "could not find function \"fun\"")
 })
+
+
+context("HttpClient - failure behavior")
+test_that("HttpClient - failure behavior", {
+  skip_on_cran()
+
+  # url doesn't exist - could not resolve host
+  conn <- HttpClient$new("http://stuffthings.gvb")
+  expect_error(conn$get(), "Could not resolve host")
+})

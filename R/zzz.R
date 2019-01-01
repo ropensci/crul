@@ -96,3 +96,8 @@ fround <- function(x, accuracy) {
   tmp <- floor(x/accuracy) * accuracy
   if (tmp == x) x - accuracy else tmp
 }
+
+last <- function(x) {
+  if (length(x) == 0) return(list())
+  x[[length(x)]]
+}

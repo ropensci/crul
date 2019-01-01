@@ -10,8 +10,8 @@ must supply inputs to one of these parameters, but not both}
 }
 \value{
 An object of class \code{AsyncVaried} with variables and methods.
-Responses are returned in the order they are passed in. We print the
-first 10.
+\link{HttpResponse} objects are returned in the order they are passed in.
+We print the first 10.
 }
 \description{
 Async client for different request types
@@ -188,6 +188,18 @@ reqlist <- list(
 tmp$request()
 tmp$responses()
 tmp$parse("UTF-8")
+
+# access intemediate redirect headers
+dois <- c("10.7202/1045307ar", "10.1242/jeb.088898", "10.1121/1.3383963")
+reqlist <- list(
+  HttpRequest$new(url = paste0("https://doi.org/", dois[1]))$get(),
+  HttpRequest$new(url = paste0("https://doi.org/", dois[2]))$get(),
+  HttpRequest$new(url = paste0("https://doi.org/", dois[3]))$get()
+)
+tmp <- AsyncVaried$new(.list = reqlist)
+tmp$request()
+tmp
+lapply(tmp$responses(), "[[", "response_headers_all")
 }
 }
 \seealso{
