@@ -94,5 +94,5 @@ test_that("HttpClient - failure behavior", {
 
   # url doesn't exist - could not resolve host
   conn <- HttpClient$new("http://stuffthings.gvb")
-  expect_error(conn$get(), "Could not resolve host")
+  expect_error(conn$get(), "resolve host")
 })
