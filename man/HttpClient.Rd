@@ -24,6 +24,9 @@ e.g. \code{auth(user = "foo", pwd = "bar")}}
 bar for an HTTP request, ultimiately passed down to \pkg{curl}.
 only supports httr::progress() for now}
 }
+\value{
+an \link{HttpResponse} object
+}
 \description{
 HTTP client
 }
@@ -209,6 +212,11 @@ x$url_fetch()
 x$url_fetch('get')
 x$url_fetch('post')
 x$url_fetch('get', query = list(foo = "bar"))
+
+# access intermediate headers in response_headers_all
+x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")
+bb <- x$get()
+bb$response_headers_all
 }
 }
 \seealso{

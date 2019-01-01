@@ -28,6 +28,12 @@ test_that("AsyncVaried works", {
   expect_equal(length(aa$status()), 2)
   expect_equal(length(aa$status_code()), 2)
   expect_equal(length(aa$times()), 2)
+
+  # response_headers and response_headers_all 
+  expect_is(aa$responses()[[1]]$response_headers, "list")
+  expect_named(aa$responses()[[1]]$response_headers)
+  expect_is(aa$responses()[[1]]$response_headers_all, "list")
+  expect_named(aa$responses()[[1]]$response_headers_all, NULL)
 })
 
 test_that("AsyncVaried fails well", {

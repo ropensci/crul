@@ -48,6 +48,7 @@
 #'
 #' @format NULL
 #' @usage NULL
+#' @return an [HttpResponse] object
 #' @details Possible parameters (not all are allowed in each HTTP verb):
 #' \itemize{
 #'  \item `path` - URL path, appended to the base URL
@@ -188,6 +189,11 @@
 #' x$url_fetch('get')
 #' x$url_fetch('post')
 #' x$url_fetch('get', query = list(foo = "bar"))
+#' 
+#' # access intermediate headers in response_headers_all
+#' x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")
+#' bb <- x$get()
+#' bb$response_headers_all
 #' }
 
 HttpClient <- R6::R6Class(
@@ -487,7 +493,7 @@ HttpClient <- R6::R6Class(
         url = resp$url,
         status_code = resp$status_code,
         request_headers = c('User-Agent' = opts$options$useragent, opts$headers),
-        response_headers = headers[[length(headers)]],
+        response_headers = last(headers),
         response_headers_all = headers,
         modified = resp$modified,
         times = resp$times,
