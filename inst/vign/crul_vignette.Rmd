@@ -111,6 +111,12 @@ Response headers
 res$response_headers
 ```
 
+All response headers, including intermediate headers, if any
+
+```{r}
+res$response_headers_all
+```
+
 And you can parse the content with a provided function:
 
 ```{r}
