@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -151,8 +151,8 @@ must supply inputs to one of these parameters, but not both</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of class <code>AsyncVaried</code> with variables and methods.
-Responses are returned in the order they are passed in. We print the
-first 10.</p>
+<a href='HttpResponse.html'>HttpResponse</a> objects are returned in the order they are passed in.
+We print the first 10.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -251,6 +251,19 @@ method</p></li>
 <span class='co'>## response objects</span>
 <span class='no'>out</span>$<span class='fu'>responses</span>()
 
+<span class='co'># use $verb() method to select http verb</span>
+<span class='no'>method</span> <span class='kw'>&lt;-</span> <span class='st'>"post"</span>
+<span class='no'>req1</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>,
+  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+  <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>)
+)$<span class='fu'>verb</span>(<span class='no'>method</span>)
+<span class='no'>req2</span> <span class='kw'>&lt;-</span> <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>)$<span class='fu'>verb</span>(<span class='no'>method</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='no'>req1</span>, <span class='no'>req2</span>)
+<span class='no'>out</span>
+<span class='no'>out</span>$<span class='fu'>request</span>()
+<span class='no'>out</span>$<span class='fu'>responses</span>()
+
 <span class='co'># pass in requests in a list via .list param</span>
 <span class='no'>reqlist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
   <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/get"</span>)$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>(),
@@ -297,6 +310,18 @@ method</p></li>
 <span class='no'>tmp</span>$<span class='fu'>request</span>()
 <span class='no'>tmp</span>$<span class='fu'>responses</span>()
 <span class='no'>tmp</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/parse'>parse</a></span>(<span class='st'>"UTF-8"</span>)
+
+<span class='co'># access intemediate redirect headers</span>
+<span class='no'>dois</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"10.7202/1045307ar"</span>, <span class='st'>"10.1242/jeb.088898"</span>, <span class='st'>"10.1121/1.3383963"</span>)
+<span class='no'>reqlist</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"https://doi.org/"</span>, <span class='no'>dois</span>[<span class='fl'>1</span>]))$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>(),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"https://doi.org/"</span>, <span class='no'>dois</span>[<span class='fl'>2</span>]))$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>(),
+  <span class='no'>HttpRequest</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"https://doi.org/"</span>, <span class='no'>dois</span>[<span class='fl'>3</span>]))$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>()
+)
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='no'>AsyncVaried</span>$<span class='fu'>new</span>(<span class='kw'>.list</span> <span class='kw'>=</span> <span class='no'>reqlist</span>)
+<span class='no'>tmp</span>$<span class='fu'>request</span>()
+<span class='no'>tmp</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>tmp</span>$<span class='fu'>responses</span>(), <span class='st'>"[["</span>, <span class='st'>"response_headers_all"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -324,7 +349,7 @@ method</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1.9100</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -154,19 +154,21 @@
 <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>'post'</span>)
 
 <span class='co'>## form requests</span>
-<span class='co'>## FIXME: this url no longer works</span>
-<span class='co'># (cli &lt;- HttpClient$new(</span>
-<span class='co'>#   url = "http://apps.kew.org/wcsp/advsearch.do"</span>
-<span class='co'># ))</span>
-<span class='co'># cli$post(</span>
-<span class='co'>#   encode = "form",</span>
-<span class='co'>#   body = list(</span>
-<span class='co'>#     page = 'advancedSearch',</span>
-<span class='co'>#     genus = 'Gagea',</span>
-<span class='co'>#     species = 'pratensis',</span>
-<span class='co'>#     selectedLevel = 'cont'</span>
-<span class='co'>#   )</span>
-<span class='co'># )</span>
+(<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
+  <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org/post"</span>,
+  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+))
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>cli</span>$<span class='fu'>post</span>(
+  <span class='kw'>encode</span> <span class='kw'>=</span> <span class='st'>"form"</span>,
+  <span class='kw'>body</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(
+    <span class='kw'>custname</span> <span class='kw'>=</span> <span class='st'>'Jane'</span>,
+    <span class='kw'>custtel</span> <span class='kw'>=</span> <span class='st'>'444-4444'</span>,
+    <span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>'small'</span>,
+    <span class='kw'>topping</span> <span class='kw'>=</span> <span class='st'>'bacon'</span>,
+    <span class='kw'>comments</span> <span class='kw'>=</span> <span class='st'>'make it snappy'</span>
+  )
+)
+<span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></span>(<span class='no'>res</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/parse'>parse</a></span>(<span class='st'>"UTF-8"</span>))
 
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'>post</span>(<span class='st'>"post"</span>,
@@ -242,7 +244,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

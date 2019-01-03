@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>upload file — upload • crul</title>
+<title>HTTP verb info: HEAD — verb-HEAD • crul</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="upload file — upload" />
+<meta property="og:title" content="HTTP verb info: HEAD — verb-HEAD" />
 
-<meta property="og:description" content="upload file" />
+<meta property="og:description" content="The HEAD method asks for a response identical to that of a GET request,
+but without the response body." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,40 +127,66 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>upload file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/upload.R'><code>R/upload.R</code></a></small>
-    <div class="hidden name"><code>upload.Rd</code></div>
+    <h1>HTTP verb info: HEAD</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/verbs.R'><code>R/verbs.R</code></a></small>
+    <div class="hidden name"><code>verb-HEAD.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>upload file</p>
+    <p>The HEAD method asks for a response identical to that of a GET request,
+but without the response body.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>upload</span>(<span class='no'>path</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+        
+    <h2 class="hasAnchor" id="the-head-method"><a class="anchor" href="#the-head-method"></a>The HEAD method</h2>
+
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p>(character) a single path, file must exist</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>(character) a file type, guessed by <a href='https://www.rdocumentation.org/packages/mime/topics/guess_type'>mime::guess_type</a> if
-not given</p></td>
-    </tr>
-    </table>
+    <p>The HEAD method is identical to GET except that the
+server MUST NOT send a message body in the response (i.e., the
+response terminates at the end of the header section).  The server
+SHOULD send the same header fields in response to a HEAD request as
+it would have sent if the request had been a GET, except that the
+payload header fields MAY be omitted.  This method can
+be used for obtaining metadata about the selected representation
+without transferring the representation data and is often used for
+testing hypertext links for validity, accessibility, and recent
+modification.</p>
+<p>See <a href='https://tools.ietf.org/html/rfc7231#section-4.3.2'>https://tools.ietf.org/html/rfc7231#section-4.3.2</a> for further
+details.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://tools.ietf.org/html/rfc7231#section-4.3.2'>https://tools.ietf.org/html/rfc7231#section-4.3.2</a></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='crul-package.html'>crul-package</a></p>
+<p>Other verbs: <code><a href='verb-DELETE.html'>verb-DELETE</a></code>,
+  <code><a href='verb-GET.html'>verb-GET</a></code>, <code><a href='verb-PATCH.html'>verb-PATCH</a></code>,
+  <code><a href='verb-POST.html'>verb-POST</a></code>, <code><a href='verb-PUT.html'>verb-PUT</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>)
+<span class='no'>x</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>()
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#the-head-method">The HEAD method</a></li>
+
+      <li><a href="#references">References</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
