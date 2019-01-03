@@ -85,6 +85,9 @@ test_that("parse fails well", {
   # url param required
   expect_error(url_build(), "argument \"url\" is missing")
 
+  # scalar character required
+  expect_error(url_parse(rep(hb(), 2)), "length\\(url\\) == 1 is not TRUE")
+
   # wrong types
   expect_error(url_build(5), "url must be of class character")
   expect_error(url_build("ASDf", path = 5), "path must be of class character")

@@ -24,7 +24,7 @@ add_query <- function(x, url) {
       if (!inherits(x[[i]], "AsIs")) {
         x[[i]] <- curl::curl_escape(x[[i]])
       }
-      quer[[i]] <- paste(curl::curl_escape(names(x)[i]), 
+      quer[[i]] <- paste(curl::curl_escape(names(x)[i]),
         x[[i]], sep = "=")
     }
     parms <- paste0(quer, collapse = "&")
@@ -66,6 +66,7 @@ url_build <- function(url, path = NULL, query = NULL) {
 #' @export
 #' @rdname url_build
 url_parse <- function(url) {
+  stopifnot(length(url) == 1, is.character(url))
   tmp <- urltools::url_parse(url)
   tmp <- as.list(tmp)
   if (!is.na(tmp$parameter)) {
