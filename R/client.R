@@ -484,7 +484,8 @@ HttpClient <- R6::R6Class(
         if (is.null(hh) || nchar(hh) == 0) {
           headers <- list()
         } else {
-          headers <- lapply(curl::parse_headers(hh, multiple = TRUE), headers_parse)
+          headers <- lapply(curl::parse_headers(hh, multiple = TRUE), 
+            headers_parse)
         }
       }
       # build response
@@ -492,7 +493,8 @@ HttpClient <- R6::R6Class(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
-        request_headers = c('User-Agent' = opts$options$useragent, opts$headers),
+        request_headers = 
+        c('User-Agent' = opts$options$useragent, opts$headers),
         response_headers = last(headers),
         response_headers_all = headers,
         modified = resp$modified,
