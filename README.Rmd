@@ -82,7 +82,7 @@ library("crul")
 ))
 ```
 
-Makes a R6 class, that has all the bits and bobs you'd expect for doing HTTP
+Makes an R6 class, that has all the bits and bobs you'd expect for doing HTTP
 requests. When it prints, it gives any defaults you've set. As you update
 the object you can see what's been set
 

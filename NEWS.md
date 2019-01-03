@@ -1,11 +1,14 @@
-crul 0.6.1.9100
+crul 0.7.0
 ==========
 
 ### NEW FEATURES
 
 * `HttpClient` gains a `retry` method: retries any request verb until successful (HTTP response status < 400) or a condition for giving up is met. (#89) (#95) thanks @hlapp
+* `HttpClient`, `HttpRequest`, and `Async` classes gain `verb` method for doing HTTP requests specifying any of the supported HTTP verbs  (#97)
 * `HttpClient` and `Paginator` gain a `url_fetch` method: get the URL that would be sent in an HTTP request without sending the HTTP request. Useful for getting the URL before executing an HTTP request if you need to check something about the URL first. (#92)
-* new vignette for "API package best practices" (#65) 
+* new vignette for "API package best practices" (#65)
+* Package gains manual files for each HTTP verb to facilitate linking to package documentation for information on each HTTP verb (#98)
+* Intermediate headers (e.g., those in redirect chains) are now given back in a new slot in the `HttpResponse` class as `$response_headers_all` as an unnamed list, with each element a named list of headers; the last list in the set is the final response headers that match those given in the `$response_headers` slot (#60) (#99)
 
 ### BUG FIXES
 

@@ -2,7 +2,7 @@
 
 |field    |value                                       |
 |:--------|:-------------------------------------------|
-|version  |R version 3.5.1 Patched (2018-11-18 r75627) |
+|version  |R version 3.5.2 Patched (2018-12-31 r75943) |
 |os       |macOS Mojave 10.14.2                        |
 |system   |x86_64, darwin15.6.0                        |
 |ui       |X11                                         |
@@ -10,13 +10,13 @@
 |collate  |en_US.UTF-8                                 |
 |ctype    |en_US.UTF-8                                 |
 |tz       |US/Pacific                                  |
-|date     |2018-12-27                                  |
+|date     |2019-01-02                                  |
 
 # Dependencies
 
-|package |old   |new        |Δ  |
-|:-------|:-----|:----------|:--|
-|crul    |0.6.0 |0.6.2.9331 |*  |
+|package |old   |new   |Δ  |
+|:-------|:-----|:-----|:--|
+|crul    |0.6.0 |0.7.0 |*  |
 
 # Revdeps
 
@@ -59,7 +59,7 @@
 |rif                                    |0.2.0   |      |        |     |
 |ritis                                  |0.7.6   |      |        |     |
 |[rjsonapi](problems.md#rjsonapi)       |0.1.0   |      |        |1    |
-|rnoaa                                  |0.8.0   |      |        |     |
+|[rnoaa](problems.md#rnoaa)             |0.8.0   |1     |        |     |
 |ropenaq                                |0.2.6   |      |        |     |
 |rorcid                                 |0.4.0   |      |        |     |
 |rphylopic                              |0.2.0   |      |        |     |
@@ -78,6 +78,6 @@
 |[vcr](problems.md#vcr)                 |0.2.0   |      |        |1    |
 |webmockr                               |0.2.9   |      |        |     |
 |wikitaxa                               |0.3.0   |      |        |     |
-|worrms                                 |0.3.0   |      |        |     |
+|[worrms](problems.md#worrms)           |0.3.0   |1     |        |     |
 |zbank                                  |0.1.0   |      |        |     |
 
