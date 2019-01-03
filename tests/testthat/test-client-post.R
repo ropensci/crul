@@ -37,6 +37,80 @@ test_that("post request with body", {
   expect_equal(aa$request$fields[[1]], "world")
 })
 
+body <- list(
+  custname = 'Jane',
+  custtel = '444-4444',
+  custemail = 'stuff@things.com',
+  size = 'small',
+  topping = 'bacon',
+  comments = 'make it snappy'
+)
+
+test_that("post request: encode=form", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb("/post"))
+  form <- cli$post(body = body, encode = "form")
+
+  expect_is(form, "HttpResponse")
+  expect_equal(form$method, "post")
+  expect_match(
+    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`, 
+    "application/x-www-form-urlencoded")
+
+  expect_null(form$request$fields)
+  expect_true(form$request$options$post)
+  expect_type(form$request$options$postfieldsize, "integer")
+  expect_is(form$request$options$postfields, "raw")
+})
+
+test_that("post request: encode=multipart", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb("/post"))
+  multi <- cli$post(body = body, encode = "multipart")
+
+  expect_is(multi, "HttpResponse")
+  expect_equal(multi$method, "post")
+  expect_match(
+    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`, 
+    "multipart/form-data")
+
+  expect_is(multi$request$fields, "list")
+  expect_is(multi$request$fields$custname, "character")
+  expect_is(multi$request$fields$size, "character")
+
+  expect_true(multi$request$options$post)
+  expect_null(multi$request$options$postfieldsize, "integer")
+  expect_null(multi$request$options$postfields, "raw")
+})
+
+test_that("post request: encode=form/multipart both use form content-type when 0 length list", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb("/post"))
+  form <- cli$post(body = list(), encode = "form")
+  multi <- cli$post(body = list(), encode = "multipart")
+
+  expect_match(
+    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`, 
+    "application/x-www-form-urlencoded")
+  expect_match(
+    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`, 
+    "application/x-www-form-urlencoded")
+})
+
+test_that("post request: encode=form/multipart drop NULL elements in a list", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb("/post"))
+  form <- cli$post(body = list(a = 5, b = NULL), encode = "form")
+  multi <- cli$post(body = list(a = 5, b = NULL), encode = "multipart")
+
+  expect_equal(jsonlite::fromJSON(form$parse("UTF-8"))$form, list(a = "5"))
+  expect_equal(jsonlite::fromJSON(multi$parse("UTF-8"))$form, list(a = "5"))
+})
+
 
 test_that("post request with file upload", {
   skip_on_cran()
