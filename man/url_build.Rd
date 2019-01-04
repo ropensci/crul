@@ -10,9 +10,9 @@ url_build(url, path = NULL, query = NULL)
 url_parse(url)
 }
 \arguments{
-\item{url}{(character) a url}
+\item{url}{(character) a url, length 1}
 
-\item{path}{(character) a path}
+\item{path}{(character) a path, length 1}
 
 \item{query}{(list) a named list of query parameters}
 }

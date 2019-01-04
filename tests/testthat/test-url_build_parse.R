@@ -33,6 +33,12 @@ test_that("build fails well", {
   expect_error(url_build("ASDf", path = 5), "path must be of class character")
   expect_error(url_build("adff", query = 5), "query must be of class list")
 
+  # length
+  expect_error(url_build(rep(hb(), 2)), 
+    "length\\(url\\) == 1 is not TRUE")
+  expect_error(url_build(hb(), c('foo', 'bar')), 
+    "length\\(path\\) <= 1 is not TRUE")
+
   # query list is named
   expect_error(url_build("As", query = list(4, 5)),
                "all query elements must be named")
@@ -79,21 +85,12 @@ test_that("url parse works", {
   expect_equal(cc$parameter$stuff, "things")
 })
 
-test_that("parse fails well", {
+test_that("build and parse fails well", {
   skip_on_cran()
 
   # url param required
-  expect_error(url_build(), "argument \"url\" is missing")
+  expect_error(url_parse(), "argument \"url\" is missing")
 
   # scalar character required
   expect_error(url_parse(rep(hb(), 2)), "length\\(url\\) == 1 is not TRUE")
-
-  # wrong types
-  expect_error(url_build(5), "url must be of class character")
-  expect_error(url_build("ASDf", path = 5), "path must be of class character")
-  expect_error(url_build("adff", query = 5), "query must be of class list")
-
-  # query list is named
-  expect_error(url_build("As", query = list(4, 5)),
-               "all query elements must be named")
 })

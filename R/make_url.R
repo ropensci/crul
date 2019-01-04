@@ -37,8 +37,8 @@ add_query <- function(x, url) {
 #' Build and parse URLs
 #'
 #' @export
-#' @param url (character) a url
-#' @param path (character) a path
+#' @param url (character) a url, length 1
+#' @param path (character) a path, length 1
 #' @param query (list) a named list of query parameters
 #' @return `url_build` returns a character string URL; `url_parse`
 #' returns a list with URL components
@@ -59,6 +59,8 @@ url_build <- function(url, path = NULL, query = NULL) {
   assert(url, "character")
   assert(path, "character")
   assert(query, "list")
+  stopifnot(length(url) == 1)
+  if (!is.null(path)) stopifnot(length(path) <= 1)
   if (!has_namez(query)) stop("all query elements must be named", call. = FALSE)
   make_url(url, handle = NULL, path, query)$url
 }

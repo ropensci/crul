@@ -13,6 +13,7 @@ crul 0.7.0
 ### BUG FIXES
 
 * some dangling file connections were left open - now fixed (#93) (#95)
+* fix `url_parse`: lacked check that input was a string, and that it was length 1 - this PR fixed that (#100) thanks @aaronwolen
 
 ### DEFUNCT
 
