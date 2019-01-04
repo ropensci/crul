@@ -10,7 +10,7 @@
 |collate  |en_US.UTF-8                                 |
 |ctype    |en_US.UTF-8                                 |
 |tz       |US/Pacific                                  |
-|date     |2019-01-02                                  |
+|date     |2019-01-03                                  |
 
 # Dependencies
 
@@ -38,7 +38,7 @@
 |[HIBPwned](problems.md#hibpwned)       |0.1.7   |      |        |1    |
 |jaod                                   |0.1.0   |      |        |     |
 |microdemic                             |0.4.0   |      |        |     |
-|nasapower                              |1.0.2   |      |        |     |
+|[nasapower](problems.md#nasapower)     |1.0.2   |1     |        |     |
 |natserv                                |0.1.4   |      |        |     |
 |nneo                                   |0.1.0   |      |        |     |
 |nsapi                                  |0.1.1   |      |        |     |

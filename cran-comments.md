@@ -11,7 +11,7 @@
   License components with restrictions and base license permitting such:
     MIT + file LICENSE
   File 'LICENSE':
-    YEAR: 2018
+    YEAR: 2019
     COPYRIGHT HOLDER: Scott Chamberlain
 
 ## Reverse dependencies

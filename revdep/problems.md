@@ -47,6 +47,34 @@ Version: 0.1.7
       All declared Imports should be used.
     ```
 
+# nasapower
+
+Version: 1.0.2
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      4: lapply(x, lazy_eval, data = data)
+      5: FUN(X[[i]], ...)
+      6: eval(x$expr, x$env, emptyenv())
+      7: eval(x$expr, x$env, emptyenv())
+      8: get_power(community = "AG", lonlat = c(-179.5, -89.5), pars = c("T2M", "T2M_MIN", 
+             "T2M_MAX", "RH2M", "WS10M"), dates = c("1983-01-01"), temporal_average = "Daily") at testthat/test-get_power.R:7
+      9: .power_query(community, lonlat_identifier, pars, dates, outputList = "CSV")
+      10: stop(call. = FALSE, unlist(txt$messages))
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 85 SKIPPED: 0 FAILED: 1
+      1. Error: get_power returns daily point AG data (@test-get_power.R#6) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 # originr
 
 Version: 0.3.0
