@@ -43,6 +43,10 @@ test_that("Async print method", {
   expect_is(aa, "Async")
   expect_is(aa$print, "function")
   expect_output(aa$print(), "crul async connection")
+  expect_output(aa$print(), "curl options")
+  expect_output(aa$print(), "proxies")
+  expect_output(aa$print(), "auth")
+  expect_output(aa$print(), "headers")
   expect_output(aa$print(), "urls:")
   expect_output(aa$print(), hb('/get'))
   expect_output(aa$print(), 'https://google.com')
@@ -52,6 +56,31 @@ test_that("Async print method", {
 
   expect_output(aa$print(), "# ... with")
   expect_output(aa$print(), hb('/get'))
+})
+
+
+test_that("Async curl options work", {
+  skip_on_cran()
+  
+  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
+    opts = list(timeout_ms = 100))
+  expect_output(aa$print(), "curl options")
+  expect_output(aa$print(), "timeout_ms: 100")
+
+  expect_equal(vapply(aa$get(), "[[", 1, "status_code"), c(0, 0))
+})
+
+test_that("Async headers work", {
+  skip_on_cran()
+  
+  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
+    headers = list(foo = "bar"))
+  expect_output(aa$print(), "headers")
+  expect_output(aa$print(), "foo: bar")
+
+  bb <- aa$get()
+  expect_equal(vapply(bb, function(x) x$request_headers[[1]], ""), 
+    c("bar", "bar"))
 })
 
 
@@ -318,8 +347,11 @@ context("Async - basic auth")
 test_that("Async - with basic auth works", {
   skip_on_cran()
 
-  dd <- Async$new(urls = rep(hb('/basic-auth/user/passwd'), 3))
-  out <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+  dd <- Async$new(
+    urls = rep(hb('/basic-auth/user/passwd'), 3), 
+    auth = auth(user = "user", pwd = "passwd")
+  )
+  out <- dd$get()
   
   expect_is(dd, "Async")
 

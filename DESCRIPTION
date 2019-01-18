@@ -20,7 +20,7 @@ Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Language: en-US
 Imports:
-    curl (>= 3.1),
+    curl (<= 3.2),
     R6 (>= 2.2.0),
     urltools (>= 1.6.0),
     httpcode (>= 0.2.0),
