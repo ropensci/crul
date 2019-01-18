@@ -95,9 +95,27 @@ res[[1]]$content
 res[[1]]$parse("UTF-8")
 lapply(res, function(z) z$parse("UTF-8"))
 
+# curl options/headers with async
+urls = c(
+ 'https://httpbin.org/',
+ 'https://httpbin.org/get?a=5',
+ 'https://httpbin.org/get?foo=bar'
+)
+cc <- Async$new(urls = urls, 
+  opts = list(verbose = TRUE),
+  headers=list(foo = "bar")
+)
+cc
+(res <- cc$get())
+
 # using auth with async
-dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
-res <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+dd <- Async$new(
+  urls = rep('https://httpbin.org/basic-auth/user/passwd', 3),
+  auth = auth(user = "foo", pwd = "passwd"),
+  opts = list(verbose = TRUE)
+)
+dd
+res <- dd$get()
 res
 vapply(res, function(z) z$status_code, double(1))
 vapply(res, function(z) z$success(), logical(1))

@@ -59,9 +59,27 @@
 #' res[[1]]$parse("UTF-8")
 #' lapply(res, function(z) z$parse("UTF-8"))
 #' 
+#' # curl options/headers with async
+#' urls = c(
+#'  'https://httpbin.org/',
+#'  'https://httpbin.org/get?a=5',
+#'  'https://httpbin.org/get?foo=bar'
+#' )
+#' cc <- Async$new(urls = urls, 
+#'   opts = list(verbose = TRUE),
+#'   headers=list(foo = "bar")
+#' )
+#' cc
+#' (res <- cc$get())
+#' 
 #' # using auth with async
-#' dd <- Async$new(urls = rep('https://httpbin.org/basic-auth/user/passwd', 3))
-#' res <- dd$get(auth = auth(user = "user", pwd = "passwd"))
+#' dd <- Async$new(
+#'   urls = rep('https://httpbin.org/basic-auth/user/passwd', 3),
+#'   auth = auth(user = "foo", pwd = "passwd"),
+#'   opts = list(verbose = TRUE)
+#' )
+#' dd
+#' res <- dd$get()
 #' res
 #' vapply(res, function(z) z$status_code, double(1))
 #' vapply(res, function(z) z$success(), logical(1))
@@ -93,9 +111,33 @@ Async <- R6::R6Class(
   'Async',
   public = list(
     urls = NULL,
+    opts = NULL,
+    proxies = NULL,
+    auth = NULL,
+    headers = NULL,
 
     print = function(x, ...) {
       cat("<crul async connection> ", sep = "\n")
+
+      cat("  curl options: ", sep = "\n")
+      for (i in seq_along(self$opts)) {
+        cat(sprintf("    %s: %s", names(self$opts)[i],
+                    self$opts[[i]]), sep = "\n")
+      }
+      cat("  proxies: ", sep = "\n")
+      if (length(self$proxies)) cat(paste("    -",
+                                          purl(self$proxies)), sep = "\n")
+      cat("  auth: ", sep = "\n")
+      if (length(self$auth$userpwd)) {
+        cat(paste("    -", self$auth$userpwd), sep = "\n")
+        cat(paste("    - type: ", self$auth$httpauth), sep = "\n")
+      }
+      cat("  headers: ", sep = "\n")
+      for (i in seq_along(self$headers)) {
+        cat(sprintf("    %s: %s", names(self$headers)[i],
+                    self$headers[[i]]), sep = "\n")
+      }
+
       cat(sprintf("  urls: (n: %s)", length(self$urls)), sep = "\n")
       print_urls <- self$urls[1:min(c(length(self$urls), 10))]
       for (i in seq_along(print_urls)) {
@@ -107,8 +149,12 @@ Async <- R6::R6Class(
       invisible(self)
     },
 
-    initialize = function(urls) {
+    initialize = function(urls, opts, proxies, auth, headers) {
       self$urls <- urls
+      if (!missing(opts)) self$opts <- opts
+      if (!missing(proxies)) self$proxies <- proxies
+      if (!missing(auth)) self$auth <- auth
+      if (!missing(headers)) self$headers <- headers
     },
 
     get = function(path = NULL, query = list(), disk = NULL,
@@ -157,29 +203,53 @@ Async <- R6::R6Class(
 
   private = list(
     gen_interface = function(x, method, path, query = NULL, body = NULL,
-      encode = NULL, disk = NULL, stream = NULL, auth = NULL, ...) {
-
+      encode = NULL, disk = NULL, stream = NULL, ...) {
       if (!is.null(disk)) {
         if (length(disk) > 1) {
           stopifnot(length(x) == length(disk))
           reqs <- Map(function(z, m) {
             switch(
               method,
-              get = HttpRequest$new(url = z, auth = auth)$get(path = path, query = query,
-                disk = m, stream = stream, ...),
-              post = HttpRequest$new(url = z, auth = auth)$post(path = path, query = query,
+              get = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth, 
+                headers = self$headers
+              )$get(
+                path = path, query = query, disk = m, stream = stream, ...
+              ),
+              post = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth, 
+                headers = self$headers
+              )$post(
+                path = path, query = query, body = body, encode = encode, 
+                disk = m, stream = stream,
+                ...
+              ),
+              put = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth, 
+                headers = self$headers
+              )$put(
+                path = path, query = query, body = body, encode = encode, 
+                disk = m, stream = stream,
+                ...
+              ),
+              patch = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth, 
+                headers = self$headers
+              )$patch(
+                path = path, query = query,
                 body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              put = HttpRequest$new(url = z, auth = auth)$put(path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              patch = HttpRequest$new(url = z, auth = auth)$patch(path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...),
-              delete = HttpRequest$new(url = z, auth = auth)$delete(path = path,
-                query = query, body = body, encode = encode, disk = m,
-                stream = stream, ...),
-              head = HttpRequest$new(url = z, auth = auth)$head(path = path, ...)
+                ...
+              ),
+              delete = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth, headers = self$headers
+              )$delete(
+                path = path, query = query, body = body, encode = encode, 
+                disk = m, stream = stream, ...
+              ),
+              head = HttpRequest$new(url = z, opts = self$opts, 
+                proxies = self$proxies, auth = self$auth,
+                headers = self$headers
+              )$head(path = path, ...)
             )
           }, x, disk)
         }
@@ -187,17 +257,42 @@ Async <- R6::R6Class(
         reqs <- lapply(x, function(z) {
           switch(
             method,
-            get = HttpRequest$new(url = z, auth = auth)$get(path = path, query = query,
-              disk = disk, stream = stream, ...),
-            post = HttpRequest$new(url = z, auth = auth)$post(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            put = HttpRequest$new(url = z, auth = auth)$put(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            patch = HttpRequest$new(url = z, auth = auth)$patch(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            delete = HttpRequest$new(url = z, auth = auth)$delete(path = path, query = query,
-              body = body, encode = encode, disk = disk, stream = stream, ...),
-            head = HttpRequest$new(url = z, auth = auth)$head(path = path, ...)
+            get = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers)$get(
+              path = path, query = query, disk = disk, stream = stream, ...
+            ),
+            post = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$post(path = path, query = query, body = body, encode = encode, 
+              disk = disk, stream = stream, ...
+            ),
+            put = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$put(
+              path = path, query = query, body = body, encode = encode, 
+              disk = disk, stream = stream, ...
+            ),
+            patch = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$patch(
+              path = path, query = query, body = body, encode = encode, 
+              disk = disk, stream = stream, ...
+            ),
+            delete = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$delete(
+              path = path, query = query, body = body, encode = encode, 
+              disk = disk, stream = stream, ...
+            ),
+            head = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$head(path = path, ...)
           )
         })
       }
