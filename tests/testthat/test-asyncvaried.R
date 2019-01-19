@@ -106,7 +106,7 @@ test_that("AsyncVaried - streaming to disk works", {
   skip_on_cran()
 
   lst <- c()
-  fun <- function(x) lst <<- c(lst, x)
+  fun <- function(x) lst <<- append(lst, list(x))
   req1 <- HttpRequest$new(url = hb("/get")
   )$get(query = list(foo = "bar"), stream = fun)
   req2 <- HttpRequest$new(url = hb("/get")
@@ -119,8 +119,11 @@ test_that("AsyncVaried - streaming to disk works", {
   expect_identical(out$responses()[[1]]$content, raw(0))
   expect_identical(out$responses()[[2]]$content, raw(0))
 
-  expect_is(lst, "raw")
-  expect_is(rawToChar(lst), "character")
+  expect_is(lst, "list")
+  expect_is(lst[[1]], "list")
+  expect_is(lst[[2]], "list")
+  expect_is(rawToChar(lst[[1]]$content), "character")
+  expect_is(rawToChar(lst[[2]]$content), "character")
 })
 
 

@@ -52,7 +52,7 @@ close(file(f))
 close(file(g))
 
 ### stream - to console
-fun <- function(x) cat(rawToChar(x))
+fun <- function(x) print(x)
 req1 <- HttpRequest$new(url = "https://httpbin.org/get"
 )$get(query = list(foo = "bar"), stream = fun)
 req2 <- HttpRequest$new(url = "https://httpbin.org/get"
@@ -62,8 +62,8 @@ out$request()
 out$content()
 
 ### stream - to an R object
-lst <- c()
-fun <- function(x) lst <<- c(lst, x)
+lst <- list()
+fun <- function(x) lst <<- append(lst, list(x))
 req1 <- HttpRequest$new(url = "https://httpbin.org/get"
 )$get(query = list(foo = "bar"), stream = fun)
 req2 <- HttpRequest$new(url = "https://httpbin.org/get"
@@ -71,6 +71,6 @@ req2 <- HttpRequest$new(url = "https://httpbin.org/get"
 (out <- AsyncVaried$new(req1, req2))
 out$request()
 lst
-cat(rawToChar(lst))
+cat(vapply(lst, function(z) rawToChar(z$content), ""), sep = "\\n")
 }
 }
