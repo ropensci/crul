@@ -325,8 +325,8 @@ test_that("Async - streaming to disk works", {
   bb <- Async$new(urls = c(hb('/get?a=5'),
                            hb('/get?b=6'),
                            hb('/get?c=7')))
-  mylist <- c()
-  fun <- function(x) mylist <<- c(mylist, x)
+  lst <- c()
+  fun <- function(x) lst <<- append(lst, list(x))
   out <- bb$get(stream = fun)
 
   expect_is(bb, "Async")
@@ -337,8 +337,10 @@ test_that("Async - streaming to disk works", {
   expect_identical(out[[2]]$content, raw(0))
   expect_identical(out[[3]]$content, raw(0))
 
-  expect_is(mylist, "raw")
-  expect_is(rawToChar(mylist), "character")
+  expect_is(lst, "list")
+  expect_is(rawToChar(lst[[1]]$content), "character")
+  expect_is(rawToChar(lst[[2]]$content), "character")
+  expect_is(rawToChar(lst[[3]]$content), "character")
 })
 
 
@@ -432,7 +434,7 @@ test_that("Async - failure behavior", {
   skip_on_cran()
 
   mylist <- c()
-  fun <- function(x) mylist <<- c(mylist, x)
+  fun <- function(x) mylist <<- append(mylist, list(x))
 
   urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
   conn <- Async$new(urls = urls)
@@ -444,13 +446,17 @@ test_that("Async - failure behavior", {
   expect_is(res[[2]], "HttpResponse")
   expect_is(res[[3]], "HttpResponse")
 
+  # this doesn't mean anything really since we give a templated repsonse with 
+  # status_code of 0
   expect_equal(res[[1]]$status_code, 0)
   expect_equal(res[[2]]$status_code, 0)
-  expect_equal(res[[3]]$status_code, 200)
+  expect_equal(res[[3]]$status_code, 0)
 
+  # this doesn't mean anything really since we give a templated repsonse with 
+  # status_code of 0 
   expect_false(res[[1]]$success())
   expect_false(res[[2]]$success())
-  expect_true(res[[3]]$success())
+  expect_false(res[[3]]$success())
 
   # when fails on async, has the error message
   expect_match(res[[1]]$parse("UTF-8"), "resolve host")
