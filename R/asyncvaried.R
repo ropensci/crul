@@ -274,8 +274,8 @@ AsyncVaried <- R6::R6Class(
             )
           } else if (is.null(w$disk) && !is.null(w$stream)) {
             stopifnot(is.function(w$stream))
-            # assign empty response since stream is a user supplied function to write 
-            # somewhere of their choosing
+            # assign empty response since stream is a user supplied function
+            # to write somewhere of their choosing
             multi_res[[i]] <<- make_async_error("", w)
             curl::multi_add(
               handle = h,
