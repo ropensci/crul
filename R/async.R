@@ -67,7 +67,7 @@
 #' )
 #' cc <- Async$new(urls = urls, 
 #'   opts = list(verbose = TRUE),
-#'   headers=list(foo = "bar")
+#'   headers = list(foo = "bar")
 #' )
 #' cc
 #' (res <- cc$get())
