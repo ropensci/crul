@@ -108,7 +108,7 @@
 #' it in the request headers is consistent.
 #'
 #' @seealso [post-requests], [delete-requests], [http-headers],
-#' [writing-options], [cookies]
+#' [writing-options], [cookies], [hooks]
 #'
 #' @examples \dontrun{
 #' # set your own handle
@@ -206,6 +206,7 @@ HttpClient <- R6::R6Class(
     headers = list(),
     handle = NULL,
     progress = NULL,
+    hooks = list(),
 
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
@@ -231,10 +232,17 @@ HttpClient <- R6::R6Class(
                     self$headers[[i]]), sep = "\n")
       }
       cat(paste0("  progress: ", !is.null(self$progress)), sep = "\n")
+      cat("  hooks: ", sep = "\n")
+      if (length(self$hooks) > 0) {
+        for (i in seq_along(self$hooks)) {
+          cat(sprintf("    %s: see $hooks", names(self$hooks)[i]), sep = "\n")
+        }
+      }
       invisible(self)
     },
 
-    initialize = function(url, opts, proxies, auth, headers, handle, progress) {
+    initialize = function(url, opts, proxies, auth, headers, handle,
+      progress, hooks) {
       private$crul_h_pool <- new.env(hash = TRUE, parent = emptyenv())
       if (!missing(url)) self$url <- url
 
@@ -273,6 +281,20 @@ HttpClient <- R6::R6Class(
 
       if (is.null(self$url) && is.null(self$handle)) {
         stop("need one of url or handle", call. = FALSE)
+      }
+
+      # hooks
+      if (!missing(hooks)) {
+        assert(hooks, "list")
+        if (!has_name(hooks)) stop("'hooks' must be a named list")
+        if (!all(names(hooks) %in% c("request", "response")))
+          stop("unsupported names in 'hooks' list: only request, ",
+            "response supported")
+        invisible(lapply(hooks, function(z) {
+          if (!inherits(z, "function"))
+            stop("hooks must be functions", call. = FALSE)
+        }))
+        self$hooks <- hooks
       }
     },
 
@@ -476,6 +498,8 @@ HttpClient <- R6::R6Class(
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
 
+      if ("request" %in% names(self$hooks)) self$hooks$request(opts)
+
       if (crul_opts$mock) {
         check_for_package("webmockr")
         adap <- webmockr::CrulAdapter$new()
@@ -483,6 +507,8 @@ HttpClient <- R6::R6Class(
       } else {
         resp <- crul_fetch(opts)
       }
+
+      if ("response" %in% names(self$hooks)) self$hooks$response(resp)
 
       # prep headers
       if (grepl("^ftp://", resp$url)) {

@@ -23,6 +23,10 @@ e.g. \code{auth(user = "foo", pwd = "bar")}}
 \item{progress}{a function with logic for printing a progress
 bar for an HTTP request, ultimiately passed down to \pkg{curl}.
 only supports httr::progress() for now}
+
+\item{hooks}{(list) a named list (accepts: request, response) of functions
+(callbacks) to run on request and response objects. See \link{hooks} for more
+details.}
 }
 \value{
 an \link{HttpResponse} object
@@ -221,6 +225,6 @@ bb$response_headers_all
 }
 \seealso{
 \link{post-requests}, \link{delete-requests}, \link{http-headers},
-\link{writing-options}, \link{cookies}
+\link{writing-options}, \link{cookies}, \link{hooks}
 }
 \keyword{datasets}
