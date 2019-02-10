@@ -287,7 +287,10 @@ HttpClient <- R6::R6Class(
         headers = def_head()
       )
       rr$headers <- norm_headers(rr$headers, self$headers)
-      if (!"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))) {
+      if (
+        !"useragent" %in% self$opts &&
+        !"user-agent" %in% tolower(names(rr$headers))
+      ) {
         rr$options$useragent <- make_ua()
       }
       rr$options <- utils::modifyList(
@@ -366,13 +369,13 @@ HttpClient <- R6::R6Class(
 
     verb = function(verb, ...) {
       stopifnot(is.character(verb), length(verb) > 0)
-      verbs <- c('get', 'post', 'put', 'patch',
-        'delete', 'head', 'retry')
+      verbs <- c("get", "post", "put", "patch",
+        "delete", "head", "retry")
       if (!tolower(verb) %in% verbs)
         stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
-      verbFunc <- self[[tolower(verb)]]
-      stopifnot(is.function(verbFunc))
-      verbFunc(...)
+      verb_func <- self[[tolower(verb)]]
+      stopifnot(is.function(verb_func))
+      verb_func(...)
     },
 
     retry = function(verb, ...,
@@ -381,9 +384,9 @@ HttpClient <- R6::R6Class(
                      onwait = NULL) {
       stopifnot(is.character(verb), length(verb) > 0)
       stopifnot(is.null(onwait) || is.function(onwait))
-      verbFunc <- self[[tolower(verb)]]
-      stopifnot(is.function(verbFunc))
-      resp <- verbFunc(...)
+      verb_func <- self[[tolower(verb)]]
+      stopifnot(is.function(verb_func))
+      resp <- verb_func(...)
       if ((resp$status_code >= 400) &&
           (! resp$status_code %in% terminate_on) &&
           (is.null(retry_only_on) || resp$status_code %in% retry_only_on) &&
@@ -391,20 +394,21 @@ HttpClient <- R6::R6Class(
           (pause_base < pause_cap)) {
         rh <- resp$response_headers
         if (! is.null(rh[["retry-after"]])) {
-          waitTime <- as.numeric(rh[["retry-after"]])
+          wait_time <- as.numeric(rh[["retry-after"]])
         } else if (identical(rh[["x-ratelimit-remaining"]], "0") &&
                    ! is.null(rh[["x-ratelimit-reset"]])) {
-          waitTime <- max(0, as.numeric(rh[["x-ratelimit-reset"]]) - as.numeric(Sys.time()))
+          wait_time <- max(0, as.numeric(rh[["x-ratelimit-reset"]]) -
+            as.numeric(Sys.time()))
         } else {
           if (is.null(pause_min)) pause_min <- pause_base
           # exponential backoff with full jitter
-          waitTime <- stats::runif(1,
+          wait_time <- stats::runif(1,
                                    min = pause_min,
                                    max = min(pause_base * 2, pause_cap))
         }
-        if (! (waitTime > pause_cap)) {
-          if (is.function(onwait)) onwait(resp, waitTime)
-          Sys.sleep(waitTime)
+        if (! (wait_time > pause_cap)) {
+          if (is.function(onwait)) onwait(resp, wait_time)
+          Sys.sleep(wait_time)
           resp <- self$retry(verb = verb, ...,
                              pause_base = pause_base * 2,
                              pause_cap = pause_cap,
