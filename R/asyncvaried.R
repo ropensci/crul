@@ -164,7 +164,7 @@
 #' lapply(tmp$responses(), "[[", "response_headers_all")
 #' }
 AsyncVaried <- R6::R6Class(
-  'AsyncVaried',
+  "AsyncVaried",
   public = list(
     print = function(x, ...) {
       cat("<crul async varied connection> ", sep = "\n")
@@ -176,7 +176,8 @@ AsyncVaried <- R6::R6Class(
                     print_urls[[i]]$url), "\n")
       }
       if (length(private$reqs) > 10) {
-        cat(sprintf("   # ... with %s more", length(private$reqs) - 10), sep = "\n")
+        cat(sprintf("   # ... with %s more", length(private$reqs) - 10),
+          sep = "\n")
       }
       invisible(self)
     },

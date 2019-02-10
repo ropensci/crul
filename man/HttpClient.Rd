@@ -129,12 +129,12 @@ separate connections.
 If you don't pass in a curl handle to the \code{handle} parameter,
 it gets created when a HTTP verb is called. Thus, if you try to get \code{handle}
 after creating a \code{HttpClient} object only passing \code{url} parameter, \code{handle}
-will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then  you can get the handle from the }HttpClient\code{object. The response from a  http verb request does have the handle in the}handle` slot.
+will be \code{NULL}. If you pass a curl handle to the \code{handle parameter, then you can get the handle from the }HttpClient\code{object. The response from a http verb request does have the handle in the}handle` slot.
 }
 
 \examples{
 \dontrun{
-# set your own handle 
+# set your own handle
 (h <- handle("https://httpbin.org"))
 (x <- HttpClient$new(handle = h))
 x$handle
@@ -155,7 +155,7 @@ x$url
 x$handle # is empty, it gets created when a HTTP verb is called
 (r1 <- x$get('get'))
 x$url
-x$handle 
+x$handle
 r1$url
 r1$handle
 r1$content
