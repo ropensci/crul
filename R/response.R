@@ -62,7 +62,7 @@
 #' # res$raise_for_status()
 #' }
 HttpResponse <- R6::R6Class(
-  'HttpResponse',
+  "HttpResponse",
   public = list(
     method = NULL,
     url = NULL,
@@ -110,7 +110,7 @@ HttpResponse <- R6::R6Class(
     },
 
     initialize = function(method, url, opts, handle, status_code,
-                          request_headers, response_headers, 
+                          request_headers, response_headers,
                           response_headers_all, modified, times,
                           content, request) {
 
@@ -121,7 +121,7 @@ HttpResponse <- R6::R6Class(
       if (!missing(status_code)) self$status_code <- as.numeric(status_code)
       if (!missing(request_headers)) self$request_headers <- request_headers
       if (!missing(response_headers)) self$response_headers <- response_headers
-      if (!missing(response_headers_all)) 
+      if (!missing(response_headers_all))
         self$response_headers_all <- response_headers_all
       if (!missing(modified)) self$modified <- modified
       if (!missing(times)) self$times <- times
@@ -130,10 +130,28 @@ HttpResponse <- R6::R6Class(
     },
 
     parse = function(encoding = NULL) {
-      # readBin(self$content, character())
-      iconv(readBin(self$content, character()),
-            from = guess_encoding(encoding),
-            to = "UTF-8")
+      if (
+        "disk" %in% names(self$request) ||
+        (inherits(self$request, "HttpRequest") && 
+          "disk" %in% names(self$request$payload))
+      ) {
+        if (
+          inherits(self$request, "HttpRequest") &&
+          length(self$content) == 0
+        ) {
+          pld <- self$request$payload$disk
+        } else if (inherits(self$content, "raw")) {
+          return(parse_content(self$content, encoding))
+        } else {
+          pld <- self$content
+        }
+        raw <- readBin(pld, "raw", file.info(pld)$size)
+        return(rawToChar(raw))
+      }
+      if ("stream" %in% names(self$request)) {
+        return(raw(0))
+      }
+      parse_content(self$content, encoding)
     },
 
     success = function() {
@@ -179,4 +197,9 @@ parse_params <- function(x) {
   } else {
     strsplit(x, "&")[[1]]
   }
+}
+
+parse_content <- function(x, encoding) {
+  iconv(readBin(x, character()),
+    from = guess_encoding(encoding), to = "UTF-8")
 }

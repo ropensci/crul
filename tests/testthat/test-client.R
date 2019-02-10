@@ -67,7 +67,7 @@ test_that("HttpClient disk fails well", {
 
 
 context("HttpClient - stream")
-test_that("HttpClient works", {
+test_that("stream works", {
   skip_on_cran()
 
   aa <- HttpClient$new(url = hb())
@@ -80,7 +80,7 @@ test_that("HttpClient works", {
   expect_null(res$content)
 })
 
-test_that("HttpClient disk fails well", {
+test_that("stream fails well", {
   skip_on_cran()
 
   aa <- HttpClient$new(url = hb())
@@ -95,4 +95,19 @@ test_that("HttpClient - failure behavior", {
   # url doesn't exist - could not resolve host
   conn <- HttpClient$new("http://stuffthings.gvb")
   expect_error(conn$get(), "resolve host")
+})
+
+
+test_that("parse() works with disk usage", {
+  f <- tempfile(fileext = ".json")
+  out <- crul::HttpClient$new("https://httpbin.org/get")$get(disk = f)
+  expect_is(out$parse(), "character")
+  expect_match(out$parse(), "headers")
+})
+
+test_that("parse() works with stream usage", {
+  lst <- list()
+  fun <- function(x) lst <<- append(lst, list(x))
+  out <- crul::HttpClient$new("https://httpbin.org/get")$get(stream = fun)
+  expect_equal(out$parse(), raw(0))
 })

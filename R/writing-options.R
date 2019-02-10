@@ -42,6 +42,7 @@
 #' out$content()
 #' readLines(f)
 #' readLines(g)
+#' out$parse()
 #' close(file(f))
 #' close(file(g))
 #'
