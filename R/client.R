@@ -286,7 +286,7 @@ HttpClient <- R6::R6Class(
       # hooks
       if (!missing(hooks)) {
         assert(hooks, "list")
-        if (!has_name(hooks)) stop("'hooks' must be a named list")
+        if (!all(has_name(hooks))) stop("'hooks' must be a named list")
         if (!all(names(hooks) %in% c("request", "response")))
           stop("unsupported names in 'hooks' list: only request, ",
             "response supported")

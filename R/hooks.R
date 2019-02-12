@@ -6,7 +6,7 @@
 #' @examples \dontrun{
 #' # hooks on the request
 #' fun_req <- function(request) {
-#'   cat("Requesting: ", request$url$url, sep = "\n")
+#'   cat(paste0("Requesting: ", request$url$url), sep = "\n")
 #' }
 #' (x <- HttpClient$new(url = "https://httpbin.org",
 #'   hooks = list(request = fun_req)))
@@ -41,5 +41,6 @@
 #' # both
 #' (x <- HttpClient$new(url = "https://httpbin.org",
 #'   hooks = list(request = fun_req, response = fun_resp)))
+#' x$get("get")
 #' }
 NULL
