@@ -16,6 +16,10 @@ Functions passed to \code{response} are run \strong{once} the
 request is done, and the response object is created.
 The meaning of triggering a function on the
 response is to do things on the response object.
+
+The above for request and response applies the same
+whether you make real HTTP requests or mock with
+\code{webmockr}.
 }
 \note{
 Only supported on \link{HttpClient} for now
