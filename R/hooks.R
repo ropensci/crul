@@ -12,6 +12,10 @@
 #' request is done, and the response object is created. 
 #' The meaning of triggering a function on the 
 #' response is to do things on the response object.
+#' 
+#' The above for request and response applies the same
+#' whether you make real HTTP requests or mock with 
+#' `webmockr`.
 #' @note Only supported on [HttpClient] for now
 #' @examples \dontrun{
 #' # hooks on the request
