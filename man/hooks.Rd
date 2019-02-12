@@ -4,7 +4,21 @@
 \alias{hooks}
 \title{Event Hooks}
 \description{
-Trigger functions to run on requests and/or responses
+Trigger functions to run on requests and/or responses.
+See Details for more.
+}
+\details{
+Functions passed to \code{request} are run \strong{before} the
+request occurs. The meaning of triggering a function on the
+request is that you can do things to the request object.
+
+Functions passed to \code{response} are run \strong{once} the
+request is done, and the response object is created.
+The meaning of triggering a function on the
+response is to do things on the response object.
+}
+\note{
+Only supported on \link{HttpClient} for now
 }
 \examples{
 \dontrun{

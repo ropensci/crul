@@ -1,8 +1,18 @@
 #' Event Hooks
 #' 
-#' Trigger functions to run on requests and/or responses
+#' Trigger functions to run on requests and/or responses. 
+#' See Details for more.
 #' 
 #' @name hooks
+#' @details Functions passed to `request` are run **before** the
+#' request occurs. The meaning of triggering a function on the 
+#' request is that you can do things to the request object.
+#' 
+#' Functions passed to `response` are run **once** the
+#' request is done, and the response object is created. 
+#' The meaning of triggering a function on the 
+#' response is to do things on the response object.
+#' @note Only supported on [HttpClient] for now
 #' @examples \dontrun{
 #' # hooks on the request
 #' fun_req <- function(request) {
