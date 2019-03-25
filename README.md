@@ -31,7 +31,10 @@ of handling requests with different HTTP methods, options, etc.
 * `upload()` - File upload helper
 * set curl options globally: `set_auth()`, `set_headers()`, `set_opts()`, `set_proxy()`, and `crul_settings()`
 * Writing to disk and streaming: available with both synchronous requests
-as well as async requests.
+as well as async requests
+* Hooks on requests and responses are available in the `HttpClient` method only, 
+and allow you to trigger functions to run on requests or responses, or both.
+See `?hooks` for the details and examples
 
 Mocking:
 
@@ -158,15 +161,14 @@ res$content
 #>  [93] 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c
 #> [116] 2c 20 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e
 #> [139] 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65
-#> [162] 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22
-#> [185] 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68
-#> [208] 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72
-#> [231] 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e
-#> [254] 30 20 72 2d 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 36 2e 32
-#> [277] 2e 39 33 33 36 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22
-#> [300] 3a 20 22 32 34 2e 32 31 2e 32 32 39 2e 35 39 22 2c 20 0a 20 20 22 75
-#> [323] 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f
-#> [346] 72 67 2f 67 65 74 22 0a 7d 0a
+#> [162] 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69
+#> [185] 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e
+#> [208] 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d 63
+#> [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 37 2e 30 2e 39 33 31 30
+#> [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35
+#> [277] 2e 31 39 37 2e 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36
+#> [300] 2e 31 38 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a
+#> [323] 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
@@ -183,7 +185,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336"
+#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.0.9310"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -203,29 +205,29 @@ res$response_headers
 #> $status
 #> [1] "HTTP/1.1 200 OK"
 #> 
-#> $connection
-#> [1] "keep-alive"
-#> 
-#> $server
-#> [1] "gunicorn/19.9.0"
-#> 
-#> $date
-#> [1] "Thu, 03 Jan 2019 05:28:11 GMT"
-#> 
-#> $`content-type`
-#> [1] "application/json"
-#> 
-#> $`content-length`
-#> [1] "355"
+#> $`access-control-allow-credentials`
+#> [1] "true"
 #> 
 #> $`access-control-allow-origin`
 #> [1] "*"
 #> 
-#> $`access-control-allow-credentials`
-#> [1] "true"
+#> $`content-encoding`
+#> [1] "gzip"
 #> 
-#> $via
-#> [1] "1.1 vegur"
+#> $`content-type`
+#> [1] "application/json"
+#> 
+#> $date
+#> [1] "Mon, 25 Mar 2019 18:37:23 GMT"
+#> 
+#> $server
+#> [1] "nginx"
+#> 
+#> $`content-length`
+#> [1] "231"
+#> 
+#> $connection
+#> [1] "keep-alive"
 ```
 
 All response headers - e.g., intermediate headers
@@ -241,7 +243,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.0.9310\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -257,18 +259,15 @@ jsonlite::fromJSON(res$parse())
 #> $headers$`Accept-Encoding`
 #> [1] "gzip, deflate"
 #> 
-#> $headers$Connection
-#> [1] "close"
-#> 
 #> $headers$Host
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336"
+#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.0.9310"
 #> 
 #> 
 #> $origin
-#> [1] "24.21.229.59"
+#> [1] "65.197.146.18, 65.197.146.18"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -338,8 +337,8 @@ out$status()
 #>   Message: OK
 #>   Explanation: Request fulfilled, document follows
 out$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        
-#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        
+#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.0.9310\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
 ```
 
 ## Progress bars
