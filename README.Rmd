@@ -37,7 +37,10 @@ of handling requests with different HTTP methods, options, etc.
 * `upload()` - File upload helper
 * set curl options globally: `set_auth()`, `set_headers()`, `set_opts()`, `set_proxy()`, and `crul_settings()`
 * Writing to disk and streaming: available with both synchronous requests
-as well as async requests.
+as well as async requests
+* Hooks on requests and responses are available in the `HttpClient` method only, 
+and allow you to trigger functions to run on requests or responses, or both.
+See `?hooks` for the details and examples
 
 Mocking:
 
