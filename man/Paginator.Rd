@@ -20,6 +20,9 @@ Default: offset}
 
 \item{limit_chunk}{(numeric/integer) the number by which to chunk requests,
 e.g., 10 would be be each request gets 10 records}
+
+\item{progress}{(logical) print a progress bar, using \link[utils:txtProgressBar]{utils::txtProgressBar}.
+Default: \code{FALSE}.}
 }
 \value{
 a list, with objects of class \code{\link[=HttpResponse]{HttpResponse()}}.
@@ -130,6 +133,14 @@ lapply(cc$parse(), jsonlite::fromJSON)
 # get full URLs for each request to be made
 cc$url_fetch('works')
 cc$url_fetch('works', query = list(query = "NSF"))
+
+# progress bar
+(cli <- HttpClient$new(url = "https://api.crossref.org"))
+cc <- Paginator$new(client = cli, limit_param = "rows",
+   offset_param = "offset", limit = 50, limit_chunk = 10, 
+   progress = TRUE)
+cc
+cc$get('works')
 }
 }
 \keyword{datasets}

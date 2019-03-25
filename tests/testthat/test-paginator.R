@@ -128,3 +128,13 @@ test_that("Paginator fails well", {
     "offset_param must be of class character"
   )
 })
+
+test_that("Paginator progress option", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = "https://api.crossref.org")
+  cc <- Paginator$new(client = cli, limit_param = "rows",
+     offset_param = "offset", limit = 20, limit_chunk = 10, 
+     progress = TRUE)
+  expect_output(cc$get('works'), "====")
+})

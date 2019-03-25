@@ -6,13 +6,15 @@
 #' @param client an object of class `HttpClient`, from a call to [HttpClient]
 #' @param by (character) how to paginate. Only 'query_params' supported for
 #' now. In the future will support 'link_headers' and 'cursor'. See Details.
-#' @param limit_param (character) the name of the limit parameter. 
+#' @param limit_param (character) the name of the limit parameter.
 #' Default: limit
-#' @param offset_param (character) the name of the offset parameter. 
+#' @param offset_param (character) the name of the offset parameter.
 #' Default: offset
 #' @param limit (numeric/integer) the maximum records wanted
 #' @param limit_chunk (numeric/integer) the number by which to chunk requests,
 #' e.g., 10 would be be each request gets 10 records
+#' @param progress (logical) print a progress bar, using [utils::txtProgressBar].
+#' Default: `FALSE`.
 #' @details
 #' **Methods**
 #'   \describe{
@@ -76,28 +78,28 @@
 #'
 #' @format NULL
 #' @usage NULL
-#' 
+#'
 #' @section Methods to paginate:
-#' 
+#'
 #' Supported now:
-#' 
+#'
 #' - `query_params`: the most common way, so is the default. This method
-#' involves setting how many records and what record to start at for each 
+#' involves setting how many records and what record to start at for each
 #' request. We send these query parameters for you.
-#' 
+#'
 #' Supported later:
-#' 
-#' - `link_headers`: link headers are URLS for the next/previous/last 
+#'
+#' - `link_headers`: link headers are URLS for the next/previous/last
 #' request given in the response header from the server. This is relatively
-#' uncommon, though is recommended by JSONAPI and is implemented by a 
-#' well known API (GitHub). 
+#' uncommon, though is recommended by JSONAPI and is implemented by a
+#' well known API (GitHub).
 #' - `cursor`: this works by a single string given back in each response, to
-#' be passed in the subsequent response, and so on until no more records 
+#' be passed in the subsequent response, and so on until no more records
 #' remain. This is common in Solr
-#' 
+#'
 #' @return a list, with objects of class [HttpResponse()].
 #' Responses are returned in the order they are passed in.
-#' 
+#'
 #' @examples \dontrun{
 #' (cli <- HttpClient$new(url = "https://api.crossref.org"))
 #' cc <- Paginator$new(client = cli, limit_param = "rows",
@@ -112,10 +114,18 @@
 #' cc$content()
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
-#' 
+#'
 #' # get full URLs for each request to be made
 #' cc$url_fetch('works')
 #' cc$url_fetch('works', query = list(query = "NSF"))
+#' 
+#' # progress bar
+#' (cli <- HttpClient$new(url = "https://api.crossref.org"))
+#' cc <- Paginator$new(client = cli, limit_param = "rows",
+#'    offset_param = "offset", limit = 50, limit_chunk = 10, 
+#'    progress = TRUE)
+#' cc
+#' cc$get('works')
 #' }
 Paginator <- R6::R6Class(
   'Paginator',
@@ -127,6 +137,7 @@ Paginator <- R6::R6Class(
     offset_param = NULL,
     limit = NULL,
     req = NULL,
+    progress = FALSE,
 
     print = function(x, ...) {
       cat("<crul paginator> ", sep = "\n")
@@ -139,21 +150,24 @@ Paginator <- R6::R6Class(
       cat(paste0("  limit_param: ", self$limit_param %||% "<none>"), sep = "\n")
       cat(paste0("  offset_param: ", self$offset_param %||% "<none>"), sep = "\n")
       cat(paste0("  limit: ", self$limit %||% "<none>"), sep = "\n")
-      cat(paste0("  status: ", 
+      cat(paste0("  progress: ", self$progress %||% ""), sep = "\n")
+      cat(paste0("  status: ",
         if (length(private$resps) == 0) {
-          "not run yet" 
+          "not run yet"
         } else {
           paste0(length(private$resps), " requests done")
         }), sep = "\n")
       invisible(self)
     },
 
-    initialize = function(client, by = "query_params", limit_param, offset_param, limit, limit_chunk) {  
+    initialize = function(client, by = "query_params", limit_param,
+      offset_param, limit, limit_chunk, progress = FALSE) {
+
       ## checks
-      if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'", 
+      if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'",
         call. = FALSE)
       self$http_req <- client
-      if (by != "query_params") stop("'by' has to be 'query_params' for now", 
+      if (by != "query_params") stop("'by' has to be 'query_params' for now",
         call. = FALSE)
       self$by <- by
       if (!missing(limit_chunk)) {
@@ -170,12 +184,14 @@ Paginator <- R6::R6Class(
         if (limit_chunk %% 1 != 0) stop("'limit' must be an integer")
       }
       self$limit <- limit
+      assert(progress, "logical")
+      self$progress <- progress
 
       if (self$by == "query_params") {
         # calculate pagination values
-        private$offset_iters <-  c(0, seq(from=0, to=fround(self$limit, 10), 
+        private$offset_iters <-  c(0, seq(from=0, to=fround(self$limit, 10),
           by=self$limit_chunk)[-1])
-        private$offset_args <- as.list(stats::setNames(private$offset_iters, 
+        private$offset_args <- as.list(stats::setNames(private$offset_iters,
           rep(self$offset_param, length(private$offset_iters))))
         private$limit_chunks <- rep(self$limit_chunk, length(private$offset_iters))
         diffy <- self$limit - private$offset_iters[length(private$offset_iters)]
@@ -257,26 +273,32 @@ Paginator <- R6::R6Class(
     resps = NULL,
     page = function(method, path, query, body, encode, ...) {
       tmp <- list()
+      if (self$progress) {
+        pb <- utils::txtProgressBar(min = 0, max = length(private$offset_iters),
+          initial = 0, style = 3)
+        on.exit(close(pb), add = TRUE)
+      }
       for (i in seq_along(private$offset_iters)) {
+        if (self$progress) utils::setTxtProgressBar(pb, i)
         off <- private$offset_args[i]
         off[self$limit_param] <- private$limit_chunks[i]
         tmp[[i]] <- switch(
           method,
           get = self$http_req$get(path, query = ccp(c(query, off)), ...),
-          post = self$http_req$post(path, query = ccp(c(query, off)), 
+          post = self$http_req$post(path, query = ccp(c(query, off)),
             body = body, encode = encode, ...),
-          put = self$http_req$put(path, query = ccp(c(query, off)), 
+          put = self$http_req$put(path, query = ccp(c(query, off)),
             body = body, encode = encode, ...),
-          patch = self$http_req$patch(path, query = ccp(c(query, off)), 
+          patch = self$http_req$patch(path, query = ccp(c(query, off)),
             body = body, encode = encode, ...),
-          delete = self$http_req$delete(path, query = ccp(c(query, off)), 
+          delete = self$http_req$delete(path, query = ccp(c(query, off)),
             body = body, encode = encode, ...),
           head = self$http_req$head(path, ...)
         )
-        cat("\n")
+        # cat("\n")
       }
       private$resps <- tmp
-      message("OK\n")
+      # message("OK\n")
     }
   )
 )
