@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 3.5.2 Patched
-* ubuntu 14.04 (on travis-ci), R 3.5.2
+* local OS X install, R 3.5.3
+* ubuntu 14.04 (on travis-ci), R 3.5.3
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -16,13 +16,12 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 56 downstream dependencies
-(<https://github.com/ropensci/crul/blob/master/revdep/README.md>).
-No problems were found related to this package.
+* I have run R CMD check on the 60 downstream dependencies
+(includes some archived packageS; <https://github.com/ropensci/crul/blob/master/revdep/README.md>). No problems were found related to this package.
 
 ---
 
-This version adds a few function methods to some classes, adds additional documentation, and fixes a bug.
+This version adds major functionality to the main http request object HttpClient for setting request and response hooks for user supplied functions. In addition, improves behavior for the parsing method for request responses, and adds a progress bar to a method.
 
 Thanks!
 Scott Chamberlain

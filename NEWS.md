@@ -1,3 +1,21 @@
+crul 0.7.4
+==========
+
+### NEW FEATURES
+
+* event hooks added to `HttpClient`. both request and response hooks supported. not supported in async methods for now (#76) (#107)
+
+### MINOR IMPROVEMENTS
+
+* improve `$parse()` behavior (in the `HttpResponse` object) when using disk or stream. `$parse()` was throwing a warning when using disk and an error when using stream. and improves behavior when doing async requests (#104)
+* `Paginator` gains optional progress bar through the new `progress` parameter. In addition, the `cat()` calls inside the method were removed, so as not to insert newlines with each page and to not print "OK" when done (#106) thanks @boshek
+
+### BUG FIXES
+
+* passing on opts/headers now works with `Async` (#101) (#103)
+* streaming was broken in `AsyncVaried` with `curl` of a certain version, works now (#102) (#103)
+
+
 crul 0.7.0
 ==========
 
