@@ -48,6 +48,10 @@ Build request object with 1 or more URLs
   )
 ))
 #> <crul async connection> 
+#>   curl options: 
+#>   proxies: 
+#>   auth: 
+#>   headers: 
 #>   urls: (n: 3)
 #>    https://httpbin.org/get?a=5
 #>    https://httpbin.org/get?a=5&b=6
@@ -65,14 +69,14 @@ Make request with any HTTP method
 #>   request_headers: 
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
-#>     connection: keep-alive
-#>     server: gunicorn/19.9.0
-#>     date: Thu, 03 Jan 2019 05:29:48 GMT
-#>     content-type: application/json
-#>     content-length: 364
-#>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
-#>     via: 1.1 vegur
+#>     access-control-allow-origin: *
+#>     content-encoding: gzip
+#>     content-type: application/json
+#>     date: Wed, 27 Mar 2019 23:59:51 GMT
+#>     server: nginx
+#>     content-length: 234
+#>     connection: keep-alive
 #>   params: 
 #>     a: 5
 #>   status: 200
@@ -83,14 +87,14 @@ Make request with any HTTP method
 #>   request_headers: 
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
-#>     connection: keep-alive
-#>     server: gunicorn/19.9.0
-#>     date: Thu, 03 Jan 2019 05:29:48 GMT
-#>     content-type: application/json
-#>     content-length: 383
-#>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
-#>     via: 1.1 vegur
+#>     access-control-allow-origin: *
+#>     content-encoding: gzip
+#>     content-type: application/json
+#>     date: Wed, 27 Mar 2019 23:59:51 GMT
+#>     server: nginx
+#>     content-length: 242
+#>     connection: keep-alive
 #>   params: 
 #>     a: 5
 #>     b: 6
@@ -102,14 +106,14 @@ Make request with any HTTP method
 #>   request_headers: 
 #>   response_headers: 
 #>     status: HTTP/1.1 200 OK
-#>     connection: keep-alive
-#>     server: gunicorn/19.9.0
-#>     date: Thu, 03 Jan 2019 05:29:48 GMT
-#>     content-type: application/json
-#>     content-length: 31
-#>     access-control-allow-origin: *
 #>     access-control-allow-credentials: true
-#>     via: 1.1 vegur
+#>     access-control-allow-origin: *
+#>     content-encoding: gzip
+#>     content-type: application/json
+#>     date: Wed, 27 Mar 2019 23:59:51 GMT
+#>     server: nginx
+#>     content-length: 56
+#>     connection: keep-alive
 #>   status: 200
 ```
 
@@ -124,7 +128,7 @@ res[[1]]$url
 res[[1]]$success()
 #> [1] TRUE
 res[[1]]$parse("UTF-8")
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 ```
 
 Or apply access/method calls across many results, e.g., parse all results
@@ -133,13 +137,13 @@ Or apply access/method calls across many results, e.g., parse all results
 ```r
 lapply(res, function(z) z$parse("UTF-8"))
 #> [[1]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
 #> 
 #> [[2]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
 #> 
 #> [[3]]
-#> [1] "{\n  \"origin\": \"24.21.229.59\"\n}\n"
+#> [1] "{\n  \"origin\": \"65.197.146.18, 65.197.146.18\"\n}\n"
 ```
 
 ## varied request async
@@ -193,8 +197,8 @@ Parse all results
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                     
-#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------afc81919e27a80b7\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                
+#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------b22f9775d3239a86\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
 ```
 
 
@@ -208,11 +212,10 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "headers": {
 #>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
-#>         "Connection": "close",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)"
+#>         "User-Agent": "R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)"
 #>     },
-#>     "origin": "24.21.229.59",
+#>     "origin": "65.197.146.18, 65.197.146.18",
 #>     "url": "https://httpbin.org/get?a=5"
 #> }
 #>  
@@ -233,14 +236,13 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "headers": {
 #>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
-#>         "Connection": "close",
 #>         "Content-Length": "137",
-#>         "Content-Type": "multipart/form-data; boundary=------------------------afc81919e27a80b7",
+#>         "Content-Type": "multipart/form-data; boundary=------------------------b22f9775d3239a86",
 #>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.54.0 r-curl/3.2 crul/0.6.2.9336"
+#>         "User-Agent": "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"
 #>     },
 #>     "json": null,
-#>     "origin": "24.21.229.59",
+#>     "origin": "65.197.146.18, 65.197.146.18",
 #>     "url": "https://httpbin.org/post?a=5&b=6"
 #> }
 #> 
