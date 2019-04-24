@@ -50,8 +50,15 @@ ok.character <- function(x, status = 200L, info = TRUE, ...) {
 ok.HttpClient <- function(x, status = 200L, info = TRUE, ...) {
   assert(info, "logical")
   assert(status, "integer")
+  
+  if(!requireNamespace("fauxpas", quietly = TRUE)){
+    stop("The fauxpas package is required, please install it.",
+         call. = FALSE)
+  }
+  
   find_status <- tryCatch(fauxpas::find_error_class(status), 
     error = function(e) e)
+  browser()
   if (inherits(find_status, "error")) stop("status [", status, "] not in acceptable set")
   w <- tryCatch(x$head(), error = function(e) e)
   if (inherits(w, "error")) {
