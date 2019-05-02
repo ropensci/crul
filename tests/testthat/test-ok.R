@@ -35,4 +35,6 @@ test_that("ok fails well", {
   expect_error(ok(mtcars), "no 'ok' method for data.frame")
   expect_error(ok(list()), "no 'ok' method for list")
   expect_error(ok(), "argument \"x\" is missing")
+  expect_error(ok(hb("/status/404"), status = 567L),
+               "not in acceptable set")
 })
