@@ -13,3 +13,4 @@ docs
 inst/vign
 ^\.httr-oauth$
 ^codemeta\.json$
+azure-pipelines.yml
