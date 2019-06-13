@@ -100,3 +100,18 @@ test_that("internal fxn: check_encoding", {
   expect_error(check_encoding(), "argument \"x\" is missing")
 })
 
+test_that("parse works for ftp text responses", {
+  url <- "ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt"
+  cli <- HttpClient$new(url = url)
+  aa <- cli$get()
+  txt <- aa$parse()
+
+  x <- aa$content
+  z <- readBin(x, character())
+  out <- iconv(z, from = guess_encoding(), to = "UTF-8", sub = "")
+
+
+  iconv(readBin(x, character()),
+    from = guess_encoding(encoding), to = "UTF-8")
+
+})

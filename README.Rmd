@@ -45,11 +45,11 @@ See `?hooks` for the details and examples
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+HTTP requests. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
 
 Caching:
 
-`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
 
 ## Installation
 

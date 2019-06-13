@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTTP Client • crul</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="HTTP Client">
 <meta property="og:description" content="A simple HTTP client, with tools for making HTTP requests,
     and mocking HTTP requests. The package is built on R6, and takes
@@ -35,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4.9310</span>
       </span>
     </div>
 
@@ -43,7 +44,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -81,7 +82,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/crul">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,50 +132,52 @@
 <code><a href="reference/upload.html">upload()</a></code> - File upload helper</li>
 <li>set curl options globally: <code><a href="reference/crul-options.html">set_auth()</a></code>, <code><a href="reference/crul-options.html">set_headers()</a></code>, <code><a href="reference/crul-options.html">set_opts()</a></code>, <code><a href="reference/crul-options.html">set_proxy()</a></code>, and <code><a href="reference/crul-options.html">crul_settings()</a></code>
 </li>
-<li>Writing to disk and streaming: available with both synchronous requests as well as async requests.</li>
+<li>Writing to disk and streaming: available with both synchronous requests as well as async requests</li>
+<li>Hooks on requests and responses are available in the <code>HttpClient</code> method only, and allow you to trigger functions to run on requests or responses, or both. See <code><a href="reference/hooks.html">?hooks</a></code> for the details and examples</li>
 </ul>
 <p>Mocking:</p>
-<p><code>crul</code> now integrates with <a href="https://github.com/ropensci/webmockr">webmockr</a> to mock HTTP requests. Checkout the <a href="https://ropensci.github.io/http-testing-book/">http testing book</a></p>
+<p><code>crul</code> now integrates with <a href="https://github.com/ropensci/webmockr">webmockr</a> to mock HTTP requests. Checkout the <a href="https://ropenscilabs.github.io/http-testing-book/">http testing book</a></p>
 <p>Caching:</p>
-<p><code>crul</code> also integrates with <a href="https://github.com/ropensci/vcr">vcr</a> to cache http requests/responses. Checkout the <a href="https://ropensci.github.io/http-testing-book/">http testing book</a></p>
+<p><code>crul</code> also integrates with <a href="https://github.com/ropensci/vcr">vcr</a> to cache http requests/responses. Checkout the <a href="https://ropenscilabs.github.io/http-testing-book/">http testing book</a></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>CRAN version</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"crul"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"crul"</span>)</a></code></pre></div>
 <p>Dev version</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"ropensci/crul"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"crul"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"ropensci/crul"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"crul"</span>)</a></code></pre></div>
 </div>
 <div id="the-client" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-client" class="anchor"></a>the client</h2>
 <p><code>HttpClient</code> is where to start</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">(x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
-<a class="sourceLine" id="cb4-2" title="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org"</span>,</a>
-<a class="sourceLine" id="cb4-3" title="3">  <span class="dt">opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb4-4" title="4">    <span class="dt">timeout =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb4-5" title="5">  ),</a>
-<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">headers =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
-<a class="sourceLine" id="cb4-7" title="7">    <span class="dt">a =</span> <span class="st">"hello world"</span></a>
-<a class="sourceLine" id="cb4-8" title="8">  )</a>
-<a class="sourceLine" id="cb4-9" title="9">))</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; &lt;crul connection&gt; </span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;   url: https://httpbin.org</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;   curl options: </span></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt;     timeout: 1</span></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt;   proxies: </span></a>
-<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt;   auth: </span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt;   headers: </span></a>
-<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt;     a: hello world</span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="co">#&gt;   progress: FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">(x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org"</span>,</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">timeout =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  ),</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">a =</span> <span class="st">"hello world"</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">  )</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">))</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; &lt;crul connection&gt; </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;   url: https://httpbin.org</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   curl options: </span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;     timeout: 1</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;   proxies: </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;   auth: </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;   headers: </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;     a: hello world</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   progress: FALSE</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;   hooks:</span></a></code></pre></div>
 <p>Makes an R6 class, that has all the bits and bobs you’d expect for doing HTTP requests. When it prints, it gives any defaults you’ve set. As you update the object you can see what’s been set</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">x<span class="op">$</span>opts</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; $timeout</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">x<span class="op">$</span>headers</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; $a</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; [1] "hello world"</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">x<span class="op">$</span>opts</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; $timeout</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x<span class="op">$</span>headers</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; $a</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; [1] "hello world"</span></a></code></pre></div>
 <p>You can also pass in curl options when you make HTTP requests, see below for examples.</p>
 </div>
 <div id="do-some-http" class="section level2">
@@ -182,171 +185,179 @@
 <a href="#do-some-http" class="anchor"></a>do some http</h2>
 <p>The client object created above has http methods that you can call, and pass paths to, as well as query parameters, body values, and any other curl options.</p>
 <p>Here, we’ll do a <strong>GET</strong> request on the route <code>/get</code> on our base url <code>https://httpbin.org</code> (the full url is then <code>https://httpbin.org/get</code>)</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">res &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>(<span class="st">"get"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">res &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"get"</span>)</a></code></pre></div>
 <p>The response from a http request is another R6 class <code>HttpResponse</code>, which has slots for the outputs of the request, and some functions to deal with the response:</p>
 <p>Status code</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">res<span class="op">$</span>status_code</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt; [1] 200</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">res<span class="op">$</span>status_code</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] 200</span></a></code></pre></div>
 <p>Status information</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">res<span class="op">$</span><span class="kw">status_http</span>()</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt;   Message: OK</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">res<span class="op">$</span><span class="kw">status_http</span>()</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;   Message: OK</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a></code></pre></div>
 <p>The content</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">res<span class="op">$</span>content</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt;  [24] 64 65 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt;  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt;  [70] 3a 20 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74 65</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt;  [93] 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c</span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; [116] 2c 20 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; [139] 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt; [162] 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65 63 74 69 6f 6e 22 3a 20 22</span></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; [185] 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68</span></a>
-<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; [208] 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72</span></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; [231] 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt; [254] 30 20 72 2d 63 75 72 6c 2f 33 2e 32 20 63 72 75 6c 2f 30 2e 37 2e 30</span></a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; [277] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31 35</span></a>
-<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt; [300] 37 2e 31 33 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c 22</span></a>
-<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt; [323] 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f</span></a>
-<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt; [346] 67 65 74 22 0a 7d 0a</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">res<span class="op">$</span>content</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;  [24] 64 65 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;  [70] 3a 20 22 61 70 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74 65</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;  [93] 78 74 2f 78 6d 6c 2c 20 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; [116] 2c 20 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45 6e</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; [139] 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74 65</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [162] 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; [185] 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; [208] 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d 63</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 37 2e 34 2e 39 33 31 30</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; [277] 2e 31 39 37 2e 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; [300] 2e 31 38 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; [323] 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</span></a></code></pre></div>
 <p>HTTP method</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">res<span class="op">$</span>method</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="co">#&gt; [1] "get"</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">res<span class="op">$</span>method</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] "get"</span></a></code></pre></div>
 <p>Request headers</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">res<span class="op">$</span>request_headers</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; $`User-Agent`</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.2 crul/0.7.0"</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="co">#&gt; $`Accept-Encoding`</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt; $Accept</span></a>
-<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></a>
-<a class="sourceLine" id="cb12-10" title="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; $a</span></a>
-<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; [1] "hello world"</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">res<span class="op">$</span>request_headers</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; $`User-Agent`</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; $`Accept-Encoding`</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; $Accept</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; $a</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; [1] "hello world"</span></a></code></pre></div>
 <p>Response headers</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">res<span class="op">$</span>response_headers</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt; $status</span></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt; [1] "HTTP/1.1 200 OK"</span></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="co">#&gt; $connection</span></a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="co">#&gt; [1] "keep-alive"</span></a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="co">#&gt; $server</span></a>
-<a class="sourceLine" id="cb13-9" title="9"><span class="co">#&gt; [1] "gunicorn/19.9.0"</span></a>
-<a class="sourceLine" id="cb13-10" title="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-11" title="11"><span class="co">#&gt; $date</span></a>
-<a class="sourceLine" id="cb13-12" title="12"><span class="co">#&gt; [1] "Thu, 03 Jan 2019 23:37:04 GMT"</span></a>
-<a class="sourceLine" id="cb13-13" title="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-14" title="14"><span class="co">#&gt; $`content-type`</span></a>
-<a class="sourceLine" id="cb13-15" title="15"><span class="co">#&gt; [1] "application/json"</span></a>
-<a class="sourceLine" id="cb13-16" title="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-17" title="17"><span class="co">#&gt; $`content-length`</span></a>
-<a class="sourceLine" id="cb13-18" title="18"><span class="co">#&gt; [1] "352"</span></a>
-<a class="sourceLine" id="cb13-19" title="19"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-20" title="20"><span class="co">#&gt; $`access-control-allow-origin`</span></a>
-<a class="sourceLine" id="cb13-21" title="21"><span class="co">#&gt; [1] "*"</span></a>
-<a class="sourceLine" id="cb13-22" title="22"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-23" title="23"><span class="co">#&gt; $`access-control-allow-credentials`</span></a>
-<a class="sourceLine" id="cb13-24" title="24"><span class="co">#&gt; [1] "true"</span></a>
-<a class="sourceLine" id="cb13-25" title="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb13-26" title="26"><span class="co">#&gt; $via</span></a>
-<a class="sourceLine" id="cb13-27" title="27"><span class="co">#&gt; [1] "1.1 vegur"</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">res<span class="op">$</span>response_headers</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; $status</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; [1] "HTTP/1.1 200 OK"</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; $`access-control-allow-credentials`</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [1] "true"</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; $`access-control-allow-origin`</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; [1] "*"</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; $`content-encoding`</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; [1] "gzip"</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; $`content-type`</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; [1] "application/json"</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; $date</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [1] "Thu, 13 Jun 2019 17:57:59 GMT"</span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; $`referrer-policy`</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; [1] "no-referrer-when-downgrade"</span></a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; $server</span></a>
+<a class="sourceLine" id="cb13-24" data-line-number="24"><span class="co">#&gt; [1] "nginx"</span></a>
+<a class="sourceLine" id="cb13-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-26" data-line-number="26"><span class="co">#&gt; $`x-content-type-options`</span></a>
+<a class="sourceLine" id="cb13-27" data-line-number="27"><span class="co">#&gt; [1] "nosniff"</span></a>
+<a class="sourceLine" id="cb13-28" data-line-number="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-29" data-line-number="29"><span class="co">#&gt; $`x-frame-options`</span></a>
+<a class="sourceLine" id="cb13-30" data-line-number="30"><span class="co">#&gt; [1] "DENY"</span></a>
+<a class="sourceLine" id="cb13-31" data-line-number="31"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-32" data-line-number="32"><span class="co">#&gt; $`x-xss-protection`</span></a>
+<a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; [1] "1; mode=block"</span></a>
+<a class="sourceLine" id="cb13-34" data-line-number="34"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-35" data-line-number="35"><span class="co">#&gt; $`content-length`</span></a>
+<a class="sourceLine" id="cb13-36" data-line-number="36"><span class="co">#&gt; [1] "232"</span></a>
+<a class="sourceLine" id="cb13-37" data-line-number="37"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb13-38" data-line-number="38"><span class="co">#&gt; $connection</span></a>
+<a class="sourceLine" id="cb13-39" data-line-number="39"><span class="co">#&gt; [1] "keep-alive"</span></a></code></pre></div>
 <p>All response headers - e.g., intermediate headers</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">res<span class="op">$</span>response_headers_all</a></code></pre></div>
-<p>And you can parse the content with <code><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse()</a></code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">res<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>()</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.2 crul/0.7.0\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></a>
-<a class="sourceLine" id="cb15-4" title="4">jsonlite<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>())</a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; $args</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt; named list()</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; $headers</span></a>
-<a class="sourceLine" id="cb15-10" title="10"><span class="co">#&gt; $headers$A</span></a>
-<a class="sourceLine" id="cb15-11" title="11"><span class="co">#&gt; [1] "hello world"</span></a>
-<a class="sourceLine" id="cb15-12" title="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-13" title="13"><span class="co">#&gt; $headers$Accept</span></a>
-<a class="sourceLine" id="cb15-14" title="14"><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></a>
-<a class="sourceLine" id="cb15-15" title="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-16" title="16"><span class="co">#&gt; $headers$`Accept-Encoding`</span></a>
-<a class="sourceLine" id="cb15-17" title="17"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
-<a class="sourceLine" id="cb15-18" title="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-19" title="19"><span class="co">#&gt; $headers$Connection</span></a>
-<a class="sourceLine" id="cb15-20" title="20"><span class="co">#&gt; [1] "close"</span></a>
-<a class="sourceLine" id="cb15-21" title="21"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-22" title="22"><span class="co">#&gt; $headers$Host</span></a>
-<a class="sourceLine" id="cb15-23" title="23"><span class="co">#&gt; [1] "httpbin.org"</span></a>
-<a class="sourceLine" id="cb15-24" title="24"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-25" title="25"><span class="co">#&gt; $headers$`User-Agent`</span></a>
-<a class="sourceLine" id="cb15-26" title="26"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.2 crul/0.7.0"</span></a>
-<a class="sourceLine" id="cb15-27" title="27"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-28" title="28"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-29" title="29"><span class="co">#&gt; $origin</span></a>
-<a class="sourceLine" id="cb15-30" title="30"><span class="co">#&gt; [1] "157.130.179.86"</span></a>
-<a class="sourceLine" id="cb15-31" title="31"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-32" title="32"><span class="co">#&gt; $url</span></a>
-<a class="sourceLine" id="cb15-33" title="33"><span class="co">#&gt; [1] "https://httpbin.org/get"</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">res<span class="op">$</span>response_headers_all</a></code></pre></div>
+<p>And you can parse the content with <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>())</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; $args</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; named list()</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt; $headers</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt; $headers$A</span></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; [1] "hello world"</span></a>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt; $headers$Accept</span></a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></a>
+<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt; $headers$`Accept-Encoding`</span></a>
+<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
+<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; $headers$Host</span></a>
+<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; [1] "httpbin.org"</span></a>
+<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="co">#&gt; $headers$`User-Agent`</span></a>
+<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"</span></a>
+<a class="sourceLine" id="cb15-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="co">#&gt; $origin</span></a>
+<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="co">#&gt; [1] "65.197.146.18, 65.197.146.18"</span></a>
+<a class="sourceLine" id="cb15-28" data-line-number="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-29" data-line-number="29"><span class="co">#&gt; $url</span></a>
+<a class="sourceLine" id="cb15-30" data-line-number="30"><span class="co">#&gt; [1] "https://httpbin.org/get"</span></a></code></pre></div>
 </div>
 <div id="curl-options" class="section level2">
 <h2 class="hasAnchor">
 <a href="#curl-options" class="anchor"></a>curl options</h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">res &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"http://api.gbif.org/v1/occurrence/search"</span>)</a>
-<a class="sourceLine" id="cb16-2" title="2">res<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>(<span class="dt">query =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">limit =</span> <span class="dv">100</span>), <span class="dt">timeout_ms =</span> <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :</span></a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="co">#&gt;   Timeout was reached</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">res &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"http://api.gbif.org/v1/occurrence/search"</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">limit =</span> <span class="dv">100</span>), <span class="dt">timeout_ms =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt;   Timeout was reached</span></a></code></pre></div>
 </div>
 <div id="asynchronous-requests" class="section level2">
 <h2 class="hasAnchor">
 <a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h2>
 <p>The simpler interface allows many requests (many URLs), but they all get the same options/headers, etc. and you have to use the same HTTP method on all of them:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">(cc &lt;-<span class="st"> </span>Async<span class="op">$</span><span class="kw">new</span>(</a>
-<a class="sourceLine" id="cb17-2" title="2">  <span class="dt">urls =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(</a>
-<a class="sourceLine" id="cb17-3" title="3">    <span class="st">'https://httpbin.org/'</span>,</a>
-<a class="sourceLine" id="cb17-4" title="4">    <span class="st">'https://httpbin.org/get?a=5'</span>,</a>
-<a class="sourceLine" id="cb17-5" title="5">    <span class="st">'https://httpbin.org/get?foo=bar'</span></a>
-<a class="sourceLine" id="cb17-6" title="6">  )</a>
-<a class="sourceLine" id="cb17-7" title="7">))</a>
-<a class="sourceLine" id="cb17-8" title="8">res &lt;-<span class="st"> </span>cc<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>()</a>
-<a class="sourceLine" id="cb17-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(res, <span class="cf">function</span>(z) z<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="st">"UTF-8"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">(cc &lt;-<span class="st"> </span>Async<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">  <span class="dt">urls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">    <span class="st">'https://httpbin.org/'</span>,</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">    <span class="st">'https://httpbin.org/get?a=5'</span>,</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">    <span class="st">'https://httpbin.org/get?foo=bar'</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6">  )</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">))</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">res &lt;-<span class="st"> </span>cc<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(res, <span class="cf">function</span>(z) z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>))</a></code></pre></div>
 <p>The <code>AsyncVaried</code> interface accepts any number of <code>HttpRequest</code> objects, which can define any type of HTTP request of any HTTP method:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">req1 &lt;-<span class="st"> </span>HttpRequest<span class="op">$</span><span class="kw">new</span>(</a>
-<a class="sourceLine" id="cb18-2" title="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/get"</span>,</a>
-<a class="sourceLine" id="cb18-3" title="3">  <span class="dt">opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb18-4" title="4">  <span class="dt">headers =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>)</a>
-<a class="sourceLine" id="cb18-5" title="5">)<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>()</a>
-<a class="sourceLine" id="cb18-6" title="6">req2 &lt;-<span class="st"> </span>HttpRequest<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"https://httpbin.org/post"</span>)<span class="op">$</span><span class="kw">post</span>()</a>
-<a class="sourceLine" id="cb18-7" title="7">out &lt;-<span class="st"> </span>AsyncVaried<span class="op">$</span><span class="kw">new</span>(req1, req2)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">req1 &lt;-<span class="st"> </span>HttpRequest<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/get"</span>,</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4">  <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>)</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">)<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6">req2 &lt;-<span class="st"> </span>HttpRequest<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"https://httpbin.org/post"</span>)<span class="op">$</span><span class="kw">post</span>()</a>
+<a class="sourceLine" id="cb18-7" data-line-number="7">out &lt;-<span class="st"> </span>AsyncVaried<span class="op">$</span><span class="kw">new</span>(req1, req2)</a></code></pre></div>
 <p>Execute the requests</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">out<span class="op">$</span><span class="kw">request</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">out<span class="op">$</span><span class="kw">request</span>()</a></code></pre></div>
 <p>Then functions get applied to all responses:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">out<span class="op">$</span><span class="kw">status</span>()</a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="co">#&gt;   Message: OK</span></a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb20-7" title="7"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb20-8" title="8"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="co">#&gt;   Message: OK</span></a>
-<a class="sourceLine" id="cb20-10" title="10"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
-<a class="sourceLine" id="cb20-11" title="11">out<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>()</a>
-<a class="sourceLine" id="cb20-12" title="12"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.2 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                   </span></a>
-<a class="sourceLine" id="cb20-13" title="13"><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.2 crul/0.7.0\"\n  }, \n  \"json\": null, \n  \"origin\": \"157.130.179.86\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">out<span class="op">$</span><span class="kw">status</span>()</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">#&gt;   Message: OK</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt; &lt;Status code: 200&gt;</span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#&gt;   Message: OK</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11">out<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</a>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.0 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        </span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></a></code></pre></div>
 </div>
 <div id="progress-bars" class="section level2">
 <h2 class="hasAnchor">
 <a href="#progress-bars" class="anchor"></a>Progress bars</h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(httr)</a>
-<a class="sourceLine" id="cb21-2" title="2">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
-<a class="sourceLine" id="cb21-3" title="3">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/bytes/102400"</span>, </a>
-<a class="sourceLine" id="cb21-4" title="4">  <span class="dt">progress =</span> <span class="kw"><a href="reference/progress.html">progress</a></span>()</a>
-<a class="sourceLine" id="cb21-5" title="5">)</a>
-<a class="sourceLine" id="cb21-6" title="6">z &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>()</a>
-<a class="sourceLine" id="cb21-7" title="7"><span class="op">|</span><span class="er">==============================================|</span><span class="st"> </span><span class="dv">100</span>%</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(httr)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">  <span class="dt">url =</span> <span class="st">"https://httpbin.org/bytes/102400"</span>, </a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">  <span class="dt">progress =</span> <span class="kw"><a href="reference/progress.html">progress</a></span>()</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">)</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">z &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7"><span class="op">|</span><span class="er">==============================================|</span><span class="st"> </span><span class="dv">100</span>%</a></code></pre></div>
 </div>
 <div id="to-do" class="section level2">
 <h2 class="hasAnchor">
@@ -361,7 +372,7 @@
 <ul>
 <li>Please <a href="https://github.com/ropensci/crul/issues">report any issues or bugs</a>.</li>
 <li>License: MIT</li>
-<li>Get citation information for <code>crul</code> in R doing <code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation(package = 'crul')</a></code>
+<li>Get citation information for <code>crul</code> in R doing <code><a href="https://rdrr.io/r/utils/citation.html">citation(package = 'crul')</a></code>
 </li>
 <li>Please note that this project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
 </ul>
@@ -418,7 +429,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
       </footer>
 </div>

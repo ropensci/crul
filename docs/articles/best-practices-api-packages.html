@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title> • crul</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -30,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4.9310</span>
       </span>
     </div>
 
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -76,7 +77,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/crul">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,22 +115,22 @@
 <h2 class="hasAnchor">
 <a href="#importing-crul" class="anchor"></a>Importing crul</h2>
 <p>In most cases you’ll only need to import one thing from <code>crul</code>: <code>HttpClient</code>. Add crul to <code>Imports</code> in your <code>DESCRIPTION</code> file, and ad an entry like <code>@importFrom crul HttpClient</code> somewhere in your package documentation, for example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co">#' Some function</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co">#' </span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">#' @export</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">#' @importFrom crul HttpClient</span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">#' ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#' Some function</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#' </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#' @export</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#' @importFrom crul HttpClient</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#' ...</span></a></code></pre></div>
 </div>
 <div id="http-request-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#http-request-function" class="anchor"></a>HTTP request function</h2>
 <p>If you have more than one function that needs to make an HTTP request it’s probably useful to have a function for doing HTTP requests. The following is an example of a function.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">xGET &lt;-<span class="st"> </span><span class="cf">function</span>(url, path, <span class="dt">args =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(), ...) {</a>
-<a class="sourceLine" id="cb2-2" title="2">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(url, <span class="dt">opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(...))</a>
-<a class="sourceLine" id="cb2-3" title="3">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/get">get</a></span>(<span class="dt">path =</span> path, <span class="dt">query =</span> args)</a>
-<a class="sourceLine" id="cb2-4" title="4">  res<span class="op">$</span><span class="kw">raise_for_status</span>()</a>
-<a class="sourceLine" id="cb2-5" title="5">  res<span class="op">$</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/parse">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
-<a class="sourceLine" id="cb2-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">xGET &lt;-<span class="st"> </span><span class="cf">function</span>(url, path, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), ...) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(url, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="dt">path =</span> path, <span class="dt">query =</span> args)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  res<span class="op">$</span><span class="kw">raise_for_status</span>()</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
 <p>There’s some features to note in the above function:</p>
 <ul>
 <li>
@@ -137,17 +138,17 @@
 <li>
 <code>path</code>: this likely will hold anything after the base path</li>
 <li>
-<code>args</code>: named list of query arguments. the default of <code><a href="https://www.rdocumentation.org/packages/base/topics/list">list()</a></code> means you can then use the function and not have to pass <code>args</code> in cases where no query args are needed.</li>
+<code>args</code>: named list of query arguments. the default of <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> means you can then use the function and not have to pass <code>args</code> in cases where no query args are needed.</li>
 <li>
 <code>...</code>: it’s called an ellipsis. see example and discussion below.</li>
 </ul>
 <p>You can use the function like:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">x &lt;-<span class="st"> </span><span class="kw">xGET</span>(<span class="st">"https://httpbin.org"</span>, <span class="st">"get"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>))</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="co"># parse the JSON to a list</span></a>
-<a class="sourceLine" id="cb3-3" title="3">jsonlite<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON">fromJSON</a></span>(x)</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co"># more parsing</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">xGET</span>(<span class="st">"https://httpbin.org"</span>, <span class="st">"get"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>))</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># parse the JSON to a list</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(x)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># more parsing</span></a></code></pre></div>
 <p>Because we used an ellipsis, anyone can pass in curl options like:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">xGET</span>(<span class="st">"https://xxx.org"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>), <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">xGET</span>(<span class="st">"https://xxx.org"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>), <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Curl options are important for digging into the details of HTTP requests, and go a long way towards users being able to sort out their own problems, and help you diagnose problems as well.</p>
 <p>Alternatively, you can just do the HTTP request in your <code>xGET</code> function and return the response object - and line by line, or with another function, parse results as needed.</p>
 </div>
@@ -177,21 +178,21 @@
 <li>Add <code>vcr</code> to Suggests in your DESCRIPTION file</li>
 <li>Make a file in your <code>tests/testthat/</code> directory called <code>helper-yourpackage.R</code> (or skip if as similar file already exists). In that file use the following lines to setup your path for storing cassettes (change path to whatever you want):</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(<span class="st">"vcr"</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/invisible">invisible</a></span>(vcr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vcr/topics/vcr_configure">vcr_configure</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vcr"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/vcr_configure.html">vcr_configure</a></span>())</a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code><a href="https://www.rdocumentation.org/packages/vcr/topics/use_cassette">vcr::use_cassette()</a></code> call like:</li>
+<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">vcr::use_cassette()</a></code> call like:</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(testthat)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/test_that">test_that</a></span>(<span class="st">"my test"</span>, {</a>
-<a class="sourceLine" id="cb6-3" title="3">  vcr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/vcr/topics/use_cassette">use_cassette</a></span>(<span class="st">"rl_citation"</span>, {</a>
-<a class="sourceLine" id="cb6-4" title="4">    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</a>
-<a class="sourceLine" id="cb6-5" title="5"></a>
-<a class="sourceLine" id="cb6-6" title="6">    <span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/inheritance-expectations">expect_is</a></span>(aa, <span class="st">"character"</span>)</a>
-<a class="sourceLine" id="cb6-7" title="7">    <span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/expect_match">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</a>
-<a class="sourceLine" id="cb6-8" title="8">    <span class="kw"><a href="https://www.rdocumentation.org/packages/testthat/topics/expect_match">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</a>
-<a class="sourceLine" id="cb6-9" title="9">  })</a>
-<a class="sourceLine" id="cb6-10" title="10">})</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"my test"</span>, {</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">use_cassette</a></span>(<span class="st">"rl_citation"</span>, {</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_is.html">expect_is</a></span>(aa, <span class="st">"character"</span>)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">  })</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">})</a></code></pre></div>
 <p>That’s it! Just run your tests are you normally would and any HTTP requests done by <code>crul</code> or <code>httr</code> will be cached on the first test run then the cached responses used every time thereafter.</p>
 </div>
 <div id="what-else" class="section level2">
@@ -229,7 +230,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
       </footer>
 </div>

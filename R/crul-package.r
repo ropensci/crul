@@ -40,11 +40,11 @@
 #' @section Mocking:
 #' Mocking HTTP requests is supported via the \pkg{webmockr}
 #' package. See [mock] for guidance, and 
-#' <https://ropensci.github.io/http-testing-book/>
+#' <https://ropenscilabs.github.io/http-testing-book/>
 #' 
 #' @section Caching:
 #' Caching HTTP requests is supported via the \pkg{vcr}
-#' package. See <https://ropensci.github.io/http-testing-book/>
+#' package. See <https://ropenscilabs.github.io/http-testing-book/>
 #' 
 #' @section Links:
 #' 

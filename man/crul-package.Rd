@@ -57,13 +57,13 @@ conditions but if it's not installed we use \pkg{httpcode}
 
 Mocking HTTP requests is supported via the \pkg{webmockr}
 package. See \link{mock} for guidance, and
-\url{https://ropensci.github.io/http-testing-book/}
+\url{https://ropenscilabs.github.io/http-testing-book/}
 }
 
 \section{Caching}{
 
 Caching HTTP requests is supported via the \pkg{vcr}
-package. See \url{https://ropensci.github.io/http-testing-book/}
+package. See \url{https://ropenscilabs.github.io/http-testing-book/}
 }
 
 \section{Links}{

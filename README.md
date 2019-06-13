@@ -39,11 +39,11 @@ See `?hooks` for the details and examples
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+HTTP requests. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
 
 Caching:
 
-`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropensci.github.io/http-testing-book/)
+`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
 
 ## Installation
 
@@ -165,11 +165,11 @@ res$content
 #> [162] 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69
 #> [185] 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e
 #> [208] 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d 63
-#> [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 37 2e 34 22 0a 20 20 7d
-#> [254] 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35 2e 31 39 37 2e
-#> [277] 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36 2e 31 38 22 2c
-#> [300] 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74
-#> [323] 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
+#> [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 37 2e 34 2e 39 33 31 30
+#> [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35
+#> [277] 2e 31 39 37 2e 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36
+#> [300] 2e 31 38 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a
+#> [323] 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
@@ -186,7 +186,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"
+#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -219,13 +219,25 @@ res$response_headers
 #> [1] "application/json"
 #> 
 #> $date
-#> [1] "Wed, 27 Mar 2019 23:58:45 GMT"
+#> [1] "Thu, 13 Jun 2019 17:57:47 GMT"
+#> 
+#> $`referrer-policy`
+#> [1] "no-referrer-when-downgrade"
 #> 
 #> $server
 #> [1] "nginx"
 #> 
+#> $`x-content-type-options`
+#> [1] "nosniff"
+#> 
+#> $`x-frame-options`
+#> [1] "DENY"
+#> 
+#> $`x-xss-protection`
+#> [1] "1; mode=block"
+#> 
 #> $`content-length`
-#> [1] "228"
+#> [1] "232"
 #> 
 #> $connection
 #> [1] "keep-alive"
@@ -244,7 +256,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -264,7 +276,7 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"
+#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"
 #> 
 #> 
 #> $origin
@@ -338,8 +350,8 @@ out$status()
 #>   Message: OK
 #>   Explanation: Request fulfilled, document follows
 out$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.5.3 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                   
-#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.0 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        
+#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
 ```
 
 ## Progress bars

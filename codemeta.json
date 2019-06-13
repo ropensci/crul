@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.4",
+  "version": "0.7.4.9310",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.3",
+    "version": "3.6.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.3 (2019-03-11)",
+  "runtimePlatform": "R version 3.6.0 Patched (2019-04-30 r76446)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -179,8 +179,10 @@
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/crul/blob/master/README.md",
-  "fileSize": "74.481KB",
-  "relatedLink": "https://ropensci.github.io/http-testing-book/",
+  "fileSize": "74.771KB",
+  "relatedLink": [
+    "https://ropenscilabs.github.io/http-testing-book/"
+  ],
   "contributor": {},
   "copyrightHolder": {},
   "funder": {}
