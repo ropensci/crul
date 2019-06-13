@@ -75,6 +75,32 @@ test_that("HttpResponse fails well", {
   expect_error(HttpResponse$new(), "argument \"url\" is missing")
 })
 
+test_that("parse method", {
+  aa <- HttpResponse$new(
+    method = "get",
+    url = hb(),
+    status_code = 201,
+    request_headers = list(useragent = "foo bar"),
+    content = charToRaw("hello J\xf6reskog"),
+    request = list()
+  )
+
+  # has correct parameters
+  expect_named(formals(aa$parse), c("encoding", "..."))
+
+  # can pass parameters to iconv
+  expect_is(suppressMessages(aa$parse(sub = "")), "character")
+  expect_true(nzchar(suppressMessages(aa$parse(sub = ""))))
+
+  # sub parameter works
+  expect_true(is.na(suppressMessages(aa$parse())))
+  expect_match(suppressMessages(aa$parse(sub = "---")), "---")
+
+  # toRaw parameter works
+  expect_null(suppressMessages(aa$parse(toRaw = TRUE)[[1]]))
+  expect_is(suppressMessages(aa$parse(sub = "", toRaw = TRUE)[[1]]), "raw")
+})
+
 test_that("internal fxn: parse_params", {
   url <- "https://httpbin.org/get?a=5&foo=bar"
   x <- parse_params(url)
@@ -105,7 +131,7 @@ test_that("internal fxn: check_encoding", {
 #   url <- "ftp://ftp.ncdc.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt"
 #   cli <- HttpClient$new(url = url)
 #   aa <- cli$get()
-#   txt <- aa$parse()
+#   txt <- aa$parse("UTF-8")
 
 #   x <- aa$content
 #   z <- readBin(x, character())
@@ -114,5 +140,4 @@ test_that("internal fxn: check_encoding", {
 
 #   iconv(readBin(x, character()),
 #     from = guess_encoding(encoding), to = "UTF-8")
-
 # })

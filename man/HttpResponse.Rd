@@ -36,8 +36,13 @@ Base response object
 \details{
 \strong{Methods}
 \describe{
-\item{\code{parse()}}{
+\item{\code{parse(encoding = NULL, ...)}}{
 Parse the raw response content to text
+- encoding: A character string describing the current encoding.
+If left as \code{NULL}, we attempt to guess the encoding. Passed to
+\code{from} parameter in \code{iconv}
+- ...: additional parameters passed on to \code{iconv} (options: sub, mark, toRaw).
+See \code{?iconv} for help
 }
 \item{\code{success()}}{
 Was status code less than or equal to 201.

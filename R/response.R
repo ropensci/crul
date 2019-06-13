@@ -17,8 +17,13 @@
 #' @details
 #' **Methods**
 #'   \describe{
-#'     \item{`parse()`}{
+#'     \item{`parse(encoding = NULL, ...)`}{
 #'       Parse the raw response content to text
+#'       - encoding: A character string describing the current encoding.
+#'         If left as `NULL`, we attempt to guess the encoding. Passed to
+#'         `from` parameter in `iconv`
+#'       - ...: additional parameters passed on to `iconv` (options: sub, mark, toRaw).
+#'         See `?iconv` for help
 #'     }
 #'     \item{`success()`}{
 #'       Was status code less than or equal to 201.
@@ -129,7 +134,7 @@ HttpResponse <- R6::R6Class(
       if (!missing(request)) self$request <- request
     },
 
-    parse = function(encoding = NULL) {
+    parse = function(encoding = NULL, ...) {
       if (
         "disk" %in% names(self$request) ||
         (inherits(self$request, "HttpRequest") && 
@@ -141,7 +146,7 @@ HttpResponse <- R6::R6Class(
         ) {
           pld <- self$request$payload$disk
         } else if (inherits(self$content, "raw")) {
-          return(parse_content(self$content, encoding))
+          return(parse_content(self$content, encoding, ...))
         } else {
           pld <- self$content
         }
@@ -151,7 +156,7 @@ HttpResponse <- R6::R6Class(
       if ("stream" %in% names(self$request)) {
         return(raw(0))
       }
-      parse_content(self$content, encoding)
+      parse_content(self$content, encoding, ...)
     },
 
     success = function() {
@@ -199,7 +204,7 @@ parse_params <- function(x) {
   }
 }
 
-parse_content <- function(x, encoding) {
-  iconv(readBin(x, character()),
-    from = guess_encoding(encoding), to = "UTF-8")
+parse_content <- function(x, encoding, ...) {
+  iconv(x = readBin(x, character()),
+    from = guess_encoding(encoding), to = "UTF-8", ...)
 }
