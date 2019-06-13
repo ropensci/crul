@@ -4,7 +4,7 @@ pkgdown_sha: 474a8beafc5b920b796696c72ca81f84ef106a50
 articles:
   async: async.html
   best-practices-api-packages: best-practices-api-packages.html
-  crul_vignette: crul_vignette.html
+  crul: crul.html
   curl-options: curl-options.html
   how-to-use-crul: how-to-use-crul.html
 
