@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4.9310</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -197,7 +197,12 @@ intermediate redirect headers, unnamed list of named lists</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Methods</strong></p><dl class='dl-horizontal'>
-<dt><code><a href='https://rdrr.io/r/base/parse.html'>parse()</a></code></dt><dd><p>Parse the raw response content to text</p></dd>
+<dt><code><a href='https://rdrr.io/r/base/parse.html'>parse(encoding = NULL, ...)</a></code></dt><dd><p>Parse the raw response content to text
+- encoding: A character string describing the current encoding.
+If left as <code>NULL</code>, we attempt to guess the encoding. Passed to
+<code>from</code> parameter in <code>iconv</code>
+- ...: additional parameters passed on to <code>iconv</code> (options: sub, mark, toRaw).
+See <code><a href='https://rdrr.io/r/base/iconv.html'>?iconv</a></code> for help</p></dd>
 <dt><code>success()</code></dt><dd><p>Was status code less than or equal to 201.
 returns boolean</p></dd>
 <dt><code>status_http()</code></dt><dd><p>Get HTTP status code, message, and explanation</p></dd>

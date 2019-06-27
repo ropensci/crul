@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.4.9310</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
       </span>
     </div>
 
@@ -207,18 +207,18 @@
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [162] 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62 69</span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; [185] 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e</span></a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; [208] 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d 63</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 37 2e 34 2e 39 33 31 30</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; [277] 2e 31 39 37 2e 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; [300] 2e 31 38 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; [323] 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; [231] 75 72 6c 2f 33 2e 33 20 63 72 75 6c 2f 30 2e 38 2e 30 22 0a 20 20 7d</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; [254] 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 35 2e 31 39 37 2e</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; [277] 31 34 36 2e 31 38 2c 20 36 35 2e 31 39 37 2e 31 34 36 2e 31 38 22 2c</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; [300] 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68 74 74</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; [323] 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</span></a></code></pre></div>
 <p>HTTP method</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">res<span class="op">$</span>method</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] "get"</span></a></code></pre></div>
 <p>Request headers</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">res<span class="op">$</span>request_headers</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; $`User-Agent`</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.8.0"</span></a>
 <a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; $`Accept-Encoding`</span></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
@@ -246,7 +246,7 @@
 <a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; [1] "application/json"</span></a>
 <a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; $date</span></a>
-<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [1] "Thu, 13 Jun 2019 18:02:15 GMT"</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; [1] "Thu, 27 Jun 2019 21:40:01 GMT"</span></a>
 <a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; $`referrer-policy`</span></a>
 <a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; [1] "no-referrer-when-downgrade"</span></a>
@@ -264,7 +264,7 @@
 <a class="sourceLine" id="cb13-33" data-line-number="33"><span class="co">#&gt; [1] "1; mode=block"</span></a>
 <a class="sourceLine" id="cb13-34" data-line-number="34"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-35" data-line-number="35"><span class="co">#&gt; $`content-length`</span></a>
-<a class="sourceLine" id="cb13-36" data-line-number="36"><span class="co">#&gt; [1] "232"</span></a>
+<a class="sourceLine" id="cb13-36" data-line-number="36"><span class="co">#&gt; [1] "228"</span></a>
 <a class="sourceLine" id="cb13-37" data-line-number="37"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb13-38" data-line-number="38"><span class="co">#&gt; $connection</span></a>
 <a class="sourceLine" id="cb13-39" data-line-number="39"><span class="co">#&gt; [1] "keep-alive"</span></a></code></pre></div>
@@ -273,7 +273,7 @@
 <p>And you can parse the content with <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.8.0\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4">jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>())</a>
 <a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></a>
 <a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; $args</span></a>
@@ -293,7 +293,7 @@
 <a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; [1] "httpbin.org"</span></a>
 <a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb15-22" data-line-number="22"><span class="co">#&gt; $headers$`User-Agent`</span></a>
-<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310"</span></a>
+<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.8.0"</span></a>
 <a class="sourceLine" id="cb15-24" data-line-number="24"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb15-25" data-line-number="25"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb15-26" data-line-number="26"><span class="co">#&gt; $origin</span></a>
@@ -345,8 +345,8 @@
 <a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#&gt;   Message: OK</span></a>
 <a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></a>
 <a class="sourceLine" id="cb20-11" data-line-number="11">out<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</a>
-<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.0 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        </span></a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.7.4.9310\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></a></code></pre></div>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.0 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                   </span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/3.3 crul/0.8.0\"\n  }, \n  \"json\": null, \n  \"origin\": \"65.197.146.18, 65.197.146.18\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></a></code></pre></div>
 </div>
 <div id="progress-bars" class="section level2">
 <h2 class="hasAnchor">
