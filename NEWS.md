@@ -1,3 +1,16 @@
+crul 0.8.0
+==========
+
+### NEW FEATURES
+
+* you can now pass on parameters through the `parse()` method of an `HttpResponse` class to the internally called function `iconv()` to finely control the usage of `iconv` for cases in which normal encoding conversion doesn't work  (#110)
+
+### MINOR IMPROVEMENTS
+
+* use `httpcode` package instead of `fauxpas` package within `ok()` function (#108) (#109) thanks @maelle !
+* fix links to http testing book - ropensci -> ropenscilabs (#111)
+
+
 crul 0.7.4
 ==========
 

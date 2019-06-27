@@ -10,7 +10,7 @@
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.7.4.9310",
+  "version": "0.8.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -179,7 +179,7 @@
   "developmentStatus": "active",
   "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/crul/blob/master/README.md",
-  "fileSize": "74.771KB",
+  "fileSize": "74.829KB",
   "relatedLink": [
     "https://ropenscilabs.github.io/http-testing-book/"
   ],
