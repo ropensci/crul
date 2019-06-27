@@ -12,7 +12,7 @@ curl options
 > adapted in part from a blog post I wrote [Curling - exploring web request options][post]
 
 
-Most times you request data from the web, you should have no problem. However, you evenutally will run into problems. In addition, there are advanced things you can do modifying requests to web resources that fall in the _advanced stuff_ category.
+Most times you request data from the web, you should have no problem. However, you eventually will run into problems. In addition, there are advanced things you can do modifying requests to web resources that fall in the _advanced stuff_ category.
 
 Requests to web resources are served over the `http` protocol via [curl][]. `curl` _is a command line tool and library for transferring data with URL syntax, supporting (lots of protocols)_ . `curl` has many options that you may not know about.
 
@@ -273,7 +273,7 @@ _Why use this?_ As you could imagine, this is increasingly useful as a request f
 
 ## proxies
 
-> When behind a proxy, give authentiction details for your proxy.
+> When behind a proxy, give authentication details for your proxy.
 
 relevant commands:
 

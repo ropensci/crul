@@ -8,7 +8,7 @@
 #' @param headers (list) a named list of headers
 #' @param handle A handle, see \code{\link{handle}}
 #' @param progress a function with logic for printing a progress
-#' bar for an HTTP request, ultimiately passed down to \pkg{curl}.
+#' bar for an HTTP request, ultimately passed down to \pkg{curl}.
 #' only supports httr::progress() for now
 #' @param hooks (list) a named list (accepts: request, response) of functions
 #' (callbacks) to run on request and response objects. See [hooks] for more 

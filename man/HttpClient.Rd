@@ -21,7 +21,7 @@ e.g. \code{auth(user = "foo", pwd = "bar")}}
 \item{handle}{A handle, see \code{\link{handle}}}
 
 \item{progress}{a function with logic for printing a progress
-bar for an HTTP request, ultimiately passed down to \pkg{curl}.
+bar for an HTTP request, ultimately passed down to \pkg{curl}.
 only supports httr::progress() for now}
 
 \item{hooks}{(list) a named list (accepts: request, response) of functions

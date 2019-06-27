@@ -83,12 +83,12 @@ packages: [crul][] and [httr][].
 
 There are a variety of use cases for `webmockr`. 
 
-* Use it in an interactive R sesssion where you're working 
+* Use it in an interactive R session where you're working 
 on a project and want to mock HTTP requests and set certain responses. 
 * You can be on a plane and still allow requests to work without an 
 internet connection by setting a response to give back. 
 * Test hard to test scenarios in your code or package. `webmockr` 
-allows you to give back exact reponses just as you describe and 
+allows you to give back exact responses just as you describe and 
 even fail with certain HTTP conditions. Getting certain failures 
 to happen with a remote server can sometimes be difficult. 
 * Package test suite: you can use `webmockr` in a test suite, 
