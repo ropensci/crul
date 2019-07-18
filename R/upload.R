@@ -10,5 +10,4 @@ upload <- function(path, type = NULL) {
   curl::form_file(path, type)
 }
 
-#' @export
 as.character.form_file <- function(x, ...) x
