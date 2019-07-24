@@ -65,7 +65,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
       </span>
     </div>
 
@@ -91,16 +91,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">UNKNOWN TITLE</a>
+      <a href="../articles/async.html">async with crul</a>
     </li>
     <li>
-      <a href="../articles/best-practices-api-packages.html">UNKNOWN TITLE</a>
+      <a href="../articles/best-practices-api-packages.html">API package best practices</a>
     </li>
     <li>
-      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+      <a href="../articles/curl-options.html">curl options</a>
     </li>
     <li>
-      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+      <a href="../articles/how-to-use-crul.html">crul workflows</a>
     </li>
   </ul>
 </li>
@@ -169,7 +169,7 @@ By default is <code>FALSE</code></p></td>
   <span class='kw pkg'>crul</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/crul/man/mock.html'>mock</a></span>()
 
   <span class='co'># stub a request</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/webmockr/man/stub_request.html'>stub_request</a></span>(<span class='st'>"get"</span>, <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>URL</span>, <span class='st'>"get"</span>))
+  <span class='fu'>stub_request</span>(<span class='st'>"get"</span>, <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>URL</span>, <span class='st'>"get"</span>))
   <span class='kw pkg'>webmockr</span><span class='kw ns'>:::</span><span class='no'>webmockr_stub_registry</span>
 
   <span class='co'># create an HTTP client</span>
@@ -179,9 +179,9 @@ By default is <code>FALSE</code></p></td>
   <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>)
 
   <span class='co'># allow net connect</span>
-  <span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/webmockr/man/webmockr_configure.html'>webmockr_allow_net_connect</a></span>()
+  <span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'>webmockr_allow_net_connect</span>()
   <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))
-  <span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/webmockr/man/webmockr_configure.html'>webmockr_disable_net_connect</a></span>()
+  <span class='kw pkg'>webmockr</span><span class='kw ns'>::</span><span class='fu'>webmockr_disable_net_connect</span>()
   <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='st'>"bar"</span>))
 }
 

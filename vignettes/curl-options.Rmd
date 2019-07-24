@@ -1,10 +1,11 @@
-<!--
-%\VignetteIndexEntry{4. curl options}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
-
-
+---
+title: curl options
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{4. curl options}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 curl options
 ============

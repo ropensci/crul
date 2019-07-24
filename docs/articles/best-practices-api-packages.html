@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • crul</title>
+<title>API package best practices • crul</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../pkgdown.js"></script><meta property="og:title" content="API package best practices">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
       </span>
     </div>
 
@@ -57,16 +57,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/async.html">UNKNOWN TITLE</a>
+      <a href="../articles/async.html">async with crul</a>
     </li>
     <li>
-      <a href="../articles/best-practices-api-packages.html">UNKNOWN TITLE</a>
+      <a href="../articles/best-practices-api-packages.html">API package best practices</a>
     </li>
     <li>
-      <a href="../articles/curl-options.html">UNKNOWN TITLE</a>
+      <a href="../articles/curl-options.html">curl options</a>
     </li>
     <li>
-      <a href="../articles/how-to-use-crul.html">UNKNOWN TITLE</a>
+      <a href="../articles/how-to-use-crul.html">crul workflows</a>
     </li>
   </ul>
 </li>
@@ -93,7 +93,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1></h1>
+      <h1>API package best practices</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/crul/blob/master/vignettes/best-practices-api-packages.Rmd"><code>vignettes/best-practices-api-packages.Rmd</code></a></small>
@@ -103,11 +103,6 @@
 
     
     
-<!--
-%\VignetteIndexEntry{5. API package best practices}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
 <div id="api-package-best-practices" class="section level1">
 <h1 class="hasAnchor">
 <a href="#api-package-best-practices" class="anchor"></a>API package best practices</h1>
@@ -115,22 +110,22 @@
 <h2 class="hasAnchor">
 <a href="#importing-crul" class="anchor"></a>Importing crul</h2>
 <p>In most cases you’ll only need to import one thing from <code>crul</code>: <code>HttpClient</code>. Add crul to <code>Imports</code> in your <code>DESCRIPTION</code> file, and ad an entry like <code>@importFrom crul HttpClient</code> somewhere in your package documentation, for example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#' Some function</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#' </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#' @export</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#' @importFrom crul HttpClient</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#' ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#' Some function</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#' </span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#' @export</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#' @importFrom crul HttpClient</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#' ...</span></span></code></pre></div>
 </div>
 <div id="http-request-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#http-request-function" class="anchor"></a>HTTP request function</h2>
 <p>If you have more than one function that needs to make an HTTP request it’s probably useful to have a function for doing HTTP requests. The following is an example of a function.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">xGET &lt;-<span class="st"> </span><span class="cf">function</span>(url, path, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), ...) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(url, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="dt">path =</span> path, <span class="dt">query =</span> args)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  res<span class="op">$</span><span class="kw">raise_for_status</span>()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>xGET &lt;-<span class="st"> </span><span class="cf">function</span>(url, path, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), ...) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(url, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="dt">path =</span> path, <span class="dt">query =</span> args)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  res<span class="op">$</span><span class="kw">raise_for_status</span>()</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>}</span></code></pre></div>
 <p>There’s some features to note in the above function:</p>
 <ul>
 <li>
@@ -143,12 +138,12 @@
 <code>...</code>: it’s called an ellipsis. see example and discussion below.</li>
 </ul>
 <p>You can use the function like:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">xGET</span>(<span class="st">"https://httpbin.org"</span>, <span class="st">"get"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>))</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># parse the JSON to a list</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(x)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># more parsing</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>x &lt;-<span class="st"> </span><span class="kw">xGET</span>(<span class="st">"https://httpbin.org"</span>, <span class="st">"get"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># parse the JSON to a list</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(x)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># more parsing</span></span></code></pre></div>
 <p>Because we used an ellipsis, anyone can pass in curl options like:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">xGET</span>(<span class="st">"https://xxx.org"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>), <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">xGET</span>(<span class="st">"https://xxx.org"</span>, <span class="dt">args =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">foo =</span> <span class="st">"bar"</span>), <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>Curl options are important for digging into the details of HTTP requests, and go a long way towards users being able to sort out their own problems, and help you diagnose problems as well.</p>
 <p>Alternatively, you can just do the HTTP request in your <code>xGET</code> function and return the response object - and line by line, or with another function, parse results as needed.</p>
 </div>
@@ -178,21 +173,21 @@
 <li>Add <code>vcr</code> to Suggests in your DESCRIPTION file</li>
 <li>Make a file in your <code>tests/testthat/</code> directory called <code>helper-yourpackage.R</code> (or skip if as similar file already exists). In that file use the following lines to setup your path for storing cassettes (change path to whatever you want):</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vcr"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/vcr_configure.html">vcr_configure</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vcr"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(vcr<span class="op">::</span><span class="kw">vcr_configure</span>())</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">vcr::use_cassette()</a></code> call like:</li>
+<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code>vcr::use_cassette()</code> call like:</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"my test"</span>, {</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">use_cassette</a></span>(<span class="st">"rl_citation"</span>, {</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_is.html">expect_is</a></span>(aa, <span class="st">"character"</span>)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  })</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">})</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"my test"</span>, {</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  vcr<span class="op">::</span><span class="kw">use_cassette</span>(<span class="st">"rl_citation"</span>, {</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_is.html">expect_is</a></span>(aa, <span class="st">"character"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>  })</span>
+<span id="cb6-10"><a href="#cb6-10"></a>})</span></code></pre></div>
 <p>That’s it! Just run your tests are you normally would and any HTTP requests done by <code>crul</code> or <code>httr</code> will be cached on the first test run then the cached responses used every time thereafter.</p>
 </div>
 <div id="what-else" class="section level2">
