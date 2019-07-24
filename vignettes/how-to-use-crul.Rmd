@@ -216,4 +216,4 @@ You may want to use asynchronous HTTP requests when any one HTTP request
 takes "too long". This is of course all relative. You may be dealing with a 
 server that responds very slowly, or other circumstances. 
 
-See the __async with crul__ vignette for more details on asynchronous requests.
+See the [async with crul](async.html) vignette for more details on asynchronous requests.
