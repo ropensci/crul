@@ -208,9 +208,9 @@
 <span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; [185] 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65 6e</span></span>
 <span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; [208] 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e 30 20 72 2d 63</span></span>
 <span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; [231] 75 72 6c 2f 34 2e 30 20 63 72 75 6c 2f 30 2e 38 2e 31 2e 39 31 32 30</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 36 33</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; [277] 2e 31 34 30 2e 37 38 2e 32 32 37 2c 20 36 33 2e 31 34 30 2e 37 38 2e</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; [300] 32 32 37 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt; [254] 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 32 34</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt; [277] 2e 32 33 37 2e 31 35 32 2e 36 34 2c 20 32 34 2e 32 33 37 2e 31 35 32</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt; [300] 2e 36 34 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a</span></span>
 <span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt; [323] 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a</span></span></code></pre></div>
 <p>HTTP method</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>res<span class="op">$</span>method</span>
@@ -246,7 +246,7 @@
 <span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; [1] "application/json"</span></span>
 <span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; </span></span>
 <span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; $date</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; [1] "Wed, 24 Jul 2019 16:10:45 GMT"</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; [1] "Wed, 24 Jul 2019 22:03:15 GMT"</span></span>
 <span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt; </span></span>
 <span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt; $`referrer-policy`</span></span>
 <span id="cb13-21"><a href="#cb13-21"></a><span class="co">#&gt; [1] "no-referrer-when-downgrade"</span></span>
@@ -273,7 +273,7 @@
 <p>And you can parse the content with <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9120\"\n  }, \n  \"origin\": \"63.140.78.227, 63.140.78.227\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9120\"\n  }, \n  \"origin\": \"24.237.152.64, 24.237.152.64\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"</span></span>
 <span id="cb15-4"><a href="#cb15-4"></a>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>())</span>
 <span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; No encoding supplied: defaulting to UTF-8.</span></span>
 <span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; $args</span></span>
@@ -297,7 +297,7 @@
 <span id="cb15-24"><a href="#cb15-24"></a><span class="co">#&gt; </span></span>
 <span id="cb15-25"><a href="#cb15-25"></a><span class="co">#&gt; </span></span>
 <span id="cb15-26"><a href="#cb15-26"></a><span class="co">#&gt; $origin</span></span>
-<span id="cb15-27"><a href="#cb15-27"></a><span class="co">#&gt; [1] "63.140.78.227, 63.140.78.227"</span></span>
+<span id="cb15-27"><a href="#cb15-27"></a><span class="co">#&gt; [1] "24.237.152.64, 24.237.152.64"</span></span>
 <span id="cb15-28"><a href="#cb15-28"></a><span class="co">#&gt; </span></span>
 <span id="cb15-29"><a href="#cb15-29"></a><span class="co">#&gt; $url</span></span>
 <span id="cb15-30"><a href="#cb15-30"></a><span class="co">#&gt; [1] "https://httpbin.org/get"</span></span></code></pre></div>
@@ -345,8 +345,8 @@
 <span id="cb20-9"><a href="#cb20-9"></a><span class="co">#&gt;   Message: OK</span></span>
 <span id="cb20-10"><a href="#cb20-10"></a><span class="co">#&gt;   Explanation: Request fulfilled, document follows</span></span>
 <span id="cb20-11"><a href="#cb20-11"></a>out<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>()</span>
-<span id="cb20-12"><a href="#cb20-12"></a><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"63.140.78.227, 63.140.78.227\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        </span></span>
-<span id="cb20-13"><a href="#cb20-13"></a><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9120\"\n  }, \n  \"json\": null, \n  \"origin\": \"63.140.78.227, 63.140.78.227\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></span></code></pre></div>
+<span id="cb20-12"><a href="#cb20-12"></a><span class="co">#&gt; [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"24.237.152.64, 24.237.152.64\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        </span></span>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="co">#&gt; [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9120\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.237.152.64, 24.237.152.64\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"</span></span></code></pre></div>
 </div>
 <div id="progress-bars" class="section level2">
 <h2 class="hasAnchor">

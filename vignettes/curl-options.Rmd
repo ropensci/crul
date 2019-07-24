@@ -7,9 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-curl options
-============
-
 > adapted in part from a blog post I wrote [Curling - exploring web request options][post]
 
 
