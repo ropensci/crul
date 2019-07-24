@@ -1,8 +1,11 @@
-<!--
-%\VignetteIndexEntry{5. API package best practices}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
+---
+title: API package best practices
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{5. API package best practices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 API package best practices
 ==========================

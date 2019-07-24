@@ -1,9 +1,11 @@
-<!--
-%\VignetteIndexEntry{2. crul workflows}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
-
+---
+title: crul workflows
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2. crul workflows}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 
 crul workflows

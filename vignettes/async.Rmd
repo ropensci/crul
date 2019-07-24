@@ -1,8 +1,11 @@
-<!--
-%\VignetteIndexEntry{3. async with crul}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
+---
+title: "async with crul"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{3. async with crul}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 async with crul
 ===============
