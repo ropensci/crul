@@ -1,5 +1,5 @@
 ---
-title: curl options
+title: "curl options"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{4. curl options}

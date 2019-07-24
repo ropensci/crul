@@ -1,5 +1,5 @@
 ---
-title: API package best practices
+title: "API package best practices"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{5. API package best practices}
