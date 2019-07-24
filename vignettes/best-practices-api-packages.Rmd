@@ -7,9 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-API package best practices
-==========================
-
 ## Importing crul
 
 In most cases you'll only need to import one thing from `crul`: 
