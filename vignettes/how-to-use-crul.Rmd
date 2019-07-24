@@ -1,5 +1,5 @@
 ---
-title: crul workflows
+title: "crul workflows"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{2. crul workflows}

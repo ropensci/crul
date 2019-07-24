@@ -1,5 +1,5 @@
 ---
-title: crul introduction
+title: "crul introduction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{1. crul introduction}
