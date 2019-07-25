@@ -101,6 +101,47 @@ test_that("parse method", {
   expect_is(suppressMessages(aa$parse(sub = "", toRaw = TRUE)[[1]]), "raw")
 })
 
+test_that("parse works when file on disk is binary", {
+  url <- "https://dods.ndbc.noaa.gov/thredds/fileServer/data/cwind/41001/41001c1997.nc"
+  f <- "../fixtures/41001c1990.nc"
+  # f <- file.path(tempdir(), "41001c1990.nc")
+  # out <- HttpClient$new(url)$get(disk = f)
+
+  opts <- list(
+    url = handle(url),
+    method = "get",
+    options = list(httpget = TRUE, 
+      useragent = "libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9123"),
+    headers = list(`Accept-Encoding` = "gzip, deflate", 
+      Accept = "application/json, text/xml, application/xml, */*"),
+    disk = f
+  )
+
+  aa <- HttpResponse$new(
+    method = "get",
+    url = url,
+    status_code = 200,
+    request_headers = opts$headers,
+    content = f,
+    handle = opts$url$handle,
+    request = opts
+  )
+
+  # data is in the file
+  expect_is(aa$content, "character")
+  expect_equal(aa$content, f)
+  expect_is(readLines(aa$content, n = 1, warn = FALSE), "character")
+
+  # parse works on the binary content
+  parsed <- aa$parse()
+  expect_is(parsed, "raw")
+  # binfile <- tempfile()
+  # writeBin(parsed, con = file(binfile, open = "wb"))
+  # on.exit(close(binfile))
+  # file.info(binfile)
+  # file.info(f)
+})
+
 test_that("internal fxn: parse_params", {
   url <- "https://httpbin.org/get?a=5&foo=bar"
   x <- parse_params(url)

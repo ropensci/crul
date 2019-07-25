@@ -1,3 +1,5 @@
+stuff_env <- new.env()
+
 #' HTTP client
 #'
 #' @export
@@ -524,6 +526,7 @@ HttpClient <- R6::R6Class(
         }
       }
       # build response
+      stuff_env$z <- list(opts = opts, resp = resp, headers = headers)
       HttpResponse$new(
         method = opts$method,
         url = resp$url,
