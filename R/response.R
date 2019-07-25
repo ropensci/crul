@@ -151,7 +151,9 @@ HttpResponse <- R6::R6Class(
           pld <- self$content
         }
         raw <- readBin(pld, "raw", file.info(pld)$size)
-        return(rawToChar(raw))
+        try_raw2ch <- tryCatch(rawToChar(raw), error = function(e) e)
+        rawout <- if (inherits(try_raw2ch, "error")) raw else rawToChar(raw)
+        return(rawout)
       }
       if ("stream" %in% names(self$request)) {
         return(raw(0))
