@@ -1,3 +1,17 @@
+crul 0.8.4
+==========
+
+### MINOR IMPROVEMENTS
+
+* no longer exporting `as.character.form_file` - avoids conflict with `httr` function of the same name (#112)
+* the `parse()` method in the `HttpResponse` object now checks whether the response raw bytes can be converted to character, and if not just returns raw bytes (#115) (#116)
+* give vignettes titles (#113) (#114)
+
+### BUG FIXES
+
+* no longer setting `cainfo` curl option, fixes problem arising from change in recent libcurl version (#117)
+
+
 crul 0.8.0
 ==========
 
