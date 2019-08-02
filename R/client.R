@@ -308,7 +308,7 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "get",
-        options = ccp(list(httpget = TRUE, cainfo = find_cert_bundle())),
+        options = ccp(list(httpget = TRUE)),
         headers = def_head()
       )
       rr$headers <- norm_headers(rr$headers, self$headers)
@@ -377,7 +377,7 @@ HttpClient <- R6::R6Class(
       rr <- list(
         url = url,
         method = "head",
-        options = ccp(c(opts, cainfo = find_cert_bundle())),
+        options = ccp(opts),
         headers = self$headers
       )
       if (
