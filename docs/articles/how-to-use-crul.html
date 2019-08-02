@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -90,6 +90,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -107,51 +108,51 @@
 <p>First, <code>crul</code> is aimed a bit more at developers than at the casual user doing HTTP requests. That is, <code>crul</code> is probably a better fit for an R package developer, mainly because it heavily uses <code>R6</code> - an interface that’s very unlike the interface in <code>httr</code> but very similar to interacting with classes in Ruby/Python.</p>
 <p>Second, there is not yet, but will be soon, the ability to mock HTTP requests. We are working on that, and should have it integrated soon. When that feature arrives we’ll update this vignette.</p>
 <p>Load the library</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"crul"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"crul"</span>)</a></code></pre></div>
 <div id="a-simple-http-request-function" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-simple-http-request-function" class="anchor"></a>A simple HTTP request function</h2>
 <p>Most likely you’ll want to do a <code>GET</code> request - so let’s start with that - though the details are not much different for other HTTP verbs.</p>
 <p>And in most cases you’ll likely not want to do asynchronous requests - though see below if you do.</p>
 <p>You’ll probably want to write a small function, like so (annotated for clarity)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>make_request &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># create a HttpClient object, defining the url</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> url)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="co"># do a GET request</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="co"># check to see if request failed or succeeded</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="co"># - if succeeds this will return nothing and proceeds to next step</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>  res<span class="op">$</span><span class="kw">raise_for_status</span>()</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="co"># parse response to plain text (JSON in this case) - most likely you'll </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>  <span class="co"># want UTF-8 encoding</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>  txt &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="co"># parse the JSON to an R list</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a>  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(txt)</span>
-<span id="cb2-14"><a href="#cb2-14"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">make_request &lt;-<span class="st"> </span><span class="cf">function</span>(url) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="co"># create a HttpClient object, defining the url</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> url)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="co"># do a GET request</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="co"># check to see if request failed or succeeded</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="co"># - if succeeds this will return nothing and proceeds to next step</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  res<span class="op">$</span><span class="kw">raise_for_status</span>()</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  <span class="co"># parse response to plain text (JSON in this case) - most likely you'll </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">  <span class="co"># want UTF-8 encoding</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">  txt &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  <span class="co"># parse the JSON to an R list</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(txt)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">}</a></code></pre></div>
 <p>Use the function</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">make_request</span>(<span class="st">"https://httpbin.org/get"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; $args</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; named list()</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; </span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; $headers</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; $headers$Accept</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; </span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; $headers$`Accept-Encoding`</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; [1] "gzip, deflate"</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; </span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; $headers$Host</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; [1] "httpbin.org"</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; </span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; $headers$`User-Agent`</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; </span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; </span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; $origin</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; [1] "65.197.146.18, 65.197.146.18"</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; </span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; $url</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; [1] "https://httpbin.org/get"</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">make_request</span>(<span class="st">"https://httpbin.org/get"</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; $args</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; named list()</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; $headers</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; $headers$Accept</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; [1] "application/json, text/xml, application/xml, */*"</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $headers$`Accept-Encoding`</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [1] "gzip, deflate"</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; $headers$Host</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [1] "httpbin.org"</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; $headers$`User-Agent`</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; $origin</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; [1] "65.197.146.18, 65.197.146.18"</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt; $url</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; [1] "https://httpbin.org/get"</span></a></code></pre></div>
 <p>Now you can use the <code>make_request</code> function in your script or package.</p>
 </div>
 <div id="more-customized-function" class="section level2">
@@ -159,94 +160,94 @@
 <a href="#more-customized-function" class="anchor"></a>More customized function</h2>
 <p>Once you get more familiar (or if you’re already familiar with HTTP) you may want to have more control, toggle more switches.</p>
 <p>In the next function, we’ll allow for users to pass in curl options, use a custom HTTP status checker, and xxx.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>make_request2 &lt;-<span class="st"> </span><span class="cf">function</span>(url, ...) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="co"># create a HttpClient object, defining the url</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> url)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="co"># do a GET request, allow curl options to be passed in</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(...)</span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="co"># check to see if request failed or succeeded</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="co"># - a custom approach this time combining status code, </span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="co">#   explanation of the code, and message from the server</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="cf">if</span> (res<span class="op">$</span>status_code <span class="op">&gt;</span><span class="st"> </span><span class="dv">201</span>) {</span>
-<span id="cb4-10"><a href="#cb4-10"></a>    mssg &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>))<span class="op">$</span>message<span class="op">$</span>message</span>
-<span id="cb4-11"><a href="#cb4-11"></a>    x &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw">status_http</span>()</span>
-<span id="cb4-12"><a href="#cb4-12"></a>    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>(</span>
-<span id="cb4-13"><a href="#cb4-13"></a>      <span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"HTTP (%s) - %s</span><span class="ch">\n</span><span class="st">  %s"</span>, x<span class="op">$</span>status_code, x<span class="op">$</span>explanation, mssg),</span>
-<span id="cb4-14"><a href="#cb4-14"></a>      <span class="dt">call. =</span> <span class="ot">FALSE</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a>    )</span>
-<span id="cb4-16"><a href="#cb4-16"></a>  }</span>
-<span id="cb4-17"><a href="#cb4-17"></a>  <span class="co"># parse response</span></span>
-<span id="cb4-18"><a href="#cb4-18"></a>  txt &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</span>
-<span id="cb4-19"><a href="#cb4-19"></a>  <span class="co"># parse the JSON to an R list</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a>  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(txt)</span>
-<span id="cb4-21"><a href="#cb4-21"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">make_request2 &lt;-<span class="st"> </span><span class="cf">function</span>(url, ...) {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="co"># create a HttpClient object, defining the url</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> url)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="co"># do a GET request, allow curl options to be passed in</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(...)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="co"># check to see if request failed or succeeded</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="co"># - a custom approach this time combining status code, </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">  <span class="co">#   explanation of the code, and message from the server</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">  <span class="cf">if</span> (res<span class="op">$</span>status_code <span class="op">&gt;</span><span class="st"> </span><span class="dv">201</span>) {</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10">    mssg &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>))<span class="op">$</span>message<span class="op">$</span>message</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">    x &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw">status_http</span>()</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">    <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>(</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13">      <span class="kw"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span>(<span class="st">"HTTP (%s) - %s</span><span class="ch">\n</span><span class="st">  %s"</span>, x<span class="op">$</span>status_code, x<span class="op">$</span>explanation, mssg),</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14">      <span class="dt">call. =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">    )</a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">  }</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">  <span class="co"># parse response</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">  txt &lt;-<span class="st"> </span>res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">  <span class="co"># parse the JSON to an R list</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20">  jsonlite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html">fromJSON</a></span>(txt)</a>
+<a class="sourceLine" id="cb4-21" data-line-number="21">}</a></code></pre></div>
 <p>Use the function</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#&gt; $status</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; [1] "ok"</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; </span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; $`message-type`</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; [1] "work-list"</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; </span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; $`message-version`</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; [1] "1.0.0"</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; </span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt; $message</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt; $message$facets</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt; named list()</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt; </span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt; $message$`total-results`</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt; [1] 103966337</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt; </span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt; $message$items</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt; list()</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt; </span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; $message$`items-per-page`</span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; </span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; $message$query</span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; $message$query$`start-index`</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; </span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; $message$query$`search-terms`</span></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="co">#&gt; NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; $status</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [1] "ok"</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; $`message-type`</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; [1] "work-list"</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; $`message-version`</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; [1] "1.0.0"</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; $message</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; $message$facets</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; named list()</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; $message$`total-results`</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; [1] 103966337</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; $message$items</span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; list()</span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt; $message$`items-per-page`</span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt; $message$query</span></a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt; $message$query$`start-index`</span></a>
+<a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; $message$query$`search-terms`</span></a>
+<a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p>No different from the first function (besides the URL). However, now we can pass in curl options:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>, <span class="dt">timeout_ms =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=0"</span>, <span class="dt">timeout_ms =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p>We can also pass named parameters supported in the <code>get</code> method, including <code>query</code>, <code>disk</code>, and <code>stream</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works"</span>, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">rows =</span> <span class="dv">0</span>))</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; $status</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; [1] "ok"</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; </span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; $`message-type`</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; [1] "work-list"</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; </span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; $`message-version`</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; [1] "1.0.0"</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; </span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; $message</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; $message$facets</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; named list()</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; </span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; $message$`total-results`</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; [1] 103966680</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; </span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; $message$items</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; list()</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; </span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; $message$`items-per-page`</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; </span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; $message$query</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; $message$query$`start-index`</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; [1] 0</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; </span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; $message$query$`search-terms`</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works"</span>, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">rows =</span> <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; $status</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [1] "ok"</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; $`message-type`</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; [1] "work-list"</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; $`message-version`</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; [1] "1.0.0"</span></a>
+<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; $message</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; $message$facets</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; named list()</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; $message$`total-results`</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; [1] 103966680</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; $message$items</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; list()</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; $message$`items-per-page`</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; $message$query</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; $message$query$`start-index`</span></a>
+<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; $message$query$`search-terms`</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p>In addition, the failure behavior is different, and customized to the specific web resource we are working with</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=asdf"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; Error: HTTP (400) - Bad request syntax or unsupported method</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt;   Integer specified as asdf but must be a positive integer less than or equal to 1000.</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">make_request2</span>(<span class="st">"https://api.crossref.org/works?rows=asdf"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Error: HTTP (400) - Bad request syntax or unsupported method</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   Integer specified as asdf but must be a positive integer less than or equal to 1000.</span></a></code></pre></div>
 </div>
 <div id="asynchronous-requests" class="section level2">
 <h2 class="hasAnchor">
@@ -271,6 +272,7 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Scott Chamberlain.</p>
 </div>
@@ -278,10 +280,12 @@
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

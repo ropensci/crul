@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -90,6 +90,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -118,7 +119,7 @@
 <h2 class="hasAnchor">
 <a href="#other-ways-to-use-curl-besides-r" class="anchor"></a>Other ways to use curl besides R</h2>
 <p>Perhaps the canonical way to use curl is on the command line. You can get curl for your operating system at <a href="http://curl.haxx.se/download.html" class="uri">http://curl.haxx.se/download.html</a>, though hopefully you already have curl. Once you have curl, you can have lots of fun. For example, get the contents of the Google landing page:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">curl</span> https://www.google.com</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">curl</span> https://www.google.com</a></code></pre></div>
 <ul>
 <li>If you like that you may also like <a href="https://github.com/jakubroztocil/httpie">httpie</a>, a Python command line tool that is a little more convenient than curl (e.g., JSON output is automatically parsed and colorized).</li>
 <li>Alot of data from the web is in JSON format. A great command line tool to pair with <code>curl</code> is <a href="http://stedolan.github.io/jq/">jq</a>.</li>
@@ -136,25 +137,25 @@
 <h2 class="hasAnchor">
 <a href="#using-curl-options-in-other-packages" class="anchor"></a>using curl options in other packages</h2>
 <p>We recommend using <code>...</code> to allow users to pass in curl options. For example, lets say you have a function in a package</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>foo &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb2-4"><a href="#cb2-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a></code></pre></div>
 <p>To make it easy for users to pass in curl options use an <code>...</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>foo &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</span>
-<span id="cb3-3"><a href="#cb3-3"></a>  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb3-4"><a href="#cb3-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">}</a></code></pre></div>
 <p>Then we can pass in any combination of acceptable curl options:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">foo</span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; verbose curl output</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">foo</span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; verbose curl output</span></a></code></pre></div>
 <p>You can instead make users pass in a list, e.g.:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>foo &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()) {</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl, <span class="dt">opts =</span> opts)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb5-4"><a href="#cb5-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">foo &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()) {</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">  z &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> yoururl, <span class="dt">opts =</span> opts)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">  z<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">}</a></code></pre></div>
 <p>Then a user has to pass curl options like:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">foo</span>(<span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">foo</span>(<span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 </div>
 <div id="timeout" class="section level2">
 <h2 class="hasAnchor">
@@ -166,10 +167,10 @@
 <ul>
 <li><code>timeout_ms=&lt;integer&gt;</code></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://www.google.com/search"</span>, </span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">timeout_ms =</span> <span class="dv">1</span>))<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt;  Timeout was reached: Operation timed out after 35 milliseconds with 0 bytes received</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://www.google.com/search"</span>, </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">timeout_ms =</span> <span class="dv">1</span>))<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;  Timeout was reached: Operation timed out after 35 milliseconds with 0 bytes received</span></a></code></pre></div>
 <p><em>Why use this?</em> You sometimes are working with a web resource that is somewhat unreliable. For example, if you want to run a script on a server that may take many hours, and the web resource could be down at some point during that time, you could set the timeout and error catch the response so that the script doesn’t hang on a server that’s not responding. Another example could be if you call a web resource in an R package. In your test suite, you may want to test that a web resource is responding quickly, so you could set a timeout, and not test if that fails.</p>
 </div>
 <div id="verbose" class="section level2">
@@ -183,23 +184,23 @@
 <li><code>verbose=&lt;boolean&gt;</code></li>
 </ul>
 <p>Just do a <code>HEAD</code> request so we don’t have to deal with big output</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org"</span>, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; &gt; HEAD / HTTP/1.1</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt; Host: httpbin.org</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt; User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Accept: */*</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; Accept-Encoding: gzip, deflate</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; </span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; &lt; Connection: keep-alive</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; &lt; Server: gunicorn/19.8.1</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 17:56:50 GMT</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; &lt; Content-Type: text/html; charset=utf-8</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; &lt; Content-Length: 8344</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; &lt; Access-Control-Allow-Origin: *</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; &lt; Access-Control-Allow-Credentials: true</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; &lt; Via: 1.1 vegur</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org"</span>, </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; &gt; HEAD / HTTP/1.1</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; Host: httpbin.org</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; Accept: */*</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; Accept-Encoding: gzip, deflate</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; &lt; Connection: keep-alive</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; &lt; Server: gunicorn/19.8.1</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 17:56:50 GMT</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; &lt; Content-Type: text/html; charset=utf-8</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; &lt; Content-Length: 8344</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; &lt; Access-Control-Allow-Origin: *</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; &lt; Access-Control-Allow-Credentials: true</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; &lt; Via: 1.1 vegur</span></a></code></pre></div>
 <p><em>Why use this?</em> As you can see verbose output gives you lots of information that may be useful for debugging a request. You typically don’t need verbose output unless you want to inspect a request.</p>
 </div>
 <div id="headers" class="section level2">
@@ -212,30 +213,30 @@
 <ul>
 <li><code>HttpClient$new(headers = list(...))</code></li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org"</span>, </span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</span>
-<span id="cb9-3"><a href="#cb9-3"></a>    <span class="dt">Accept =</span> <span class="st">"application/json"</span>, </span>
-<span id="cb9-4"><a href="#cb9-4"></a>    <span class="dt">foo =</span> <span class="st">"bar"</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  ), </span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb9-7"><a href="#cb9-7"></a>)</span>
-<span id="cb9-8"><a href="#cb9-8"></a>x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; &gt; HEAD / HTTP/1.1</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; Host: httpbin.org</span></span>
-<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521</span></span>
-<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; Accept-Encoding: gzip, deflate</span></span>
-<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt; Accept: application/json</span></span>
-<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt; foo: bar</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; </span></span>
-<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></span>
-<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; &lt; Connection: keep-alive</span></span>
-<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; &lt; Server: gunicorn/19.8.1</span></span>
-<span id="cb9-19"><a href="#cb9-19"></a><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 17:59:15 GMT</span></span>
-<span id="cb9-20"><a href="#cb9-20"></a><span class="co">#&gt; &lt; Content-Type: text/html; charset=utf-8</span></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="co">#&gt; &lt; Content-Length: 8344</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a><span class="co">#&gt; &lt; Access-Control-Allow-Origin: *</span></span>
-<span id="cb9-23"><a href="#cb9-23"></a><span class="co">#&gt; &lt; Access-Control-Allow-Credentials: true</span></span>
-<span id="cb9-24"><a href="#cb9-24"></a><span class="co">#&gt; &lt; Via: 1.1 vegur</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org"</span>, </a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="dt">Accept =</span> <span class="st">"application/json"</span>, </a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="dt">foo =</span> <span class="st">"bar"</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  ), </a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>()</a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; &gt; HEAD / HTTP/1.1</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; Host: httpbin.org</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; Accept-Encoding: gzip, deflate</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; Accept: application/json</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; foo: bar</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; &lt; Connection: keep-alive</span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; &lt; Server: gunicorn/19.8.1</span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 17:59:15 GMT</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt; &lt; Content-Type: text/html; charset=utf-8</span></a>
+<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt; &lt; Content-Length: 8344</span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; &lt; Access-Control-Allow-Origin: *</span></a>
+<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; &lt; Access-Control-Allow-Credentials: true</span></a>
+<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; &lt; Via: 1.1 vegur</span></a></code></pre></div>
 <p><em>Why use this?</em> For some web resources, using headers is mandatory, and <code>httr</code> makes including them quite easy. Headers are nice too because e.g., passing authentication in the header instead of the URL string means your private data is not as exposed to prying eyes.</p>
 </div>
 <div id="authenticate" class="section level2">
@@ -249,21 +250,21 @@
 <li><code><a href="../reference/auth.html">auth()</a></code></li>
 </ul>
 <p><code><a href="../reference/auth.html">auth()</a></code> for basic username/password authentication</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="../reference/auth.html">auth</a></span>(<span class="dt">user =</span> <span class="st">"foo"</span>, <span class="dt">pwd =</span> <span class="st">"bar"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; $userpwd</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; [1] "foo:bar"</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; </span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; $httpauth</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; </span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt; attr(,"class")</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt; [1] "auth"</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt; attr(,"type")</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; [1] "basic"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/auth.html">auth</a></span>(<span class="dt">user =</span> <span class="st">"foo"</span>, <span class="dt">pwd =</span> <span class="st">"bar"</span>)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; $userpwd</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [1] "foo:bar"</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; $httpauth</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [1] "auth"</span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt; attr(,"type")</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; [1] "basic"</span></a></code></pre></div>
 <p>To use an API key, this depends on the data provider. They may request it one or either of the header</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">Authorization =</span> <span class="st">"Bearer 234kqhrlj2342"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">headers =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">Authorization =</span> <span class="st">"Bearer 234kqhrlj2342"</span>))</a></code></pre></div>
 <p>or as a query parameter (which is passed in the URL string)</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">api_key =</span> <span class="st">"&lt;your key&gt;"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">api_key =</span> <span class="st">"&lt;your key&gt;"</span>))</a></code></pre></div>
 <p>Another authentication option is OAuth. OAuth is not supported in <code>crul</code> yet. You can always do OAuth with <code>httr</code> and then take your token and pass it in as a header/etc. with <code>crul</code>.</p>
 </div>
 <div id="cookies" class="section level2">
@@ -277,32 +278,32 @@
 <li><code><a href="../reference/auth.html">auth()</a></code></li>
 </ul>
 <p>Set cookies (just showing response headers)</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"https://www.google.com"</span>, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))</span>
-<span id="cb13-2"><a href="#cb13-2"></a>res &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 23:25:49 GMT</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt; &lt; Expires: -1</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt; &lt; Cache-Control: private, max-age=0</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; &lt; Content-Type: text/html; charset=ISO-8859-1</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; &lt; P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; &lt; Content-Encoding: gzip</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt; &lt; Server: gws</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt; &lt; X-XSS-Protection: 1; mode=block</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt; &lt; X-Frame-Options: SAMEORIGIN</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt; * Added cookie 1P_JAR="2018-07-06-23" for domain google.com, path /, expire 1533511549</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt; &lt; Set-Cookie: 1P_JAR=2018-07-06-23; expires=Sun, 05-Aug-2018 23:25:49 GMT; path=/; domain=.google.com</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt; * Added cookie NID="134=yt47WC-2mhTgQpkSCMz_ySTig3MCJD5Bx_lNj_aVLAwKu8SPMX-CCowKfU8zSv2cJ2OjiX2LTrYnhWMGvIDieCC419v0VHvlm4Hl9xln9-r4MZwcnqwTZQPT72VNE0uA" for domain google.com, path /, expire 1546730749</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt; &lt; Set-Cookie: NID=134=yt47WC-2mhTgQpkSCMz_ySTig3MCJD5Bx_lNj_aVLAwKu8SPMX-CCowKfU8zSv2cJ2OjiX2LTrYnhWMGvIDieCC419v0VHvlm4Hl9xln9-r4MZwcnqwTZQPT72VNE0uA; expires=Sat, 05-Jan-2019 23:25:49 GMT; path=/; domain=.google.com; HttpOnly</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt; &lt; Alt-Svc: quic=":443"; ma=2592000; v="43,42,41,39,35"</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt; &lt; Transfer-Encoding: chunked</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="dt">url =</span> <span class="st">"https://www.google.com"</span>, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">verbose =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">res &lt;-<span class="st"> </span>x<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; &lt; HTTP/1.1 200 OK</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; &lt; Date: Fri, 06 Jul 2018 23:25:49 GMT</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; &lt; Expires: -1</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; &lt; Cache-Control: private, max-age=0</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; &lt; Content-Type: text/html; charset=ISO-8859-1</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; &lt; P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; &lt; Content-Encoding: gzip</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; &lt; Server: gws</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; &lt; X-XSS-Protection: 1; mode=block</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; &lt; X-Frame-Options: SAMEORIGIN</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; * Added cookie 1P_JAR="2018-07-06-23" for domain google.com, path /, expire 1533511549</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; &lt; Set-Cookie: 1P_JAR=2018-07-06-23; expires=Sun, 05-Aug-2018 23:25:49 GMT; path=/; domain=.google.com</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"><span class="co">#&gt; * Added cookie NID="134=yt47WC-2mhTgQpkSCMz_ySTig3MCJD5Bx_lNj_aVLAwKu8SPMX-CCowKfU8zSv2cJ2OjiX2LTrYnhWMGvIDieCC419v0VHvlm4Hl9xln9-r4MZwcnqwTZQPT72VNE0uA" for domain google.com, path /, expire 1546730749</span></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; &lt; Set-Cookie: NID=134=yt47WC-2mhTgQpkSCMz_ySTig3MCJD5Bx_lNj_aVLAwKu8SPMX-CCowKfU8zSv2cJ2OjiX2LTrYnhWMGvIDieCC419v0VHvlm4Hl9xln9-r4MZwcnqwTZQPT72VNE0uA; expires=Sat, 05-Jan-2019 23:25:49 GMT; path=/; domain=.google.com; HttpOnly</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; &lt; Alt-Svc: quic=":443"; ma=2592000; v="43,42,41,39,35"</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; &lt; Transfer-Encoding: chunked</span></a></code></pre></div>
 <p>If there are cookies in a response, you can access them with <code><a href="https://rdrr.io/pkg/curl/man/handle_cookies.html">curl::handle_cookies</a></code> like:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>curl<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/curl/man/handle_cookies.html">handle_cookies</a></span>(res<span class="op">$</span>handle)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#&gt;                  domain flag path secure          expiration   name</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#&gt; 1           .google.com TRUE    /  FALSE 2018-08-05 16:25:16 1P_JAR</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; 2 #HttpOnly_.google.com TRUE    /  FALSE 2019-01-05 15:25:16    NID</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt;   value</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt; 1 2018-07-06-23</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt; 2 134=4E_Zo-cY8hRLNSj47jRJQML0CPQ8Ip__ ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">curl<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/curl/man/handle_cookies.html">handle_cookies</a></span>(res<span class="op">$</span>handle)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt;                  domain flag path secure          expiration   name</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 1           .google.com TRUE    /  FALSE 2018-08-05 16:25:16 1P_JAR</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2 #HttpOnly_.google.com TRUE    /  FALSE 2019-01-05 15:25:16    NID</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt;   value</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 1 2018-07-06-23</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 2 134=4E_Zo-cY8hRLNSj47jRJQML0CPQ8Ip__ ...</span></a></code></pre></div>
 </div>
 <div id="progress" class="section level2">
 <h2 class="hasAnchor">
@@ -314,8 +315,8 @@
 <ul>
 <li><code>HttpClient$new(progress = fxn)</code></li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">progress =</span> httr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/httr/man/progress.html">progress</a></span>())</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; |==================================| 100%</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">progress =</span> httr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/httr/man/progress.html">progress</a></span>())</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; |==================================| 100%</span></a></code></pre></div>
 <p><em>Why use this?</em> As you could imagine, this is increasingly useful as a request for a web resource takes longer and longer. For very long requests, this will help you know approximately when a request will finish.</p>
 </div>
 <div id="proxies" class="section level2">
@@ -328,8 +329,8 @@
 <ul>
 <li><code>HttpClient$new(proxies = proxy("http://97.77.104.22:3128", "foo", "bar"))</code></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>prox &lt;-<span class="st"> </span><span class="kw"><a href="../reference/proxies.html">proxy</a></span>(<span class="st">"125.39.66.66"</span>, <span class="dt">port =</span> <span class="dv">80</span>, <span class="dt">username =</span> <span class="st">"username"</span>, <span class="dt">password =</span> <span class="st">"password"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"http://www.google.com/search"</span>, <span class="dt">proxies =</span> prox)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">prox &lt;-<span class="st"> </span><span class="kw"><a href="../reference/proxies.html">proxy</a></span>(<span class="st">"125.39.66.66"</span>, <span class="dt">port =</span> <span class="dv">80</span>, <span class="dt">username =</span> <span class="st">"username"</span>, <span class="dt">password =</span> <span class="st">"password"</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"http://www.google.com/search"</span>, <span class="dt">proxies =</span> prox)</a></code></pre></div>
 <p><em>Why use this?</em> Most of us likely don’t need to worry about this. However, if you are in a work place, or maybe in certain geographic locations, you may have to use a proxy. I haven’t personally used a proxy in R, so any feedback on this is great.</p>
 </div>
 <div id="user-agent" class="section level2">
@@ -373,6 +374,7 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Scott Chamberlain.</p>
 </div>
@@ -380,10 +382,12 @@
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

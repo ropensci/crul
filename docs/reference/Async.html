@@ -49,6 +49,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -65,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -123,6 +124,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -166,12 +168,14 @@ first 10.</p>
 <dt><code><a href='https://rdrr.io/r/utils/head.html'>head(path, ...)</a></code></dt><dd><p>make async HEAD requests for all URLs</p></dd>
 <dt><code>verb(verb, ...)</code></dt><dd><p>make async requests with an arbitrary HTTP verb</p></dd>
 </dl>
-    <p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
+
+<p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
     
     <h2 class="hasAnchor" id="failure-behavior"><a class="anchor" href="#failure-behavior"></a>Failure behavior</h2>
 
     
-    <p>HTTP requests mostly fail in ways that you are probably familiar with,
+
+<p>HTTP requests mostly fail in ways that you are probably familiar with,
 including when there's a 400 response (the URL not found), and when the
 server made a mistake (a 500 series HTTP status code).</p>
 <p>But requests can fail sometimes where there is no HTTP status code, and
@@ -183,7 +187,8 @@ immediately saying for example:</p><ul>
 <li><p>"Failed to connect to foo.com"</p></li>
 <li><p>"Resolving timed out after 10 milliseconds"</p></li>
 </ul>
-    <p>However, for async requests we don't want to fail immediately because
+
+<p>However, for async requests we don't want to fail immediately because
 that would stop the subsequent requests from occurring. Thus, when
 we find that a request fails for one of the reasons above we
 give back a <a href='HttpResponse.html'>HttpResponse</a> object just like any other response, and:</p><ul>
@@ -193,6 +198,7 @@ response object (thus calls to <code>content</code> and <code><a href='https://r
 whether the request was successful or not with e.g., the <code>success()</code>
 method</p></li>
 </ul>
+
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -288,6 +294,7 @@ method</p></li>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Scott Chamberlain.</p>
@@ -296,11 +303,14 @@ method</p></li>
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

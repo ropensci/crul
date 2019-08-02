@@ -49,6 +49,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -65,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9120</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
       </span>
     </div>
 
@@ -123,6 +124,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -215,17 +217,21 @@ the only things that change the URL are path and query
 parameters; body and any curl options don't change the URL
 - returns: character vector of URLs</p></dd>
 </dl>
-    <p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
+
+<p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
     
     <h2 class="hasAnchor" id="methods-to-paginate"><a class="anchor" href="#methods-to-paginate"></a>Methods to paginate</h2>
 
     
-    <p>Supported now:</p><ul>
+
+
+<p>Supported now:</p><ul>
 <li><p><code>query_params</code>: the most common way, so is the default. This method
 involves setting how many records and what record to start at for each
 request. We send these query parameters for you.</p></li>
 </ul>
-    <p>Supported later:</p><ul>
+
+<p>Supported later:</p><ul>
 <li><p><code>link_headers</code>: link headers are URLS for the next/previous/last
 request given in the response header from the server. This is relatively
 uncommon, though is recommended by JSONAPI and is implemented by a
@@ -234,6 +240,7 @@ well known API (GitHub).</p></li>
 be passed in the subsequent response, and so on until no more records
 remain. This is common in Solr</p></li>
 </ul>
+
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -282,6 +289,7 @@ remain. This is common in Solr</p></li>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Scott Chamberlain.</p>
@@ -290,11 +298,14 @@ remain. This is common in Solr</p></li>
 <div class="pkgdown">
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -32,3 +32,6 @@ check:
 
 test:
 	${RSCRIPT} -e "devtools::test()"
+
+pkgdocs:
+	${RSCRIPT} -e "pkgdown::build_site()"
