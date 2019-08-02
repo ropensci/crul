@@ -125,10 +125,8 @@ test_that("post request with file upload", {
   expect_is(aa$content, "raw")
   expect_null(aa$request$options$readfunction)
   out <- jsonlite::fromJSON(aa$parse("UTF-8"))
-  # FIXME: since v0.8.4 these two tests are failing only on linux
-  # non-interactively, not sure why
-  # expect_named(out$files, "a")
-  # expect_match(out$files$a, "bibentry")
+  expect_named(out$files, "a")
+  expect_match(out$files$a, "bibentry")
 
   ## as data
   aa2 <- cli$post("post", body = file)

@@ -3,7 +3,7 @@ crul 0.8.4
 
 ### MINOR IMPROVEMENTS
 
-* no longer exporting `as.character.form_file` - avoids conflict with `httr` function of the same name (#112)
+* `jsonlite` package moved to Imports (#112)
 * the `parse()` method in the `HttpResponse` object now checks whether the response raw bytes can be converted to character, and if not just returns raw bytes (#115) (#116)
 * give vignettes titles (#113) (#114)
 
