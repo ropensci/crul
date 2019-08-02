@@ -1,5 +1,7 @@
 man-roxygen/
 ^\.travis\.yml$
+^appveyor\.yml$
+^azure-pipelines\.yml$
 ^\.DS_Store$
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -13,4 +15,3 @@ docs
 inst/vign
 ^\.httr-oauth$
 ^codemeta\.json$
-azure-pipelines.yml
