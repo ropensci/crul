@@ -139,7 +139,8 @@
 <h3 class="hasAnchor">
 <a href="#minor-improvements" class="anchor"></a>MINOR IMPROVEMENTS</h3>
 <ul>
-<li>no longer exporting <code>as.character.form_file</code> - avoids conflict with <code>httr</code> function of the same name (<a href='https://github.com/ropensci/crul/issues/112'>#112</a>)</li>
+<li>
+<code>jsonlite</code> package moved to Imports (<a href='https://github.com/ropensci/crul/issues/112'>#112</a>)</li>
 <li>the <code><a href="https://rdrr.io/r/base/parse.html">parse()</a></code> method in the <code>HttpResponse</code> object now checks whether the response raw bytes can be converted to character, and if not just returns raw bytes (<a href='https://github.com/ropensci/crul/issues/115'>#115</a>) (<a href='https://github.com/ropensci/crul/issues/116'>#116</a>)</li>
 <li>give vignettes titles (<a href='https://github.com/ropensci/crul/issues/113'>#113</a>) (<a href='https://github.com/ropensci/crul/issues/114'>#114</a>)</li>
 </ul>
