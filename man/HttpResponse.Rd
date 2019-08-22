@@ -5,13 +5,13 @@
 \alias{HttpResponse}
 \title{Base response object}
 \arguments{
+\item{method}{(character) HTTP method}
+
 \item{url}{(character) A url, required}
 
 \item{opts}{(list) curl options}
 
 \item{handle}{A handle}
-
-\item{method}{(character) HTTP method}
 
 \item{status_code}{(integer) status code}
 
@@ -33,32 +33,73 @@ intermediate redirect headers, unnamed list of named lists}
 \description{
 Base response object
 }
-\details{
-\strong{Methods}
+\section{Usage}{
+\preformatted{HttpResponse$new(method, url, opts, handle, status_code, request_headers,
+   response_headers, response_headers_all, times, content,
+   request)
+}
+}
+
+\section{Methods}{
+
 \describe{
 \item{\code{parse(encoding = NULL, ...)}}{
 Parse the raw response content to text
-- encoding: A character string describing the current encoding.
-If left as \code{NULL}, we attempt to guess the encoding. Passed to
-\code{from} parameter in \code{iconv}
-- ...: additional parameters passed on to \code{iconv} (options: sub, mark, toRaw).
-See \code{?iconv} for help
+\itemize{
+\item encoding: (character) A character string describing the
+current encoding. If left as \code{NULL}, we attempt to guess the
+encoding. Passed to \code{from} parameter in \code{iconv}
+\item ...: additional parameters passed on to \code{iconv}
+(options: sub, mark, toRaw). See \code{?iconv} for help
+\item returns: character
+}
 }
 \item{\code{success()}}{
 Was status code less than or equal to 201.
-returns boolean
+\itemize{
+\item returns: boolean
 }
-\item{\code{status_http()}}{
+}
+\item{\code{status_http(verbose = FALSE)}}{
 Get HTTP status code, message, and explanation
+\itemize{
+\item returns: object of class "http_code", a list with slots
+for status_code, message, and explanation
+}
 }
 \item{\code{raise_for_status()}}{
 Check HTTP status and stop with appropriate
-HTTP error code and message if >= 300.
-- If you have \code{fauxpas} installed we use that,
-otherwise use \pkg{httpcode}
+HTTP error code and message if >= 300. otherwise use \pkg{httpcode}.
+If you have \code{fauxpas} installed we use that.
+\itemize{
+\item returns: stop or warn with message
+}
+}
+\item{\code{raise_for_ct(type, charset = NULL, behavior = "stop")}}{
+Check response content-type; stop or warn if not matched. Parameters:
+\itemize{
+\item type: (character) a mime type to match against; see
+\link[mime:mimemap]{mime::mimemap} for allowed values
+\item charset: (character) if a charset string given, we check that
+it matches the charset in the content type header. default: NULL
+\item behavior: (character) one of stop (default) or warning
+}
+}
+\item{\code{raise_for_ct_html(charset = NULL, behavior = "stop")}}{
+Check that the response content-type is \code{text/html}; stop or warn if
+not matched. Parameters: see \code{raise_for_ct()}
+}
+\item{\code{raise_for_ct_json(charset = NULL, behavior = "stop")}}{
+Check that the response content-type is \code{application/json}; stop or
+warn if not matched. Parameters: see \code{raise_for_ct()}
+}
+\item{\code{raise_for_ct_xml(charset = NULL, behavior = "stop")}}{
+Check that the response content-type is \code{application/xml}; stop or warn if
+not matched. Parameters: see \code{raise_for_ct()}
 }
 }
 }
+
 \examples{
 \dontrun{
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
@@ -85,5 +126,8 @@ x <- HttpClient$new(url = 'https://httpbin.org/status/414')
 (res <- x$get())
 # res$raise_for_status()
 }
+}
+\seealso{
+\link{content-types}
 }
 \keyword{datasets}

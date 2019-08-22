@@ -1,10 +1,16 @@
 #' Base response object
 #'
 #' @export
+#' @section Usage:
+#' ```
+#' HttpResponse$new(method, url, opts, handle, status_code, request_headers,
+#'    response_headers, response_headers_all, times, content,
+#'    request)
+#' ```
+#' @param method (character) HTTP method
 #' @param url (character) A url, required
 #' @param opts (list) curl options
 #' @param handle A handle
-#' @param method (character) HTTP method
 #' @param status_code (integer) status code
 #' @param request_headers (list) request headers, named list
 #' @param response_headers (list) response headers, named list
@@ -14,33 +20,66 @@
 #' @param times (vector) named vector
 #' @param content (raw) raw binary content response
 #' @param request request object, with all details
-#' @details
-#' **Methods**
+#' @section Methods:
 #'   \describe{
 #'     \item{`parse(encoding = NULL, ...)`}{
 #'       Parse the raw response content to text
-#'       - encoding: A character string describing the current encoding.
-#'         If left as `NULL`, we attempt to guess the encoding. Passed to
-#'         `from` parameter in `iconv`
-#'       - ...: additional parameters passed on to `iconv` (options: sub, mark, toRaw).
-#'         See `?iconv` for help
+#'       \itemize{
+#'        \item encoding: (character) A character string describing the
+#'          current encoding. If left as `NULL`, we attempt to guess the
+#'          encoding. Passed to `from` parameter in `iconv`
+#'        \item ...: additional parameters passed on to `iconv`
+#'         (options: sub, mark, toRaw). See `?iconv` for help
+#'        \item returns: character
+#'       }
 #'     }
 #'     \item{`success()`}{
 #'       Was status code less than or equal to 201.
-#'       returns boolean
+#'       \itemize{
+#'        \item returns: boolean
+#'       }
 #'     }
-#'     \item{`status_http()`}{
+#'     \item{`status_http(verbose = FALSE)`}{
 #'       Get HTTP status code, message, and explanation
+#'       \itemize{
+#'        \item returns: object of class "http_code", a list with slots
+#'         for status_code, message, and explanation
+#'       }
 #'     }
 #'     \item{`raise_for_status()`}{
 #'       Check HTTP status and stop with appropriate
-#'       HTTP error code and message if >= 300.
-#'       - If you have `fauxpas` installed we use that,
-#'       otherwise use \pkg{httpcode}
+#'       HTTP error code and message if >= 300. otherwise use \pkg{httpcode}.
+#'       If you have `fauxpas` installed we use that.
+#'       \itemize{
+#'        \item returns: stop or warn with message
+#'       }
+#'     }
+#'     \item{`raise_for_ct(type, charset = NULL, behavior = "stop")`}{
+#'       Check response content-type; stop or warn if not matched. Parameters:
+#'       \itemize{
+#'        \item type: (character) a mime type to match against; see
+#'          [mime::mimemap] for allowed values
+#'        \item charset: (character) if a charset string given, we check that
+#'          it matches the charset in the content type header. default: NULL
+#'        \item behavior: (character) one of stop (default) or warning
+#'       }
+#'     }
+#'     \item{`raise_for_ct_html(charset = NULL, behavior = "stop")`}{
+#'       Check that the response content-type is `text/html`; stop or warn if
+#'       not matched. Parameters: see `raise_for_ct()`
+#'     }
+#'     \item{`raise_for_ct_json(charset = NULL, behavior = "stop")`}{
+#'       Check that the response content-type is `application/json`; stop or
+#'       warn if not matched. Parameters: see `raise_for_ct()`
+#'     }
+#'     \item{`raise_for_ct_xml(charset = NULL, behavior = "stop")`}{
+#'       Check that the response content-type is `application/xml`; stop or warn if
+#'       not matched. Parameters: see `raise_for_ct()`
 #'     }
 #'   }
 #' @format NULL
 #' @usage NULL
+#' @seealso [content-types]
 #' @examples \dontrun{
 #' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 #' x$url
@@ -81,6 +120,10 @@ HttpResponse <- R6::R6Class(
     times = NULL,
     content = NULL,
     request = NULL,
+    raise_for_ct = NULL,
+    raise_for_ct_html = NULL,
+    raise_for_ct_json = NULL,
+    raise_for_ct_xml = NULL,
 
     print = function(x, ...) {
       cat("<crul response> ", sep = "\n")
@@ -132,12 +175,17 @@ HttpResponse <- R6::R6Class(
       if (!missing(times)) self$times <- times
       if (!missing(content)) self$content <- content
       if (!missing(request)) self$request <- request
+
+      self$raise_for_ct = private$raise_for_ct_user()
+      self$raise_for_ct_html = private$raise_for_ct_factory(type = "html")
+      self$raise_for_ct_json = private$raise_for_ct_factory(type = "json")
+      self$raise_for_ct_xml = private$raise_for_ct_factory(type = "xml")
     },
 
     parse = function(encoding = NULL, ...) {
       if (
         "disk" %in% names(self$request) ||
-        (inherits(self$request, "HttpRequest") && 
+        (inherits(self$request, "HttpRequest") &&
           "disk" %in% names(self$request$payload))
       ) {
         if (
@@ -179,8 +227,56 @@ HttpResponse <- R6::R6Class(
         }
       }
     }
+  ),
+
+  private = list(
+    raise_for_ct_user = function() {
+      function(type, charset = NULL, behavior = "stop") {
+        if (!type %in% mime::mimemap)
+          stop("type not in allowed set, see ?mime::mimemap")
+        type <- names(mime::mimemap[type == mime::mimemap])[1]
+        private$raise_for_ct_factory(type)(
+          charset = charset, behavior = behavior
+        )
+      }
+    },
+    raise_for_ct_factory = function(type) {
+      function(charset = NULL, behavior = "stop") {
+        behaviors <- c("stop", "warning")
+        assert(behavior, "character")
+        if (!behavior %in% behaviors)
+          stop("'behavior' must be one of ", paste(behaviors, collapse = ", "))
+        ctype <- mime::mimemap[[type]]
+        if (is.null(self$response_headers$`content-type`))
+          stop("content-type header is missing")
+        rtype <- self$response_headers$`content-type`
+        if (!is.null(charset)) {
+          if (!grepl(";\\s?[A-Za-z0-9]+|;\\s?charset=[A-Za-z0-9]+", rtype)) {
+            warning("no charset detected in response content-type",
+              call. = FALSE)
+          } else if (
+            !grepl(ctype, rtype) ||
+            !grepl(norm(charset), norm(rtype))
+          ) {
+            get(behavior)(sprintf("response content-type (%s) did not match expected type (%s)\nor character set (%s)", rtype, ctype, charset), call. = FALSE)
+          }
+        } else {
+          if (!grepl(ctype, rtype)) {
+            get(behavior)(sprintf("response content-type (%s) did not match expected type (%s)",
+              rtype, ctype), call. = FALSE)
+          }
+        }
+      }
+    }
   )
 )
+
+# remove spaces; lowercase everything
+norm <- function(x) {
+  x <- gsub("\\s", "", x)
+  x <- tolower(x)
+  return(x)
+}
 
 guess_encoding <- function(encoding = NULL) {
   if (!is.null(encoding)) {
