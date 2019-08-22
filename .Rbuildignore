@@ -15,3 +15,4 @@ docs
 inst/vign
 ^\.httr-oauth$
 ^codemeta\.json$
+notes_on_aschar_fxn.R
