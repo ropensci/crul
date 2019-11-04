@@ -80,10 +80,16 @@ prep_body <- function(body, encode, type = NULL) {
       stop("All components of body must be named", call. = FALSE)
     }
     list(
-      opts = list(
-        post = TRUE
-      ),
-      fields = lapply(body, as.character)
+      opts = list(post = TRUE),
+      fields = lapply(body, field_as)
     )
   }
 }
+
+field_as <- function(x) UseMethod("field_as")
+#' @export
+field_as.numeric <- function(x) as.character(x)
+#' @export
+field_as.logical <- function(x) as.character(x)
+#' @export
+field_as.default <- function(x) x

@@ -9,6 +9,3 @@ upload <- function(path, type = NULL) {
   if (is.null(type)) type <- mime::guess_type(path)
   curl::form_file(path, type)
 }
-
-#' @export
-as.character.form_file <- function(x, ...) x
