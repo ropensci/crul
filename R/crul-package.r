@@ -32,6 +32,21 @@
 #' at a time
 #' - the `verb()` method can be used on all the above to request 
 #' a specific HTTP verb
+#' 
+#' @section Checking HTTP responses:
+#' 
+#' [HttpResponse()] has helpers for checking and raising warnings/errors.
+#' 
+#' - [content-types] details the various options for checking content
+#' types and throwing a warning or error if the response content
+#' type doesn't match what you expect. Mis-matched content-types are
+#' typically a good sign of a bad response. There's methods built
+#' in for json, xml and html, with the ability to set any
+#' custom content type
+#' - `raise_for_status()` is a method on [HttpResponse()] that checks
+#' the HTTP status code, and errors with the appropriate message for
+#' the HTTP status code, optionally using the package `fauxpas`
+#' if it's installed.
 #'
 #' @section HTTP conditions:
 #' We use `fauxpas` if you have it installed for handling HTTP

@@ -47,6 +47,24 @@ a specific HTTP verb
 }
 }
 
+\section{Checking HTTP responses}{
+
+
+\code{\link[=HttpResponse]{HttpResponse()}} has helpers for checking and raising warnings/errors.
+\itemize{
+\item \link{content-types} details the various options for checking content
+types and throwing a warning or error if the response content
+type doesn't match what you expect. Mis-matched content-types are
+typically a good sign of a bad response. There's methods built
+in for json, xml and html, with the ability to set any
+custom content type
+\item \code{raise_for_status()} is a method on \code{\link[=HttpResponse]{HttpResponse()}} that checks
+the HTTP status code, and errors with the appropriate message for
+the HTTP status code, optionally using the package \code{fauxpas}
+if it's installed.
+}
+}
+
 \section{HTTP conditions}{
 
 We use \code{fauxpas} if you have it installed for handling HTTP
