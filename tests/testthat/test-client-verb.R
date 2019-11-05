@@ -51,3 +51,16 @@ test_that("verb: fails well", {
   # fails correctly when unsupported verb passed
   expect_error(x$verb("foo"), "'verb' must be one of")
 })
+
+test_that("verb: with auth works", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
+  aa <- cli$verb("get", "/basic-auth/foo/bar")
+
+  expect_is(aa, "HttpResponse")
+  expect_equal(aa$method, "get")
+  expect_true(aa$success())
+  expect_equal(aa$status_code, 200)
+  expect_equal(aa$request$options$userpwd, "foo:bar")
+})

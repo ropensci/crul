@@ -386,7 +386,7 @@ HttpClient <- R6::R6Class(
       }
       rr$options <- utils::modifyList(
         rr$options,
-        c(self$opts, self$proxies, ...))
+        c(self$opts, self$proxies, self$auth, ...))
       private$make_request(rr)
     },
 

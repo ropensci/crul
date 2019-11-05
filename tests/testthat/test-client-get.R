@@ -49,3 +49,16 @@ test_that("get request - query parameters", {
   ), FALSE)
   expect_equal(params, querya)
 })
+
+test_that("with auth works", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
+  aa <- cli$get("/basic-auth/foo/bar")
+
+  expect_is(aa, "HttpResponse")
+  expect_equal(aa$method, "get")
+  expect_true(aa$success())
+  expect_equal(aa$status_code, 200)
+  expect_equal(aa$request$options$userpwd, "foo:bar")
+})

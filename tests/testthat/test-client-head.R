@@ -39,3 +39,17 @@ test_that("head - query passed to head doesn't fail", {
   # content is empty
   expect_equal(aa$content, raw(0))
 })
+
+
+test_that("with auth works", {
+  skip_on_cran()
+
+  cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
+  aa <- cli$head("/basic-auth/foo/bar")
+
+  expect_is(aa, "HttpResponse")
+  expect_equal(aa$method, "head")
+  expect_true(aa$success())
+  expect_equal(aa$status_code, 200)
+  expect_equal(aa$request$options$userpwd, "foo:bar")
+})
