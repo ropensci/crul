@@ -11,7 +11,7 @@ crul
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
-An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's [requests](http://docs.python-requests.org/en/master/)
+An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's `requests`
 
 Package API:
 
