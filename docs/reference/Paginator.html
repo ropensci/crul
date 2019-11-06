@@ -8,11 +8,13 @@
 
 <title>Paginator client — Paginator • crul</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Paginator client — Paginator" />
 
+<meta property="og:title" content="Paginator client — Paginator" />
 <meta property="og:description" content="A client to help you paginate" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -66,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -109,7 +112,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ropensci/crul">
@@ -136,12 +138,10 @@
     </div>
 
     <div class="ref-description">
-    
     <p>A client to help you paginate</p>
-    
     </div>
 
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -179,12 +179,11 @@ e.g., 10 would be be each request gets 10 records</p></td>
 Default: <code>FALSE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list, with objects of class <code><a href='HttpResponse.html'>HttpResponse()</a></code>.
 Responses are returned in the order they are passed in.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Methods</strong></p><dl class='dl-horizontal'>
@@ -216,10 +215,10 @@ requests made</p></dd>
 the only things that change the URL are path and query
 parameters; body and any curl options don't change the URL
 - returns: character vector of URLs</p></dd>
+
 </dl>
 
 <p>See <code><a href='HttpClient.html'>HttpClient()</a></code> for information on parameters.</p>
-    
     <h2 class="hasAnchor" id="methods-to-paginate"><a class="anchor" href="#methods-to-paginate"></a>Methods to paginate</h2>
 
     
@@ -241,10 +240,9 @@ be passed in the subsequent response, and so on until no more records
 remain. This is common in Solr</p></li>
 </ul>
 
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 (<span class='no'>cli</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://api.crossref.org"</span>))
 <span class='no'>cc</span> <span class='kw'>&lt;-</span> <span class='no'>Paginator</span>$<span class='fu'>new</span>(<span class='kw'>client</span> <span class='kw'>=</span> <span class='no'>cli</span>, <span class='kw'>limit_param</span> <span class='kw'>=</span> <span class='st'>"rows"</span>,
    <span class='kw'>offset_param</span> <span class='kw'>=</span> <span class='st'>"offset"</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>limit_chunk</span> <span class='kw'>=</span> <span class='fl'>10</span>)
@@ -270,19 +268,15 @@ remain. This is common in Solr</p></li>
    <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>cc</span>
 <span class='no'>cc</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'works'</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#methods-to-paginate">Methods to paginate</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -296,7 +290,7 @@ remain. This is common in Solr</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

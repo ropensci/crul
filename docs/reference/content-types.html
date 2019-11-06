@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>curl options — curl-options • crul</title>
+<title>Working with content types — content-types • crul</title>
 
 
 <!-- jquery -->
@@ -35,13 +35,10 @@
 
 
 
-<meta property="og:title" content="curl options — curl-options" />
-<meta property="og:description" content="With the opts parameter you can pass in various
-curl options, including user agent string, whether to get verbose
-curl output or not, setting a timeout for requests, and more. See
-curl::curl_options() for all the options you can use. Note that
-you need to give curl options exactly as given in
-curl::curl_options()." />
+<meta property="og:title" content="Working with content types — content-types" />
+<meta property="og:description" content="The HttpResponse class holds all the responses elements for an HTTP
+request. This document details how to work specifically with the
+content-type of the response headers" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -137,55 +134,88 @@ curl::curl_options()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>curl options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/curl-options.R'><code>R/curl-options.R</code></a></small>
-    <div class="hidden name"><code>curl-options.Rd</code></div>
+    <h1>Working with content types</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/crul/blob/master/R/content-types.R'><code>R/content-types.R</code></a></small>
+    <div class="hidden name"><code>content-types.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>With the <code>opts</code> parameter you can pass in various
-curl options, including user agent string, whether to get verbose
-curl output or not, setting a timeout for requests, and more. See
-<code><a href='https://jeroen.cran.dev/curl/reference/curl_options.html'>curl::curl_options()</a></code> for all the options you can use. Note that
-you need to give curl options exactly as given in
-<code><a href='https://jeroen.cran.dev/curl/reference/curl_options.html'>curl::curl_options()</a></code>.</p>
+    <p>The <a href='HttpResponse.html'>HttpResponse</a> class holds all the responses elements for an HTTP
+request. This document details how to work specifically with the
+content-type of the response headers</p>
     </div>
 
 
 
+    <h2 class="hasAnchor" id="content-types"><a class="anchor" href="#content-types"></a>Content types</h2>
+
+    
+
+<p>The "Content-Type" header in HTTP responses gives the media type of the
+response. The media type is both the data format and how the data is
+intended to be processed by a recipient. (modified from rfc7231)</p>
+    <h2 class="hasAnchor" id="behavior-of-the-parameters-httpresponse-raise-for-ct-methods"><a class="anchor" href="#behavior-of-the-parameters-httpresponse-raise-for-ct-methods"></a>Behavior of the parameters HttpResponse raise_for_ct* methods</h2>
+
+    
+
+<ul>
+<li><p>type: (only applicable for the <code>raise_for_ct()</code> method): instead of
+using one of the three other content type methods for html, json, or xml,
+you can specify a mime type to check, any of those in <a href='https://rdrr.io/pkg/mime/man/mimemap.html'>mime::mimemap</a></p></li>
+<li><p>charset: if you don't give a value to this parameter, we only
+check that the content type is what you expect; that is, the charset,
+if given, is ignored.</p></li>
+<li><p>behavior: by default when you call this method, and the content type
+does not match what the method expects, then we run <code><a href='https://rdrr.io/r/base/stop.html'>stop()</a></code> with a
+message. Instead of stopping, you can choose <code>behavior="warning"</code>
+and we'll throw a warning instead, allowing any downstream processing
+to proceed.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>spec for content types:
+<a href='https://tools.ietf.org/html/rfc7231#section-3.1.1.5'>https://tools.ietf.org/html/rfc7231#section-3.1.1.5</a></p>
+<p>spec for media types:
+<a href='https://tools.ietf.org/html/rfc7231#section-3.1.1.1'>https://tools.ietf.org/html/rfc7231#section-3.1.1.1</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='HttpResponse.html'>HttpResponse</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://httpbin.org"</span>
+(<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
+(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>())
 
-<span class='co'># set curl options on client initialization</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))
-<span class='no'>res</span>$<span class='no'>opts</span>
-<span class='no'>res</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>)
+<span class='co'>## get the content type</span>
+<span class='no'>res</span>$<span class='no'>response_headers</span>$<span class='no'>`content-type`</span>
 
-<span class='co'># or set curl options when performing HTTP operation</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>))
-<span class='no'>res</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>res</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>, <span class='kw'>stuff</span> <span class='kw'>=</span> <span class='st'>"things"</span>)
+<span class='co'>## check that the content type is text/html</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_ct_html</span>()
 
-<span class='co'># set a timeout</span>
-(<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>timeout_ms</span> <span class='kw'>=</span> <span class='fl'>1</span>)))
-<span class='co'># res$get('get')</span>
+<span class='co'>## it's def. not json</span>
+<span class='co'># res$raise_for_ct_json()</span>
 
-<span class='co'># set user agent either as a header or an option</span>
-<span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>,
-  <span class='kw'>headers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>`User-Agent`</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>),
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>)
+<span class='co'>## give custom content type</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_ct</span>(<span class='st'>"text/html"</span>)
+<span class='co'># res$raise_for_ct("application/json")</span>
+<span class='co'># res$raise_for_ct("foo/bar")</span>
 
-<span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='no'>url</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>useragent</span> <span class='kw'>=</span> <span class='st'>"hello world"</span>)
-)$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>'get'</span>)
+<span class='co'>## check charset in addition to the media type</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_ct_html</span>(<span class='kw'>charset</span> <span class='kw'>=</span> <span class='st'>"utf-8"</span>)
+<span class='co'># res$raise_for_ct_html(charset = "utf-16")</span>
+
+<span class='co'># warn instead of stop</span>
+<span class='no'>res</span>$<span class='fu'>raise_for_ct_json</span>(<span class='kw'>behavior</span> <span class='kw'>=</span> <span class='st'>"warning"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#content-types">Content types</a></li>
+      <li><a href="#behavior-of-the-parameters-httpresponse-raise-for-ct-methods">Behavior of the parameters HttpResponse raise_for_ct* methods</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

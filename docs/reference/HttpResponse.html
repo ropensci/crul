@@ -8,11 +8,13 @@
 
 <title>Base response object — HttpResponse • crul</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Base response object — HttpResponse" />
 
+<meta property="og:title" content="Base response object — HttpResponse" />
 <meta property="og:description" content="Base response object" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -66,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -109,7 +112,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ropensci/crul">
@@ -136,15 +138,17 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Base response object</p>
-    
     </div>
 
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>method</th>
+      <td><p>(character) HTTP method</p></td>
+    </tr>
     <tr>
       <th>url</th>
       <td><p>(character) A url, required</p></td>
@@ -156,10 +160,6 @@
     <tr>
       <th>handle</th>
       <td><p>A handle</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p>(character) HTTP method</p></td>
     </tr>
     <tr>
       <th>status_code</th>
@@ -195,29 +195,67 @@ intermediate redirect headers, unnamed list of named lists</p></td>
       <td><p>request object, with all details</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><strong>Methods</strong></p><dl class='dl-horizontal'>
+    <h2 class="hasAnchor" id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+
+    
+<pre>HttpResponse$new(method, url, opts, handle, status_code, request_headers,
+   response_headers, response_headers_all, times, content,
+   request)
+</pre>
+
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+
+<dl class='dl-horizontal'>
 <dt><code><a href='https://rdrr.io/r/base/parse.html'>parse(encoding = NULL, ...)</a></code></dt><dd><p>Parse the raw response content to text
-- encoding: A character string describing the current encoding.
-If left as <code>NULL</code>, we attempt to guess the encoding. Passed to
-<code>from</code> parameter in <code>iconv</code>
-- ...: additional parameters passed on to <code>iconv</code> (options: sub, mark, toRaw).
-See <code><a href='https://rdrr.io/r/base/iconv.html'>?iconv</a></code> for help</p></dd>
+<ul>
+<li><p>encoding: (character) A character string describing the
+current encoding. If left as <code>NULL</code>, we attempt to guess the
+encoding. Passed to <code>from</code> parameter in <code>iconv</code></p></li>
+<li><p>...: additional parameters passed on to <code>iconv</code>
+(options: sub, mark, toRaw). See <code><a href='https://rdrr.io/r/base/iconv.html'>?iconv</a></code> for help</p></li>
+<li><p>returns: character</p></li>
+</ul></p></dd>
 <dt><code>success()</code></dt><dd><p>Was status code less than or equal to 201.
-returns boolean</p></dd>
-<dt><code>status_http()</code></dt><dd><p>Get HTTP status code, message, and explanation</p></dd>
+<ul>
+<li><p>returns: boolean</p></li>
+</ul></p></dd>
+<dt><code>status_http(verbose = FALSE)</code></dt><dd><p>Get HTTP status code, message, and explanation
+<ul>
+<li><p>returns: object of class "http_code", a list with slots
+for status_code, message, and explanation</p></li>
+</ul></p></dd>
 <dt><code>raise_for_status()</code></dt><dd><p>Check HTTP status and stop with appropriate
-HTTP error code and message if &gt;= 300.
-- If you have <code>fauxpas</code> installed we use that,
-otherwise use <span class="pkg">httpcode</span></p></dd>
+HTTP error code and message if &gt;= 300. otherwise use <span class="pkg">httpcode</span>.
+If you have <code>fauxpas</code> installed we use that.
+<ul>
+<li><p>returns: stop or warn with message</p></li>
+</ul></p></dd>
+<dt><code>raise_for_ct(type, charset = NULL, behavior = "stop")</code></dt><dd><p>Check response content-type; stop or warn if not matched. Parameters:
+<ul>
+<li><p>type: (character) a mime type to match against; see
+<a href='https://rdrr.io/pkg/mime/man/mimemap.html'>mime::mimemap</a> for allowed values</p></li>
+<li><p>charset: (character) if a charset string given, we check that
+it matches the charset in the content type header. default: NULL</p></li>
+<li><p>behavior: (character) one of stop (default) or warning</p></li>
+</ul></p></dd>
+<dt><code>raise_for_ct_html(charset = NULL, behavior = "stop")</code></dt><dd><p>Check that the response content-type is <code>text/html</code>; stop or warn if
+not matched. Parameters: see <code>raise_for_ct()</code></p></dd>
+<dt><code>raise_for_ct_json(charset = NULL, behavior = "stop")</code></dt><dd><p>Check that the response content-type is <code>application/json</code>; stop or
+warn if not matched. Parameters: see <code>raise_for_ct()</code></p></dd>
+<dt><code>raise_for_ct_xml(charset = NULL, behavior = "stop")</code></dt><dd><p>Check that the response content-type is <code>application/xml</code>; stop or warn if
+not matched. Parameters: see <code>raise_for_ct()</code></p></dd>
+
 </dl>
 
-    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='content-types.html'>content-types</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpResponse</span>$<span class='fu'>new</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"get"</span>, <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>)
 <span class='no'>x</span>$<span class='no'>url</span>
 <span class='no'>x</span>$<span class='no'>method</span>
@@ -241,15 +279,15 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>'https://httpbin.org/status/414'</span>)
 (<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>())
 <span class='co'># res$raise_for_status()</span>
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-      
+      <li><a href="#usage">Usage</a></li>
+      <li><a href="#methods">Methods</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -263,7 +301,7 @@ otherwise use <span class="pkg">httpcode</span></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

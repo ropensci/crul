@@ -8,11 +8,13 @@
 
 <title>Working with cookies — cookies • crul</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Working with cookies — cookies" />
 
+<meta property="og:title" content="Working with cookies — cookies" />
 <meta property="og:description" content="Working with cookies" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -66,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -109,7 +112,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ropensci/crul">
@@ -136,15 +138,14 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Working with cookies</p>
-    
     </div>
 
-        
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(
   <span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>,
   <span class='kw'>opts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -161,19 +162,19 @@
 (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://httpbin.org"</span>))
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"cookies/set"</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>foo</span> <span class='kw'>=</span> <span class='fl'>123</span>, <span class='kw'>bar</span> <span class='kw'>=</span> <span class='st'>"ftw"</span>))
 <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>fromJSON</a></span>(<span class='no'>res</span>$<span class='fu'><a href='https://rdrr.io/r/base/parse.html'>parse</a></span>(<span class='st'>"UTF-8"</span>))
-<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>handle</span>)
+<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>handle</span>)
 
 <span class='co'># reuse handle</span>
 <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"get"</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>hello</span> <span class='kw'>=</span> <span class='st'>"world"</span>))
 <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>fromJSON</a></span>(<span class='no'>res2</span>$<span class='fu'><a href='https://rdrr.io/r/base/parse.html'>parse</a></span>(<span class='st'>"UTF-8"</span>))
-<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res2</span>$<span class='no'>handle</span>)
+<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res2</span>$<span class='no'>handle</span>)
 
 <span class='co'># DOAJ</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>HttpClient</span>$<span class='fu'>new</span>(<span class='kw'>url</span> <span class='kw'>=</span> <span class='st'>"https://doaj.org"</span>)
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"api/v1/journals/f3f2e7f23d444370ae5f5199f85bc100"</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>res</span>$<span class='no'>response_headers</span>$<span class='no'>`set-cookie`</span>
-<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>handle</span>)
+<span class='kw pkg'>curl</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/handle_cookies.html'>handle_cookies</a></span>(<span class='kw'>handle</span> <span class='kw'>=</span> <span class='no'>res</span>$<span class='no'>handle</span>)
 <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"api/v1/journals/9abfb36b06404e8a8566e1a44180bbdc"</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -182,12 +183,11 @@
 <span class='co'>## cookies no longer sent, as handle reset</span>
 <span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"api/v1/journals/9abfb36b06404e8a8566e1a44180bbdc"</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -201,7 +201,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

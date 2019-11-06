@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 <div id="discover-curl-options" class="section level2">
 <h2 class="hasAnchor">
 <a href="#discover-curl-options" class="anchor"></a>Discover curl options</h2>
-<p>You can go to the source, that is the curl book at <a href="https://ec.haxx.se/" class="uri">https://ec.haxx.se/</a>. In R: <code><a href="https://rdrr.io/pkg/curl/man/curl_options.html">curl::curl_options()</a></code> for finding curl options. which gives information for each curl option, including the libcurl variable name (e.g., <code>CURLOPT_CERTINFO</code>) and the type of variable (e.g., logical).</p>
+<p>You can go to the source, that is the curl book at <a href="https://ec.haxx.se/" class="uri">https://ec.haxx.se/</a>. In R: <code><a href="https://jeroen.cran.dev/curl/reference/curl_options.html">curl::curl_options()</a></code> for finding curl options. which gives information for each curl option, including the libcurl variable name (e.g., <code>CURLOPT_CERTINFO</code>) and the type of variable (e.g., logical).</p>
 </div>
 <div id="other-ways-to-use-curl-besides-r" class="section level2">
 <h2 class="hasAnchor">
@@ -296,8 +296,8 @@
 <a class="sourceLine" id="cb13-16" data-line-number="16"><span class="co">#&gt; &lt; Set-Cookie: NID=134=yt47WC-2mhTgQpkSCMz_ySTig3MCJD5Bx_lNj_aVLAwKu8SPMX-CCowKfU8zSv2cJ2OjiX2LTrYnhWMGvIDieCC419v0VHvlm4Hl9xln9-r4MZwcnqwTZQPT72VNE0uA; expires=Sat, 05-Jan-2019 23:25:49 GMT; path=/; domain=.google.com; HttpOnly</span></a>
 <a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt; &lt; Alt-Svc: quic=":443"; ma=2592000; v="43,42,41,39,35"</span></a>
 <a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; &lt; Transfer-Encoding: chunked</span></a></code></pre></div>
-<p>If there are cookies in a response, you can access them with <code><a href="https://rdrr.io/pkg/curl/man/handle_cookies.html">curl::handle_cookies</a></code> like:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">curl<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/curl/man/handle_cookies.html">handle_cookies</a></span>(res<span class="op">$</span>handle)</a>
+<p>If there are cookies in a response, you can access them with <code><a href="https://jeroen.cran.dev/curl/reference/handle_cookies.html">curl::handle_cookies</a></code> like:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">curl<span class="op">::</span><span class="kw"><a href="https://jeroen.cran.dev/curl/reference/handle_cookies.html">handle_cookies</a></span>(res<span class="op">$</span>handle)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt;                  domain flag path secure          expiration   name</span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 1           .google.com TRUE    /  FALSE 2018-08-05 16:25:16 1P_JAR</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2 #HttpOnly_.google.com TRUE    /  FALSE 2019-01-05 15:25:16    NID</span></a>
@@ -315,7 +315,7 @@
 <ul>
 <li><code>HttpClient$new(progress = fxn)</code></li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">progress =</span> httr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/httr/man/progress.html">progress</a></span>())</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">x &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/get"</span>, <span class="dt">progress =</span> httr<span class="op">::</span><span class="kw"><a href="https://httr.r-lib.org/reference/progress.html">progress</a></span>())</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; |==================================| 100%</span></a></code></pre></div>
 <p><em>Why use this?</em> As you could imagine, this is increasingly useful as a request for a web resource takes longer and longer. For very long requests, this will help you know approximately when a request will finish.</p>
 </div>
@@ -351,6 +351,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -380,7 +381,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

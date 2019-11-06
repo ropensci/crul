@@ -8,11 +8,13 @@
 
 <title><strong>HTTP R client</strong> — crul-package • crul</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,10 +34,11 @@
 
 
 
-<meta property="og:title" content="<strong>HTTP R client</strong> — crul-package" />
 
+<meta property="og:title" content="<strong>HTTP R client</strong> — crul-package" />
 <meta property="og:description" content="HTTP R client" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -66,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -109,7 +112,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ropensci/crul">
@@ -136,12 +138,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p><strong>HTTP R client</strong></p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="package-api"><a class="anchor" href="#package-api"></a>Package API</h2>
 
     
@@ -164,7 +165,6 @@ use in building requests to be used in <code>Async</code> or <code>AsyncVaried</
 <code><a href='crul-options.html'>set_opts()</a></code>, <code><a href='crul-options.html'>set_proxy()</a></code>, and <code><a href='crul-options.html'>crul_settings()</a></code></p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="http-verbs-or-http-request-methods-"><a class="anchor" href="#http-verbs-or-http-request-methods-"></a>HTTP verbs (or HTTP request methods)</h2>
 
     
@@ -183,14 +183,30 @@ at a time</p></li>
 a specific HTTP verb</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="checking-http-responses"><a class="anchor" href="#checking-http-responses"></a>Checking HTTP responses</h2>
+
     
+
+
+<p><code><a href='HttpResponse.html'>HttpResponse()</a></code> has helpers for checking and raising warnings/errors.</p><ul>
+<li><p><a href='content-types.html'>content-types</a> details the various options for checking content
+types and throwing a warning or error if the response content
+type doesn't match what you expect. Mis-matched content-types are
+typically a good sign of a bad response. There's methods built
+in for json, xml and html, with the ability to set any
+custom content type</p></li>
+<li><p><code>raise_for_status()</code> is a method on <code><a href='HttpResponse.html'>HttpResponse()</a></code> that checks
+the HTTP status code, and errors with the appropriate message for
+the HTTP status code, optionally using the package <code>fauxpas</code>
+if it's installed.</p></li>
+</ul>
+
     <h2 class="hasAnchor" id="http-conditions"><a class="anchor" href="#http-conditions"></a>HTTP conditions</h2>
 
     
 
 <p>We use <code>fauxpas</code> if you have it installed for handling HTTP
 conditions but if it's not installed we use <span class="pkg">httpcode</span></p>
-    
     <h2 class="hasAnchor" id="mocking"><a class="anchor" href="#mocking"></a>Mocking</h2>
 
     
@@ -198,14 +214,12 @@ conditions but if it's not installed we use <span class="pkg">httpcode</span></p
 <p>Mocking HTTP requests is supported via the <span class="pkg">webmockr</span>
 package. See <a href='mock.html'>mock</a> for guidance, and
 <a href='https://ropenscilabs.github.io/http-testing-book/'>https://ropenscilabs.github.io/http-testing-book/</a></p>
-    
     <h2 class="hasAnchor" id="caching"><a class="anchor" href="#caching"></a>Caching</h2>
 
     
 
 <p>Caching HTTP requests is supported via the <span class="pkg">vcr</span>
 package. See <a href='https://ropenscilabs.github.io/http-testing-book/'>https://ropenscilabs.github.io/http-testing-book/</a></p>
-    
     <h2 class="hasAnchor" id="links"><a class="anchor" href="#links"></a>Links</h2>
 
     
@@ -213,25 +227,19 @@ package. See <a href='https://ropenscilabs.github.io/http-testing-book/'>https:/
 
 <p>Source code: <a href='https://github.com/ropensci/crul'>https://github.com/ropensci/crul</a></p>
 <p>Bug reports/feature requests: <a href='https://github.com/ropensci/crul/issues'>https://github.com/ropensci/crul/issues</a></p>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#package-api">Package API</a></li>
-
       <li><a href="#http-verbs-or-http-request-methods-">HTTP verbs (or HTTP request methods)</a></li>
-
+      <li><a href="#checking-http-responses">Checking HTTP responses</a></li>
       <li><a href="#http-conditions">HTTP conditions</a></li>
-
       <li><a href="#mocking">Mocking</a></li>
-
       <li><a href="#caching">Caching</a></li>
-
       <li><a href="#links">Links</a></li>
-          </ul>
+    </ul>
 
     <h2>Author</h2>
     <p>Scott Chamberlain <a href='mailto:myrmecocystus@gmail.com'>myrmecocystus@gmail.com</a></p>
@@ -245,7 +253,7 @@ package. See <a href='https://ropenscilabs.github.io/http-testing-book/'>https:/
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

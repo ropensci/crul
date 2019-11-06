@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crul</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -122,8 +122,9 @@
 <a class="sourceLine" id="cb2-2" data-line-number="2">  cli &lt;-<span class="st"> </span>crul<span class="op">::</span>HttpClient<span class="op">$</span><span class="kw">new</span>(url, <span class="dt">opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(...))</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">  res &lt;-<span class="st"> </span>cli<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="dt">path =</span> path, <span class="dt">query =</span> args)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">  res<span class="op">$</span><span class="kw">raise_for_status</span>()</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">}</a></code></pre></div>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  res<span class="op">$</span><span class="kw">raise_for_ct_json</span>()</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  res<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/parse.html">parse</a></span>(<span class="st">"UTF-8"</span>)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">}</a></code></pre></div>
 <p>There’s some features to note in the above function:</p>
 <ul>
 <li>
@@ -148,7 +149,43 @@
 <div id="failing-with-fauxpas" class="section level2">
 <h2 class="hasAnchor">
 <a href="#failing-with-fauxpas" class="anchor"></a>Failing with fauxpas</h2>
-<p>coming soon …</p>
+<p><a href="https://github.com/ropensci/fauxpas">fauxpas</a> is in Suggests in this package. If you don’t have it installed, no worries, but if you do have it installed, we use fauxpas.</p>
+<p>There is not much difference with the default <code>raise_for_status()</code> between using fauxpas and not using it.</p>
+<p>However, you can construct your own replacement with fauxpas that gives you more flexibility in how you deal with HTTP status codes.</p>
+<p>First, make an HTTP request:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">con &lt;-<span class="st"> </span>HttpClient<span class="op">$</span><span class="kw">new</span>(<span class="st">"https://httpbin.org/status/404"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">res &lt;-<span class="st"> </span>con<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>()</a></code></pre></div>
+<p>Then use <code><a href="https://rdrr.io/pkg/fauxpas/man/find_error_class.html">fauxpas::find_error_class</a></code> to get the correct R6 error class for the status code, in this case <code>404</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">x &lt;-<span class="st"> </span>fauxpas<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/fauxpas/man/find_error_class.html">find_error_class</a></span>(res<span class="op">$</span>status_code)<span class="op">$</span><span class="kw">new</span>()</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; &lt;HTTPNotFound&gt;</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;  behavior: stop</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;  message_template: {{reason}} (HTTP {{status}})</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;  message_template_verbose: {{reason}} (HTTP {{status}}).\n - {{message}}</span></a></code></pre></div>
+<p>We can then do one of two things: use <code>$do()</code> or <code>$do_verbose()</code>. <code>$do()</code> is simpler and gives you thhe same thing <code>$raise_for_status()</code> gives, but allows you to change behavior (stop vs. warning vs. message), and how the message is formatted. By default we get:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">x<span class="op">$</span><span class="kw">do</span>(res)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Error: Not Found (HTTP 404)</span></a></code></pre></div>
+<p>We can change the template using <code>whisker</code> templating</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">x<span class="op">$</span><span class="kw">do</span>(res, <span class="dt">template =</span> <span class="st">"{{status}}</span><span class="ch">\n</span><span class="st">  --&gt; {{reason}}"</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Error: 404</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;  --&gt; Not Found</span></a></code></pre></div>
+<p><code>$do_verbose()</code> gives you a lot more detail about the status code, possibly more than you want:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x<span class="op">$</span><span class="kw">do_verbose</span>(res)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; Error: Not Found (HTTP 404).</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;  - The server has not found anything matching the Request-URI. No indication</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;  is given of whether the condition is temporary or permanent. The 410 (Gone)</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;  status code SHOULD be used if the server knows, through some internally configurable</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt;  mechanism, that an old resource is permanently unavailable and has no forwarding</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;  address. This status code is commonly used when the server does not wish to</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt;  reveal exactly why the request has been refused, or when no other response</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; is applicable.</span></a></code></pre></div>
+<p>You can change behavior to either <code>warning</code> or <code>message</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">x<span class="op">$</span>behavior &lt;-<span class="st"> "warning"</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">x<span class="op">$</span><span class="kw">do</span>(res)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; Warning message:</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; Not Found (HTTP 404)</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">x<span class="op">$</span>behavior &lt;-<span class="st"> "message"</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">x<span class="op">$</span><span class="kw">do</span>(res)</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; Not Found (HTTP 404)</span></a></code></pre></div>
 </div>
 <div id="mocking-with-webmockr" class="section level2">
 <h2 class="hasAnchor">
@@ -171,21 +208,21 @@
 <li>Add <code>vcr</code> to Suggests in your DESCRIPTION file</li>
 <li>Make a file in your <code>tests/testthat/</code> directory called <code>helper-yourpackage.R</code> (or skip if as similar file already exists). In that file use the following lines to setup your path for storing cassettes (change path to whatever you want):</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vcr"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/vcr_configure.html">vcr_configure</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"vcr"</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span>(vcr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/vcr/reference/vcr_configure.html">vcr_configure</a></span>())</a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">vcr::use_cassette()</a></code> call like:</li>
+<li>In your tests, for whichever tests you want to use <code>vcr</code>, wrap the tests in a <code><a href="https://docs.ropensci.org/vcr/reference/use_cassette.html">vcr::use_cassette()</a></code> call like:</li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"my test"</span>, {</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  vcr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/vcr/man/use_cassette.html">use_cassette</a></span>(<span class="st">"rl_citation"</span>, {</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_is.html">expect_is</a></span>(aa, <span class="st">"character"</span>)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  })</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">})</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(testthat)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/testthat/man/test_that.html">test_that</a></span>(<span class="st">"my test"</span>, {</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  vcr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/vcr/reference/use_cassette.html">use_cassette</a></span>(<span class="st">"rl_citation"</span>, {</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">    aa &lt;-<span class="st"> </span><span class="kw">rl_citation</span>()</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_is.html">expect_is</a></span>(aa, <span class="st">"character"</span>)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"IUCN"</span>)</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">    <span class="kw"><a href="https://rdrr.io/pkg/testthat/man/expect_match.html">expect_match</a></span>(aa, <span class="st">"www.iucnredlist.org"</span>)</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  })</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">})</a></code></pre></div>
 <p>That’s it! Just run your tests are you normally would and any HTTP requests done by <code>crul</code> or <code>httr</code> will be cached on the first test run then the cached responses used every time thereafter.</p>
 </div>
 <div id="what-else" class="section level2">
@@ -196,6 +233,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -219,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
