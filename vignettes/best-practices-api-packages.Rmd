@@ -74,7 +74,78 @@ another function, parse results as needed.
 
 ## Failing with fauxpas
 
-coming soon ...
+[fauxpas][] is in Suggests in this package. If you don't have it
+installed, no worries, but if you do have it installed, we use
+fauxpas.
+
+There is not much difference with the default `raise_for_status()`
+between using fauxpas and not using it. 
+
+However, you can construct your own replacement with fauxpas that 
+gives you more flexibility in how you deal with HTTP status codes.
+
+First, make an HTTP request:
+
+```{r eval=FALSE}
+con <- HttpClient$new("https://httpbin.org/status/404")
+res <- con$get()
+```
+
+Then use `fauxpas::find_error_class` to get the correct R6 error 
+class for the status code, in this case `404`
+
+```{r eval=FALSE}
+x <- fauxpas::find_error_class(res$status_code)$new()
+#> <HTTPNotFound>
+#>  behavior: stop
+#>  message_template: {{reason}} (HTTP {{status}})
+#>  message_template_verbose: {{reason}} (HTTP {{status}}).\n - {{message}}
+```
+
+We can then do one of two things: use `$do()` or `$do_verbose()`. `$do()` 
+is simpler and gives you thhe same thing `$raise_for_status()` gives, but
+allows you to change behavior (stop vs. warning vs. message), and how the 
+message is formatted. By default we get:
+
+```{r eval=FALSE}
+x$do(res)
+#> Error: Not Found (HTTP 404)
+```
+
+We can change the template using `whisker` templating
+
+```{r eval=FALSE}
+x$do(res, template = "{{status}}\n  --> {{reason}}")
+#> Error: 404
+#>  --> Not Found
+```
+
+`$do_verbose()` gives you a lot more detail about the status code, possibly more
+than you want:
+
+```{r eval=FALSE}
+x$do_verbose(res)
+#> Error: Not Found (HTTP 404).
+#>  - The server has not found anything matching the Request-URI. No indication
+#>  is given of whether the condition is temporary or permanent. The 410 (Gone)
+#>  status code SHOULD be used if the server knows, through some internally configurable
+#>  mechanism, that an old resource is permanently unavailable and has no forwarding
+#>  address. This status code is commonly used when the server does not wish to
+#>  reveal exactly why the request has been refused, or when no other response
+#> is applicable.
+```
+
+You can change behavior to either `warning` or `message`:
+
+```{r eval=FALSE}
+x$behavior <- "warning"
+x$do(res)
+#> Warning message:
+#> Not Found (HTTP 404)
+x$behavior <- "message"
+x$do(res)
+#> Not Found (HTTP 404)
+```
 
 ## Mocking with webmockr
 
@@ -147,3 +218,4 @@ document and/or if there's anything that can be explained better.
 [webmockr]: https://github.com/ropensci/webmockr
 [vcr]: https://github.com/ropensci/vcr
 [httr]: https://github.com/r-lib/httr
+[fauxpas]: https://github.com/ropensci/fauxpas
