@@ -8,6 +8,11 @@ crul 0.9.0
 ### MINOR IMPROVEMENTS
 
 * fix to prep_body internal function to handle various body inputs; now avoids warning about `as.character.form_file` when both httr and crul are loaded (#112)
+* finish off "Failing with fauxpas" section of the "API package best practices" vignette (#121)
+
+### BUG FIXES
+
+* the `head()` verb on `HttpClient` was no capturing `auth` when set on initialization (#122)
 
 
 crul 0.8.4

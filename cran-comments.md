@@ -10,12 +10,12 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 59 downstream dependencies
+* I have run R CMD check on the 61 downstream dependencies
 (<https://github.com/ropensci/crul/blob/master/revdep/README.md>). No problems were found related to this package.
 
 ---
 
-This version fixes vignette titles, fixes parsing binary http responses, and fixes a problem arising from new version of libcurl.
+This version updates one of the vignettes, fixes a warning that was thrown when both httr and crul were loaded, fixes a bug with head verb, and adds new helpers for checking content types of HTTP responsees.
 
 Thanks!
 Scott Chamberlain
