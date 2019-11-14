@@ -3,10 +3,10 @@
 #' @export
 #' @param x either a URL as a character string, or an object of 
 #' class [HttpClient]
-#' @param status (integer) an HTTP status code, must be an integer. 
-#' By default this is 200L, since this is the most common signal
+#' @param status (integer) one or more HTTP status codes, must be integers.
+#' default: `200L`, since this is the most common signal
 #' that a URL is okay, but there may be cases in which your URL
-#' is okay if it's a 201L, or some other status code.
+#' is okay if it's a `201L`, or some other status code.
 #' @param info (logical) in the case of an error, do you want a 
 #' `message()` about it? Default: `TRUE`
 #' @param ... args passed on to [HttpClient]
@@ -19,6 +19,8 @@
 #' ok("https://google.com") 
 #' # 200
 #' ok("https://httpbin.org/status/200")
+#' # more than one status
+#' ok("https://google.com", status = c(200L, 202L))
 #' # 404
 #' ok("https://httpbin.org/status/404")
 #' # doesn't exist
@@ -51,14 +53,16 @@ ok.HttpClient <- function(x, status = 200L, info = TRUE, ...) {
   assert(info, "logical")
   assert(status, "integer")
   
-  find_status <- tryCatch(httpcode::http_code(status), 
-                          error = function(e) e)
+  for (i in seq_along(status)) {
+    ts <- tryCatch(httpcode::http_code(status[i]), error = function(e) e)
+    if (inherits(ts, "error"))
+      stop("status [", status[i], "] not in acceptable set")
+  }
   
-  if (inherits(find_status, "error")) stop("status [", status, "] not in acceptable set")
   w <- tryCatch(x$head(), error = function(e) e)
   if (inherits(w, "error")) {
     if (info) message(w$message)
     return(FALSE)
   }
-  w$status_code == status
+  w$status_code %in% status
 }

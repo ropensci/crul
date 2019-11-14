@@ -10,10 +10,10 @@ ok(x, status = 200L, info = TRUE, ...)
 \item{x}{either a URL as a character string, or an object of
 class \link{HttpClient}}
 
-\item{status}{(integer) an HTTP status code, must be an integer.
-By default this is 200L, since this is the most common signal
+\item{status}{(integer) one or more HTTP status codes, must be integers.
+default: \code{200L}, since this is the most common signal
 that a URL is okay, but there may be cases in which your URL
-is okay if it's a 201L, or some other status code.}
+is okay if it's a \code{201L}, or some other status code.}
 
 \item{info}{(logical) in the case of an error, do you want a
 \code{message()} about it? Default: \code{TRUE}}
@@ -37,6 +37,8 @@ in the known set of HTTP status codes, and that info is a boolean
 ok("https://google.com") 
 # 200
 ok("https://httpbin.org/status/200")
+# more than one status
+ok("https://google.com", status = c(200L, 202L))
 # 404
 ok("https://httpbin.org/status/404")
 # doesn't exist

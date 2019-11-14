@@ -27,6 +27,16 @@ test_that("ok works with HttpClient input", {
 })
 
 
+context("ok: multiple status codes")
+test_that("ok works multiple status codes", {
+  skip_on_cran()
+
+  z <- crul::HttpClient$new(hb("/status/200"))
+  expect_true(ok(z, c(200L, 201L)))
+  expect_error(ok(z, c(200L, 901L)))
+})
+
+
 context("ok: fails well")
 test_that("ok fails well", {
   skip_on_cran()
