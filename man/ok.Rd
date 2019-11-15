@@ -4,7 +4,7 @@
 \alias{ok}
 \title{check if a url is okay}
 \usage{
-ok(x, status = 200L, info = TRUE, ...)
+ok(x, status = 200L, info = TRUE, verb = "head", ...)
 }
 \arguments{
 \item{x}{either a URL as a character string, or an object of
@@ -18,6 +18,11 @@ is okay if it's a \code{201L}, or some other status code.}
 \item{info}{(logical) in the case of an error, do you want a
 \code{message()} about it? Default: \code{TRUE}}
 
+\item{verb}{(character) use "head" (default) or "get" HTTP verb
+for the request. note that "get" will take longer as it returns a
+body. however, "verb=get" may be your only option if a url
+blocks head requests}
+
 \item{...}{args passed on to \link{HttpClient}}
 }
 \value{
@@ -30,6 +35,21 @@ check if a url is okay
 \details{
 We internally verify that status is an integer and
 in the known set of HTTP status codes, and that info is a boolean
+
+You may have to fiddle with the parameters to \code{ok()} as well as
+curl options to get the "right answer". If you think you are getting
+incorrectly getting \code{FALSE}, the first thing to do is to pass in
+\code{verbose=TRUE} to \code{ok()}. That will give you verbose curl output and will
+help determine what the issue may be. Here's some different scenarios:
+\itemize{
+\item the site blocks head requests: some sites do this, try \code{verb="get"}
+\item it will be hard to determine a site that requires this, but it's
+worth trying a random useragent string, e.g., \code{ok(useragent = "foobar")}
+\item some sites are up and reachable but you could get a 403 Unauthorized
+error, there's nothing you can do in this case other than having access
+\item its possible to get a weird HTTP status code, e.g., LinkedIn gives
+a 999 code, they're trying to prevent any programmatic access
+}
 }
 \examples{
 \dontrun{
@@ -45,6 +65,15 @@ ok("https://httpbin.org/status/404")
 ok("https://stuff.bar")
 # doesn't exist
 ok("stuff")
+
+# use get verb instead of head
+ok("http://animalnexus.ca")
+ok("http://animalnexus.ca", verb = "get")
+
+# some urls will require a different useragent string
+# they probably regex the useragent string
+ok("https://doi.org/10.1093/chemse/bjq042")
+ok("https://doi.org/10.1093/chemse/bjq042", verb = "get", useragent = "foobar")
 
 # with HttpClient
 z <- crul::HttpClient$new("https://httpbin.org/status/404", 
