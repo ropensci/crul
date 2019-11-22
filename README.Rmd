@@ -46,11 +46,11 @@ See `?hooks` for the details and examples
 Mocking:
 
 `crul` now integrates with [webmockr](https://github.com/ropensci/webmockr) to mock
-HTTP requests. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
+HTTP requests. Checkout the [http testing book][book]
 
 Caching:
 
-`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book](https://ropenscilabs.github.io/http-testing-book/)
+`crul` also integrates with [vcr](https://github.com/ropensci/vcr) to cache http requests/responses. Checkout the [http testing book][book]
 
 ## Installation
 
@@ -247,3 +247,4 @@ By participating in this project you agree to abide by its terms.
 [![ropensci_footer](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
 
 [coc]: https://github.com/ropensci/crul/blob/master/CODE_OF_CONDUCT.md
+[book]: https://books.ropensci.org/http-testing/

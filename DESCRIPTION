@@ -15,7 +15,7 @@ Authors@R: c(
     )
 URL: https://docs.ropensci.org/crul (website)
     https://github.com/ropensci/crul (devel)
-    https://ropenscilabs.github.io/http-testing-book/ (user manual)
+    https://books.ropensci.org/http-testing/ (user manual)
 BugReports: https://github.com/ropensci/crul/issues
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
