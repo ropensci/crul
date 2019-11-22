@@ -48,8 +48,11 @@ x$put(path = 'put', body = list(foo = "bar"))
 \seealso{
 \link{crul-package}
 
-Other verbs: \code{\link{verb-DELETE}},
-  \code{\link{verb-GET}}, \code{\link{verb-HEAD}},
-  \code{\link{verb-PATCH}}, \code{\link{verb-POST}}
+Other verbs: 
+\code{\link{verb-DELETE}},
+\code{\link{verb-GET}},
+\code{\link{verb-HEAD}},
+\code{\link{verb-PATCH}},
+\code{\link{verb-POST}}
 }
 \concept{verbs}

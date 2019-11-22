@@ -34,8 +34,11 @@ x$post(path = 'post', body = list(hello = "world"))
 \seealso{
 \link{crul-package}
 
-Other verbs: \code{\link{verb-DELETE}},
-  \code{\link{verb-GET}}, \code{\link{verb-HEAD}},
-  \code{\link{verb-PATCH}}, \code{\link{verb-PUT}}
+Other verbs: 
+\code{\link{verb-DELETE}},
+\code{\link{verb-GET}},
+\code{\link{verb-HEAD}},
+\code{\link{verb-PATCH}},
+\code{\link{verb-PUT}}
 }
 \concept{verbs}

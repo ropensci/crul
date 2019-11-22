@@ -1,59 +1,11 @@
-#' Base response object
-#'
+#' @title Base HTTP response object
+#' @description Class with methods for handling HTTP responses
+#' 
 #' @export
-#' @section Usage:
-#' ```
-#' HttpResponse$new(method, url, opts, handle, status_code, request_headers,
-#'    response_headers, response_headers_all, times, content,
-#'    request)
-#' ```
-#' @param method (character) HTTP method
-#' @param url (character) A url, required
-#' @param opts (list) curl options
-#' @param handle A handle
-#' @param status_code (integer) status code
-#' @param request_headers (list) request headers, named list
-#' @param response_headers (list) response headers, named list
-#' @param response_headers_all (list) all response headers, including
-#' intermediate redirect headers, unnamed list of named lists
-#' @param modified (character) modified date
-#' @param times (vector) named vector
-#' @param content (raw) raw binary content response
-#' @param request request object, with all details
-#' @section Methods:
+#' @seealso [content-types]
+#' @details
+#' **Additional Methods**
 #'   \describe{
-#'     \item{`parse(encoding = NULL, ...)`}{
-#'       Parse the raw response content to text
-#'       \itemize{
-#'        \item encoding: (character) A character string describing the
-#'          current encoding. If left as `NULL`, we attempt to guess the
-#'          encoding. Passed to `from` parameter in `iconv`
-#'        \item ...: additional parameters passed on to `iconv`
-#'         (options: sub, mark, toRaw). See `?iconv` for help
-#'        \item returns: character
-#'       }
-#'     }
-#'     \item{`success()`}{
-#'       Was status code less than or equal to 201.
-#'       \itemize{
-#'        \item returns: boolean
-#'       }
-#'     }
-#'     \item{`status_http(verbose = FALSE)`}{
-#'       Get HTTP status code, message, and explanation
-#'       \itemize{
-#'        \item returns: object of class "http_code", a list with slots
-#'         for status_code, message, and explanation
-#'       }
-#'     }
-#'     \item{`raise_for_status()`}{
-#'       Check HTTP status and stop with appropriate
-#'       HTTP error code and message if >= 300. otherwise use \pkg{httpcode}.
-#'       If you have `fauxpas` installed we use that.
-#'       \itemize{
-#'        \item returns: stop or warn with message
-#'       }
-#'     }
 #'     \item{`raise_for_ct(type, charset = NULL, behavior = "stop")`}{
 #'       Check response content-type; stop or warn if not matched. Parameters:
 #'       \itemize{
@@ -77,9 +29,6 @@
 #'       not matched. Parameters: see `raise_for_ct()`
 #'     }
 #'   }
-#' @format NULL
-#' @usage NULL
-#' @seealso [content-types]
 #' @examples \dontrun{
 #' x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
 #' x$url
@@ -108,23 +57,42 @@
 HttpResponse <- R6::R6Class(
   "HttpResponse",
   public = list(
+    #' @field method (character) one or more URLs
     method = NULL,
+    #' @field url (character) one or more URLs
     url = NULL,
+    #' @field opts (character) one or more URLs
     opts = NULL,
+    #' @field handle (character) one or more URLs
     handle = NULL,
+    #' @field status_code (character) one or more URLs
     status_code = NULL,
+    #' @field request_headers (character) one or more URLs
     request_headers = NULL,
+    #' @field response_headers (character) one or more URLs
     response_headers = NULL,
+    #' @field response_headers_all (character) one or more URLs
     response_headers_all = NULL,
+    #' @field modified (character) one or more URLs
     modified = NULL,
+    #' @field times (character) one or more URLs
     times = NULL,
+    #' @field content (character) one or more URLs
     content = NULL,
+    #' @field request (character) one or more URLs
     request = NULL,
+    #' @field raise_for_ct for ct method (general)
     raise_for_ct = NULL,
+    #' @field raise_for_ct_html for ct method (html)
     raise_for_ct_html = NULL,
+    #' @field raise_for_ct_json for ct method (json)
     raise_for_ct_json = NULL,
+    #' @field raise_for_ct_xml for ct method (xml)
     raise_for_ct_xml = NULL,
 
+    #' @description print method for HttpResponse objects
+    #' @param x self
+    #' @param ... ignored
     print = function(x, ...) {
       cat("<crul response> ", sep = "\n")
       cat(paste0("  url: ", self$url), sep = "\n")
@@ -157,6 +125,20 @@ HttpResponse <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Create a new HttpResponse object
+    #' @param method (character) HTTP method
+    #' @param url (character) A url, required
+    #' @param opts (list) curl options
+    #' @param handle A handle
+    #' @param status_code (integer) status code
+    #' @param request_headers (list) request headers, named list
+    #' @param response_headers (list) response headers, named list
+    #' @param response_headers_all (list) all response headers, including
+    #' intermediate redirect headers, unnamed list of named lists
+    #' @param modified (character) modified date
+    #' @param times (vector) named vector
+    #' @param content (raw) raw binary content response
+    #' @param request request object, with all details
     initialize = function(method, url, opts, handle, status_code,
                           request_headers, response_headers,
                           response_headers_all, modified, times,
@@ -182,6 +164,13 @@ HttpResponse <- R6::R6Class(
       self$raise_for_ct_xml = private$raise_for_ct_factory(type = "xml")
     },
 
+    #' @description Parse the raw response content to text
+    #' @param encoding (character) A character string describing the
+    #' current encoding. If left as `NULL`, we attempt to guess the
+    #' encoding. Passed to `from` parameter in `iconv`
+    #' @param ... additional parameters passed on to `iconv` (options: sub,
+    #' mark, toRaw). See `?iconv` for help
+    #' @return character string
     parse = function(encoding = NULL, ...) {
       if (
         "disk" %in% names(self$request) ||
@@ -209,14 +198,25 @@ HttpResponse <- R6::R6Class(
       parse_content(self$content, encoding, ...)
     },
 
+    #' @description Was status code less than or equal to 201
+    #' @return boolean
     success = function() {
       self$status_code < 400L && self$status_code >= 200L
     },
 
+    #' @description Get HTTP status code, message, and explanation
+    #' @param verbose (logical) whether to get verbose http status description,
+    #' default: `FALSE`
+    #' @return object of class "http_code", a list with slots for status_code,
+    #' message, and explanation
     status_http = function(verbose = FALSE) {
       httpcode::http_code(code = self$status_code, verbose = verbose)
     },
 
+    #' @description Check HTTP status and stop with appropriate
+    #' HTTP error code and message if >= 300. otherwise use \pkg{httpcode}.
+    #' If you have `fauxpas` installed we use that.
+    #' @return stop or warn with message
     raise_for_status = function() {
       if (self$status_code >= 300) {
         if (!requireNamespace("fauxpas", quietly = TRUE)) {

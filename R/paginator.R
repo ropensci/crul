@@ -1,84 +1,22 @@
-#' Paginator client
-#'
-#' A client to help you paginate
+#' @title Paginator client
+#' @description A client to help you paginate
 #'
 #' @export
-#' @param client an object of class `HttpClient`, from a call to [HttpClient]
-#' @param by (character) how to paginate. Only 'query_params' supported for
-#' now. In the future will support 'link_headers' and 'cursor'. See Details.
-#' @param limit_param (character) the name of the limit parameter.
-#' Default: limit
-#' @param offset_param (character) the name of the offset parameter.
-#' Default: offset
-#' @param limit (numeric/integer) the maximum records wanted
-#' @param limit_chunk (numeric/integer) the number by which to chunk requests,
-#' e.g., 10 would be be each request gets 10 records
-#' @param progress (logical) print a progress bar, using [utils::txtProgressBar].
-#' Default: `FALSE`.
-#' @details
-#' **Methods**
-#'   \describe{
-#'     \item{`get(path, query, ...)`}{
-#'       make a paginated GET request
-#'     }
-#'     \item{`post(path, query, body, encode, ...)`}{
-#'       make a paginated POST request
-#'     }
-#'     \item{`put(path, query, body, encode, ...)`}{
-#'       make a paginated PUT request
-#'     }
-#'     \item{`patch(path, query, body, encode, ...)`}{
-#'       make a paginated PATCH request
-#'     }
-#'     \item{`delete(path, query, body, encode, ...)`}{
-#'       make a paginated DELETE request
-#'     }
-#'     \item{`head(path, ...)`}{
-#'       make a paginated HEAD request - not sure if this makes any sense
-#'       or not yet
-#'     }
-#'     \item{`responses()`}{
-#'       list responses
-#'       - returns: a list of `HttpResponse` objects, empty list before
-#'       requests made
-#'     }
-#'     \item{`parse(encoding = "UTF-8")`}{
-#'       parse content
-#'       - returns: character vector, empty character vector before
-#'       requests made
-#'     }
-#'     \item{`status_code()`}{
-#'       (integer) HTTP status codes
-#'       - returns: numeric vector, empty numeric vector before
-#'       requests made
-#'     }
-#'     \item{`status()`}{
-#'       (list) HTTP status objects
-#'       - returns: a list of `http_code` objects, empty list before
-#'       requests made
-#'     }
-#'     \item{`content()`}{
-#'       raw content
-#'       - returns: raw list, empty list before requests made
-#'     }
-#'     \item{`times()`}{
-#'       curl request times
-#'       - returns: list of named numeric vectors, empty list before
-#'       requests made
-#'     }
-#'     \item{`url_fetch(path, query)`}{
-#'       get URLs that would be sent (i.e., before executing the request).
-#'       the only things that change the URL are path and query
-#'       parameters; body and any curl options don't change the URL
-#'       - returns: character vector of URLs
-#'     }
-#'   }
-#'
-#' See [HttpClient()] for information on parameters.
-#'
-#' @format NULL
-#' @usage NULL
-#'
+#' @param path URL path, appended to the base URL
+#' @param query query terms, as a named list
+#' @param body body as an R list
+#' @param encode one of form, multipart, json, or raw
+#' @param disk a path to write to. if NULL (default), memory used.
+#' See [curl::curl_fetch_disk()] for help.
+#' @param stream an R function to determine how to stream data. if
+#' NULL (default), memory used. See [curl::curl_fetch_stream()]
+#' for help
+#' @param ... For `retry`, the options to be passed on to the method
+#' implementing the requested verb, including curl options. Otherwise,
+#' curl options, only those in the acceptable set from [curl::curl_options()]
+#' except the following: httpget, httppost, post, postfields, postfieldsize,
+#' and customrequest
+#' @details See [HttpClient()] for information on parameters
 #' @section Methods to paginate:
 #'
 #' Supported now:
@@ -115,14 +53,10 @@
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
 #'
-#' # get full URLs for each request to be made
-#' cc$url_fetch('works')
-#' cc$url_fetch('works', query = list(query = "NSF"))
-#' 
 #' # progress bar
 #' (cli <- HttpClient$new(url = "https://api.crossref.org"))
 #' cc <- Paginator$new(client = cli, limit_param = "rows",
-#'    offset_param = "offset", limit = 50, limit_chunk = 10, 
+#'    offset_param = "offset", limit = 50, limit_chunk = 10,
 #'    progress = TRUE)
 #' cc
 #' cc$get('works')
@@ -130,15 +64,30 @@
 Paginator <- R6::R6Class(
   'Paginator',
   public = list(
+    #' @field http_req an object of class `HttpClient`
     http_req = NULL,
+    #' @field by (character) how to paginate. Only 'query_params' supported
+    #' for now. In the future will support 'link_headers' and 'cursor'.
+    #' See Details.
     by = "query_params",
+    #' @field limit_chunk (numeric/integer) the number by which to chunk
+    #' requests, e.g., 10 would be be each request gets 10 records
     limit_chunk = NULL,
+    #' @field limit_param (character) the name of the limit parameter.
+    #' Default: limit
     limit_param = NULL,
+    #' @field offset_param (character) the name of the offset parameter.
+    #' Default: offset
     offset_param = NULL,
+    #' @field limit (numeric/integer) the maximum records wanted
     limit = NULL,
-    req = NULL,
+    #' @field progress (logical) print a progress bar, using [utils::txtProgressBar].
+    #' Default: `FALSE`.
     progress = FALSE,
 
+    #' @description print method for `Paginator` objects
+    #' @param x self
+    #' @param ... ignored
     print = function(x, ...) {
       cat("<crul paginator> ", sep = "\n")
       cat(paste0(
@@ -160,6 +109,20 @@ Paginator <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Create a new `Paginator` object
+    #' @param client an object of class `HttpClient`, from a call to [HttpClient]
+    #' @param by (character) how to paginate. Only 'query_params' supported for
+    #' now. In the future will support 'link_headers' and 'cursor'. See Details.
+    #' @param limit_param (character) the name of the limit parameter.
+    #' Default: limit
+    #' @param offset_param (character) the name of the offset parameter.
+    #' Default: offset
+    #' @param limit (numeric/integer) the maximum records wanted
+    #' @param limit_chunk (numeric/integer) the number by which to chunk requests,
+    #' e.g., 10 would be be each request gets 10 records
+    #' @param progress (logical) print a progress bar, using [utils::txtProgressBar].
+    #' Default: `FALSE`.
+    #' @return A new `Paginator` object
     initialize = function(client, by = "query_params", limit_param,
       offset_param, limit, limit_chunk, progress = FALSE) {
 
@@ -201,60 +164,91 @@ Paginator <- R6::R6Class(
       }
     },
 
-    # HTTP verbs
+    #' @description make a paginated GET request
     get = function(path = NULL, query = list(), ...) {
       private$page("get", path, query, ...)
     },
 
+    #' @description make a paginated POST request
     post = function(path = NULL, query = list(), body = NULL,
                     encode = "multipart", ...) {
       private$page("post", path, query, body, encode, ...)
     },
 
+    #' @description make a paginated PUT request
     put = function(path = NULL, query = list(), body = NULL,
                    encode = "multipart", ...) {
       private$page("put", path, query, body, encode, ...)
     },
 
+    #' @description make a paginated PATCH request
     patch = function(path = NULL, query = list(), body = NULL,
                      encode = "multipart", ...) {
       private$page("patch", path, query, body, encode, ...)
     },
 
+    #' @description make a paginated DELETE request
     delete = function(path = NULL, query = list(), body = NULL,
                       encode = "multipart", ...) {
       private$page("delete", path, query, body, encode, ...)
     },
 
+    #' @description make a paginated HEAD request
+    #' @details not sure if this makes any sense or not yet
     head = function(path = NULL, ...) {
       private$page("head", path, ...)
     },
 
-    # functions to inspect output
+    #' @description list responses
+    #' @return a list of `HttpResponse` objects, empty list before requests made
     responses = function() {
       private$resps %||% list()
     },
 
+    #' @description Get HTTP status codes for each response
+    #' @return numeric vector, empty numeric vector before requests made
     status_code = function() {
       vapply(private$resps, function(z) z$status_code, 1)
     },
 
+    #' @description List HTTP status objects
+    #' @return a list of `http_code` objects, empty list before requests made
     status = function() {
       lapply(private$resps, function(z) z$status_http())
     },
 
+    #' @description parse content
+    #' @param encoding (character) the encoding to use in parsing.
+    #' default:"UTF-8"
+    #' @return character vector, empty character vector before
+    #' requests made
     parse = function(encoding = "UTF-8") {
       vapply(private$resps, function(z) z$parse(encoding = encoding), "")
     },
 
+    #' @description Get raw content for each response
+    #' @return raw list, empty list before requests made
     content = function() {
       lapply(private$resps, function(z) z$content)
     },
 
+    #' @description curl request times
+    #' @return list of named numeric vectors, empty list before requests made
     times = function() {
       lapply(private$resps, function(z) z$times)
     },
 
+    #' @description get the URL that would be sent (i.e., before executing
+    #' the request) the only things that change the URL are path and query
+    #' parameters; body and any curl options don't change the URL
+    #' @return URLs (character)
+    #' @examples \dontrun{
+    #' cli <- HttpClient$new(url = "https://api.crossref.org")
+    #' cc <- Paginator$new(client = cli, limit_param = "rows",
+    #'    offset_param = "offset", limit = 50, limit_chunk = 10)
+    #' cc$url_fetch('works')
+    #' cc$url_fetch('works', query = list(query = "NSF"))
+    #' }
     url_fetch = function(path = NULL, query = list()) {
       urls <- c()
       for (i in seq_along(private$offset_iters)) {

@@ -1,41 +1,22 @@
-#' Simple async client
-#'
-#' A client to work with many URLs, but all with the same HTTP method
+#' @title Simple async client
+#' @description
+#' An async client to work with many URLs, but all with the same HTTP method
 #'
 #' @export
-#' @param urls (character) one or more URLs (required)
 #' @family async
 #' @template async-deets
+#' @param path (character) URL path, appended to the base URL
+#' @param query (list) query terms, as a named list
+#' @param disk a path to write to. if NULL (default), memory used.
+#' See [curl::curl_fetch_disk()] for help.
+#' @param stream an R function to determine how to stream data. if
+#' `NULL` (default), memory used. See [curl::curl_fetch_stream()]
+#' for help
+#' @param ... curl options, only those in the acceptable set from
+#' [curl::curl_options()] except the following: httpget, httppost, post,
+#' postfields, postfieldsize, and customrequest
 #' @details
-#' **Methods**
-#'   \describe{
-#'     \item{`get(path, query, disk, stream, ...)`}{
-#'       make async GET requests for all URLs
-#'     }
-#'     \item{`post(path, query, body, encode, disk, stream, ...)`}{
-#'       make async POST requests for all URLs
-#'     }
-#'     \item{`put(path, query, body, encode, disk, stream, ...)`}{
-#'       make async PUT requests for all URLs
-#'     }
-#'     \item{`patch(path, query, body, encode, disk, stream, ...)`}{
-#'       make async PATCH requests for all URLs
-#'     }
-#'     \item{`delete(path, query, body, encode, disk, stream, ...)`}{
-#'       make async DELETE requests for all URLs
-#'     }
-#'     \item{`head(path, ...)`}{
-#'       make async HEAD requests for all URLs
-#'     }
-#'     \item{`verb(verb, ...)`}{
-#'       make async requests with an arbitrary HTTP verb
-#'     }
-#'   }
-#'
 #' See [HttpClient()] for information on parameters.
-#'
-#' @format NULL
-#' @usage NULL
 #' @return a list, with objects of class [HttpResponse()].
 #' Responses are returned in the order they are passed in. We print the 
 #' first 10.
@@ -94,28 +75,24 @@
 #' res[[1]]$parse("UTF-8") # a failure
 #' res[[2]]$parse("UTF-8") # a failure
 #' res[[3]]$parse("UTF-8") # a success
-#' 
-#' # use arbitrary http verb
-#' cc <- Async$new(
-#'   urls = c(
-#'     'https://httpbin.org/',
-#'     'https://httpbin.org/get?a=5',
-#'     'https://httpbin.org/get?foo=bar'
-#'   )
-#' )
-#' method <- 'get'
-#' (res <- cc$verb(method))
-#' lapply(res, function(z) z$parse("UTF-8"))
 #' }
 Async <- R6::R6Class(
   'Async',
   public = list(
+    #' @field urls (character) one or more URLs
     urls = NULL,
+    #' @field opts any curl options
     opts = NULL,
+    #' @field proxies named list of headers
     proxies = NULL,
+    #' @field auth an object of class `auth`
     auth = NULL,
+    #' @field headers named list of headers
     headers = NULL,
 
+    #' @description print method for Async objects
+    #' @param x self
+    #' @param ... ignored
     print = function(x, ...) {
       cat("<crul async connection> ", sep = "\n")
 
@@ -149,6 +126,13 @@ Async <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Create a new Async object
+    #' @param urls (character) one or more URLs
+    #' @param opts any curl options
+    #' @param proxies a [proxy()] object
+    #' @param auth an [auth()] object
+    #' @param headers named list of headers
+    #' @return A new `Async` object.
     initialize = function(urls, opts, proxies, auth, headers) {
       self$urls <- urls
       if (!missing(opts)) self$opts <- opts
@@ -157,40 +141,83 @@ Async <- R6::R6Class(
       if (!missing(headers)) self$headers <- headers
     },
 
+    #' @description
+    #' execute the `GET` http verb for the `urls`
+    #' @examples \dontrun{
+    #' (cc <- Async$new(urls = c(
+    #'     'https://httpbin.org/',
+    #'     'https://httpbin.org/get?a=5',
+    #'     'https://httpbin.org/get?foo=bar'
+    #'   )))
+    #' (res <- cc$get())
+    #' }
     get = function(path = NULL, query = list(), disk = NULL,
                    stream = NULL, ...) {
       private$gen_interface(self$urls, "get", path, query,
         disk = disk, stream = stream, ...)
     },
 
+    #' @description
+    #' execute the `POST` http verb for the `urls`
+    #' @param body body as an R list
+    #' @param encode one of form, multipart, json, or raw
     post = function(path = NULL, query = list(), body = NULL,
                     encode = "multipart", disk = NULL, stream = NULL, ...) {
       private$gen_interface(self$urls, "post", path, query, body, encode,
         disk, stream, ...)
     },
 
+    #' @description
+    #' execute the `PUT` http verb for the `urls`
+    #' @param body body as an R list
+    #' @param encode one of form, multipart, json, or raw
     put = function(path = NULL, query = list(), body = NULL,
                    encode = "multipart", disk = NULL, stream = NULL, ...) {
       private$gen_interface(self$urls, "put", path, query, body, encode,
         disk, stream, ...)
     },
 
+    #' @description
+    #' execute the `PATCH` http verb for the `urls`
+    #' @param body body as an R list
+    #' @param encode one of form, multipart, json, or raw
     patch = function(path = NULL, query = list(), body = NULL,
                      encode = "multipart", disk = NULL, stream = NULL, ...) {
       private$gen_interface(self$urls, "patch", path, query, body, encode,
         disk, stream, ...)
     },
 
+    #' @description
+    #' execute the `DELETE` http verb for the `urls`
+    #' @param body body as an R list
+    #' @param encode one of form, multipart, json, or raw
     delete = function(path = NULL, query = list(), body = NULL,
                       encode = "multipart", disk = NULL, stream = NULL, ...) {
       private$gen_interface(self$urls, "delete", path, query, body, encode,
         disk, stream, ...)
     },
 
+    #' @description
+    #' execute the `HEAD` http verb for the `urls`
     head = function(path = NULL, ...) {
       private$gen_interface(self$urls, "head", path, ...)
     },
 
+    #' @description
+    #' execute any supported HTTP verb
+    #' @param verb (character) a supported HTTP verb: get, post, put, patch, delete,
+    #' head.
+    #' @examples \dontrun{
+    #' cc <- Async$new(
+    #'   urls = c(
+    #'     'https://httpbin.org/',
+    #'     'https://httpbin.org/get?a=5',
+    #'     'https://httpbin.org/get?foo=bar'
+    #'   )
+    #' )
+    #' (res <- cc$verb('get'))
+    #' lapply(res, function(z) z$parse("UTF-8"))
+    #' }
     verb = function(verb, ...) {
       stopifnot(is.character(verb), length(verb) > 0)
       verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head')

@@ -1,10 +1,22 @@
-#' HTTP request object
+#' @title HTTP request object
+#' @description Create HTTP requests
 #'
 #' @export
 #' @template args
+#' @param path URL path, appended to the base URL
+#' @param query query terms, as a named list
+#' @param body body as an R list
+#' @param encode one of form, multipart, json, or raw
+#' @param disk a path to write to. if NULL (default), memory used.
+#' See [curl::curl_fetch_disk()] for help.
+#' @param stream an R function to determine how to stream data. if
+#' NULL (default), memory used. See [curl::curl_fetch_stream()]
+#' for help
+#' @param ... curl options, only those in the acceptable set from
+#' [curl::curl_options()] except the following: httpget, httppost, post,
+#' postfields, postfieldsize, and customrequest
 #' @seealso [post-requests], [delete-requests],
 #' [http-headers], [writing-options]
-#'
 #' @details This R6 class doesn't do actual HTTP requests as does
 #' [HttpClient()] - it is for building requests to use for async HTTP
 #' requests in [AsyncVaried()]
@@ -16,40 +28,7 @@
 #' don't need to assign the new object to a variable as the new details
 #' you've added are added to the object itself.
 #'
-#' **Methods**
-#'   \describe{
-#'     \item{`get(path, query, disk, stream, ...)`}{
-#'       Define a GET request
-#'     }
-#'     \item{`post(path, query, body, disk, stream, ...)`}{
-#'       Define a POST request
-#'     }
-#'     \item{`put(path, query, body, disk, stream, ...)`}{
-#'       Define a PUT request
-#'     }
-#'     \item{`patch(path, query, body, disk, stream, ...)`}{
-#'       Define a PATCH request
-#'     }
-#'     \item{`delete(path, query, body, disk, stream, ...)`}{
-#'       Define a DELETE request
-#'     }
-#'     \item{`head(path, ...)`}{
-#'       Define a HEAD request
-#'     }
-#'     \item{`verb(verb, ...)`}{
-#'       Use an arbitrary HTTP verb supported on this class
-#'       Supported verbs: get, post, put, patch, delete, head
-#'     }
-#'     \item{`method()`}{
-#'       Get the HTTP method (if defined)
-#'       - returns character string
-#'     }
-#'   }
-#'
 #' See [HttpClient()] for information on parameters.
-#'
-#' @format NULL
-#' @usage NULL
 #'
 #' @examples \dontrun{
 #' x <- HttpRequest$new(url = "https://httpbin.org/get")
@@ -74,24 +53,30 @@
 #'     `Content-Type` = "application/json"
 #'   )
 #' )
-#' 
-#' # verb: get any http method
-#' z <- HttpRequest$new(url = "https://httpbin.org/get")
-#' res <- z$verb('get', query = list(hello = "world"))
-#' res$payload
 #' }
 HttpRequest <- R6::R6Class(
   'HttpRequest',
   public = list(
+    #' @field url (character) a url
     url = NULL,
+    #' @field opts (list) named list of curl options
     opts = list(),
+    #' @field proxies a [proxy()] object
     proxies = list(),
+    #' @field auth an [auth()] object
     auth = list(),
+    #' @field headers (list) named list of headers, see [http-headers]
     headers = list(),
+    #' @field handle a [handle()]
     handle = NULL,
+    #' @field progress only supports `httr::progress()`, see [progress]
     progress = NULL,
+    #' @field payload resulting payload after request
     payload = NULL,
 
+    #' @description print method for `HttpRequest` objects
+    #' @param x self
+    #' @param ... ignored
     print = function(x, ...) {
       cat(paste0("<crul http request> ", self$method()), sep = "\n")
       cat(paste0("  url: ", if (is.null(self$url))
@@ -118,6 +103,15 @@ HttpRequest <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Create a new `HttpRequest` object
+    #' @param urls (character) one or more URLs
+    #' @param opts any curl options
+    #' @param proxies a [proxy()] object
+    #' @param auth an [auth()] object
+    #' @param headers named list of headers, see [http-headers]
+    #' @param handle a [handle()]
+    #' @param progress only supports `httr::progress()`, see [progress]
+    #' @return A new `HttpRequest` object
     initialize = function(url, opts, proxies, auth, headers, handle, progress) {
       if (!missing(url)) self$url <- url
 
@@ -147,13 +141,14 @@ HttpRequest <- R6::R6Class(
       # headers: check for set_headers first
       if (!is.null(crul_opts$headers)) self$headers <- crul_opts$headers
       if (!missing(headers)) self$headers <- headers %||% list()
-      
+
       if (!missing(handle)) self$handle <- handle
       if (is.null(self$url) && is.null(self$handle)) {
         stop("need one of url or handle", call. = FALSE)
       }
     },
 
+    #' @description Define a GET request
     get = function(path = NULL, query = list(), disk = NULL,
                    stream = NULL, ...) {
       curl_opts_check(...)
@@ -173,6 +168,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Define a POST request
     post = function(path = NULL, query = list(), body = NULL, disk = NULL,
                     stream = NULL, encode = "multipart", ...) {
       curl_opts_check(...)
@@ -185,6 +181,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Define a PUT request
     put = function(path = NULL, query = list(), body = NULL, disk = NULL,
                    stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
@@ -197,6 +194,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Define a PATCH request
     patch = function(path = NULL, query = list(), body = NULL, disk = NULL,
                      stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
@@ -209,6 +207,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Define a DELETE request
     delete = function(path = NULL, query = list(), body = NULL, disk = NULL,
                       stream = NULL, encode =  "multipart", ...) {
       curl_opts_check(...)
@@ -221,6 +220,7 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Define a HEAD request
     head = function(path = NULL, ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, NULL)
@@ -237,6 +237,14 @@ HttpRequest <- R6::R6Class(
       return(self)
     },
 
+    #' @description Use an arbitrary HTTP verb supported on this class
+    #' Supported verbs: get, post, put, patch, delete, head
+    #' @param verb an HTTP verb supported on this class: get,
+    #' post, put, patch, delete, head. Also supports retry.
+    #' @examples
+    #' z <- HttpRequest$new(url = "https://httpbin.org/get")
+    #' res <- z$verb('get', query = list(hello = "world"))
+    #' res$payload
     verb = function(verb, ...) {
       stopifnot(is.character(verb), length(verb) > 0)
       verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head')
@@ -246,6 +254,8 @@ HttpRequest <- R6::R6Class(
       verbFunc(...)
     },
 
+    #' @description Get the HTTP method (if defined)
+    #' @return (character) the HTTP method
     method = function() self$payload$method
   )
 )

@@ -32,8 +32,11 @@ x$delete(path = 'delete')
 \seealso{
 \link{crul-package}
 
-Other verbs: \code{\link{verb-GET}},
-  \code{\link{verb-HEAD}}, \code{\link{verb-PATCH}},
-  \code{\link{verb-POST}}, \code{\link{verb-PUT}}
+Other verbs: 
+\code{\link{verb-GET}},
+\code{\link{verb-HEAD}},
+\code{\link{verb-PATCH}},
+\code{\link{verb-POST}},
+\code{\link{verb-PUT}}
 }
 \concept{verbs}

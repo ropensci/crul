@@ -72,6 +72,6 @@ req2 <- HttpRequest$new(url = "https://httpbin.org/get"
 (out <- AsyncVaried$new(req1, req2))
 out$request()
 lst
-cat(vapply(lst, function(z) rawToChar(z$content), ""), sep = "\\n")
+cat(vapply(lst, function(z) rawToChar(z$content), ""), sep = "\n")
 }
 }

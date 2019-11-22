@@ -1,59 +1,14 @@
-#' Async client for different request types
+#' @title Async client for different request types
+#' @description
+#' An async client to do many requests, each with different URLs, curl options,
+#' etc.
 #'
 #' @export
-#' @param ...,.list Any number of objects of class [HttpRequest()],
-#' must supply inputs to one of these parameters, but not both
 #' @family async
 #' @template async-deets
 #' @return An object of class `AsyncVaried` with variables and methods.
 #' [HttpResponse] objects are returned in the order they are passed in. 
 #' We print the first 10.
-#' @details
-#' **Methods**
-#'   \describe{
-#'     \item{`request()`}{
-#'       Execute asynchronous requests
-#'       - returns: nothing, responses stored inside object,
-#'       though will print messages if you choose verbose output
-#'     }
-#'     \item{`requests()`}{
-#'       list requests
-#'       - returns: a list of `HttpRequest` objects, empty list before
-#'       requests made
-#'     }
-#'     \item{`responses()`}{
-#'       list responses
-#'       - returns: a list of `HttpResponse` objects, empty list before
-#'       requests made
-#'     }
-#'     \item{`parse(encoding = "UTF-8")`}{
-#'       parse content
-#'       - returns: character vector, empty character vector before
-#'       requests made
-#'     }
-#'     \item{`status_code()`}{
-#'       (integer) HTTP status codes
-#'       - returns: numeric vector, empty numeric vector before
-#'       requests made
-#'     }
-#'     \item{`status()`}{
-#'       (list) HTTP status objects
-#'       - returns: a list of `http_code` objects, empty list before
-#'       requests made
-#'     }
-#'     \item{`content()`}{
-#'       raw content
-#'       - returns: raw list, empty list before requests made
-#'     }
-#'     \item{`times()`}{
-#'       curl request times
-#'       - returns: list of named numeric vectors, empty list before
-#'       requests made
-#'     }
-#'   }
-#'
-#' @format NULL
-#' @usage NULL
 #' @examples \dontrun{
 #' # pass in requests via ...
 #' req1 <- HttpRequest$new(
@@ -166,6 +121,9 @@
 AsyncVaried <- R6::R6Class(
   "AsyncVaried",
   public = list(
+    #' @description print method for AsyncVaried objects
+    #' @param x self
+    #' @param ... ignored
     print = function(x, ...) {
       cat("<crul async varied connection> ", sep = "\n")
       cat(sprintf("  requests: (n: %s)", length(private$reqs)), sep = "\n")
@@ -182,6 +140,10 @@ AsyncVaried <- R6::R6Class(
       invisible(self)
     },
 
+    #' @description Create a new AsyncVaried object
+    #' @param ...,.list Any number of objects of class [HttpRequest()],
+    #' must supply inputs to one of these parameters, but not both
+    #' @return A new `AsyncVaried` object
     initialize = function(..., .list = list()) {
       if (length(.list)) {
         private$reqs <- .list
@@ -198,34 +160,56 @@ AsyncVaried <- R6::R6Class(
       }
     },
 
+    #' @description Execute asynchronous requests
+    #' @return nothing, responses stored inside object, though will print
+    #' messages if you choose verbose output
     request = function() {
       private$output <- private$async_request(private$reqs)
     },
 
+    #' @description List responses
+    #' @return a list of `HttpResponse` objects, empty list before
+    #' requests made
     responses = function() {
       private$output %||% list()
     },
 
+    #' @description List requests
+    #' @return a list of `HttpRequest` objects, empty list before
+    #' requests made
     requests = function() {
       private$reqs
     },
 
+    #' @description parse content
+    #' @param encoding (character) the encoding to use in parsing.
+    #' default:"UTF-8"
+    #' @return character vector, empty character vector before
+    #' requests made
     parse = function(encoding = "UTF-8") {
       vapply(private$output, function(z) z$parse(encoding = encoding), "")
     },
 
+    #' @description Get HTTP status codes for each response
+    #' @return numeric vector, empty numeric vector before requests made
     status_code = function() {
       vapply(private$output, function(z) z$status_code, 1)
     },
 
+    #' @description List HTTP status objects
+    #' @return a list of `http_code` objects, empty list before requests made
     status = function() {
       lapply(private$output, function(z) z$status_http())
     },
 
+    #' @description Get raw content for each response
+    #' @return raw list, empty list before requests made
     content = function() {
       lapply(private$output, function(z) z$content)
     },
 
+    #' @description curl request times
+    #' @return list of named numeric vectors, empty list before requests made
     times = function() {
       lapply(private$output, function(z) z$times)
     }
