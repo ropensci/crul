@@ -81,6 +81,23 @@ test_that("HttpRequest - verb", {
   expect_error(HttpRequest$new(url = hb())$verb(5), "is not TRUE")
 })
 
+test_that("HttpRequest - prints new url after being modified", {
+  # query modifies url
+  aa <- HttpRequest$new(url = hb())
+  bb <- aa$get(query = list(foo = "bar", a = 5))
+  expect_output(print(aa), hb())
+  expect_output(print(bb), paste0(hb(), "\\?foo=bar&a=5"))
+
+  # handle passed in instead of a url
+  aa <- HttpRequest$new(handle = handle(file.path(hb(), "foobar")))
+  expect_output(print(aa), file.path(hb(), "foobar"))
+
+  # handle + query
+  aa <- HttpRequest$new(handle = handle(hb()))
+  bb <- aa$get(query = list(foo = "bar", a = 5))
+  expect_output(print(aa), hb())
+  expect_output(print(bb), paste0(hb(), "\\?foo=bar&a=5"))
+})
 
 test_that("HttpRequest fails well", {
   expect_error(HttpRequest$new(), "need one of url or handle")

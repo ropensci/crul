@@ -79,8 +79,10 @@ HttpRequest <- R6::R6Class(
     #' @param ... ignored
     print = function(x, ...) {
       cat(paste0("<crul http request> ", self$method()), sep = "\n")
-      cat(paste0("  url: ", if (is.null(self$url))
-        self$handle$url else self$url), sep = "\n")
+      # cat(paste0("  url: ", if (is.null(self$url))
+      #   self$handle$url else self$url), sep = "\n")
+      cat(paste0("  url: ",
+        self$payload$url$url %||% self$handle$url %||% self$url), sep = "\n")
       cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         cat(sprintf("    %s: %s", names(self$opts)[i],
@@ -273,7 +275,7 @@ make_url_async <- function(url = NULL, handle = NULL, path, query) {
   url <- add_query(query, url)
 
   if (!is.null(handle)) {
-    curl::handle_setopt(handle, url = url)
+    curl::handle_setopt(handle$handle, url = url)
   } else {
     handle <- curl::new_handle(url = url)
   }
