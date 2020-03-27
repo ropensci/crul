@@ -120,6 +120,7 @@ Default: \code{FALSE}.}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 print method for \code{Paginator} objects
 \subsection{Usage}{
@@ -138,6 +139,7 @@ print method for \code{Paginator} objects
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new \code{Paginator} object
 \subsection{Usage}{
@@ -182,6 +184,7 @@ A new \code{Paginator} object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}
+\if{latex}{\out{\hypertarget{method-get}{}}}
 \subsection{Method \code{get()}}{
 make a paginated GET request
 \subsection{Usage}{
@@ -206,6 +209,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-post"></a>}}
+\if{latex}{\out{\hypertarget{method-post}{}}}
 \subsection{Method \code{post()}}{
 make a paginated POST request
 \subsection{Usage}{
@@ -240,6 +244,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-put"></a>}}
+\if{latex}{\out{\hypertarget{method-put}{}}}
 \subsection{Method \code{put()}}{
 make a paginated PUT request
 \subsection{Usage}{
@@ -274,6 +279,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-patch}{}}}
 \subsection{Method \code{patch()}}{
 make a paginated PATCH request
 \subsection{Usage}{
@@ -308,6 +314,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-delete}{}}}
 \subsection{Method \code{delete()}}{
 make a paginated DELETE request
 \subsection{Usage}{
@@ -342,6 +349,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-head"></a>}}
+\if{latex}{\out{\hypertarget{method-head}{}}}
 \subsection{Method \code{head()}}{
 make a paginated HEAD request
 \subsection{Usage}{
@@ -368,6 +376,7 @@ not sure if this makes any sense or not yet
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-responses"></a>}}
+\if{latex}{\out{\hypertarget{method-responses}{}}}
 \subsection{Method \code{responses()}}{
 list responses
 \subsection{Usage}{
@@ -380,6 +389,7 @@ a list of \code{HttpResponse} objects, empty list before requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-status_code"></a>}}
+\if{latex}{\out{\hypertarget{method-status_code}{}}}
 \subsection{Method \code{status_code()}}{
 Get HTTP status codes for each response
 \subsection{Usage}{
@@ -392,6 +402,7 @@ numeric vector, empty numeric vector before requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-status"></a>}}
+\if{latex}{\out{\hypertarget{method-status}{}}}
 \subsection{Method \code{status()}}{
 List HTTP status objects
 \subsection{Usage}{
@@ -404,6 +415,7 @@ a list of \code{http_code} objects, empty list before requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-parse}{}}}
 \subsection{Method \code{parse()}}{
 parse content
 \subsection{Usage}{
@@ -425,6 +437,7 @@ requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-content"></a>}}
+\if{latex}{\out{\hypertarget{method-content}{}}}
 \subsection{Method \code{content()}}{
 Get raw content for each response
 \subsection{Usage}{
@@ -437,6 +450,7 @@ raw list, empty list before requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-times"></a>}}
+\if{latex}{\out{\hypertarget{method-times}{}}}
 \subsection{Method \code{times()}}{
 curl request times
 \subsection{Usage}{
@@ -449,6 +463,7 @@ list of named numeric vectors, empty list before requests made
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-url_fetch"></a>}}
+\if{latex}{\out{\hypertarget{method-url_fetch}{}}}
 \subsection{Method \code{url_fetch()}}{
 get the URL that would be sent (i.e., before executing
 the request) the only things that change the URL are path and query
@@ -486,6 +501,7 @@ cc$url_fetch('works', query = list(query = "NSF"))
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

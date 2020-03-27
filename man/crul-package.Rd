@@ -5,9 +5,6 @@
 \alias{crul-package}
 \alias{crul}
 \title{\strong{HTTP R client}}
-\description{
-\strong{HTTP R client}
-}
 \section{Package API}{
 
 \itemize{
