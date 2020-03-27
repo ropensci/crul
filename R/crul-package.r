@@ -1,5 +1,5 @@
-#' **HTTP R client**
-#'
+#' @title crul
+#' @description **HTTP R client**
 #' @section Package API:
 #' 
 #' - [HttpClient()] - create a connection client, set all
