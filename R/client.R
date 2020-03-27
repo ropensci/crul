@@ -327,10 +327,10 @@ HttpClient <- R6::R6Class(
     },
 
     #' @description Use an arbitrary HTTP verb supported on this class
-    #' Supported verbs: get, post, put, patch, delete, head. Also
+    #' Supported verbs: "get", "post", "put", "patch", "delete", "head". Also
     #' supports retry
-    #' @param verb an HTTP verb supported on this class: get,
-    #' post, put, patch, delete, head. Also supports retry.
+    #' @param verb an HTTP verb supported on this class: "get",
+    #' "post", "put", "patch", "delete", "head". Also supports retry.
     #' @examples \dontrun{
     #' (x <- HttpClient$new(url = "https://httpbin.org"))
     #' x$verb('get')
@@ -354,8 +354,8 @@ HttpClient <- R6::R6Class(
     #' (HTTP response status < 400), or a condition for giving up is met.
     #' Automatically recognizes `Retry-After` and `X-RateLimit-Reset` headers
     #' in the response for rate-limited remote APIs.
-    #' @param verb an HTTP verb supported on this class: get,
-    #' post, put, patch, delete, head. Also supports retry.
+    #' @param verb an HTTP verb supported on this class: "get",
+    #' "post", "put", "patch", "delete", "head". Also supports retry.
     #' @param times the maximum number of times to retry. Set to `Inf` to
     #' not stop retrying due to exhausting the number of attempts.
     #' @param pause_base,pause_cap,pause_min basis, maximum, and minimum for

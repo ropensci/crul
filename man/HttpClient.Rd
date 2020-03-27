@@ -179,6 +179,7 @@ x$url_fetch('get', query = list(foo = "bar"))
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
+\if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
 print method for \code{HttpClient} objects
 \subsection{Usage}{
@@ -197,6 +198,7 @@ print method for \code{HttpClient} objects
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new HttpClient object
 \subsection{Usage}{
@@ -232,6 +234,7 @@ A new \code{HttpClient} object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get"></a>}}
+\if{latex}{\out{\hypertarget{method-get}{}}}
 \subsection{Method \code{get()}}{
 Make a GET request
 \subsection{Usage}{
@@ -263,6 +266,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-post"></a>}}
+\if{latex}{\out{\hypertarget{method-post}{}}}
 \subsection{Method \code{post()}}{
 Make a POST request
 \subsection{Usage}{
@@ -306,6 +310,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-put"></a>}}
+\if{latex}{\out{\hypertarget{method-put}{}}}
 \subsection{Method \code{put()}}{
 Make a PUT request
 \subsection{Usage}{
@@ -349,6 +354,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-patch}{}}}
 \subsection{Method \code{patch()}}{
 Make a PATCH request
 \subsection{Usage}{
@@ -392,6 +398,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-delete}{}}}
 \subsection{Method \code{delete()}}{
 Make a DELETE request
 \subsection{Usage}{
@@ -435,6 +442,7 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-head"></a>}}
+\if{latex}{\out{\hypertarget{method-head}{}}}
 \subsection{Method \code{head()}}{
 Make a HEAD request
 \subsection{Usage}{
@@ -459,9 +467,10 @@ and customrequest}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-verb"></a>}}
+\if{latex}{\out{\hypertarget{method-verb}{}}}
 \subsection{Method \code{verb()}}{
 Use an arbitrary HTTP verb supported on this class
-Supported verbs: get, post, put, patch, delete, head. Also
+Supported verbs: "get", "post", "put", "patch", "delete", "head". Also
 supports retry
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{HttpClient$verb(verb, ...)}\if{html}{\out{</div>}}
@@ -470,8 +479,8 @@ supports retry
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{verb}}{an HTTP verb supported on this class: get,
-post, put, patch, delete, head. Also supports retry.}
+\item{\code{verb}}{an HTTP verb supported on this class: "get",
+"post", "put", "patch", "delete", "head". Also supports retry.}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -498,6 +507,7 @@ x$verb('retry', 'GET', path = "status/400")
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-retry"></a>}}
+\if{latex}{\out{\hypertarget{method-retry}{}}}
 \subsection{Method \code{retry()}}{
 Retry a request
 \subsection{Usage}{
@@ -517,8 +527,8 @@ Retry a request
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{verb}}{an HTTP verb supported on this class: get,
-post, put, patch, delete, head. Also supports retry.}
+\item{\code{verb}}{an HTTP verb supported on this class: "get",
+"post", "put", "patch", "delete", "head". Also supports retry.}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -578,6 +588,7 @@ x <- HttpClient$new(url = "https://httpbin.org")
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-handle_pop"></a>}}
+\if{latex}{\out{\hypertarget{method-handle_pop}{}}}
 \subsection{Method \code{handle_pop()}}{
 reset your curl handle
 \subsection{Usage}{
@@ -587,6 +598,7 @@ reset your curl handle
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-url_fetch"></a>}}
+\if{latex}{\out{\hypertarget{method-url_fetch}{}}}
 \subsection{Method \code{url_fetch()}}{
 get the URL that would be sent (i.e., before executing
 the request) the only things that change the URL are path and query
@@ -622,6 +634,7 @@ x$url_fetch('get', query = list(foo = "bar"))
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
