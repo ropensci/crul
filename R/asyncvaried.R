@@ -120,12 +120,12 @@
 #' }
 AsyncVaried <- R6::R6Class(
   "AsyncVaried",
-  public = list(
+  public = list(    
     #' @description print method for AsyncVaried objects
     #' @param x self
     #' @param ... ignored
     print = function(x, ...) {
-      cat("<crul async varied connection> ", sep = "\n")
+      cat(private$print_string, sep = "\n")
       cat(sprintf("  requests: (n: %s)", length(private$reqs)), sep = "\n")
       print_urls <- private$reqs[1:min(c(length(private$reqs), 10))]
       for (i in seq_along(print_urls)) {
@@ -216,6 +216,7 @@ AsyncVaried <- R6::R6Class(
   ),
 
   private = list(
+    print_string = "<crul async varied connection>",
     reqs = NULL,
     output = NULL,
     reqq = NULL,

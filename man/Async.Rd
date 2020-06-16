@@ -134,6 +134,7 @@ lapply(res, function(z) z$parse("UTF-8"))
 }
 \seealso{
 Other async: 
+\code{\link{AsyncQueue}},
 \code{\link{AsyncVaried}}
 }
 \concept{async}
