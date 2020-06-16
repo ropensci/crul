@@ -218,7 +218,6 @@ AsyncVaried <- R6::R6Class(
   private = list(
     reqs = NULL,
     output = NULL,
-    reqq = NULL,
 
     async_request = function(reqs) {
       crulpool <- curl::new_pool()
