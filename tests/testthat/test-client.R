@@ -99,6 +99,8 @@ test_that("HttpClient - failure behavior", {
 
 
 test_that("parse() works with disk usage", {
+  skip_on_cran()
+  
   f <- tempfile(fileext = ".json")
   out <- crul::HttpClient$new("https://httpbin.org/get")$get(disk = f)
   expect_is(out$parse(), "character")
@@ -106,6 +108,8 @@ test_that("parse() works with disk usage", {
 })
 
 test_that("parse() works with stream usage", {
+  skip_on_cran()
+
   lst <- list()
   fun <- function(x) lst <<- append(lst, list(x))
   out <- crul::HttpClient$new("https://httpbin.org/get")$get(stream = fun)

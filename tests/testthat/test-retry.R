@@ -1,6 +1,8 @@
 context("HttpClient retry: basics")
 
 test_that("retry has basic error checking", {
+  skip_on_cran()
+  
   cli <- HttpClient$new(url = hb())
 
   expect_error(cli$retry())
