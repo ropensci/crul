@@ -135,8 +135,8 @@ HttpClient <- R6::R6Class(
           sep = "\n")
       cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
-        cat(sprintf("    %s: %s", names(self$opts)[i],
-                    self$opts[[i]]), sep = "\n")
+        z <- if (inherits(self$opts[[i]], "function")) "<function>" else self$opts[[i]]
+        cat(sprintf("    %s: %s", names(self$opts)[i], z), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
       if (length(self$proxies)) cat(paste("    -", purl(self$proxies)),
@@ -170,15 +170,24 @@ HttpClient <- R6::R6Class(
     #' @param handle a [handle()]
     #' @param progress only supports `httr::progress()`, see [progress]
     #' @param hooks a named list, see [hooks]
+    #' @param verbose a special handler for verbose curl output, 
+    #' accepts a function only. default is `NULL`. if used, `verbose`
+    #' and `debugfunction` curl options are ignored if passed to `opts`
+    #' on `$new()` and ignored if `...` passed to a http method call
     #' @return A new `HttpClient` object
     initialize = function(url, opts, proxies, auth, headers, handle,
-      progress, hooks) {
+      progress, hooks, verbose) {
       private$crul_h_pool <- new.env(hash = TRUE, parent = emptyenv())
       if (!missing(url)) self$url <- url
 
       # curl options: check for set_opts first
       if (!is.null(crul_opts$opts)) self$opts <- crul_opts$opts
       if (!missing(opts)) self$opts <- opts
+      if (!missing(verbose)) {
+        assert(verbose, "function")
+        self$opts$verbose <- TRUE
+        self$opts$debugfunction <- verbose
+      }
 
       # proxy: check for set_proxy first
       if (!is.null(crul_opts$proxies)) self$proxies <- crul_opts$proxies
