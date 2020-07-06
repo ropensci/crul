@@ -3,11 +3,11 @@ crul
 
 
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-check](https://github.com/ropensci/crul/workflows/R-check/badge.svg)](https://github.com/ropensci/crul/actions/)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![cran checks](https://cranchecks.info/badges/worst/crul)](https://cranchecks.info/pkgs/crul)
-[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's `requests`
@@ -163,12 +163,14 @@ res$content
 #> [126] 20 20 20 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e 67 22 3a 20 22 67 7a
 #> [151] 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22
 #> [176] 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73
-#> [201] 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 35 34 2e
-#> [226] 30 20 72 2d 63 75 72 6c 2f 34 2e 32 20 63 72 75 6c 2f 30 2e 39 2e 31 2e 39
-#> [251] 32 30 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
-#> [276] 39 32 2e 31 33 32 2e 36 31 2e 33 35 2c 20 31 39 32 2e 31 33 32 2e 36 31 2e
-#> [301] 33 35 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68
-#> [326] 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
+#> [201] 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 36 34 2e
+#> [226] 31 20 72 2d 63 75 72 6c 2f 34 2e 33 20 63 72 75 6c 2f 30 2e 39 2e 32 2e 39
+#> [251] 33 22 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d 49 64
+#> [276] 22 3a 20 22 52 6f 6f 74 3d 31 2d 35 66 30 33 39 36 38 61 2d 30 36 33 61 62
+#> [301] 33 61 38 62 64 31 37 38 62 34 64 32 36 31 64 64 61 30 38 22 0a 20 20 7d 2c
+#> [326] 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 32 34 2e 32 31 2e 32 32 39 2e
+#> [351] 35 39 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68
+#> [376] 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
@@ -185,7 +187,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/4.2 crul/0.9.1.9200"
+#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -203,43 +205,25 @@ Response headers
 ```r
 res$response_headers
 #> $status
-#> [1] "HTTP/1.1 200 OK"
+#> [1] "HTTP/2 200 "
 #> 
-#> $`access-control-allow-credentials`
-#> [1] "true"
-#> 
-#> $`access-control-allow-origin`
-#> [1] "*"
-#> 
-#> $`content-encoding`
-#> [1] "gzip"
+#> $date
+#> [1] "Mon, 06 Jul 2020 21:24:26 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
 #> 
-#> $date
-#> [1] "Fri, 22 Nov 2019 19:27:43 GMT"
-#> 
-#> $`referrer-policy`
-#> [1] "no-referrer-when-downgrade"
+#> $`content-length`
+#> [1] "393"
 #> 
 #> $server
-#> [1] "nginx"
+#> [1] "gunicorn/19.9.0"
 #> 
-#> $`x-content-type-options`
-#> [1] "nosniff"
+#> $`access-control-allow-origin`
+#> [1] "*"
 #> 
-#> $`x-frame-options`
-#> [1] "DENY"
-#> 
-#> $`x-xss-protection`
-#> [1] "1; mode=block"
-#> 
-#> $`content-length`
-#> [1] "232"
-#> 
-#> $connection
-#> [1] "keep-alive"
+#> $`access-control-allow-credentials`
+#> [1] "true"
 ```
 
 All response headers - e.g., intermediate headers
@@ -255,7 +239,7 @@ And you can parse the content with `parse()`
 ```r
 res$parse()
 #> No encoding supplied: defaulting to UTF-8.
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.2 crul/0.9.1.9200\"\n  }, \n  \"origin\": \"192.132.61.35, 192.132.61.35\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f03968a-063ab3a8bd178b4d261dda08\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> No encoding supplied: defaulting to UTF-8.
 #> $args
@@ -275,11 +259,14 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/4.2 crul/0.9.1.9200"
+#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93"
+#> 
+#> $headers$`X-Amzn-Trace-Id`
+#> [1] "Root=1-5f03968a-063ab3a8bd178b4d261dda08"
 #> 
 #> 
 #> $origin
-#> [1] "192.132.61.35, 192.132.61.35"
+#> [1] "24.21.229.59"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -289,7 +276,7 @@ jsonlite::fromJSON(res$parse())
 
 
 ```r
-res <- HttpClient$new(url = "http://api.gbif.org/v1/occurrence/search")
+res <- HttpClient$new(url = "https://api.gbif.org/v1/occurrence/search")
 res$get(query = list(limit = 100), timeout_ms = 100)
 #> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :
 #>   Timeout was reached
@@ -349,8 +336,8 @@ out$status()
 #>   Message: OK
 #>   Explanation: Request fulfilled, document follows
 out$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (3.6.1 x86_64-apple-darwin15.6.0 x86_64 darwin15.6.0)\"\n  }, \n  \"origin\": \"192.132.61.35, 192.132.61.35\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                        
-#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.54.0 r-curl/4.2 crul/0.9.1.9200\"\n  }, \n  \"json\": null, \n  \"origin\": \"192.132.61.35, 192.132.61.35\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Foo\": \"bar\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f03968b-63c2ab06dcdf67d894337e62\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"                                                                                                                                          
+#> [2] "{\n  \"args\": {}, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"0\", \n    \"Content-Type\": \"application/x-www-form-urlencoded\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f03968b-e4aa22665812bd4c41a83dcf\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/post\"\n}\n"
 ```
 
 ## Progress bars
