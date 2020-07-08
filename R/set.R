@@ -26,6 +26,10 @@
 #' \dontrun{
 #' HttpClient$new('https://httpbin.org')$get('get')
 #' }
+#' # set_verbose - sets: `verbose=TRUE`, and `debugfunction` to 
+#' # result of call to `curl_verbose()`, see `?curl_verbose`
+#' set_verbose()
+#' crul_settings()
 #' 
 #' # basic authentication
 #' set_auth(auth(user = "foo", pwd = "bar", auth = "basic"))
@@ -69,6 +73,13 @@
 set_opts <- function(...) {
   crul_opts$opts <- 
     utils::modifyList(crul_opts$opts %||% list(), curl_opts_fil(list(...)))
+}
+
+#' @export
+#' @name crul-options
+set_verbose <- function() {
+  crul_opts$opts$verbose <- TRUE
+  crul_opts$opts$debugfunction <- curl_verbose()
 }
 
 #' @export

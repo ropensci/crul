@@ -3,6 +3,7 @@
 \name{crul-options}
 \alias{crul-options}
 \alias{set_opts}
+\alias{set_verbose}
 \alias{set_proxy}
 \alias{set_auth}
 \alias{set_headers}
@@ -10,6 +11,8 @@
 \title{Set curl options, proxy, and basic auth}
 \usage{
 set_opts(...)
+
+set_verbose()
 
 set_proxy(x)
 
@@ -50,6 +53,10 @@ crul_settings()
 \dontrun{
 HttpClient$new('https://httpbin.org')$get('get')
 }
+# set_verbose - sets: `verbose=TRUE`, and `debugfunction` to 
+# result of call to `curl_verbose()`, see `?curl_verbose`
+set_verbose()
+crul_settings()
 
 # basic authentication
 set_auth(auth(user = "foo", pwd = "bar", auth = "basic"))
