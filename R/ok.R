@@ -15,7 +15,7 @@
 #' blocks head requests
 #' @param ... args passed on to [HttpClient]
 #' @return a single boolean, if `TRUE` the URL is up and okay, 
-#' if `FALSE` it is down.
+#' if `FALSE` it is down; but, see Details
 #' @details We internally verify that status is an integer and 
 #' in the known set of HTTP status codes, and that info is a boolean
 #' 
@@ -33,13 +33,22 @@
 #' - its possible to get a weird HTTP status code, e.g., LinkedIn gives
 #' a 999 code, they're trying to prevent any programmatic access
 #' 
+#' A `FALSE` result may be incorrect depending on the use case. For example,
+#' if you want to know if curl based scraping will work without fiddling with
+#' curl options, then the `FALSE` is probably correct, but if you want to
+#' fiddle with curl options, then first step would be to send `verbose=TRUE`
+#' to see whats going on with any redirects and headers. You can set headers,
+#' user agent strings, etc. to get closer to the request you want to know
+#' about. Note that a user agent string is always passed by default, but it
+#' may not be the one you want.
+#' 
 #' @examples \dontrun{
 #' # 200
-#' ok("https://google.com") 
+#' ok("https://www.google.com") 
 #' # 200
 #' ok("https://httpbin.org/status/200")
 #' # more than one status
-#' ok("https://google.com", status = c(200L, 202L))
+#' ok("https://www.google.com", status = c(200L, 202L))
 #' # 404
 #' ok("https://httpbin.org/status/404")
 #' # doesn't exist

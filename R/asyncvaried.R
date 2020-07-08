@@ -219,7 +219,6 @@ AsyncVaried <- R6::R6Class(
     print_string = "<crul async varied connection>",
     reqs = NULL,
     output = NULL,
-    reqq = NULL,
 
     async_request = function(reqs) {
       crulpool <- curl::new_pool()

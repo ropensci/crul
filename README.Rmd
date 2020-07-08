@@ -9,12 +9,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Build Status](https://travis-ci.org/ropensci/crul.svg?branch=master)](https://travis-ci.org/ropensci/crul)
-[![Build status](https://ci.appveyor.com/api/projects/status/i29vjv239yf05qsi?svg=true)](https://ci.appveyor.com/project/sckott/crul)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-check](https://github.com/ropensci/crul/workflows/R-check/badge.svg)](https://github.com/ropensci/crul/actions/)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![cran checks](https://cranchecks.info/badges/worst/crul)](https://cranchecks.info/pkgs/crul)
-[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's `requests`
@@ -170,7 +169,7 @@ jsonlite::fromJSON(res$parse())
 ## curl options
 
 ```{r eval=FALSE}
-res <- HttpClient$new(url = "http://api.gbif.org/v1/occurrence/search")
+res <- HttpClient$new(url = "https://api.gbif.org/v1/occurrence/search")
 res$get(query = list(limit = 100), timeout_ms = 100)
 #> Error in curl::curl_fetch_memory(x$url$url, handle = x$url$handle) :
 #>   Timeout was reached

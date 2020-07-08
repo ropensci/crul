@@ -72,8 +72,7 @@ def_head <- function() {
   )
 }
 
-# drop any options that are not in the set of
-# valid curl options
+# drop any options that are not in the set of valid curl options
 curl_opts_fil <- function(z) {
   valco <- names(curl::curl_options())
   z[names(z) %in% valco]

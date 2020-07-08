@@ -202,7 +202,17 @@ print method for \code{HttpClient} objects
 \subsection{Method \code{new()}}{
 Create a new HttpClient object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HttpClient$new(url, opts, proxies, auth, headers, handle, progress, hooks)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HttpClient$new(
+  url,
+  opts,
+  proxies,
+  auth,
+  headers,
+  handle,
+  progress,
+  hooks,
+  verbose
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -223,6 +233,11 @@ Create a new HttpClient object
 \item{\code{progress}}{only supports \code{httr::progress()}, see \link{progress}}
 
 \item{\code{hooks}}{a named list, see \link{hooks}}
+
+\item{\code{verbose}}{a special handler for verbose curl output,
+accepts a function only. default is \code{NULL}. if used, \code{verbose}
+and \code{debugfunction} curl options are ignored if passed to \code{opts}
+on \verb{$new()} and ignored if \code{...} passed to a http method call}
 
 \item{\code{urls}}{(character) one or more URLs}
 }

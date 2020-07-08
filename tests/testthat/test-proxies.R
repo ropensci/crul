@@ -1,6 +1,8 @@
 context("proxies")
 
 test_that("proxy without http requests works", {
+  skip_on_cran()
+
   aa <- proxy("http://97.77.104.22:3128")
   bb <- proxy("97.77.104.22:3128")
   cc <- proxy("http://97.77.104.22:3128", "foo", "bar")
@@ -39,6 +41,8 @@ test_that("proxy without http requests works", {
 })
 
 test_that("proxy - using in HttpClient", {
+  skip_on_cran()
+
   aa <- HttpClient$new(
     url = "http://www.google.com",
     proxies = proxy("http://97.77.104.22:3128")
@@ -49,6 +53,8 @@ test_that("proxy - using in HttpClient", {
 })
 
 test_that("proxy fails well", {
+  skip_on_cran()
+  
   expect_error(proxy(), "proxy URL not of correct form")
   expect_error(proxy(user = mtcars), "proxy URL not of correct form")
   expect_error(proxy("adff", user = 5), "user must be of class character")

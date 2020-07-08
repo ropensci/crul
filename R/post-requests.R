@@ -74,12 +74,12 @@
 #' # Upload files
 #' ## image
 #' path <- file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg")
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://eu.httpbin.org"))
 #' res <- x$post(path = "post", body = list(y = upload(path)))
 #' res$content
 #'
 #' ## text file, in a list
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://eu.httpbin.org"))
 #' file <- upload(system.file("CITATION"))
 #' res <- x$post(path = "post", body = list(y = file))
 #' jsonlite::fromJSON(res$parse("UTF-8"))
