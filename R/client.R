@@ -182,7 +182,7 @@ HttpClient <- R6::R6Class(
 
       # curl options: check for set_opts first
       if (!is.null(crul_opts$opts)) self$opts <- crul_opts$opts
-      if (!missing(opts)) self$opts <- opts
+      if (!missing(opts) && length(opts) > 0) self$opts <- opts
       if (!missing(verbose)) {
         assert(verbose, "function")
         self$opts$verbose <- TRUE
@@ -332,6 +332,7 @@ HttpClient <- R6::R6Class(
       rr$options <- utils::modifyList(
         rr$options,
         c(self$opts, self$proxies, self$auth, ...))
+      rr$options <- curl_opts_fil(rr$options)
       private$make_request(rr)
     },
 
