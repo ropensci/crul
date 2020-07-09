@@ -1,13 +1,17 @@
 ---
-title: "curl options"
+title: 4. curl options
+author: Scott Chamberlain
+date: "2020-07-09"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{4. curl options}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{4. curl options}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
-> adapted in part from a blog post I wrote [Curling - exploring web request options][post]
+
+
+> adapted in part from the blog post [Curling - exploring web request options][post]
 
 
 Most times you request data from the web, you should have no problem. However, you eventually will run into problems. In addition, there are advanced things you can do modifying requests to web resources that fall in the _advanced stuff_ category.

@@ -1,27 +1,24 @@
 ---
-title: "crul workflows"
+title: 2. crul workflows
+author: Scott Chamberlain
+date: "2020-07-09"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{2. crul workflows}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{2. crul workflows}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
+
+
 
 The following aims to help you decide how to use `crul` in different 
 scenarios.
 
-First, `crul` is aimed a bit more at developers than at the casual 
+`crul` is aimed a bit more at developers than at the casual 
 user doing HTTP requests. That is, `crul` is probably a better fit 
 for an R package developer, mainly because it heavily uses `R6` - 
 an interface that's very unlike the interface in `httr` but very
 similar to interacting with classes in Ruby/Python.
-
-Second, there is not yet, but will be soon, the ability to mock 
-HTTP requests. We are working on that, and should have it integrated
-soon. When that feature arrives we'll update this vignette.
-
-Load the library
-
 
 ```r
 library("crul")
@@ -37,6 +34,7 @@ see below if you do.
 
 You'll probably want to write a small function, like so (annotated for 
 clarity)
+
 
 
 ```r
@@ -59,6 +57,7 @@ make_request <- function(url) {
 Use the function
 
 
+
 ```r
 make_request("https://httpbin.org/get")
 #> $args
@@ -75,11 +74,14 @@ make_request("https://httpbin.org/get")
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.54.0 r-curl/3.3 crul/0.7.4"
+#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93"
+#> 
+#> $headers$`X-Amzn-Trace-Id`
+#> [1] "Root=1-5f077ab0-7142dc982d077268af3d2a28"
 #> 
 #> 
 #> $origin
-#> [1] "65.197.146.18, 65.197.146.18"
+#> [1] "24.21.229.59"
 #> 
 #> $url
 #> [1] "https://httpbin.org/get"
@@ -94,6 +96,7 @@ want to have more control, toggle more switches.
 
 In the next function, we'll allow for users to pass in curl options, use 
 a custom HTTP status checker, and xxx.
+
 
 
 ```r
@@ -123,6 +126,7 @@ make_request2 <- function(url, ...) {
 Use the function
 
 
+
 ```r
 make_request2("https://api.crossref.org/works?rows=0")
 #> $status
@@ -139,7 +143,7 @@ make_request2("https://api.crossref.org/works?rows=0")
 #> named list()
 #> 
 #> $message$`total-results`
-#> [1] 103966337
+#> [1] 115235329
 #> 
 #> $message$items
 #> list()
@@ -168,6 +172,7 @@ We can also pass named parameters supported in the `get` method, including
 `query`, `disk`, and `stream`.
 
 
+
 ```r
 make_request2("https://api.crossref.org/works", query = list(rows = 0))
 #> $status
@@ -184,7 +189,7 @@ make_request2("https://api.crossref.org/works", query = list(rows = 0))
 #> named list()
 #> 
 #> $message$`total-results`
-#> [1] 103966680
+#> [1] 115235329
 #> 
 #> $message$items
 #> list()
@@ -216,4 +221,4 @@ You may want to use asynchronous HTTP requests when any one HTTP request
 takes "too long". This is of course all relative. You may be dealing with a 
 server that responds very slowly, or other circumstances. 
 
-See the [async with crul](async.html) vignette for more details on asynchronous requests.
+See the __async with crul__ vignette for more details on asynchronous requests.

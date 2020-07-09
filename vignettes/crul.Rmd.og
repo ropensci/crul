@@ -1,8 +1,13 @@
-<!--
-%\VignetteIndexEntry{1. crul introduction}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
--->
+---
+title: 1. crul introduction
+author: Scott Chamberlain
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{1. crul introduction}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(
@@ -12,9 +17,6 @@ knitr::opts_chunk$set(
   message = FALSE
 )
 ```
-
-crul introduction
-=================
 
 `crul` is an HTTP client for R.
 

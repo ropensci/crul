@@ -1,20 +1,37 @@
 PACKAGE := $(shell grep '^Package:' DESCRIPTION | sed -E 's/^Package:[[:space:]]+//')
 RSCRIPT = Rscript --no-init-file
 
-all: move rmd2md
+vigns: vign vign_how_to_use_crul vign_choosing_a_client vign_async vign_curl_options vign_best_practices
 
-move:
-		cp inst/vign/crul.md vignettes;\
-		cp inst/vign/how-to-use-crul.md vignettes;\
-		cp inst/vign/async.md vignettes;\
-		cp inst/vign/curl-options.md vignettes
+vign:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('crul.Rmd.og', output = 'crul.Rmd')";\
+	cd ..
 
-rmd2md:
-		cd vignettes;\
-		mv crul.md crul.Rmd;\
-		mv how-to-use-crul.md how-to-use-crul.Rmd;\
-		mv async.md async.Rmd;\
-		mv curl-options.md curl-options.Rmd
+vign_how_to_use_crul:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('how-to-use-crul.Rmd.og', output = 'how-to-use-crul.Rmd')";\
+	cd ..
+
+vign_choosing_a_client:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('choosing-a-client.Rmd.og', output = 'choosing-a-client.Rmd')";\
+	cd ..
+
+vign_async:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('async.Rmd.og', output = 'async.Rmd')";\
+	cd ..
+
+vign_curl_options:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('curl-options.Rmd.og', output = 'curl-options.Rmd')";\
+	cd ..
+
+vign_best_practices:
+	cd vignettes;\
+	${RSCRIPT} -e "Sys.setenv(NOT_CRAN='true'); knitr::knit('best-practices-api-packages.Rmd.og', output = 'best-practices-api-packages.Rmd')";\
+	cd ..
 
 install: doc build
 	R CMD INSTALL . && rm *.tar.gz
