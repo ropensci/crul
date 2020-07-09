@@ -7,7 +7,7 @@ test_that("AsyncQueue basic structure", {
   req1 <- HttpRequest$new(url = hb("/get"))$get()
   req2 <- HttpRequest$new(url = hb("/post"))$post()
 
-  aa <- AsyncQueue$new(req1, req2)
+  aa <- AsyncQueue$new(req1, req2, sleep = 5)
 
   expect_is(aa, "AsyncQueue")
   expect_is(aa$.__enclos_env__$private$async_request, "function")
@@ -16,8 +16,7 @@ test_that("AsyncQueue basic structure", {
   expect_is(aa$requests, "function")
   expect_type(aa$bucket_size, "double")
   expect_type(aa$sleep, "double")
-  expect_null(aa$req_per_second)
-  expect_null(aa$req_per_hr)
+  expect_null(aa$req_per_min)
 
   # before requests
   expect_equal(length(aa$content()), 0)
@@ -46,29 +45,32 @@ test_that("AsyncQueue fails well", {
 
   expect_error(AsyncQueue$new(), "must pass in at least one request")
   expect_error(AsyncQueue$new(5), "all inputs must be of class 'HttpRequest'")
+  expect_error(AsyncQueue$new(HttpRequest$new(url = hb("/get"))$get()),
+    "must set")
 })
+
+reqlist <- list(
+  HttpRequest$new(url = "https://httpbin.org/get")$get(),
+  HttpRequest$new(url = "https://httpbin.org/post")$post(),
+  HttpRequest$new(url = "https://httpbin.org/put")$put(),
+  HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
+  HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
+  HttpRequest$new(
+    url = "https://httpbin.org/post")$post(body = list(y = 9)),
+  HttpRequest$new(
+    url = "https://httpbin.org/get")$get(query = list(hello = "world")),
+  HttpRequest$new(url = "https://ropensci.org")$get(),
+  HttpRequest$new(url = "https://ropensci.org/about")$get(),
+  HttpRequest$new(url = "https://ropensci.org/packages")$get(),
+  HttpRequest$new(url = "https://ropensci.org/community")$get(),
+  HttpRequest$new(url = "https://ropensci.org/blog")$get(),
+  HttpRequest$new(url = "https://ropensci.org/careers")$get()
+)
 
 context("AsyncQueue: sleep parameter")
 test_that("AsyncQueue sleep parameter", {
   skip_on_cran()
 
-  reqlist <- list(
-    HttpRequest$new(url = "https://httpbin.org/get")$get(),
-    HttpRequest$new(url = "https://httpbin.org/post")$post(),
-    HttpRequest$new(url = "https://httpbin.org/put")$put(),
-    HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
-    HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
-    HttpRequest$new(
-      url = "https://httpbin.org/post")$post(body = list(y = 9)),
-    HttpRequest$new(
-      url = "https://httpbin.org/get")$get(query = list(hello = "world")),
-    HttpRequest$new(url = "https://ropensci.org")$get(),
-    HttpRequest$new(url = "https://ropensci.org/about")$get(),
-    HttpRequest$new(url = "https://ropensci.org/packages")$get(),
-    HttpRequest$new(url = "https://ropensci.org/community")$get(),
-    HttpRequest$new(url = "https://ropensci.org/blog")$get(),
-    HttpRequest$new(url = "https://ropensci.org/careers")$get()
-  )
   out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
   expect_equal(out$bucket_size, 5)
   expect_equal(out$sleep, 3)
@@ -84,4 +86,27 @@ test_that("AsyncQueue sleep parameter", {
   expect_equal(length(resp), 13)
   for (i in seq_along(resp)) expect_is(resp[[i]], "HttpResponse")
   for (i in seq_along(resp)) expect_equal(resp[[i]]$status_code, 200)
+})
+
+context("AsyncQueue: req_per_min parameter")
+test_that("AsyncQueue req_per_min parameter", {
+  skip_on_cran()
+  skip_on_ci()
+
+  out <- AsyncQueue$new(.list = reqlist, req_per_min = 10)
+  expect_equal(out$bucket_size, 10)
+  expect_null(out$sleep)
+  expect_equal(out$req_per_min, 10)
+  expect_equal(length(out$responses()), 0)
+
+  # FIXME: not doing actual requests as would take 1 min
+  # z <- system.time(out$request())
+  # expect_gt(z[['elapsed']], 6)
+  
+  # # after requests sent off
+  # expect_equal(length(out$requests()), 13)
+  # resp <- out$responses()
+  # expect_equal(length(resp), 13)
+  # for (i in seq_along(resp)) expect_is(resp[[i]], "HttpResponse")
+  # for (i in seq_along(resp)) expect_equal(resp[[i]]$status_code, 200)
 })

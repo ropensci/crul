@@ -85,8 +85,10 @@ HttpRequest <- R6::R6Class(
         self$payload$url$url %||% self$handle$url %||% self$url), sep = "\n")
       cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
-        cat(sprintf("    %s: %s", names(self$opts)[i],
-                    self$opts[[i]]), sep = "\n")
+        z <- if (inherits(self$opts[[i]], "function")) "<function>" else self$opts[[i]]
+        cat(sprintf("    %s: %s", names(self$opts)[i], z), sep = "\n")
+        # cat(sprintf("    %s: %s", names(self$opts)[i],
+        #             self$opts[[i]]), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
       if (length(self$proxies)) cat(paste("    -",

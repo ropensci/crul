@@ -2,24 +2,13 @@
 % Please edit documentation in R/async-queue.R
 \name{AsyncQueue}
 \alias{AsyncQueue}
-\title{AsyncQueue client}
+\title{AsyncQueue}
 \description{
 An AsyncQueue client
 }
 \examples{
 \dontrun{
-req1 <- HttpRequest$new(
-  url = "https://httpbin.org/get",
-  opts = list(verbose = TRUE),
-  headers = list(foo = "bar")
-)$get()
-req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
-
-out <- AsyncQueue$new(req1, req2, bucket_size = 30)
-out
-out$request()
-out$responses()
-
+# Using sleep
 reqlist <- list(
   HttpRequest$new(url = "https://httpbin.org/get")$get(),
   HttpRequest$new(url = "https://httpbin.org/post")$post(),
@@ -38,14 +27,31 @@ reqlist <- list(
   HttpRequest$new(url = "https://ropensci.org/careers")$get()
 )
 out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
-out <- AsyncQueue$new(.list = reqlist, bucket_size = 5)
+out
+out$bucket_size # bucket size
+out$requests() # list requests
+out$request() # make requests
+out$responses() # list responses
+
+# Using requests per minute
+if (interactive()) {
+x="https://raw.githubusercontent.com/ropensci/roregistry/gh-pages/registry_urls.json"
+z <- HttpClient$new(x)$get()
+urls <- jsonlite::fromJSON(z$parse("UTF-8"))$git_url
+repos = Filter(length, regmatches(urls, gregexpr("ropensci/[A-Za-z]+", urls)))
+repos = unlist(repos)
+auth <- list(Authorization = paste("token", Sys.getenv('GITHUB_PAT')))
+reqs <- lapply(repos[1:50], function(w) {
+  HttpRequest$new(paste0("https://api.github.com/repos/", w), headers = auth)$get()
+})
+
+out <- AsyncQueue$new(.list = reqs, req_per_min = 30)
 out
 out$bucket_size
 out$requests()
-out$.__enclos_env__$private$buckets
 out$request()
 out$responses()
-}
+}}
 }
 \seealso{
 Other async: 
@@ -63,9 +69,7 @@ Other async:
 
 \item{\code{sleep}}{(integer) number of seconds to sleep between each bucket}
 
-\item{\code{req_per_sec}}{(integer) requests per second}
-
-\item{\code{req_per_hr}}{(integer) requests per hour}
+\item{\code{req_per_min}}{(integer) requests per minute}
 }
 \if{html}{\out{</div>}}
 }
@@ -120,9 +124,8 @@ Create a new \code{AsyncQueue} object
   ...,
   .list = list(),
   bucket_size = 5,
-  sleep = 0,
-  req_per_sec = NULL,
-  req_per_hr = NULL
+  sleep = NULL,
+  req_per_min = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -133,18 +136,22 @@ Create a new \code{AsyncQueue} object
 must supply inputs to one of these parameters, but not both}
 
 \item{\code{bucket_size}}{(integer) number of requests to send at once.
-default: 5}
+default: 5. See Details.}
 
-\item{\code{sleep}}{(integer) seconds to sleep between buckets. default: 0}
+\item{\code{sleep}}{(integer) seconds to sleep between buckets.
+default: NULL (not set)}
 
-\item{\code{req_per_sec}}{(integer) maximum number of requests per second.
-if \code{NULL} (default), its ignored. NOT WORKING YET.}
-
-\item{\code{req_per_hr}}{(integer) maximum number of requests per hour. if \code{NULL}
-(default), its ignored. NOT WORKING YET.}
+\item{\code{req_per_min}}{(integer) maximum number of requests per minute.
+if \code{NULL} (default), its ignored}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+Must set either \code{sleep} or \code{req_per_min}. If you set
+\code{req_per_min} we calculate a new \code{bucket_size} when \verb{$new()} is
+called
+}
+
 \subsection{Returns}{
 A new \code{AsyncQueue} object
 }
