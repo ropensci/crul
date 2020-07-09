@@ -24,7 +24,38 @@ details.
 \examples{
 \dontrun{
 x <- HttpClient$new(url = "https://httpbin.org")
-x$post(path = 'post', body = list(hello = "world"))
+
+# a named list
+x$post(path='post', body = list(hello = "world"))
+
+# a string
+x$post(path='post', body = "hello world")
+
+# an empty body request
+x$post(path='post')
+
+# encode="form"
+res <- x$post(path="post",
+  encode = "form",
+  body = list(
+    custname = 'Jane',
+    custtel = '444-4444',
+    size = 'small',
+    topping = 'bacon',
+    comments = 'make it snappy'
+  )
+)
+jsonlite::fromJSON(res$parse("UTF-8"))
+
+# encode="json"
+res <- x$post("post",
+  encode = "json",
+  body = list(
+    genus = 'Gagea',
+    species = 'pratensis'
+  )
+)
+jsonlite::fromJSON(res$parse())
 }
 
 }

@@ -39,8 +39,7 @@
 #' it is returned as `request_headers$User-Agent` so at least accessing
 #' it in the request headers is consistent.
 #'
-#' @seealso [post-requests], [delete-requests], [http-headers],
-#' [writing-options], [cookies], [hooks]
+#' @seealso [http-headers], [writing-options], [cookies], [hooks]
 #'
 #' @examples \dontrun{
 #' # set your own handle

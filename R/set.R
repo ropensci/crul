@@ -12,7 +12,8 @@
 #' @details the `mock` option will be seen in output of `crul_settings()`
 #' but is set via the function [mock()]
 #' 
-#' @examples
+#' @examples \dontrun{
+#' if (interactive()) {
 #' # get settings
 #' crul_settings()
 #' 
@@ -70,6 +71,7 @@
 #'   HttpRequest$new(url = "https://httpbin.org/post")$post())
 #' out <- AsyncVaried$new(.list = reqlist)
 #' out$request()
+#' }}
 set_opts <- function(...) {
   crul_opts$opts <- 
     utils::modifyList(crul_opts$opts %||% list(), curl_opts_fil(list(...)))

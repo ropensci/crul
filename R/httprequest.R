@@ -2,6 +2,7 @@
 #' @description Create HTTP requests
 #'
 #' @export
+#' @family async
 #' @template args
 #' @param path URL path, appended to the base URL
 #' @param query query terms, as a named list
@@ -15,8 +16,7 @@
 #' @param ... curl options, only those in the acceptable set from
 #' [curl::curl_options()] except the following: httpget, httppost, post,
 #' postfields, postfieldsize, and customrequest
-#' @seealso [post-requests], [delete-requests],
-#' [http-headers], [writing-options]
+#' @seealso [http-headers], [writing-options]
 #' @details This R6 class doesn't do actual HTTP requests as does
 #' [HttpClient()] - it is for building requests to use for async HTTP
 #' requests in [AsyncVaried()]

@@ -135,8 +135,7 @@ x$url_fetch('post')
 x$url_fetch('get', query = list(foo = "bar"))
 }
 \seealso{
-\link{post-requests}, \link{delete-requests}, \link{http-headers},
-\link{writing-options}, \link{cookies}, \link{hooks}
+\link{http-headers}, \link{writing-options}, \link{cookies}, \link{hooks}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

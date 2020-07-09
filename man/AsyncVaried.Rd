@@ -157,7 +157,8 @@ lapply(tmp$responses(), "[[", "response_headers_all")
 \seealso{
 Other async: 
 \code{\link{AsyncQueue}},
-\code{\link{Async}}
+\code{\link{Async}},
+\code{\link{HttpRequest}}
 }
 \concept{async}
 \section{Methods}{

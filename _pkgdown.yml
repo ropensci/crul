@@ -1,0 +1,50 @@
+reference:
+  - title: crul
+    desc: >
+      High level overview of package
+    contents:
+      - crul
+  - title: HTTP Verbs
+    contents:
+      - verb-DELETE
+      - verb-GET
+      - verb-HEAD
+      - verb-PATCH
+      - verb-POST
+      - verb-PUT
+      - writing-options
+  - title: Main HTTP class
+    contents:
+      - HttpClient
+  - title: Pagination
+    contents:
+      - Paginator
+  - title: Request configuration
+    contents:
+      - handle
+      - auth
+      - cookies
+      - hooks
+      - http-headers
+      - progress
+      - proxies
+      - upload
+  - title: Async
+    contents:
+      - has_concept("async")
+  - title: Request debugging/inspection
+    contents:
+      - curl_verbose
+      - crul-options
+      - curl-options
+  - title: Check if a url is okay
+    contents:
+      - ok
+  - title: HTTP responses
+    contents:
+      - HttpResponse
+      - content-types
+  - title: Utilities
+    contents:
+      - url_build
+      - mock

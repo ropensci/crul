@@ -55,9 +55,14 @@ res <- z$verb('get', query = list(hello = "world"))
 res$payload
 }
 \seealso{
-\link{post-requests}, \link{delete-requests},
 \link{http-headers}, \link{writing-options}
+
+Other async: 
+\code{\link{AsyncQueue}},
+\code{\link{AsyncVaried}},
+\code{\link{Async}}
 }
+\concept{async}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
