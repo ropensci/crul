@@ -9,6 +9,13 @@ vignette: >
     %\VignetteEncoding{UTF-8}
 ---
 
+
+The `crul` package documentation mostly documents how to work
+with any particular function or class, but does not detail 
+how you would use the package in a more realistic context. This
+vignette outlines what we think of as best practices for using
+`crul` in scripts or an R package.
+
 ## Importing crul
 
 In most cases you'll only need to import one thing from `crul`: 
@@ -158,6 +165,16 @@ x$do(res)
 #> Not Found (HTTP 404)
 ```
 
+## Retrying requests
+
+In some failure scenarios it may make sense to retry the same request. 
+For example, if a 429 "Too many requests" http status is returned, you
+can retry the request after a certain amount of time (that time should
+be supplied by the server). We suggest using RETRY if you are in these
+scenarios. See [`HttpClient$retry()`](https://docs.ropensci.org/crul/reference/HttpClient.html#method-retry)
+for more information.
+
+
 ## Mocking with webmockr
 
 [webmockr][] is a package for stubbing and setting expectations on 
@@ -177,6 +194,8 @@ to happen with a remote server can sometimes be difficult.
 * Package test suite: you can use `webmockr` in a test suite, 
 although the next section covers `vcr` which builds on top of 
 `webmockr` and is ideal for tests.
+
+See the book [HTTP mocking and testing in R][book] for more.
 
 
 ## Testing with vcr
@@ -218,11 +237,15 @@ That's it! Just run your tests are you normally would and any HTTP
 requests done by `crul` or `httr` will be cached on the first test run
 then the cached responses used every time thereafter. 
 
+See the book [HTTP mocking and testing in R][book] for more.
 
 ## What else?
 
 Let us know if there's anything else you'd like to see in this 
 document and/or if there's anything that can be explained better.
+
+Last, the httr package has a similar article on best practices, see 
+<https://httr.r-lib.org/articles/api-packages.html>
 
 
 [crul]: https://github.com/ropensci/crul
@@ -230,3 +253,4 @@ document and/or if there's anything that can be explained better.
 [vcr]: https://github.com/ropensci/vcr
 [httr]: https://github.com/r-lib/httr
 [fauxpas]: https://github.com/ropensci/fauxpas
+[book]: https://books.ropensci.org/http-testing/
