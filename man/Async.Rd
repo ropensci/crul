@@ -232,10 +232,10 @@ execute the \code{GET} http verb for the \code{urls}
 \item{\code{query}}{(list) query terms, as a named list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
@@ -289,10 +289,10 @@ execute the \code{POST} http verb for the \code{urls}
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
@@ -331,10 +331,10 @@ execute the \code{PUT} http verb for the \code{urls}
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
@@ -373,10 +373,10 @@ execute the \code{PATCH} http verb for the \code{urls}
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
@@ -415,10 +415,10 @@ execute the \code{DELETE} http verb for the \code{urls}
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+\code{NULL} (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{curl options, only those in the acceptable set from

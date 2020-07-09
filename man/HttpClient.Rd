@@ -264,10 +264,10 @@ Make a GET request
 \item{\code{query}}{query terms, as a named list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
@@ -306,10 +306,10 @@ Make a POST request
 \item{\code{body}}{body as an R list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
@@ -350,10 +350,10 @@ Make a PUT request
 \item{\code{body}}{body as an R list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
@@ -394,10 +394,10 @@ Make a PATCH request
 \item{\code{body}}{body as an R list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
@@ -438,10 +438,10 @@ Make a DELETE request
 \item{\code{body}}{body as an R list}
 
 \item{\code{disk}}{a path to write to. if NULL (default), memory used.
-See \code{\link[curl:curl_fetch_disk]{curl::curl_fetch_disk()}} for help.}
+See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 
 \item{\code{stream}}{an R function to determine how to stream data. if
-NULL (default), memory used. See \code{\link[curl:curl_fetch_stream]{curl::curl_fetch_stream()}}
+NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}

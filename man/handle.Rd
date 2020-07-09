@@ -9,7 +9,7 @@ handle(url, ...)
 \arguments{
 \item{url}{(character) A url. required.}
 
-\item{...}{options passed on to \code{\link[curl:new_handle]{curl::new_handle()}}}
+\item{...}{options passed on to \code{\link[curl:handle]{curl::new_handle()}}}
 }
 \description{
 Make a handle

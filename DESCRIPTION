@@ -29,12 +29,12 @@ Imports:
     mime
 Suggests:
     testthat,
-    roxygen2 (>= 7.1.0),
+    roxygen2 (>= 7.1.1),
     fauxpas (>= 0.1.0),
     webmockr (>= 0.1.0),
     knitr
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 X-schema.org-applicationCategory: Web
 X-schema.org-keywords: http, https, API, web-services, curl, download, libcurl, async, mocking, caching
 X-schema.org-isPartOf: https://ropensci.org
