@@ -36,6 +36,18 @@ Default: \code{FALSE}}
 Set curl options, proxy, and basic auth
 }
 \details{
+\itemize{
+\item \code{set_opts()}: set curl options; supports any options in
+\code{\link[curl:curl_options]{curl::curl_options()}}
+\item \code{set_verbose()}: set custom curl verbose; sets \code{verbose=TRUE}
+and \code{debugfunction} to the callback result from \code{\link[=curl_verbose]{curl_verbose()}}
+\item \code{set_proxy()}: set proxy settings, accepts \code{\link[=proxy]{proxy()}}
+\item \code{set_auth()}: set authorization, accepts \code{\link[=auth]{auth()}}
+\item \code{set_headers()}: set request headers, a named list
+\item \code{crul_settings()}: list all settigns set via these functions
+}
+}
+\note{
 the \code{mock} option will be seen in output of \code{crul_settings()}
 but is set via the function \code{\link[=mock]{mock()}}
 }

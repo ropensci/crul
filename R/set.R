@@ -8,8 +8,18 @@
 #' `set_auth()` an `auth` object made with [auth()]
 #' @param reset (logical) reset all settings (aka, delete them). 
 #' Default: `FALSE`
+#' @details
 #' 
-#' @details the `mock` option will be seen in output of `crul_settings()`
+#' - `set_opts()`: set curl options; supports any options in 
+#' [curl::curl_options()]
+#' - `set_verbose()`: set custom curl verbose; sets `verbose=TRUE`
+#' and `debugfunction` to the callback result from [curl_verbose()]
+#' - `set_proxy()`: set proxy settings, accepts [proxy()]
+#' - `set_auth()`: set authorization, accepts [auth()]
+#' - `set_headers()`: set request headers, a named list
+#' - `crul_settings()`: list all settigns set via these functions
+#' 
+#' @note the `mock` option will be seen in output of `crul_settings()`
 #' but is set via the function [mock()]
 #' 
 #' @examples
