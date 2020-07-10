@@ -40,7 +40,6 @@ the \code{mock} option will be seen in output of \code{crul_settings()}
 but is set via the function \code{\link[=mock]{mock()}}
 }
 \examples{
-\dontrun{
 if (interactive()) {
 # get settings
 crul_settings()
@@ -99,5 +98,5 @@ reqlist <- list(
   HttpRequest$new(url = "https://httpbin.org/post")$post())
 out <- AsyncVaried$new(.list = reqlist)
 out$request()
-}}
+}
 }
