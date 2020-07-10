@@ -4,7 +4,7 @@
 \alias{ok}
 \title{check if a url is okay}
 \usage{
-ok(x, status = 200L, info = TRUE, verb = "head", ...)
+ok(x, status = 200L, info = TRUE, verb = "head", ua_random = FALSE, ...)
 }
 \arguments{
 \item{x}{either a URL as a character string, or an object of
@@ -22,6 +22,12 @@ is okay if it's a \code{201L}, or some other status code.}
 for the request. note that "get" will take longer as it returns a
 body. however, "verb=get" may be your only option if a url
 blocks head requests}
+
+\item{ua_random}{(logical) use a random user agent string?
+default: \code{TRUE}. if you set \code{useragent} curl option it will override
+this setting. The random user agent string is pulled from a vector of
+50 user agent strings generated from \code{charlatan::UserAgentProvider}
+(by executing \code{replicate(30, UserAgentProvider$new()$user_agent())})}
 
 \item{...}{args passed on to \link{HttpClient}}
 }
@@ -83,6 +89,19 @@ ok("http://animalnexus.ca", verb = "get")
 # they probably regex the useragent string
 ok("https://doi.org/10.1093/chemse/bjq042")
 ok("https://doi.org/10.1093/chemse/bjq042", verb = "get", useragent = "foobar")
+
+# with random user agent's
+## here, use a request hook to print out just the user agent string so 
+## we can see what user agent string is being sent off
+fun_ua <- function(request) {
+  message(paste0("User-agent: ", request$options$useragent), sep = "\n")
+}
+z <- crul::HttpClient$new("https://doi.org/10.1093/chemse/bjq042", 
+ hooks = list(request = fun_ua))
+z
+replicate(5, ok(z, ua_random=TRUE), simplify=FALSE)
+## if you set useragent option it will override ua_random=TRUE
+ok("https://doi.org/10.1093/chemse/bjq042", useragent="foobar", ua_random=TRUE)
 
 # with HttpClient
 z <- crul::HttpClient$new("https://httpbin.org/status/404", 

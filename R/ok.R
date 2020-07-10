@@ -13,6 +13,11 @@
 #' for the request. note that "get" will take longer as it returns a
 #' body. however, "verb=get" may be your only option if a url
 #' blocks head requests
+#' @param ua_random (logical) use a random user agent string?
+#' default: `TRUE`. if you set `useragent` curl option it will override
+#' this setting. The random user agent string is pulled from a vector of
+#' 50 user agent strings generated from `charlatan::UserAgentProvider`
+#' (by executing `replicate(30, UserAgentProvider$new()$user_agent())`)
 #' @param ... args passed on to [HttpClient]
 #' @return a single boolean, if `TRUE` the URL is up and okay, 
 #' if `FALSE` it is down; but, see Details
@@ -65,32 +70,50 @@
 #' ok("https://doi.org/10.1093/chemse/bjq042")
 #' ok("https://doi.org/10.1093/chemse/bjq042", verb = "get", useragent = "foobar")
 #' 
+#' # with random user agent's
+#' ## here, use a request hook to print out just the user agent string so 
+#' ## we can see what user agent string is being sent off
+#' fun_ua <- function(request) {
+#'   message(paste0("User-agent: ", request$options$useragent), sep = "\n")
+#' }
+#' z <- crul::HttpClient$new("https://doi.org/10.1093/chemse/bjq042", 
+#'  hooks = list(request = fun_ua))
+#' z
+#' replicate(5, ok(z, ua_random=TRUE), simplify=FALSE)
+#' ## if you set useragent option it will override ua_random=TRUE
+#' ok("https://doi.org/10.1093/chemse/bjq042", useragent="foobar", ua_random=TRUE)
+#' 
 #' # with HttpClient
 #' z <- crul::HttpClient$new("https://httpbin.org/status/404", 
 #'  opts = list(verbose = TRUE))
 #' ok(z)
 #' }
-ok <- function(x, status = 200L, info = TRUE, verb = "head", ...) {
+ok <- function(x, status=200L, info=TRUE, verb="head", ua_random=FALSE, ...) {
   UseMethod("ok")
 }
 
 #' @export
-ok.default <- function(x, status = 200L, info = TRUE, verb = "head", ...) {
+ok.default <- function(x, status=200L, info=TRUE, verb="head",
+  ua_random=FALSE, ...) {
   stop("no 'ok' method for ", class(x)[[1L]], call. = FALSE)
 }
 
 #' @export
-ok.character <- function(x, status = 200L, info = TRUE, verb = "head", ...) {
+ok.character <- function(x, status=200L, info=TRUE, verb="head",
+  ua_random=FALSE, ...) {
   z <- crul::HttpClient$new(x, opts = list(...))
-  ok(z, status, info, verb, ...)
+  ok(z, status, info, verb, ua_random, ...)
 }
 
 #' @export
-ok.HttpClient <- function(x, status = 200L, info = TRUE, verb = "head", ...) {
+ok.HttpClient <- function(x, status=200L, info=TRUE, verb="head",
+  ua_random=FALSE, ...) {
   assert(info, "logical")
   assert(status, "integer")
   assert_opts(verb, c("head", "get"))
-  
+  assert(ua_random, "logical")
+  # set ua
+  if (ua_random) x$opts$useragent <- sample(agents, size=1)
   for (i in seq_along(status)) {
     ts <- tryCatch(httpcode::http_code(status[i]), error = function(e) e)
     if (inherits(ts, "error"))

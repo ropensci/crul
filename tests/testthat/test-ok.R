@@ -37,6 +37,26 @@ test_that("ok works multiple status codes", {
 })
 
 
+context("ok: random user agent")
+test_that("ok random user agents", {
+  skip_on_cran()
+
+  ua_val <- NULL
+  fxn <- function(request) {
+    ua <- request$options$useragent
+    ua_val <<- ua
+    message(paste0("User-agent: ", ua), sep = "\n")
+  }
+  z <- crul::HttpClient$new(hb(), hooks = list(request = fxn))
+  expect_message(ok(z, ua_random = TRUE), 'User-agent:')
+  # us string is one of the strings in agents
+  expect_true(ua_val %in% agents)
+  # agents is length 50  and character
+  expect_is(agents, "character")
+  expect_equal(length(agents), 50)
+})
+
+
 context("ok: fails well")
 test_that("ok fails well", {
   skip_on_cran()
@@ -47,4 +67,6 @@ test_that("ok fails well", {
   expect_error(ok(), "argument \"x\" is missing")
   expect_error(ok(hb("/status/404"), status = 567L),
                "not in acceptable set")
+  # ua_random must be logical
+  expect_error(ok(hb("/status/404"), ua_random = "adf"))
 })
