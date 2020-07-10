@@ -1,7 +1,7 @@
 ---
 title: 1. crul introduction
 author: Scott Chamberlain
-date: "2020-07-09"
+date: "2020-07-10"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{1. crul introduction}
@@ -26,7 +26,7 @@ Dev version
 
 
 ```r
-devtools::install_github("ropensci/crul")
+remotes::install_github("ropensci/crul")
 ```
 
 
@@ -34,7 +34,7 @@ devtools::install_github("ropensci/crul")
 library("crul")
 ```
 
-## the client
+## HttpClient - the main interface
 
 `HttpClient` is where to start
 
@@ -79,7 +79,7 @@ x$headers
 #> [1] "hello world"
 ```
 
-## do some http
+## Do some HTTP requests
 
 The client object created above has http methods that you can call,
 and pass paths to, as well as query parameters, body values, and any other
@@ -119,10 +119,10 @@ res$content
 #> [151] 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22
 #> [176] 3a 20 22 68 74 74 70 62 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73
 #> [201] 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 36 34 2e
-#> [226] 31 20 72 2d 63 75 72 6c 2f 34 2e 33 20 63 72 75 6c 2f 30 2e 39 2e 32 2e 39
-#> [251] 33 22 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d 49 64
-#> [276] 22 3a 20 22 52 6f 6f 74 3d 31 2d 35 66 30 37 37 61 61 66 2d 65 66 32 31 39
-#> [301] 64 65 34 64 63 38 35 65 33 39 34 35 33 31 63 39 62 64 36 22 0a 20 20 7d 2c
+#> [226] 31 20 72 2d 63 75 72 6c 2f 34 2e 33 20 63 72 75 6c 2f 30 2e 39 2e 34 2e 39
+#> [251] 31 22 2c 20 0a 20 20 20 20 22 58 2d 41 6d 7a 6e 2d 54 72 61 63 65 2d 49 64
+#> [276] 22 3a 20 22 52 6f 6f 74 3d 31 2d 35 66 30 38 64 36 63 65 2d 61 61 32 30 39
+#> [301] 37 30 64 63 62 63 31 33 64 30 61 37 65 38 66 32 35 65 36 22 0a 20 20 7d 2c
 #> [326] 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 32 34 2e 32 31 2e 32 32 39 2e
 #> [351] 35 39 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74 74 70 73 3a 2f 2f 68
 #> [376] 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22 0a 7d 0a
@@ -142,7 +142,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93"
+#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -163,7 +163,7 @@ res$response_headers
 #> [1] "HTTP/2 200 "
 #> 
 #> $date
-#> [1] "Thu, 09 Jul 2020 20:14:39 GMT"
+#> [1] "Fri, 10 Jul 2020 20:59:58 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
@@ -191,7 +191,7 @@ res$response_headers_all
 #> [1] "HTTP/2 200 "
 #> 
 #> [[1]]$date
-#> [1] "Thu, 09 Jul 2020 20:14:39 GMT"
+#> [1] "Fri, 10 Jul 2020 20:59:58 GMT"
 #> 
 #> [[1]]$`content-type`
 #> [1] "application/json"
@@ -214,7 +214,7 @@ And you can parse the content with a provided function:
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077aaf-ef219de4dc85e394531c9bd6\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f08d6ce-aa20970dcbc13d0a7e8f25e6\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
@@ -233,10 +233,10 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin.org"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93"
+#> [1] "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91"
 #> 
 #> $headers$`X-Amzn-Trace-Id`
-#> [1] "Root=1-5f077aaf-ef219de4dc85e394531c9bd6"
+#> [1] "Root=1-5f08d6ce-aa20970dcbc13d0a7e8f25e6"
 #> 
 #> 
 #> $origin
@@ -268,7 +268,7 @@ f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/fc/n7g_vrvn0sx_st0p8lxb3ts40000gn/T//Rtmp3rntLF/file14fea59773b3f"
+#> [1] "/var/folders/fc/n7g_vrvn0sx_st0p8lxb3ts40000gn/T//RtmppSPqIf/file20b5651a4a3a"
 ```
 
 Read lines
@@ -302,12 +302,22 @@ readLines(res$content, n = 10)
 #>   progress: FALSE
 #>   hooks:
 res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
-#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f077aaf-01d85c38421a55e04b8527e0", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 0}
-#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f077aaf-01d85c38421a55e04b8527e0", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 1}
-#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f077aaf-01d85c38421a55e04b8527e0", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 2}
-#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f077aaf-01d85c38421a55e04b8527e0", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 3}
-#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f077aaf-01d85c38421a55e04b8527e0", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 4}
+#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f08d6cf-871364ce53d065c8d32eefd4", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 0}
+#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f08d6cf-871364ce53d065c8d32eefd4", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 1}
+#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f08d6cf-871364ce53d065c8d32eefd4", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 2}
+#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f08d6cf-871364ce53d065c8d32eefd4", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 3}
+#> {"url": "https://httpbin.org/stream/5", "args": {}, "headers": {"Host": "httpbin.org", "X-Amzn-Trace-Id": "Root=1-5f08d6cf-871364ce53d065c8d32eefd4", "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.4.91", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*"}, "origin": "24.21.229.59", "id": 4}
 # when streaming, content is NULL
 res$content 
 #> NULL
 ```
+
+## Learn more 
+
+Learn more with the other vignettes:
+
+- [crul workflows](how-to-use-crul.html)
+- [async with crul](async.html)
+- [curl options](curl-options.html)
+- [API package best practices](best-practices-api-packages.html)
+- [Choosing a HTTP request class](choosing-a-client.html)
