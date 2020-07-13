@@ -50,6 +50,9 @@ See the [async with crul](async.html) vignette for more details on asynchronous 
 [nsapi]: https://rmhogervorst.nl/nsapi/
 [tradestatistics]: https://docs.ropensci.org/tradestatistics/
 [viafr]: https://github.com/stefanieschneider/viafr
+[fulltext]:https://docs.ropensci.org/fulltext/
+[rdryad]: https://docs.ropensci.org/rdryad/
+[rnoaa]: https://docs.ropensci.org/rnoaa/
 [ropenaq]: https://docs.ropensci.org/ropenaq/
 [rcrossref]: https://docs.ropensci.org/rcrossref/
 [taxize]: https://docs.ropensci.org/taxize/
