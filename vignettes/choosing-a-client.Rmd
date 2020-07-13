@@ -17,7 +17,7 @@ There are a number of different crul classes that do HTTP requests. The followin
 |---|---|---|---|
 |HttpClient|all|no|[bcdata][],[chirps][],[duckduckr][],[gfonts][],[mindicador][],[nsapi][],[tradestatistics][],[viafr][]|
 |Paginator|all except retry|no|---|
-|ok|head,get|no|dams|
+|ok|head,get|no|[dams][]|
 |Async|all except retry|yes|[fulltext][],[rdryad][],[rnoaa][]|
 |AsyncVaried|all except retry|yes|[ropenaq][],[rcrossref][],[taxize][],[rcitoid][],[mstrio][]|
 |AsyncQueue|all except retry|yes|---|
@@ -58,3 +58,4 @@ See the [async with crul](async.html) vignette for more details on asynchronous 
 [taxize]: https://docs.ropensci.org/taxize/
 [rcitoid]: https://docs.ropensci.org/rcitoid/
 [mstrio]: https://cloud.r-project.org/web/packages/mstrio/
+[dams]: https://jsta.github.io/dams/
