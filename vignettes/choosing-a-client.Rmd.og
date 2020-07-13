@@ -22,11 +22,11 @@ There are a number of different crul classes that do HTTP requests. The followin
 
 |Class|HTTP verbs|Asynchronous?|Packges using|
 |---|---|---|---|
-|HttpClient|all|no|bcdata,chirps,duckduckr,gfonts,mindicador,nsapi,tradestatistics,viafr|
+|HttpClient|all|no|[bcdata][],[chirps][],[duckduckr][],[gfonts][],[mindicador][],[nsapi][],[tradestatistics][],[viafr][]|
 |Paginator|all except retry|no|---|
 |ok|head,get|no|dams|
-|Async|all except retry|yes|fulltext,rdryad,rnoaa|
-|AsyncVaried|all except retry|yes|ropenaq,rcrossref,taxize,rcitoid,mstrio|
+|Async|all except retry|yes|[fulltext][],[rdryad][],[rnoaa][]|
+|AsyncVaried|all except retry|yes|[ropenaq][],[rcrossref][],[taxize][],[rcitoid][],[mstrio][]|
 |AsyncQueue|all except retry|yes|---|
 
 **HttpClient** is the main class for doing synchronous HTTP requests. It supports all HTTP verbs including retry. It was the first class in this package. See also `crul::ok()`, which builds on this class.
@@ -48,3 +48,17 @@ With **Async** you can make HTTP requests in parallel. `Async` does not at this 
 ## More Async
 
 See the [async with crul](async.html) vignette for more details on asynchronous requests.
+
+[bcdata]: https://bcgov.github.io/bcdata/
+[chirps]: https://docs.ropensci.org/chirps/
+[duckduckr]: https://github.com/dirkschumacher/duckduckr
+[gfonts]: https://dreamrs.github.io/gfonts/
+[mindicador]: https://pacha.dev/mindicador/
+[nsapi]: https://rmhogervorst.nl/nsapi/
+[tradestatistics]: https://docs.ropensci.org/tradestatistics/
+[viafr]: https://github.com/stefanieschneider/viafr
+[ropenaq]: https://docs.ropensci.org/ropenaq/
+[rcrossref]: https://docs.ropensci.org/rcrossref/
+[taxize]: https://docs.ropensci.org/taxize/
+[rcitoid]: https://docs.ropensci.org/rcitoid/
+[mstrio]: https://cloud.r-project.org/web/packages/mstrio/
