@@ -64,7 +64,7 @@ library("crul")
 * Please [report any issues or bugs](https://github.com/ropensci/crul/issues).
 * License: MIT
 * Get citation information for `crul` in R doing `citation(package = 'crul')`
-Please note that this package is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+* Please note that this package is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 * Where does the package name come from? It was a play on "curl", the popular command line client.
 * Where does the sticker design come from? The sticker idea [arose from a tweet](https://github.com/ropensci/crul/issues/42) - crul is close (ish) to Krull, a 1980's movie with a "mystical five-pointed weapon". The association with Krull was not known before naming the package.
 
