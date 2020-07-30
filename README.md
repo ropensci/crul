@@ -44,7 +44,14 @@ CRAN version
 install.packages("crul")
 ```
 
-Dev version
+Latest binaries from rOpenSci
+
+
+```r
+install.packages("crul", repos = "https://dev.ropensci.org")
+```
+
+Dev version from GitHub
 
 
 ```r
