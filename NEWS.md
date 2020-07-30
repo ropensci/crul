@@ -1,3 +1,30 @@
+crul 1.0
+========
+
+### ok related changes
+
+* `ok()` can now accept more than 1 status code so that you can check if the status of a url is within a set of status codes rather than equal to 1 status code (#124)
+* `ok()` gains a parameter `verb` to use either head or get requests. in addition added more documentation (#125) to the function on how to get the "right answer" for whether a url is ok/up  (#123) (#127)
+* `ok()` gains parameter `ua_random`, which if `TRUE`, will use a random user agent string pulled from a vector of 50 user agent strings generated from `charlatan::UserAgentProvider` (#138)
+
+### NEW FEATURES
+
+* gains new async class `AsyncQueue` for doing async requests with rate limits (#139)
+* gains new functions `curl_verbose()` and `set_verbose()`. `curl_verbose()` can be set by passing to the initialize step (e.g., `HttpClient$new(url, verbose=curl_verbose())`), and gets more compact verbose curl output, while also getting request body information (and response body optionally). `set_verbose()` is sets `curl_verbose()` globally (#141)
+* gains new vignette "How to choose a client" for choosing which crul class to use (e.g., `HttpClient` vs. `Async`)  (#133) (#143)
+
+### MINOR IMPROVEMENTS
+
+* package sticker done, shown in README (#42)
+* improve function/class reference page in docs site (#131)
+* improvements to the best practices vignette (#132)
+* removed unused private variable in the `AsyncVaried` class (#140)
+* fix inaccuracy in documentation for the RETRY method (#130)
+* `HttpRequest` now adds the query (if present) to the printed url in the print method for the class (it was absent before now) (#128)
+* use new roxygen2 support for R6 classes (#126)
+* removed `delete-requests` and `post-requests` manual files - mostly redundant with other documentation
+
+
 crul 0.9.0
 ==========
 
