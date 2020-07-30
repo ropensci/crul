@@ -57,5 +57,5 @@ See the [async with crul](async.html) vignette for more details on asynchronous 
 [rcrossref]: https://docs.ropensci.org/rcrossref/
 [taxize]: https://docs.ropensci.org/taxize/
 [rcitoid]: https://docs.ropensci.org/rcitoid/
-[mstrio]: https://cloud.r-project.org/web/packages/mstrio/
+[mstrio]: https://cran.r-project.org/package=mstrio
 [dams]: https://jsta.github.io/dams/
