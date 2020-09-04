@@ -54,8 +54,8 @@ test_that("HttpClient url_fetch with base url, path, query", {
 context("paginator: url_fetch")
 cr_url <- "https://api.crossref.org"
 cli <- HttpClient$new(url = cr_url)
-aa <- Paginator$new(client = cli, by = "query_params", limit_param = "rows",
-  offset_param = "offset", limit = 50, limit_chunk = 10)
+aa <- Paginator$new(client = cli, by = "limit_offset", limit_param = "rows",
+  offset_param = "offset", limit = 50, chunk = 10)
 test_that("Paginator url_fetch base url only", {
   skip_on_cran()
 
