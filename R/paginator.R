@@ -39,6 +39,7 @@
 #' Responses are returned in the order they are passed in.
 #'
 #' @examples \dontrun{
+#' if (interactive()) {
 #' (cli <- HttpClient$new(url = "https://api.crossref.org"))
 #' cc <- Paginator$new(client = cli, limit_param = "rows",
 #'    offset_param = "offset", limit = 50, limit_chunk = 10)
@@ -60,7 +61,7 @@
 #'    progress = TRUE)
 #' cc
 #' cc$get('works')
-#' }
+#' }}
 Paginator <- R6::R6Class(
   'Paginator',
   public = list(

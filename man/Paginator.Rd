@@ -37,6 +37,7 @@ remain. This is common in Solr
 
 \examples{
 \dontrun{
+if (interactive()) {
 (cli <- HttpClient$new(url = "https://api.crossref.org"))
 cc <- Paginator$new(client = cli, limit_param = "rows",
    offset_param = "offset", limit = 50, limit_chunk = 10)
@@ -58,7 +59,7 @@ cc <- Paginator$new(client = cli, limit_param = "rows",
    progress = TRUE)
 cc
 cc$get('works')
-}
+}}
 
 ## ------------------------------------------------
 ## Method `Paginator$url_fetch`
