@@ -6,7 +6,7 @@
 [![R-check](https://github.com/ropensci/crul/workflows/R-check/badge.svg)](https://github.com/ropensci/crul/actions/)
 [![codecov](https://codecov.io/gh/ropensci/crul/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/crul)
 [![cran checks](https://cranchecks.info/badges/worst/crul)](https://cranchecks.info/pkgs/crul)
-[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/crul)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/crul)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
 An HTTP client, taking inspiration from Ruby's [faraday](https://rubygems.org/gems/faraday) and Python's `requests`
@@ -71,7 +71,5 @@ library("crul")
 * Please note that this package is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
 * Where does the package name come from? It was a play on "curl", the popular command line client.
 * Where does the sticker design come from? The sticker idea [arose from a tweet](https://github.com/ropensci/crul/issues/42) - crul is close (ish) to Krull, a 1980's movie with a "mystical five-pointed weapon". The association with Krull was not known before naming the package.
-
-[![ropensci_footer](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
 
 [book]: https://books.ropensci.org/http-testing/
