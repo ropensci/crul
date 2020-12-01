@@ -2,6 +2,8 @@
 
 ccp <- function(x) Filter(Negate(is.null), x)
 
+sw <- function(x) gsub("^\\s+|\\s+$", "", x)
+
 assert <- function(x, y) {
   if (!is.null(x)) {
     if (!class(x) %in% y) {

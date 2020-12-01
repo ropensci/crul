@@ -288,7 +288,7 @@ AsyncVaried <- R6::R6Class(
           hh <- rawToChar(z$headers %||% raw(0))
           if (nzchar(hh)) {
             headers <- lapply(curl::parse_headers(hh, multiple = TRUE),
-              headers_parse)
+              head_parse)
           } else {
             headers <- list()
           }
