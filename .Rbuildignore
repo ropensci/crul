@@ -17,3 +17,4 @@ inst/vign
 ^codemeta\.json$
 notes_on_aschar_fxn.R
 _pkgdown.yml
+^LICENSE\.md$
