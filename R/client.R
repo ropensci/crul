@@ -1,5 +1,3 @@
-vvv <- new.env()
-
 #' @title HTTP client
 #' @description Create and execute HTTP requests
 #'
@@ -522,7 +520,6 @@ HttpClient <- R6::R6Class(
         headers <- list()
       } else {
         hh <- rawToChar(resp$headers %||% raw(0))
-        vvv$hh <- hh
         if (is.null(hh) || nchar(hh) == 0) {
           headers <- list()
         } else {
