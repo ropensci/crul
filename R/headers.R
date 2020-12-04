@@ -12,5 +12,5 @@ head_parse <- function(z) {
   }
   names <- vapply(xx, "[[", 2, FUN.VALUE = character(1))
   values <- lapply(xx, "[[", 3)
-  c(status, as.list(stats::setNames(values, tolower(names))))
+  c(status, as.list(stats::setNames(values, names)))
 }
