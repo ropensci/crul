@@ -115,5 +115,5 @@ last <- function(x) {
 # Format numbers so they don't turn into scientific notation
 num_format <- function(x) {
   if (is.null(x) || !is.numeric(x)) return(x)
-  format(x, trim = TRUE, scientific = FALSE)
+  format(x, trim = TRUE, drop0trailing = TRUE, scientific = FALSE)
 }
