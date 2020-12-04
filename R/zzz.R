@@ -111,3 +111,9 @@ last <- function(x) {
   if (length(x) == 0) return(list())
   x[[length(x)]]
 }
+
+# Format numbers so they don't turn into scientific notation
+num_format <- function(x) {
+  if (is.null(x) || !is.numeric(x)) return(x)
+  format(x, trim = TRUE, scientific = FALSE)
+}
