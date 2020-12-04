@@ -22,7 +22,7 @@ add_query <- function(x, url) {
     quer <- list()
     for (i in seq_along(x)) {
       if (!inherits(x[[i]], "AsIs")) {
-        x[[i]] <- curl::curl_escape(x[[i]])
+        x[[i]] <- curl::curl_escape(num_format(x[[i]]))
       }
       quer[[i]] <- paste(curl::curl_escape(names(x)[i]),
         x[[i]], sep = "=")
