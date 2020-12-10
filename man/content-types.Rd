@@ -37,8 +37,8 @@ to proceed.
 (x <- HttpClient$new(url = "https://httpbin.org"))
 (res <- x$get())
 
-## get the content type
-res$response_headers$`content-type`
+## see the content type
+res$response_headers
 
 ## check that the content type is text/html
 res$raise_for_ct_html()

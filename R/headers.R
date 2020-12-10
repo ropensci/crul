@@ -10,7 +10,7 @@ head_parse <- function(z) {
     warning("Failed to parse headers:\n", paste0(bad, "\n"),
       call. = FALSE)
   }
-  names <- vapply(xx, "[[", 2, FUN.VALUE = character(1))
+  names <- tolower(vapply(xx, "[[", 2, FUN.VALUE = character(1)))
   values <- lapply(xx, "[[", 3)
   c(status, as.list(stats::setNames(values, names)))
 }
