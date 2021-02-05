@@ -29,7 +29,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' - `page_perpage`: set the page to fetch and (optionally) how many records
 #' to get per page
 #'
-#' Supported later:
+#' Supported later, hopefully:
 #'
 #' - `link_headers`: link headers are URLS for the next/previous/last
 #' request given in the response header from the server. This is relatively
@@ -45,8 +45,8 @@ by_options <- c("limit_offset", "page_perpage")
 #' @examples \dontrun{
 #' if (interactive()) {
 #' # limit/offset approach
-#' cli <- HttpClient$new(url = "https://api.crossref.org")
-#' cc <- Paginator$new(client = cli, limit_param = "rows",
+#' con <- HttpClient$new(url = "https://api.crossref.org")
+#' cc <- Paginator$new(client = con, limit_param = "rows",
 #'    offset_param = "offset", limit = 50, chunk = 10)
 #' cc
 #' cc$get('works')
@@ -55,7 +55,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' cc$status()
 #' cc$status_code()
 #' cc$times()
-#' cc$content()
+#' # cc$content()
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
 #' 
@@ -89,8 +89,8 @@ by_options <- c("limit_offset", "page_perpage")
 #' vapply(res2, function(w) NROW(w$results), 1L)
 #'
 #' # progress bar
-#' (cli <- HttpClient$new(url = "https://api.crossref.org"))
-#' cc <- Paginator$new(client = cli, limit_param = "rows",
+#' (con <- HttpClient$new(url = "https://api.crossref.org"))
+#' cc <- Paginator$new(client = con, limit_param = "rows",
 #'    offset_param = "offset", limit = 50, chunk = 10,
 #'    progress = TRUE)
 #' cc

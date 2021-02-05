@@ -25,7 +25,7 @@ for each request. We send these query parameters for you.
 to get per page
 }
 
-Supported later:
+Supported later, hopefully:
 \itemize{
 \item \code{link_headers}: link headers are URLS for the next/previous/last
 request given in the response header from the server. This is relatively
@@ -41,8 +41,8 @@ remain. This is common in Solr
 \dontrun{
 if (interactive()) {
 # limit/offset approach
-cli <- HttpClient$new(url = "https://api.crossref.org")
-cc <- Paginator$new(client = cli, limit_param = "rows",
+con <- HttpClient$new(url = "https://api.crossref.org")
+cc <- Paginator$new(client = con, limit_param = "rows",
    offset_param = "offset", limit = 50, chunk = 10)
 cc
 cc$get('works')
@@ -51,7 +51,7 @@ cc$responses()
 cc$status()
 cc$status_code()
 cc$times()
-cc$content()
+# cc$content()
 cc$parse()
 lapply(cc$parse(), jsonlite::fromJSON)
 
@@ -85,8 +85,8 @@ res2 <- lapply(ccc$parse(), jsonlite::fromJSON)
 vapply(res2, function(w) NROW(w$results), 1L)
 
 # progress bar
-(cli <- HttpClient$new(url = "https://api.crossref.org"))
-cc <- Paginator$new(client = cli, limit_param = "rows",
+(con <- HttpClient$new(url = "https://api.crossref.org"))
+cc <- Paginator$new(client = con, limit_param = "rows",
    offset_param = "offset", limit = 50, chunk = 10,
    progress = TRUE)
 cc
