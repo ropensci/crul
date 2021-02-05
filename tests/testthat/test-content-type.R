@@ -1,8 +1,8 @@
 skip_on_cran()
 
-res_html <- HttpClient$new(url = "https://httpbin.org")$get()
-res_json <- HttpClient$new(url = "https://httpbin.org/json")$get()
-res_xml <- HttpClient$new(url = "https://httpbin.org/xml")$get()
+res_html <- HttpClient$new(url = hb())$get()
+res_json <- HttpClient$new(url = hb("/json"))$get()
+res_xml <- HttpClient$new(url = hb("/xml"))$get()
 
 test_that("html", {
   ## get the content type

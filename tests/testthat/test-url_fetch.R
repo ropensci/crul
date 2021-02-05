@@ -11,7 +11,7 @@ test_that("HttpClient url_fetch base url only", {
 
 test_that("HttpClient url_fetch with base url and path", {
   skip_on_cran()
- 
+
   expect_is(x$url_fetch('get'), "character")
   expect_match(x$url_fetch('get'), url)
   expect_match(x$url_fetch('get'), "/get")
@@ -21,7 +21,7 @@ test_that("HttpClient url_fetch with base url and path", {
   expect_match(x$url_fetch('post'), url)
   expect_match(x$url_fetch('post'), "/post")
   expect_match(x$url_fetch('post'), "http")
-  
+
   expect_is(x$url_fetch('post'), "character")
   expect_match(x$url_fetch('post'), url)
   expect_match(x$url_fetch('post'), "/post")
@@ -30,7 +30,7 @@ test_that("HttpClient url_fetch with base url and path", {
 
 test_that("HttpClient url_fetch with base url, path, query", {
   skip_on_cran()
- 
+
   out <- x$url_fetch('get', query = list(foo = "bar"))
 
   expect_is(out, "character")

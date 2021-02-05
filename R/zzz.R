@@ -2,6 +2,8 @@
 
 ccp <- function(x) Filter(Negate(is.null), x)
 
+sw <- function(x) gsub("^\\s+|\\s+$", "", x)
+
 assert <- function(x, y) {
   if (!is.null(x)) {
     if (!class(x) %in% y) {
@@ -108,4 +110,10 @@ fround <- function(x, accuracy) {
 last <- function(x) {
   if (length(x) == 0) return(list())
   x[[length(x)]]
+}
+
+# Format numbers so they don't turn into scientific notation
+num_format <- function(x) {
+  if (is.null(x) || !is.numeric(x)) return(x)
+  format(x, trim = TRUE, drop0trailing = TRUE, scientific = FALSE)
 }

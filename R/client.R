@@ -26,7 +26,7 @@
 #' If you don't pass in a curl handle to the `handle` parameter,
 #' it gets created when a HTTP verb is called. Thus, if you try to get `handle`
 #' after creating a `HttpClient` object only passing `url` parameter, `handle`
-#' will be `NULL`. If you pass a curl handle to the `handle parameter, then
+#' will be `NULL`. If you pass a curl handle to the `handle` parameter, then
 #' you can get the handle from the `HttpClient` object. The response from a
 #' http verb request does have the handle in the `handle` slot.
 #'
@@ -524,7 +524,7 @@ HttpClient <- R6::R6Class(
           headers <- list()
         } else {
           headers <- lapply(curl::parse_headers(hh, multiple = TRUE),
-            headers_parse)
+            head_parse)
         }
       }
       # build response

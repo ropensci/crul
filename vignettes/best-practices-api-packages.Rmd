@@ -200,7 +200,7 @@ See the book [HTTP mocking and testing in R][book] for more.
 
 ## Testing with vcr
 
-[vcr][] records and replays HTTP requests. It's main use case is for 
+[vcr][] records and replays HTTP requests. Its main use case is for 
 caching HTTP requests in test suites in R packages. It has support 
 for working with two HTTP request packages: [crul][] and [httr][]. 
 

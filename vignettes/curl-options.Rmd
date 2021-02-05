@@ -1,7 +1,7 @@
 ---
 title: 4. curl options
 author: Scott Chamberlain
-date: "2020-07-09"
+date: "2021-02-05"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{4. curl options}
@@ -22,11 +22,11 @@ I'll go over some of the common and less commonly used curl options, and try to 
 
 ## Discover curl options
 
-You can go to the source, that is the curl book at <https://ec.haxx.se/>. In R: `curl::curl_options()` for finding curl options. which gives information for each curl option, including the libcurl variable name (e.g., `CURLOPT_CERTINFO`) and the type of variable (e.g., logical).
+You can go to the source, that is the curl book at <https://everything.curl.dev/>. In R: `curl::curl_options()` for finding curl options. which gives information for each curl option, including the libcurl variable name (e.g., `CURLOPT_CERTINFO`) and the type of variable (e.g., logical).
 
 ## Other ways to use curl besides R
 
-Perhaps the canonical way to use curl is on the command line. You can get curl for your operating system at <http://curl.haxx.se/download.html>, though hopefully you already have curl. Once you have curl, you can have lots of fun. For example, get the contents of the Google landing page:
+Perhaps the canonical way to use curl is on the command line. You can get curl for your operating system at <https://curl.se/download.html>, though hopefully you already have curl. Once you have curl, you can have lots of fun. For example, get the contents of the Google landing page:
 
 ```sh
 curl https://www.google.com
@@ -35,7 +35,7 @@ curl https://www.google.com
 * If you like that you may also like [httpie][], a Python command line tool that is a little more convenient than curl (e.g., JSON output is automatically parsed and colorized).
 * Alot of data from the web is in JSON format. A great command line tool to pair with `curl` is [jq][].
 
-> Note: if you are on windows you may require extra setup if you want to play with curl on the command line. OSX and linux have it by default. On Windows 8, installing the latest version from here http://curl.haxx.se/download.html#Win64 worked for me.
+> Note: if you are on windows you may require extra setup if you want to play with curl on the command line. OSX and linux have it by default. On Windows 8, installing the latest version from here https://curl.se/download.html#Win64 worked for me.
 
 
 ## general info
@@ -306,8 +306,8 @@ both result in the same thing
 _Why use this?_ This is set by default in a http request, as you can see in the first example above for user agent. Some web APIs require that you set a specific user agent. For example, the [GitHub API](https://developer.github.com/v3/#user-agent-required) requires that you include a user agent string in the header of each request that is your username or the name of your application so they can contact you if there is a problem.
 
 
-[curl]: http://curl.haxx.se/
-[jq]: http://stedolan.github.io/jq/
-[httpie]: https://github.com/jakubroztocil/httpie
-[gbif]: http://www.gbif.org/
+[curl]: https://curl.se/
+[jq]: https://stedolan.github.io/jq/
+[httpie]: https://github.com/httpie/httpie
+[gbif]: https://www.gbif.org/
 [post]: https://ropensci.org/blog/2014/12/18/curl-options/

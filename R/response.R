@@ -247,9 +247,11 @@ HttpResponse <- R6::R6Class(
         if (!behavior %in% behaviors)
           stop("'behavior' must be one of ", paste(behaviors, collapse = ", "))
         ctype <- mime::mimemap[[type]]
-        if (is.null(self$response_headers$`content-type`))
+        rh <- self$response_headers
+        names(rh) <- tolower(names(rh))
+        if (is.null(rh$`content-type`))
           stop("content-type header is missing")
-        rtype <- self$response_headers$`content-type`
+        rtype <- rh$`content-type`
         if (!is.null(charset)) {
           if (!grepl(";\\s?[A-Za-z0-9]+|;\\s?charset=[A-Za-z0-9]+", rtype)) {
             warning("no charset detected in response content-type",

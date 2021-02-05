@@ -8,7 +8,7 @@
 #' @param auth (character) authentication type, one of basic (default),
 #' digest, digest_ie, gssnegotiate, ntlm, any or `NULL`. optional
 #'
-#' @details See <http://proxylist.hidemyass.com/> for a list of proxies you
+#' @details See https://www.hidemyass.com/proxy for a list of proxies you
 #' can use
 #'
 #' @examples

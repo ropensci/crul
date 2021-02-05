@@ -43,6 +43,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' Responses are returned in the order they are passed in.
 #'
 #' @examples \dontrun{
+#' if (interactive()) {
 #' # limit/offset approach
 #' cli <- HttpClient$new(url = "https://api.crossref.org")
 #' cc <- Paginator$new(client = cli, limit_param = "rows",
@@ -94,7 +95,7 @@ by_options <- c("limit_offset", "page_perpage")
 #'    progress = TRUE)
 #' cc
 #' cc$get('works')
-#' }
+#' }}
 Paginator <- R6::R6Class(
   'Paginator',
   public = list(

@@ -28,7 +28,9 @@ separate connections.
 If you don't pass in a curl handle to the \code{handle} parameter,
 it gets created when a HTTP verb is called. Thus, if you try to get \code{handle}
 after creating a \code{HttpClient} object only passing \code{url} parameter, \code{handle}
-will be \code{NULL}. If you pass a curl handle to the \verb{handle parameter, then you can get the handle from the }HttpClient\verb{object. The response from a http verb request does have the handle in the}handle` slot.
+will be \code{NULL}. If you pass a curl handle to the \code{handle} parameter, then
+you can get the handle from the \code{HttpClient} object. The response from a
+http verb request does have the handle in the \code{handle} slot.
 }
 
 \examples{
