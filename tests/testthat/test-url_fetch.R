@@ -55,7 +55,6 @@ con <- HttpClient$new(url = cr_url)
 test_that("HttpClient url_fetch w/ bigger numbers", {
   skip_on_cran()
 
-  # offset different for every url
   expect_match(con$url_fetch(query = list(limit = 0)),
     "limit=0")
   expect_match(con$url_fetch(query = list(limit = 100000)),

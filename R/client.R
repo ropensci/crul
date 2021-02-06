@@ -4,7 +4,9 @@
 #' @export
 #' @template args
 #' @param path URL path, appended to the base URL
-#' @param query query terms, as a named list
+#' @param query query terms, as a named list. any numeric values are
+#' passed through [format()] to prevent larger numbers from being
+#' scientifically formatted
 #' @param body body as an R list
 #' @param encode one of form, multipart, json, or raw
 #' @param disk a path to write to. if NULL (default), memory used.

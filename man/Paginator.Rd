@@ -115,7 +115,9 @@ for now. In the future will support 'link_headers' and 'cursor'.
 See Details.}
 
 \item{\code{chunk}}{(numeric/integer) the number by which to chunk
-requests, e.g., 10 would be be each request gets 10 records}
+requests, e.g., 10 would be be each request gets 10 records.
+number is passed through \code{\link[=format]{format()}} to prevent larger numbers
+from being scientifically formatted}
 
 \item{\code{limit_param}}{(character) the name of the limit parameter.
 Default: limit}
@@ -123,7 +125,9 @@ Default: limit}
 \item{\code{offset_param}}{(character) the name of the offset parameter.
 Default: offset}
 
-\item{\code{limit}}{(numeric/integer) the maximum records wanted}
+\item{\code{limit}}{(numeric/integer) the maximum records wanted.
+number is passed through \code{\link[=format]{format()}} to prevent larger numbers
+from being scientifically formatted}
 
 \item{\code{page_param}}{(character) the name of the page parameter.
 Default: NULL}
@@ -241,7 +245,9 @@ make a paginated GET request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -272,7 +278,9 @@ make a paginated POST request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 
 \item{\code{body}}{body as an R list}
 
@@ -307,7 +315,9 @@ make a paginated PUT request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 
 \item{\code{body}}{body as an R list}
 
@@ -342,7 +352,9 @@ make a paginated PATCH request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 
 \item{\code{body}}{body as an R list}
 
@@ -377,7 +389,9 @@ make a paginated DELETE request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 
 \item{\code{body}}{body as an R list}
 
@@ -522,7 +536,9 @@ parameters; body and any curl options don't change the URL
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{query}}{query terms, as a named list}
+\item{\code{query}}{query terms, as a named list. any numeric values are
+passed through \code{\link[=format]{format()}} to prevent larger numbers from being
+scientifically formatted}
 }
 \if{html}{\out{</div>}}
 }

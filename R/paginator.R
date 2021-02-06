@@ -5,7 +5,9 @@ by_options <- c("limit_offset", "page_perpage")
 #'
 #' @export
 #' @param path URL path, appended to the base URL
-#' @param query query terms, as a named list
+#' @param query query terms, as a named list. any numeric values are
+#' passed through [format()] to prevent larger numbers from being
+#' scientifically formatted
 #' @param body body as an R list
 #' @param encode one of form, multipart, json, or raw
 #' @param disk a path to write to. if NULL (default), memory used.
@@ -106,7 +108,9 @@ Paginator <- R6::R6Class(
     #' See Details.
     by = "limit_offset",
     #' @field chunk (numeric/integer) the number by which to chunk
-    #' requests, e.g., 10 would be be each request gets 10 records
+    #' requests, e.g., 10 would be be each request gets 10 records. 
+    #' number is passed through [format()] to prevent larger numbers
+    #' from being scientifically formatted
     chunk = NULL,
     #' @field limit_param (character) the name of the limit parameter.
     #' Default: limit
@@ -114,7 +118,9 @@ Paginator <- R6::R6Class(
     #' @field offset_param (character) the name of the offset parameter.
     #' Default: offset
     offset_param = NULL,
-    #' @field limit (numeric/integer) the maximum records wanted
+    #' @field limit (numeric/integer) the maximum records wanted.
+    #' number is passed through [format()] to prevent larger numbers
+    #' from being scientifically formatted
     limit = NULL,
     #' @field page_param (character) the name of the page parameter.
     #' Default: NULL
