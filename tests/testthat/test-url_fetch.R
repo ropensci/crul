@@ -49,6 +49,26 @@ test_that("HttpClient url_fetch with base url, path, query", {
 })
 
 
+context("HttpCLient: url_fetch w/ bigger numbers")
+cr_url <- "https://api.crossref.org"
+con <- HttpClient$new(url = cr_url)
+test_that("HttpClient url_fetch w/ bigger numbers", {
+  skip_on_cran()
+
+  # offset different for every url
+  expect_match(con$url_fetch(query = list(limit = 0)),
+    "limit=0")
+  expect_match(con$url_fetch(query = list(limit = 100000)),
+    "limit=100000")
+  expect_match(con$url_fetch(query = list(limit = 200000)),
+    "limit=200000")
+  expect_match(con$url_fetch(query = list(limit = 300000)),
+    "limit=300000")
+  expect_match(con$url_fetch(query = list(limit = 400000)),
+    "limit=400000")
+})
+
+
 
 
 context("paginator: url_fetch")
