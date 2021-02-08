@@ -1,7 +1,7 @@
 ## Test environments
 
-* local OS X install, R 4.0.2 Patched
-* ubuntu 16.04 (on travis-ci), R 4.0.2
+* local macOS install, R 4.0.3 Patched
+* ubuntu 16.04 (on github actions), R 4.0.3
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -15,7 +15,7 @@
 
 ---
 
-This version includes many improvements for the ok() function, adds a new R6 class, some functions gain parameters, and other improvements.
+This version includes a fix for handling of numbers, handling of http response headers, and adds a new feature to an existing function.
 
 Thanks!
 Scott Chamberlain

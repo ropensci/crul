@@ -1,3 +1,20 @@
+crul 1.1
+========
+
+### NEW FEATURES
+
+* `Paginator` gains support for query parameter combination `page`/`per_page`  to automatically paginate (#145)
+
+### MINOR IMPROVEMENTS
+
+* fix typo (#149) thanks @dpprdan
+* Change to how numbers are handled in query parameters. We unfortunately hadn't tested this package with large numbers, which were being converted to scientific notation with a certain number of digits before a decimal. Fixed handling of query parameters to avoid this problem. Fix for `Paginator` as well as for `HttpClient` (#151) (#152) (#153) thanks @ateucher
+
+### BUG FIXES
+
+* sometimes weird response headers are returned in an HTTP response that can not be easily parsed; `crul` would raise an error when this header parsing happens, but now we raise a warning instead (#150)
+
+
 crul 1.0
 ========
 
