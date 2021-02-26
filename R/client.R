@@ -175,9 +175,10 @@ HttpClient <- R6::R6Class(
     #' accepts a function only. default is `NULL`. if used, `verbose`
     #' and `debugfunction` curl options are ignored if passed to `opts`
     #' on `$new()` and ignored if `...` passed to a http method call
+    #' @param cookies an object of class [CookieJar]
     #' @return A new `HttpClient` object
     initialize = function(url, opts, proxies, auth, headers, handle,
-      progress, hooks, verbose) {
+      progress, hooks, verbose, cookies) {
       private$crul_h_pool <- new.env(hash = TRUE, parent = emptyenv())
       if (!missing(url)) self$url <- url
 
@@ -237,6 +238,8 @@ HttpClient <- R6::R6Class(
         }))
         self$hooks <- hooks
       }
+
+      if (!missing(cookies)) self$cookies <- cookies
     },
 
     #' @description Make a GET request
@@ -257,6 +260,7 @@ HttpClient <- R6::R6Class(
       ) {
         rr$options$useragent <- make_ua()
       }
+      rr$headers <- norm_headers(rr$headers, self$cookies)
       rr$options <- utils::modifyList(
         rr$options, c(self$opts, self$proxies, self$auth, self$progress, ...))
       rr$options <- curl_opts_fil(rr$options)
