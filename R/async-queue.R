@@ -30,9 +30,9 @@
 #' 
 #' # Using requests per minute
 #' if (interactive()) {
-#' x="https://raw.githubusercontent.com/ropensci/roregistry/gh-pages/registry_urls.json"
+#' x="https://raw.githubusercontent.com/ropensci/roregistry/gh-pages/registry.json"
 #' z <- HttpClient$new(x)$get()
-#' urls <- jsonlite::fromJSON(z$parse("UTF-8"))$git_url
+#' urls <- jsonlite::fromJSON(z$parse("UTF-8"))$packages$url
 #' repos = Filter(length, regmatches(urls, gregexpr("ropensci/[A-Za-z]+", urls)))
 #' repos = unlist(repos)
 #' auth <- list(Authorization = paste("token", Sys.getenv('GITHUB_PAT')))
