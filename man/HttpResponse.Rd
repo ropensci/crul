@@ -33,6 +33,14 @@ not matched. Parameters: see \code{raise_for_ct()}
 }
 }
 }
+\section{R6 classes}{
+
+This is an R6 class from the package \pkg{R6}. Find out more
+about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
+class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+access values and methods on the object \code{x}.
+}
+
 \examples{
 \dontrun{
 x <- HttpResponse$new(method = "get", url = "https://httpbin.org")

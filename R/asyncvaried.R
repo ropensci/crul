@@ -6,6 +6,7 @@
 #' @export
 #' @family async
 #' @template async-deets
+#' @template r6
 #' @return An object of class `AsyncVaried` with variables and methods.
 #' [HttpResponse] objects are returned in the order they are passed in. 
 #' We print the first 10.

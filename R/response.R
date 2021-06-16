@@ -2,6 +2,7 @@
 #' @description Class with methods for handling HTTP responses
 #' 
 #' @export
+#' @template r6
 #' @seealso [content-types]
 #' @details
 #' **Additional Methods**

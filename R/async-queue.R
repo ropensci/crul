@@ -2,6 +2,7 @@
 #' @description An AsyncQueue client
 #' @export
 #' @family async
+#' @template r6
 #' @examples \dontrun{
 #' # Using sleep
 #' reqlist <- list(

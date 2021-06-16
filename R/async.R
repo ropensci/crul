@@ -5,6 +5,7 @@
 #' @export
 #' @family async
 #' @template async-deets
+#' @template r6
 #' @param path (character) URL path, appended to the base URL
 #' @param query (list) query terms, as a named list
 #' @param disk a path to write to. if NULL (default), memory used.
