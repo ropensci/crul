@@ -81,18 +81,18 @@ Other async:
 \item \href{#method-new}{\code{AsyncQueue$new()}}
 \item \href{#method-request}{\code{AsyncQueue$request()}}
 \item \href{#method-responses}{\code{AsyncQueue$responses()}}
+\item \href{#method-parse}{\code{AsyncQueue$parse()}}
+\item \href{#method-status_code}{\code{AsyncQueue$status_code()}}
+\item \href{#method-status}{\code{AsyncQueue$status()}}
+\item \href{#method-content}{\code{AsyncQueue$content()}}
+\item \href{#method-times}{\code{AsyncQueue$times()}}
 \item \href{#method-clone}{\code{AsyncQueue$clone()}}
 }
 }
 \if{html}{
-\out{<details ><summary>Inherited methods</summary>}
+\out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="content">}\href{../../crul/html/AsyncVaried.html#method-content}{\code{crul::AsyncVaried$content()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="parse">}\href{../../crul/html/AsyncVaried.html#method-parse}{\code{crul::AsyncVaried$parse()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="requests">}\href{../../crul/html/AsyncVaried.html#method-requests}{\code{crul::AsyncVaried$requests()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="status">}\href{../../crul/html/AsyncVaried.html#method-status}{\code{crul::AsyncVaried$status()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="status_code">}\href{../../crul/html/AsyncVaried.html#method-status_code}{\code{crul::AsyncVaried$status_code()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="times">}\href{../../crul/html/AsyncVaried.html#method-times}{\code{crul::AsyncVaried$times()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -183,6 +183,80 @@ List responses
 \subsection{Returns}{
 a list of \code{HttpResponse} objects, empty list before
 requests made
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-parse}{}}}
+\subsection{Method \code{parse()}}{
+parse content
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AsyncQueue$parse(encoding = "UTF-8")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{encoding}}{(character) the encoding to use in parsing.
+default:"UTF-8"}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+character vector, empty character vector before
+requests made
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-status_code"></a>}}
+\if{latex}{\out{\hypertarget{method-status_code}{}}}
+\subsection{Method \code{status_code()}}{
+Get HTTP status codes for each response
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AsyncQueue$status_code()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+numeric vector, empty numeric vector before requests made
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-status"></a>}}
+\if{latex}{\out{\hypertarget{method-status}{}}}
+\subsection{Method \code{status()}}{
+List HTTP status objects
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AsyncQueue$status()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+a list of \code{http_code} objects, empty list before requests made
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-content"></a>}}
+\if{latex}{\out{\hypertarget{method-content}{}}}
+\subsection{Method \code{content()}}{
+Get raw content for each response
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AsyncQueue$content()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+raw list, empty list before requests made
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-times"></a>}}
+\if{latex}{\out{\hypertarget{method-times}{}}}
+\subsection{Method \code{times()}}{
+curl request times
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AsyncQueue$times()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+list of named numeric vectors, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}

@@ -110,6 +110,39 @@ AsyncQueue <- R6::R6Class(
     #' requests made
     responses = function() {
       super$output %||% list()
+    },
+
+    #' @description parse content
+    #' @param encoding (character) the encoding to use in parsing.
+    #' default:"UTF-8"
+    #' @return character vector, empty character vector before
+    #' requests made
+    parse = function(encoding = "UTF-8") {
+      vapply(super$output, function(z) z$parse(encoding = encoding), "")
+    },
+
+    #' @description Get HTTP status codes for each response
+    #' @return numeric vector, empty numeric vector before requests made
+    status_code = function() {
+      vapply(super$output, function(z) z$status_code, 1)
+    },
+
+    #' @description List HTTP status objects
+    #' @return a list of `http_code` objects, empty list before requests made
+    status = function() {
+      lapply(super$output, function(z) z$status_http())
+    },
+
+    #' @description Get raw content for each response
+    #' @return raw list, empty list before requests made
+    content = function() {
+      lapply(super$output, function(z) z$content)
+    },
+
+    #' @description curl request times
+    #' @return list of named numeric vectors, empty list before requests made
+    times = function() {
+      lapply(super$output, function(z) z$times)
     }
   ),
 
