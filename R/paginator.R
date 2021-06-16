@@ -4,6 +4,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' @description A client to help you paginate
 #'
 #' @export
+#' @template r6
 #' @param path URL path, appended to the base URL
 #' @param query query terms, as a named list. any numeric values are
 #' passed through [format()] to prevent larger numbers from being

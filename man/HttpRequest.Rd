@@ -20,6 +20,14 @@ you've added are added to the object itself.
 
 See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 }
+\section{R6 classes}{
+
+This is an R6 class from the package \pkg{R6}. Find out more
+about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
+class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+access values and methods on the object \code{x}.
+}
+
 \examples{
 \dontrun{
 x <- HttpRequest$new(url = "https://httpbin.org/get")

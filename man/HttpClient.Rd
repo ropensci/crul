@@ -19,6 +19,14 @@ in as a header like \code{User-Agent} or as a curl option like \code{useragent},
 it is returned as \code{request_headers$User-Agent} so at least accessing
 it in the request headers is consistent.
 }
+\section{R6 classes}{
+
+This is an R6 class from the package \pkg{R6}. Find out more
+about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
+class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+access values and methods on the object \code{x}.
+}
+
 \section{handles}{
 
 curl handles are re-used on the level of the connection object, that is,

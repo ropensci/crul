@@ -4,6 +4,7 @@
 #' @export
 #' @family async
 #' @template args
+#' @template r6
 #' @param path URL path, appended to the base URL
 #' @param query query terms, as a named list
 #' @param body body as an R list

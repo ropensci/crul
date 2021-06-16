@@ -3,6 +3,7 @@
 #'
 #' @export
 #' @template args
+#' @template r6
 #' @param path URL path, appended to the base URL
 #' @param query query terms, as a named list. any numeric values are
 #' passed through [format()] to prevent larger numbers from being
