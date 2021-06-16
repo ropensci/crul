@@ -19,18 +19,39 @@ test_that("AsyncQueue basic structure", {
   expect_null(aa$req_per_min)
 
   # before requests
-  expect_equal(length(aa$content()), 0)
-  expect_equal(length(aa$status()), 0)
-  expect_equal(length(aa$status_code()), 0)
-  expect_equal(length(aa$times()), 0)
+  expect_length(aa$content(), 0)
+  expect_length(aa$status(), 0)
+  expect_length(aa$parse(), 0)
+  expect_length(aa$status_code(), 0)
+  expect_length(aa$times(), 0)
 
   # after requests
   aa$request()
-  expect_equal(length(aa$responses()), 2)
+  expect_length(aa$responses(), 2)
   expect_is(aa$responses()[[1]], "HttpResponse")
-  # expect_equal(length(aa$status()), 2)
-  # expect_equal(length(aa$status_code()), 2)
-  # expect_equal(length(aa$times()), 2)
+
+  # parse
+  txt <- aa$parse()
+  expect_is(txt, "character")
+  expect_length(txt, 2)
+  expect_is(jsonlite::fromJSON(txt[1]), "list")
+
+  # status
+  expect_length(aa$status(), 2)
+  expect_is(aa$status()[[1]], "http_code")
+
+  # status codes
+  expect_length(aa$status_code(), 2)
+  expect_is(aa$status_code(), "numeric")
+  expect_equal(aa$status_code()[1], 200)
+
+  # times
+  expect_length(aa$times(), 2)
+  expect_is(aa$times()[[1]], "numeric")
+
+  # content
+  expect_length(aa$content(), 2)
+  expect_is(aa$content()[[1]], "raw")
 
   # response_headers and response_headers_all 
   expect_is(aa$responses()[[1]]$response_headers, "list")
@@ -74,16 +95,16 @@ test_that("AsyncQueue sleep parameter", {
   out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
   expect_equal(out$bucket_size, 5)
   expect_equal(out$sleep, 3)
-  expect_equal(length(out$responses()), 0)
+  expect_length(out$responses(), 0)
 
   # should take at least 6 seconds: 3 sec sleep * 2 sleep periods
   z <- system.time(out$request())
   expect_gt(z[['elapsed']], 6)
   
   # after requests sent off
-  expect_equal(length(out$requests()), 13)
+  expect_length(out$requests(), 13)
   resp <- out$responses()
-  expect_equal(length(resp), 13)
+  expect_length(resp, 13)
   for (i in seq_along(resp)) expect_is(resp[[i]], "HttpResponse")
   for (i in seq_along(resp)) expect_equal(resp[[i]]$status_code, 200)
 })
@@ -97,7 +118,7 @@ test_that("AsyncQueue req_per_min parameter", {
   expect_equal(out$bucket_size, 10)
   expect_null(out$sleep)
   expect_equal(out$req_per_min, 10)
-  expect_equal(length(out$responses()), 0)
+  expect_length(out$responses(), 0)
 
   # FIXME: not doing actual requests as would take 1 min
   # z <- system.time(out$request())
