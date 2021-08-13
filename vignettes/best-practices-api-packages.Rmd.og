@@ -20,7 +20,7 @@ vignette outlines what we think of as best practices for using
 
 In most cases you'll only need to import one thing from `crul`: 
 `HttpClient`. Add crul to `Imports` in your `DESCRIPTION` file,
-and ad an entry like `@importFrom crul HttpClient` somewhere in 
+and add an entry like `@importFrom crul HttpClient` somewhere in 
 your package documentation, for example:
 
 ```r
