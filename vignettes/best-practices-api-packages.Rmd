@@ -1,7 +1,7 @@
 ---
 title: 5. API package best practices
 author: Scott Chamberlain
-date: "2020-07-09"
+date: "2021-08-16"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{5. API package best practices}
@@ -20,7 +20,7 @@ vignette outlines what we think of as best practices for using
 
 In most cases you'll only need to import one thing from `crul`: 
 `HttpClient`. Add crul to `Imports` in your `DESCRIPTION` file,
-and ad an entry like `@importFrom crul HttpClient` somewhere in 
+and add an entry like `@importFrom crul HttpClient` somewhere in 
 your package documentation, for example:
 
 ```r
