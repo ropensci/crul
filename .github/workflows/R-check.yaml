@@ -67,6 +67,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Session info
+        if: runner.os != 'Windows'
         run: |
           options(width = 100)
           pkgs <- installed.packages()[, "Package"]
