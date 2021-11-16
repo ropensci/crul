@@ -84,3 +84,20 @@ test_that("headers - all response headers, WITHOUT redirect", {
   # w/o redirects, only 1 header set
   expect_equal(length(bb$response_headers_all), 1)
 })
+
+context("headers: non-UTF-8 headers")
+test_that("headers - non-UTF-8 headers from Crossref ('link' header)", {
+  skip_on_cran()
+
+  x <- HttpClient$new(url = 'https://doi.org/10.1126/science.aax9044',
+    opts = list(followlocation = 1), headers = list(Accept = "application/x-bibtex"))
+  bb <- x$get()
+
+  # response headers are the final set of headers and are named
+  expect_is(bb, "HttpResponse")
+  expect_is(bb$response_headers, "list")
+  expect_named(bb$response_headers)
+
+  # includes link header
+  expect_is(bb$response_headers$link, "character")
+})
