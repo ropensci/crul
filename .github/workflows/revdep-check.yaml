@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: macOS-latest, r: 'latest'}
+        - { os: ubuntu-18.04, r: 'release'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
