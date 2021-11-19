@@ -248,6 +248,11 @@ List responses
 \if{html}{\out{<div class="r">}}\preformatted{AsyncVaried$responses()}\if{html}{\out{</div>}}
 }
 
+\subsection{Details}{
+An S3 print method is used to summarise results. \link{unclass}
+the output to see the list, or index to results, e.g., \verb{[1]}, \verb{[1:3]}
+}
+
 \subsection{Returns}{
 a list of \code{HttpResponse} objects, empty list before
 requests made

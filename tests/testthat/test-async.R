@@ -22,7 +22,7 @@ test_that("Async works", {
 
   # after calling
   res <- aa$get()
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_equal(length(res), 2)
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[1]]$request, "HttpRequest")
@@ -93,7 +93,7 @@ test_that("Async - get", {
                            'https://google.com'))
   out <- aa$get()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "get")
@@ -109,7 +109,7 @@ test_that("Async - post", {
                            hb('/post')))
   out <- aa$post()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_equal(out[[1]]$method, "post")
 })
@@ -123,7 +123,7 @@ test_that("Async - put", {
                            hb('/put')))
   out <- aa$put()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "put")
@@ -139,7 +139,7 @@ test_that("Async - patch", {
                            hb('/patch')))
   out <- aa$patch()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "patch")
@@ -155,7 +155,7 @@ test_that("Async - delete", {
                            hb('/delete')))
   out <- aa$delete()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "delete")
@@ -171,7 +171,7 @@ test_that("Async - head", {
                            'https://nytimes.com'))
   out <- aa$head()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "head")
@@ -186,7 +186,7 @@ test_that("Async - verb", {
                            'https://nytimes.com'))
   out <- aa$verb('get')
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_equal(out[[1]]$method, "get")
@@ -203,7 +203,7 @@ test_that("Async - order", {
                            hb('/get?c=7')))
   out <- aa$get()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_is(out[[3]], "HttpResponse")
@@ -233,7 +233,7 @@ test_that("Async - writing to disk works", {
   # cleanup
   closeAllConnections()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")
   expect_is(out[[1]], "character")
@@ -252,7 +252,7 @@ test_that("Async - writing to disk works", {
   # cleanup
   closeAllConnections()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")
   expect_is(out[[1]], "character")
@@ -272,7 +272,7 @@ test_that("Async - writing to disk works", {
   # cleanup
   closeAllConnections()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")
   expect_is(out[[1]], "character")
@@ -292,7 +292,7 @@ test_that("Async - writing to disk works", {
   # cleanup
   closeAllConnections()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")
   expect_is(out[[1]], "character")
@@ -312,7 +312,7 @@ test_that("Async - writing to disk works", {
   # cleanup
   closeAllConnections()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   expect_is(res[[1]], "HttpResponse")
   expect_is(out, "list")
   expect_is(out[[1]], "character")
@@ -377,7 +377,7 @@ test_that("Async - failure behavior", {
   conn <- Async$new(urls = urls)
   res <- conn$get()
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")
@@ -403,7 +403,7 @@ test_that("Async - failure behavior", {
   conn <- Async$new(urls = urls)
   res <- conn$get(disk = files)
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")
@@ -440,7 +440,7 @@ test_that("Async - failure behavior", {
   conn <- Async$new(urls = urls)
   res <- conn$get(stream = fun)
 
-  expect_is(res, "list")
+  expect_is(res, "asyncresponses")
   
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")

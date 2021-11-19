@@ -54,7 +54,7 @@ test_that("AsyncVaried - order", {
   aa$request()
   out <- aa$responses()
 
-  expect_is(out, "list")
+  expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
   expect_is(out[[2]], "HttpResponse")
   expect_is(out[[3]], "HttpResponse")
