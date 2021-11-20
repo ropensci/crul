@@ -1,7 +1,7 @@
 ## Test environments
 
-* local macOS install, R 4.0.3 Patched
-* ubuntu 16.04 (on github actions), R 4.0.3
+* local macOS install, R 4.1.2
+* ubuntu 18.04 (on github actions), R 4.1.2
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -10,12 +10,11 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 73 downstream dependencies
-(<https://github.com/ropensci/crul/blob/master/revdep/README.md>). No problems were found related to this package. A few packages failed during reverse dependency checks but when checked individually they had no problems (revdepcheck probably just failed on installation).
+* I have run R CMD check on the 70 downstream dependencies. No problems were found related to this package.
 
 ---
 
-This version includes a fix for handling of numbers, handling of http response headers, and adds a new feature to an existing function.
+This version includes some minor improvements.
 
 Thanks!
 Scott Chamberlain

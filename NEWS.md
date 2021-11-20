@@ -1,3 +1,22 @@
+crul 1.2
+========
+
+### DOCUMENTATION
+
+* fix example in `AsyncQueue` docs (#146) thanks @johnbaums !
+* update `HttpClient` docs to state that it's an R6 class, and give some details on what an R6 class is and links to more info (#155)
+
+### NEW FEATURES
+
+* `AsyncQueue` gains methods: `parse`, `status_code`, `status`, `content`, and `times` (#156)
+* `$responses()` method now returns an S3 class with an associated print method to prevent printing a lot of results to the screen; print method pritns a summary of results, and at most 10 results, just status code and url (#157)
+
+
+### MINOR IMPROVEMENTS
+
+* parsing response headers gains a check for whether encoding is valid, and if not tries to set Latin1 encoding, and if that doesn't work, fails out with message (#163) (#164) thanks @FlukeAndFeather
+
+
 crul 1.1
 ========
 
