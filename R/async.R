@@ -233,54 +233,52 @@ Async <- R6::R6Class(
     gen_interface = function(x, method, path, query = NULL, body = NULL,
       encode = NULL, disk = NULL, stream = NULL, ...) {
       if (!is.null(disk)) {
-        if (length(disk) > 1) {
-          stopifnot(length(x) == length(disk))
-          reqs <- Map(function(z, m) {
-            switch(
-              method,
-              get = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth, 
-                headers = self$headers
-              )$get(
-                path = path, query = query, disk = m, stream = stream, ...
-              ),
-              post = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth, 
-                headers = self$headers
-              )$post(
-                path = path, query = query, body = body, encode = encode, 
-                disk = m, stream = stream,
-                ...
-              ),
-              put = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth, 
-                headers = self$headers
-              )$put(
-                path = path, query = query, body = body, encode = encode, 
-                disk = m, stream = stream,
-                ...
-              ),
-              patch = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth, 
-                headers = self$headers
-              )$patch(
-                path = path, query = query,
-                body = body, encode = encode, disk = m, stream = stream,
-                ...
-              ),
-              delete = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth, headers = self$headers
-              )$delete(
-                path = path, query = query, body = body, encode = encode, 
-                disk = m, stream = stream, ...
-              ),
-              head = HttpRequest$new(url = z, opts = self$opts, 
-                proxies = self$proxies, auth = self$auth,
-                headers = self$headers
-              )$head(path = path, ...)
-            )
-          }, x, disk)
-        }
+        stopifnot(length(x) == length(disk))
+        reqs <- Map(function(z, m) {
+          switch(
+            method,
+            get = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$get(
+              path = path, query = query, disk = m, stream = stream, ...
+            ),
+            post = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$post(
+              path = path, query = query, body = body, encode = encode, 
+              disk = m, stream = stream,
+              ...
+            ),
+            put = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$put(
+              path = path, query = query, body = body, encode = encode, 
+              disk = m, stream = stream,
+              ...
+            ),
+            patch = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$patch(
+              path = path, query = query,
+              body = body, encode = encode, disk = m, stream = stream,
+              ...
+            ),
+            delete = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, headers = self$headers
+            )$delete(
+              path = path, query = query, body = body, encode = encode, 
+              disk = m, stream = stream, ...
+            ),
+            head = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth,
+              headers = self$headers
+            )$head(path = path, ...)
+          )
+        }, x, disk)
       } else {
         reqs <- lapply(x, function(z) {
           switch(
