@@ -233,7 +233,7 @@ Async <- R6::R6Class(
     gen_interface = function(x, method, path, query = NULL, body = NULL,
       encode = NULL, disk = NULL, stream = NULL, ...) {
       if (!is.null(disk)) {
-        stopifnot(length(x) == length(disk))
+        stopifnot("urls must be same length as disk" = length(x) == length(disk))
         reqs <- Map(function(z, m) {
           switch(
             method,
