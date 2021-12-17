@@ -20,11 +20,11 @@ To get the development version of {{{ my_package }}} so you can run the checks y
     # install.packages("devtools")
     devtools::install_github("{{my_github}}")
 
-To see what's changed visit <https://github.com/{{{my_github}}}/blob/master/NEWS.md>.
+To see what's changed visit <https://github.com/{{{my_github}}}/blob/main/NEWS.md>.
 
 {{/you_have_problems}}
 {{^you_have_problems}}
-It looks like everything is ok, so you don't need to take any action, but you might want to read the NEWS, <https://github.com/{{{my_github}}}/blob/master/NEWS.md>, to see what's changed.
+It looks like everything is ok, so you don't need to take any action, but you might want to read the NEWS, <https://github.com/{{{my_github}}}/blob/main/NEWS.md>, to see what's changed.
 {{/you_have_problems}}
 
 

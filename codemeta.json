@@ -1,26 +1,24 @@
 {
-  "@context": [
-    "https://doi.org/doi:10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "crul",
-  "description": "A simple HTTP client, with tools for making HTTP requests,\n    and mocking HTTP requests. The package is built on R6, and takes\n    inspiration from Ruby's 'faraday' gem (<https://rubygems.org/gems/faraday>).\n    The package name is a play on curl, the widely used command line tool\n    for HTTP, and this package is built on top of the R package 'curl', an\n    interface to 'libcurl' (<https://curl.se/libcurl/>).",
+  "description": "A simple HTTP client, with tools for making HTTP requests, and mocking HTTP requests. The package is built on R6, and takes inspiration from Ruby's 'faraday' gem (<https://rubygems.org/gems/faraday>). The package name is a play on curl, the widely used command line tool for HTTP, and this package is built on top of the R package 'curl', an interface to 'libcurl' (<https://curl.se/libcurl/>).",
   "name": "crul: HTTP Client",
+  "relatedLink": ["https://docs.ropensci.org/crul/", "https://books.ropensci.org/http-testing/"],
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.1.0",
+  "version": "1.2.1.99",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 Patched (2021-02-02 r79929)",
+  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
-    "name": "Central R Archive Network (CRAN)",
+    "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
   "author": [
@@ -118,8 +116,8 @@
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "curl",
       "name": "curl",
@@ -132,7 +130,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=curl"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "R6",
       "name": "R6",
@@ -145,7 +143,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=R6"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "urltools",
       "name": "urltools",
@@ -158,7 +156,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=urltools"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "httpcode",
       "name": "httpcode",
@@ -171,7 +169,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httpcode"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "jsonlite",
       "name": "jsonlite",
@@ -183,7 +181,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=jsonlite"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "mime",
       "name": "mime",
@@ -194,23 +192,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=mime"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching", "rstats", "api", "r", "r-package"],
-  "contIntegration": "https://codecov.io/gh/ropensci/crul",
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/crul/blob/master/README.md",
-  "fileSize": "1217.881KB",
-  "relatedLink": [
-    "https://ropenscilabs.github.io/http-testing-book/",
-    "https://docs.ropensci.org/crul",
-    "https://docs.ropensci.org/crul/",
-    "https://books.ropensci.org/http-testing/"
-  ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {}
+  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching"],
+  "fileSize": "1225.306KB"
 }
