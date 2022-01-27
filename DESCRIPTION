@@ -33,7 +33,8 @@ Suggests:
     fauxpas (>= 0.1.0),
     webmockr (>= 0.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    magrittr
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2
 X-schema.org-applicationCategory: Web
