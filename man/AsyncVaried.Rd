@@ -172,22 +172,22 @@ Other async:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{AsyncVaried$print()}}
-\item \href{#method-new}{\code{AsyncVaried$new()}}
-\item \href{#method-request}{\code{AsyncVaried$request()}}
-\item \href{#method-responses}{\code{AsyncVaried$responses()}}
-\item \href{#method-requests}{\code{AsyncVaried$requests()}}
-\item \href{#method-parse}{\code{AsyncVaried$parse()}}
-\item \href{#method-status_code}{\code{AsyncVaried$status_code()}}
-\item \href{#method-status}{\code{AsyncVaried$status()}}
-\item \href{#method-content}{\code{AsyncVaried$content()}}
-\item \href{#method-times}{\code{AsyncVaried$times()}}
-\item \href{#method-clone}{\code{AsyncVaried$clone()}}
+\item \href{#method-AsyncVaried-print}{\code{AsyncVaried$print()}}
+\item \href{#method-AsyncVaried-new}{\code{AsyncVaried$new()}}
+\item \href{#method-AsyncVaried-request}{\code{AsyncVaried$request()}}
+\item \href{#method-AsyncVaried-responses}{\code{AsyncVaried$responses()}}
+\item \href{#method-AsyncVaried-requests}{\code{AsyncVaried$requests()}}
+\item \href{#method-AsyncVaried-parse}{\code{AsyncVaried$parse()}}
+\item \href{#method-AsyncVaried-status_code}{\code{AsyncVaried$status_code()}}
+\item \href{#method-AsyncVaried-status}{\code{AsyncVaried$status()}}
+\item \href{#method-AsyncVaried-content}{\code{AsyncVaried$content()}}
+\item \href{#method-AsyncVaried-times}{\code{AsyncVaried$times()}}
+\item \href{#method-AsyncVaried-clone}{\code{AsyncVaried$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-print"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-print}{}}}
 \subsection{Method \code{print()}}{
 print method for AsyncVaried objects
 \subsection{Usage}{
@@ -205,8 +205,8 @@ print method for AsyncVaried objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new AsyncVaried object
 \subsection{Usage}{
@@ -226,8 +226,8 @@ A new \code{AsyncVaried} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-request"></a>}}
-\if{latex}{\out{\hypertarget{method-request}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-request"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-request}{}}}
 \subsection{Method \code{request()}}{
 Execute asynchronous requests
 \subsection{Usage}{
@@ -240,8 +240,8 @@ messages if you choose verbose output
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-responses"></a>}}
-\if{latex}{\out{\hypertarget{method-responses}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-responses"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-responses}{}}}
 \subsection{Method \code{responses()}}{
 List responses
 \subsection{Usage}{
@@ -259,8 +259,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-requests"></a>}}
-\if{latex}{\out{\hypertarget{method-requests}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-requests"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-requests}{}}}
 \subsection{Method \code{requests()}}{
 List requests
 \subsection{Usage}{
@@ -273,8 +273,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse"></a>}}
-\if{latex}{\out{\hypertarget{method-parse}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-parse}{}}}
 \subsection{Method \code{parse()}}{
 parse content
 \subsection{Usage}{
@@ -295,8 +295,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status_code"></a>}}
-\if{latex}{\out{\hypertarget{method-status_code}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-status_code"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-status_code}{}}}
 \subsection{Method \code{status_code()}}{
 Get HTTP status codes for each response
 \subsection{Usage}{
@@ -308,8 +308,8 @@ numeric vector, empty numeric vector before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status"></a>}}
-\if{latex}{\out{\hypertarget{method-status}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-status"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-status}{}}}
 \subsection{Method \code{status()}}{
 List HTTP status objects
 \subsection{Usage}{
@@ -321,8 +321,8 @@ a list of \code{http_code} objects, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-content"></a>}}
-\if{latex}{\out{\hypertarget{method-content}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-content"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-content}{}}}
 \subsection{Method \code{content()}}{
 Get raw content for each response
 \subsection{Usage}{
@@ -334,8 +334,8 @@ raw list, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-times"></a>}}
-\if{latex}{\out{\hypertarget{method-times}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-times"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-times}{}}}
 \subsection{Method \code{times()}}{
 curl request times
 \subsection{Usage}{
@@ -347,8 +347,8 @@ list of named numeric vectors, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-AsyncVaried-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncVaried-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -95,22 +95,22 @@ Other async:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{HttpRequest$print()}}
-\item \href{#method-new}{\code{HttpRequest$new()}}
-\item \href{#method-get}{\code{HttpRequest$get()}}
-\item \href{#method-post}{\code{HttpRequest$post()}}
-\item \href{#method-put}{\code{HttpRequest$put()}}
-\item \href{#method-patch}{\code{HttpRequest$patch()}}
-\item \href{#method-delete}{\code{HttpRequest$delete()}}
-\item \href{#method-head}{\code{HttpRequest$head()}}
-\item \href{#method-verb}{\code{HttpRequest$verb()}}
-\item \href{#method-method}{\code{HttpRequest$method()}}
-\item \href{#method-clone}{\code{HttpRequest$clone()}}
+\item \href{#method-HttpRequest-print}{\code{HttpRequest$print()}}
+\item \href{#method-HttpRequest-new}{\code{HttpRequest$new()}}
+\item \href{#method-HttpRequest-get}{\code{HttpRequest$get()}}
+\item \href{#method-HttpRequest-post}{\code{HttpRequest$post()}}
+\item \href{#method-HttpRequest-put}{\code{HttpRequest$put()}}
+\item \href{#method-HttpRequest-patch}{\code{HttpRequest$patch()}}
+\item \href{#method-HttpRequest-delete}{\code{HttpRequest$delete()}}
+\item \href{#method-HttpRequest-head}{\code{HttpRequest$head()}}
+\item \href{#method-HttpRequest-verb}{\code{HttpRequest$verb()}}
+\item \href{#method-HttpRequest-method}{\code{HttpRequest$method()}}
+\item \href{#method-HttpRequest-clone}{\code{HttpRequest$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-HttpRequest-print"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-print}{}}}
 \subsection{Method \code{print()}}{
 print method for \code{HttpRequest} objects
 \subsection{Usage}{
@@ -128,8 +128,8 @@ print method for \code{HttpRequest} objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HttpRequest-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new \code{HttpRequest} object
 \subsection{Usage}{
@@ -162,8 +162,8 @@ A new \code{HttpRequest} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-HttpRequest-get"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-get}{}}}
 \subsection{Method \code{get()}}{
 Define a GET request
 \subsection{Usage}{
@@ -192,8 +192,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-post"></a>}}
-\if{latex}{\out{\hypertarget{method-post}{}}}
+\if{html}{\out{<a id="method-HttpRequest-post"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-post}{}}}
 \subsection{Method \code{post()}}{
 Define a POST request
 \subsection{Usage}{
@@ -234,8 +234,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-put"></a>}}
-\if{latex}{\out{\hypertarget{method-put}{}}}
+\if{html}{\out{<a id="method-HttpRequest-put"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-put}{}}}
 \subsection{Method \code{put()}}{
 Define a PUT request
 \subsection{Usage}{
@@ -276,8 +276,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-patch"></a>}}
-\if{latex}{\out{\hypertarget{method-patch}{}}}
+\if{html}{\out{<a id="method-HttpRequest-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-patch}{}}}
 \subsection{Method \code{patch()}}{
 Define a PATCH request
 \subsection{Usage}{
@@ -318,8 +318,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-delete"></a>}}
-\if{latex}{\out{\hypertarget{method-delete}{}}}
+\if{html}{\out{<a id="method-HttpRequest-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-delete}{}}}
 \subsection{Method \code{delete()}}{
 Define a DELETE request
 \subsection{Usage}{
@@ -360,8 +360,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-head"></a>}}
-\if{latex}{\out{\hypertarget{method-head}{}}}
+\if{html}{\out{<a id="method-HttpRequest-head"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-head}{}}}
 \subsection{Method \code{head()}}{
 Define a HEAD request
 \subsection{Usage}{
@@ -381,8 +381,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-verb"></a>}}
-\if{latex}{\out{\hypertarget{method-verb}{}}}
+\if{html}{\out{<a id="method-HttpRequest-verb"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-verb}{}}}
 \subsection{Method \code{verb()}}{
 Use an arbitrary HTTP verb supported on this class
 Supported verbs: get, post, put, patch, delete, head
@@ -414,8 +414,8 @@ res$payload
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-method"></a>}}
-\if{latex}{\out{\hypertarget{method-method}{}}}
+\if{html}{\out{<a id="method-HttpRequest-method"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-method}{}}}
 \subsection{Method \code{method()}}{
 Get the HTTP method (if defined)
 \subsection{Usage}{
@@ -427,8 +427,8 @@ Get the HTTP method (if defined)
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HttpRequest-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpRequest-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

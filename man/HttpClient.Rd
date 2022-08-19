@@ -171,24 +171,24 @@ x$url_fetch('get', query = list(foo = "bar"))
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{HttpClient$print()}}
-\item \href{#method-new}{\code{HttpClient$new()}}
-\item \href{#method-get}{\code{HttpClient$get()}}
-\item \href{#method-post}{\code{HttpClient$post()}}
-\item \href{#method-put}{\code{HttpClient$put()}}
-\item \href{#method-patch}{\code{HttpClient$patch()}}
-\item \href{#method-delete}{\code{HttpClient$delete()}}
-\item \href{#method-head}{\code{HttpClient$head()}}
-\item \href{#method-verb}{\code{HttpClient$verb()}}
-\item \href{#method-retry}{\code{HttpClient$retry()}}
-\item \href{#method-handle_pop}{\code{HttpClient$handle_pop()}}
-\item \href{#method-url_fetch}{\code{HttpClient$url_fetch()}}
-\item \href{#method-clone}{\code{HttpClient$clone()}}
+\item \href{#method-HttpClient-print}{\code{HttpClient$print()}}
+\item \href{#method-HttpClient-new}{\code{HttpClient$new()}}
+\item \href{#method-HttpClient-get}{\code{HttpClient$get()}}
+\item \href{#method-HttpClient-post}{\code{HttpClient$post()}}
+\item \href{#method-HttpClient-put}{\code{HttpClient$put()}}
+\item \href{#method-HttpClient-patch}{\code{HttpClient$patch()}}
+\item \href{#method-HttpClient-delete}{\code{HttpClient$delete()}}
+\item \href{#method-HttpClient-head}{\code{HttpClient$head()}}
+\item \href{#method-HttpClient-verb}{\code{HttpClient$verb()}}
+\item \href{#method-HttpClient-retry}{\code{HttpClient$retry()}}
+\item \href{#method-HttpClient-handle_pop}{\code{HttpClient$handle_pop()}}
+\item \href{#method-HttpClient-url_fetch}{\code{HttpClient$url_fetch()}}
+\item \href{#method-HttpClient-clone}{\code{HttpClient$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-HttpClient-print"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-print}{}}}
 \subsection{Method \code{print()}}{
 print method for \code{HttpClient} objects
 \subsection{Usage}{
@@ -206,8 +206,8 @@ print method for \code{HttpClient} objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HttpClient-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new HttpClient object
 \subsection{Usage}{
@@ -257,8 +257,8 @@ A new \code{HttpClient} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-HttpClient-get"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-get}{}}}
 \subsection{Method \code{get()}}{
 Make a GET request
 \subsection{Usage}{
@@ -291,8 +291,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-post"></a>}}
-\if{latex}{\out{\hypertarget{method-post}{}}}
+\if{html}{\out{<a id="method-HttpClient-post"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-post}{}}}
 \subsection{Method \code{post()}}{
 Make a POST request
 \subsection{Usage}{
@@ -337,8 +337,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-put"></a>}}
-\if{latex}{\out{\hypertarget{method-put}{}}}
+\if{html}{\out{<a id="method-HttpClient-put"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-put}{}}}
 \subsection{Method \code{put()}}{
 Make a PUT request
 \subsection{Usage}{
@@ -383,8 +383,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-patch"></a>}}
-\if{latex}{\out{\hypertarget{method-patch}{}}}
+\if{html}{\out{<a id="method-HttpClient-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-patch}{}}}
 \subsection{Method \code{patch()}}{
 Make a PATCH request
 \subsection{Usage}{
@@ -429,8 +429,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-delete"></a>}}
-\if{latex}{\out{\hypertarget{method-delete}{}}}
+\if{html}{\out{<a id="method-HttpClient-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-delete}{}}}
 \subsection{Method \code{delete()}}{
 Make a DELETE request
 \subsection{Usage}{
@@ -475,8 +475,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-head"></a>}}
-\if{latex}{\out{\hypertarget{method-head}{}}}
+\if{html}{\out{<a id="method-HttpClient-head"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-head}{}}}
 \subsection{Method \code{head()}}{
 Make a HEAD request
 \subsection{Usage}{
@@ -502,8 +502,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-verb"></a>}}
-\if{latex}{\out{\hypertarget{method-verb}{}}}
+\if{html}{\out{<a id="method-HttpClient-verb"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-verb}{}}}
 \subsection{Method \code{verb()}}{
 Use an arbitrary HTTP verb supported on this class
 Supported verbs: "get", "post", "put", "patch", "delete", "head". Also
@@ -542,8 +542,8 @@ x$verb('retry', 'GET', path = "status/400")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-retry"></a>}}
-\if{latex}{\out{\hypertarget{method-retry}{}}}
+\if{html}{\out{<a id="method-HttpClient-retry"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-retry}{}}}
 \subsection{Method \code{retry()}}{
 Retry a request
 \subsection{Usage}{
@@ -623,8 +623,8 @@ x <- HttpClient$new(url = "https://httpbin.org")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-handle_pop"></a>}}
-\if{latex}{\out{\hypertarget{method-handle_pop}{}}}
+\if{html}{\out{<a id="method-HttpClient-handle_pop"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-handle_pop}{}}}
 \subsection{Method \code{handle_pop()}}{
 reset your curl handle
 \subsection{Usage}{
@@ -633,8 +633,8 @@ reset your curl handle
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-url_fetch"></a>}}
-\if{latex}{\out{\hypertarget{method-url_fetch}{}}}
+\if{html}{\out{<a id="method-HttpClient-url_fetch"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-url_fetch}{}}}
 \subsection{Method \code{url_fetch()}}{
 get the URL that would be sent (i.e., before executing
 the request) the only things that change the URL are path and query
@@ -671,8 +671,8 @@ x$url_fetch('get', query = list(foo = "bar"))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HttpClient-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpClient-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -165,21 +165,21 @@ Other async:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{Async$print()}}
-\item \href{#method-new}{\code{Async$new()}}
-\item \href{#method-get}{\code{Async$get()}}
-\item \href{#method-post}{\code{Async$post()}}
-\item \href{#method-put}{\code{Async$put()}}
-\item \href{#method-patch}{\code{Async$patch()}}
-\item \href{#method-delete}{\code{Async$delete()}}
-\item \href{#method-head}{\code{Async$head()}}
-\item \href{#method-verb}{\code{Async$verb()}}
-\item \href{#method-clone}{\code{Async$clone()}}
+\item \href{#method-Async-print}{\code{Async$print()}}
+\item \href{#method-Async-new}{\code{Async$new()}}
+\item \href{#method-Async-get}{\code{Async$get()}}
+\item \href{#method-Async-post}{\code{Async$post()}}
+\item \href{#method-Async-put}{\code{Async$put()}}
+\item \href{#method-Async-patch}{\code{Async$patch()}}
+\item \href{#method-Async-delete}{\code{Async$delete()}}
+\item \href{#method-Async-head}{\code{Async$head()}}
+\item \href{#method-Async-verb}{\code{Async$verb()}}
+\item \href{#method-Async-clone}{\code{Async$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Async-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-print}{}}}
 \subsection{Method \code{print()}}{
 print method for Async objects
 \subsection{Usage}{
@@ -197,8 +197,8 @@ print method for Async objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Async-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Async object
 \subsection{Usage}{
@@ -225,8 +225,8 @@ A new \code{Async} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-Async-get"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-get}{}}}
 \subsection{Method \code{get()}}{
 execute the \code{GET} http verb for the \code{urls}
 \subsection{Usage}{
@@ -270,8 +270,8 @@ postfields, postfieldsize, and customrequest}
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-post"></a>}}
-\if{latex}{\out{\hypertarget{method-post}{}}}
+\if{html}{\out{<a id="method-Async-post"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-post}{}}}
 \subsection{Method \code{post()}}{
 execute the \code{POST} http verb for the \code{urls}
 \subsection{Usage}{
@@ -312,8 +312,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-put"></a>}}
-\if{latex}{\out{\hypertarget{method-put}{}}}
+\if{html}{\out{<a id="method-Async-put"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-put}{}}}
 \subsection{Method \code{put()}}{
 execute the \code{PUT} http verb for the \code{urls}
 \subsection{Usage}{
@@ -354,8 +354,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-patch"></a>}}
-\if{latex}{\out{\hypertarget{method-patch}{}}}
+\if{html}{\out{<a id="method-Async-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-patch}{}}}
 \subsection{Method \code{patch()}}{
 execute the \code{PATCH} http verb for the \code{urls}
 \subsection{Usage}{
@@ -396,8 +396,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-delete"></a>}}
-\if{latex}{\out{\hypertarget{method-delete}{}}}
+\if{html}{\out{<a id="method-Async-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-delete}{}}}
 \subsection{Method \code{delete()}}{
 execute the \code{DELETE} http verb for the \code{urls}
 \subsection{Usage}{
@@ -438,8 +438,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-head"></a>}}
-\if{latex}{\out{\hypertarget{method-head}{}}}
+\if{html}{\out{<a id="method-Async-head"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-head}{}}}
 \subsection{Method \code{head()}}{
 execute the \code{HEAD} http verb for the \code{urls}
 \subsection{Usage}{
@@ -459,8 +459,8 @@ postfields, postfieldsize, and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-verb"></a>}}
-\if{latex}{\out{\hypertarget{method-verb}{}}}
+\if{html}{\out{<a id="method-Async-verb"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-verb}{}}}
 \subsection{Method \code{verb()}}{
 execute any supported HTTP verb
 \subsection{Usage}{
@@ -499,8 +499,8 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Async-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

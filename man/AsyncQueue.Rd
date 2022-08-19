@@ -85,28 +85,28 @@ Other async:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{AsyncQueue$print()}}
-\item \href{#method-new}{\code{AsyncQueue$new()}}
-\item \href{#method-request}{\code{AsyncQueue$request()}}
-\item \href{#method-responses}{\code{AsyncQueue$responses()}}
-\item \href{#method-parse}{\code{AsyncQueue$parse()}}
-\item \href{#method-status_code}{\code{AsyncQueue$status_code()}}
-\item \href{#method-status}{\code{AsyncQueue$status()}}
-\item \href{#method-content}{\code{AsyncQueue$content()}}
-\item \href{#method-times}{\code{AsyncQueue$times()}}
-\item \href{#method-clone}{\code{AsyncQueue$clone()}}
+\item \href{#method-AsyncQueue-print}{\code{AsyncQueue$print()}}
+\item \href{#method-AsyncQueue-new}{\code{AsyncQueue$new()}}
+\item \href{#method-AsyncQueue-request}{\code{AsyncQueue$request()}}
+\item \href{#method-AsyncQueue-responses}{\code{AsyncQueue$responses()}}
+\item \href{#method-AsyncQueue-parse}{\code{AsyncQueue$parse()}}
+\item \href{#method-AsyncQueue-status_code}{\code{AsyncQueue$status_code()}}
+\item \href{#method-AsyncQueue-status}{\code{AsyncQueue$status()}}
+\item \href{#method-AsyncQueue-content}{\code{AsyncQueue$content()}}
+\item \href{#method-AsyncQueue-times}{\code{AsyncQueue$times()}}
+\item \href{#method-AsyncQueue-clone}{\code{AsyncQueue$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="requests">}\href{../../crul/html/AsyncVaried.html#method-requests}{\code{crul::AsyncVaried$requests()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="crul" data-topic="AsyncVaried" data-id="requests"><a href='../../crul/html/AsyncVaried.html#method-AsyncVaried-requests'><code>crul::AsyncVaried$requests()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-print"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-print}{}}}
 \subsection{Method \code{print()}}{
 print method for AsyncQueue objects
 \subsection{Usage}{
@@ -124,8 +124,8 @@ print method for AsyncQueue objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new \code{AsyncQueue} object
 \subsection{Usage}{
@@ -166,8 +166,8 @@ A new \code{AsyncQueue} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-request"></a>}}
-\if{latex}{\out{\hypertarget{method-request}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-request"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-request}{}}}
 \subsection{Method \code{request()}}{
 Execute asynchronous requests
 \subsection{Usage}{
@@ -180,8 +180,8 @@ messages if you choose verbose output
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-responses"></a>}}
-\if{latex}{\out{\hypertarget{method-responses}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-responses"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-responses}{}}}
 \subsection{Method \code{responses()}}{
 List responses
 \subsection{Usage}{
@@ -194,8 +194,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse"></a>}}
-\if{latex}{\out{\hypertarget{method-parse}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-parse}{}}}
 \subsection{Method \code{parse()}}{
 parse content
 \subsection{Usage}{
@@ -216,8 +216,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status_code"></a>}}
-\if{latex}{\out{\hypertarget{method-status_code}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-status_code"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-status_code}{}}}
 \subsection{Method \code{status_code()}}{
 Get HTTP status codes for each response
 \subsection{Usage}{
@@ -229,8 +229,8 @@ numeric vector, empty numeric vector before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status"></a>}}
-\if{latex}{\out{\hypertarget{method-status}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-status"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-status}{}}}
 \subsection{Method \code{status()}}{
 List HTTP status objects
 \subsection{Usage}{
@@ -242,8 +242,8 @@ a list of \code{http_code} objects, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-content"></a>}}
-\if{latex}{\out{\hypertarget{method-content}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-content"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-content}{}}}
 \subsection{Method \code{content()}}{
 Get raw content for each response
 \subsection{Usage}{
@@ -255,8 +255,8 @@ raw list, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-times"></a>}}
-\if{latex}{\out{\hypertarget{method-times}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-times"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-times}{}}}
 \subsection{Method \code{times()}}{
 curl request times
 \subsection{Usage}{
@@ -268,8 +268,8 @@ list of named numeric vectors, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-AsyncQueue-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AsyncQueue-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

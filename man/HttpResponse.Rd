@@ -111,18 +111,18 @@ x <- HttpClient$new(url = 'https://httpbin.org/status/414')
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{HttpResponse$print()}}
-\item \href{#method-new}{\code{HttpResponse$new()}}
-\item \href{#method-parse}{\code{HttpResponse$parse()}}
-\item \href{#method-success}{\code{HttpResponse$success()}}
-\item \href{#method-status_http}{\code{HttpResponse$status_http()}}
-\item \href{#method-raise_for_status}{\code{HttpResponse$raise_for_status()}}
-\item \href{#method-clone}{\code{HttpResponse$clone()}}
+\item \href{#method-HttpResponse-print}{\code{HttpResponse$print()}}
+\item \href{#method-HttpResponse-new}{\code{HttpResponse$new()}}
+\item \href{#method-HttpResponse-parse}{\code{HttpResponse$parse()}}
+\item \href{#method-HttpResponse-success}{\code{HttpResponse$success()}}
+\item \href{#method-HttpResponse-status_http}{\code{HttpResponse$status_http()}}
+\item \href{#method-HttpResponse-raise_for_status}{\code{HttpResponse$raise_for_status()}}
+\item \href{#method-HttpResponse-clone}{\code{HttpResponse$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-HttpResponse-print"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-print}{}}}
 \subsection{Method \code{print()}}{
 print method for HttpResponse objects
 \subsection{Usage}{
@@ -140,8 +140,8 @@ print method for HttpResponse objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-HttpResponse-new"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new HttpResponse object
 \subsection{Usage}{
@@ -193,8 +193,8 @@ intermediate redirect headers, unnamed list of named lists}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse"></a>}}
-\if{latex}{\out{\hypertarget{method-parse}{}}}
+\if{html}{\out{<a id="method-HttpResponse-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-parse}{}}}
 \subsection{Method \code{parse()}}{
 Parse the raw response content to text
 \subsection{Usage}{
@@ -218,8 +218,8 @@ character string
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-success"></a>}}
-\if{latex}{\out{\hypertarget{method-success}{}}}
+\if{html}{\out{<a id="method-HttpResponse-success"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-success}{}}}
 \subsection{Method \code{success()}}{
 Was status code less than or equal to 201
 \subsection{Usage}{
@@ -231,8 +231,8 @@ boolean
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status_http"></a>}}
-\if{latex}{\out{\hypertarget{method-status_http}{}}}
+\if{html}{\out{<a id="method-HttpResponse-status_http"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-status_http}{}}}
 \subsection{Method \code{status_http()}}{
 Get HTTP status code, message, and explanation
 \subsection{Usage}{
@@ -253,8 +253,8 @@ message, and explanation
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-raise_for_status"></a>}}
-\if{latex}{\out{\hypertarget{method-raise_for_status}{}}}
+\if{html}{\out{<a id="method-HttpResponse-raise_for_status"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-raise_for_status}{}}}
 \subsection{Method \code{raise_for_status()}}{
 Check HTTP status and stop with appropriate
 HTTP error code and message if >= 300. otherwise use \pkg{httpcode}.
@@ -268,8 +268,8 @@ stop or warn with message
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-HttpResponse-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-HttpResponse-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -151,27 +151,27 @@ Default: \code{FALSE}.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-print}{\code{Paginator$print()}}
-\item \href{#method-new}{\code{Paginator$new()}}
-\item \href{#method-get}{\code{Paginator$get()}}
-\item \href{#method-post}{\code{Paginator$post()}}
-\item \href{#method-put}{\code{Paginator$put()}}
-\item \href{#method-patch}{\code{Paginator$patch()}}
-\item \href{#method-delete}{\code{Paginator$delete()}}
-\item \href{#method-head}{\code{Paginator$head()}}
-\item \href{#method-responses}{\code{Paginator$responses()}}
-\item \href{#method-status_code}{\code{Paginator$status_code()}}
-\item \href{#method-status}{\code{Paginator$status()}}
-\item \href{#method-parse}{\code{Paginator$parse()}}
-\item \href{#method-content}{\code{Paginator$content()}}
-\item \href{#method-times}{\code{Paginator$times()}}
-\item \href{#method-url_fetch}{\code{Paginator$url_fetch()}}
-\item \href{#method-clone}{\code{Paginator$clone()}}
+\item \href{#method-Paginator-print}{\code{Paginator$print()}}
+\item \href{#method-Paginator-new}{\code{Paginator$new()}}
+\item \href{#method-Paginator-get}{\code{Paginator$get()}}
+\item \href{#method-Paginator-post}{\code{Paginator$post()}}
+\item \href{#method-Paginator-put}{\code{Paginator$put()}}
+\item \href{#method-Paginator-patch}{\code{Paginator$patch()}}
+\item \href{#method-Paginator-delete}{\code{Paginator$delete()}}
+\item \href{#method-Paginator-head}{\code{Paginator$head()}}
+\item \href{#method-Paginator-responses}{\code{Paginator$responses()}}
+\item \href{#method-Paginator-status_code}{\code{Paginator$status_code()}}
+\item \href{#method-Paginator-status}{\code{Paginator$status()}}
+\item \href{#method-Paginator-parse}{\code{Paginator$parse()}}
+\item \href{#method-Paginator-content}{\code{Paginator$content()}}
+\item \href{#method-Paginator-times}{\code{Paginator$times()}}
+\item \href{#method-Paginator-url_fetch}{\code{Paginator$url_fetch()}}
+\item \href{#method-Paginator-clone}{\code{Paginator$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-Paginator-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-print}{}}}
 \subsection{Method \code{print()}}{
 print method for \code{Paginator} objects
 \subsection{Usage}{
@@ -189,8 +189,8 @@ print method for \code{Paginator} objects
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Paginator-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new \code{Paginator} object
 \subsection{Usage}{
@@ -240,8 +240,8 @@ A new \code{Paginator} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-Paginator-get"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-get}{}}}
 \subsection{Method \code{get()}}{
 make a paginated GET request
 \subsection{Usage}{
@@ -267,8 +267,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-post"></a>}}
-\if{latex}{\out{\hypertarget{method-post}{}}}
+\if{html}{\out{<a id="method-Paginator-post"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-post}{}}}
 \subsection{Method \code{post()}}{
 make a paginated POST request
 \subsection{Usage}{
@@ -304,8 +304,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-put"></a>}}
-\if{latex}{\out{\hypertarget{method-put}{}}}
+\if{html}{\out{<a id="method-Paginator-put"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-put}{}}}
 \subsection{Method \code{put()}}{
 make a paginated PUT request
 \subsection{Usage}{
@@ -341,8 +341,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-patch"></a>}}
-\if{latex}{\out{\hypertarget{method-patch}{}}}
+\if{html}{\out{<a id="method-Paginator-patch"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-patch}{}}}
 \subsection{Method \code{patch()}}{
 make a paginated PATCH request
 \subsection{Usage}{
@@ -378,8 +378,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-delete"></a>}}
-\if{latex}{\out{\hypertarget{method-delete}{}}}
+\if{html}{\out{<a id="method-Paginator-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-delete}{}}}
 \subsection{Method \code{delete()}}{
 make a paginated DELETE request
 \subsection{Usage}{
@@ -415,8 +415,8 @@ and customrequest}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-head"></a>}}
-\if{latex}{\out{\hypertarget{method-head}{}}}
+\if{html}{\out{<a id="method-Paginator-head"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-head}{}}}
 \subsection{Method \code{head()}}{
 make a paginated HEAD request
 \subsection{Usage}{
@@ -442,8 +442,8 @@ not sure if this makes any sense or not yet
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-responses"></a>}}
-\if{latex}{\out{\hypertarget{method-responses}{}}}
+\if{html}{\out{<a id="method-Paginator-responses"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-responses}{}}}
 \subsection{Method \code{responses()}}{
 list responses
 \subsection{Usage}{
@@ -455,8 +455,8 @@ a list of \code{HttpResponse} objects, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status_code"></a>}}
-\if{latex}{\out{\hypertarget{method-status_code}{}}}
+\if{html}{\out{<a id="method-Paginator-status_code"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-status_code}{}}}
 \subsection{Method \code{status_code()}}{
 Get HTTP status codes for each response
 \subsection{Usage}{
@@ -468,8 +468,8 @@ numeric vector, empty numeric vector before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-status"></a>}}
-\if{latex}{\out{\hypertarget{method-status}{}}}
+\if{html}{\out{<a id="method-Paginator-status"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-status}{}}}
 \subsection{Method \code{status()}}{
 List HTTP status objects
 \subsection{Usage}{
@@ -481,8 +481,8 @@ a list of \code{http_code} objects, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse"></a>}}
-\if{latex}{\out{\hypertarget{method-parse}{}}}
+\if{html}{\out{<a id="method-Paginator-parse"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-parse}{}}}
 \subsection{Method \code{parse()}}{
 parse content
 \subsection{Usage}{
@@ -503,8 +503,8 @@ requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-content"></a>}}
-\if{latex}{\out{\hypertarget{method-content}{}}}
+\if{html}{\out{<a id="method-Paginator-content"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-content}{}}}
 \subsection{Method \code{content()}}{
 Get raw content for each response
 \subsection{Usage}{
@@ -516,8 +516,8 @@ raw list, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-times"></a>}}
-\if{latex}{\out{\hypertarget{method-times}{}}}
+\if{html}{\out{<a id="method-Paginator-times"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-times}{}}}
 \subsection{Method \code{times()}}{
 curl request times
 \subsection{Usage}{
@@ -529,8 +529,8 @@ list of named numeric vectors, empty list before requests made
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-url_fetch"></a>}}
-\if{latex}{\out{\hypertarget{method-url_fetch}{}}}
+\if{html}{\out{<a id="method-Paginator-url_fetch"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-url_fetch}{}}}
 \subsection{Method \code{url_fetch()}}{
 get the URL that would be sent (i.e., before executing
 the request) the only things that change the URL are path and query
@@ -569,8 +569,8 @@ cc$url_fetch('works', query = list(query = "NSF"))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Paginator-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Paginator-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
