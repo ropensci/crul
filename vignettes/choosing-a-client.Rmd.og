@@ -26,7 +26,7 @@ There are a number of different crul classes that do HTTP requests. The followin
 |Paginator|all except retry|no|---|
 |ok|head,get|no|[dams][]|
 |Async|all except retry|yes|[fulltext][],[rdryad][],[rnoaa][]|
-|AsyncVaried|all except retry|yes|[ropenaq][],[rcrossref][],[taxize][],[rcitoid][],[mstrio][]|
+|AsyncVaried|all except retry|yes|[rcrossref][],[taxize][],[rcitoid][],[mstrio][]|
 |AsyncQueue|all except retry|yes|---|
 
 **HttpClient** is the main class for doing synchronous HTTP requests. It supports all HTTP verbs including retry. It was the first class in this package. See also `crul::ok()`, which builds on this class.
@@ -60,7 +60,6 @@ See the [async with crul](async.html) vignette for more details on asynchronous 
 [fulltext]:https://docs.ropensci.org/fulltext/
 [rdryad]: https://docs.ropensci.org/rdryad/
 [rnoaa]: https://docs.ropensci.org/rnoaa/
-[ropenaq]: https://docs.ropensci.org/ropenaq/
 [rcrossref]: https://docs.ropensci.org/rcrossref/
 [taxize]: https://docs.ropensci.org/taxize/
 [rcitoid]: https://docs.ropensci.org/rcitoid/
