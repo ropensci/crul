@@ -38,6 +38,7 @@ test_that("path - paths don't work if paths already on URL", {
 
 test_that("path - work with routes that have spaces", {
   skip_on_cran()
+  skip_on_os("windows")
 
   cli <- HttpClient$new(url = "http://www.marinespecies.org")
   bb <- cli$get('rest/AphiaRecordsByName/Platanista gangetica')
