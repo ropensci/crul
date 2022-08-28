@@ -1,3 +1,11 @@
+crul 1.3
+========
+
+### BUG FIXES
+
+* improved error message for `Async` when `urls` and `disk` vector lengths do not match (they must match) (#165) thanks @shakraz
+
+
 crul 1.2
 ========
 
