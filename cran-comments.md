@@ -1,7 +1,7 @@
 ## Test environments
 
-* local macOS install, R 4.1.2
-* ubuntu 18.04 (on github actions), R 4.1.2
+* local macOS install, R 4.2.1
+* ubuntu 20.04 (on github actions), R 4.2.1
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -10,7 +10,7 @@
 
 ## Reverse dependencies
 
-* I have run R CMD check on the 70 downstream dependencies. No problems were found related to this package.
+* I have run R CMD check on the downstream dependencies. No problems were found related to this package.
 
 ---
 
