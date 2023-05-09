@@ -76,6 +76,11 @@
 #' res[[1]]$parse("UTF-8") # a failure
 #' res[[2]]$parse("UTF-8") # a failure
 #' res[[3]]$parse("UTF-8") # a success
+#' 
+#' # retry
+#' urls = c("https://httpbin.org/status/404", "https://httpbin.org/status/429")
+#' conn <- Async$new(urls = urls)
+#' res <- conn$retry(verb="get")
 #' }
 Async <- R6::R6Class(
   'Async',
@@ -205,6 +210,12 @@ Async <- R6::R6Class(
     },
 
     #' @description
+    #' execute the `RETRY` http verb for the `urls`. see [`HttpRequest$retry`][HttpRequest] method for parameters
+    retry = function(...) {
+      private$gen_interface(self$urls, "retry", ...)
+    },
+
+    #' @description
     #' execute any supported HTTP verb
     #' @param verb (character) a supported HTTP verb: get, post, put, patch, delete,
     #' head.
@@ -276,7 +287,11 @@ Async <- R6::R6Class(
             head = HttpRequest$new(url = z, opts = self$opts, 
               proxies = self$proxies, auth = self$auth,
               headers = self$headers
-            )$head(path = path, ...)
+            )$head(path = path, ...),
+            retry = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$retry(...)
           )
         }, x, disk)
       } else {
@@ -318,7 +333,11 @@ Async <- R6::R6Class(
             head = HttpRequest$new(url = z, opts = self$opts, 
               proxies = self$proxies, auth = self$auth, 
               headers = self$headers
-            )$head(path = path, ...)
+            )$head(path = path, ...),
+            retry = HttpRequest$new(url = z, opts = self$opts, 
+              proxies = self$proxies, auth = self$auth, 
+              headers = self$headers
+            )$retry(...)
           )
         })
       }

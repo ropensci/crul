@@ -193,6 +193,23 @@ test_that("Async - verb", {
   expect_equal(out[[2]]$method, "get")
 })
 
+context("Async - verb")
+test_that("Async - retry", {
+  skip_on_cran()
+
+  aa <- Async$new(urls = c("https://nghttp2.org/httpbin/status/404", 
+    "https://nghttp2.org/httpbin/status/429"))
+  out <- aa$retry(verb='get')
+
+  expect_is(out, "asyncresponses")
+  expect_is(out[[1]], "HttpResponse")
+  expect_is(out[[2]], "HttpResponse")
+  expect_equal(out[[1]]$method, "get")
+  expect_equal(out[[2]]$method, "get")
+  expect_gt(length(out[[1]]$response_headers_all), 3)
+  expect_gt(length(out[[2]]$response_headers_all), 3)
+})
+
 
 context("Async - order of results")
 test_that("Async - order", {

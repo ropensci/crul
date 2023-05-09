@@ -16,7 +16,7 @@ access values and methods on the object \code{x}.
 
 \examples{
 \dontrun{
-# Using sleep
+# Using sleep (note this works with retry requests)
 reqlist <- list(
   HttpRequest$new(url = "https://httpbin.org/get")$get(),
   HttpRequest$new(url = "https://httpbin.org/post")$post(),
@@ -32,7 +32,8 @@ reqlist <- list(
   HttpRequest$new(url = "https://ropensci.org/packages")$get(),
   HttpRequest$new(url = "https://ropensci.org/community")$get(),
   HttpRequest$new(url = "https://ropensci.org/blog")$get(),
-  HttpRequest$new(url = "https://ropensci.org/careers")$get()
+  HttpRequest$new(url = "https://ropensci.org/careers")$get(),
+  HttpRequest$new(url = "https://httpbin.org/status/404")$retry("get")
 )
 out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
 out

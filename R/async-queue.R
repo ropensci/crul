@@ -4,7 +4,7 @@
 #' @family async
 #' @template r6
 #' @examples \dontrun{
-#' # Using sleep
+#' # Using sleep (note this works with retry requests)
 #' reqlist <- list(
 #'   HttpRequest$new(url = "https://httpbin.org/get")$get(),
 #'   HttpRequest$new(url = "https://httpbin.org/post")$post(),
@@ -20,7 +20,8 @@
 #'   HttpRequest$new(url = "https://ropensci.org/packages")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/community")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/blog")$get(),
-#'   HttpRequest$new(url = "https://ropensci.org/careers")$get()
+#'   HttpRequest$new(url = "https://ropensci.org/careers")$get(),
+#'   HttpRequest$new(url = "https://httpbin.org/status/404")$retry("get")
 #' )
 #' out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
 #' out
@@ -28,7 +29,7 @@
 #' out$requests() # list requests
 #' out$request() # make requests
 #' out$responses() # list responses
-#' 
+#'
 #' # Using requests per minute
 #' if (interactive()) {
 #' x="https://raw.githubusercontent.com/ropensci/roregistry/gh-pages/registry.json"
@@ -40,7 +41,7 @@
 #' reqs <- lapply(repos[1:50], function(w) {
 #'   HttpRequest$new(paste0("https://api.github.com/repos/", w), headers = auth)$get()
 #' })
-#' 
+#'
 #' out <- AsyncQueue$new(.list = reqs, req_per_min = 30)
 #' out
 #' out$bucket_size
@@ -81,7 +82,7 @@ AsyncQueue <- R6::R6Class(
     #' if `NULL` (default), its ignored
     #' @details Must set either `sleep` or `req_per_min`. If you set
     #' `req_per_min` we calculate a new `bucket_size` when `$new()` is
-    #' called 
+    #' called
     #' @return A new `AsyncQueue` object
     initialize = function(..., .list = list(), bucket_size = 5,
       sleep = NULL, req_per_min = NULL) {

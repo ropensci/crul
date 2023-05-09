@@ -141,7 +141,7 @@ out$parse()
 reqlist <- list(
   HttpRequest$new(url = "http://stuffthings.gvb")$get(),
   HttpRequest$new(url = "https://httpbin.org")$head(),
-  HttpRequest$new(url = "https://httpbin.org", 
+  HttpRequest$new(url = "https://httpbin.org",
    opts = list(timeout_ms = 10))$head()
 )
 (tmp <- AsyncVaried$new(.list = reqlist))
@@ -160,6 +160,19 @@ tmp <- AsyncVaried$new(.list = reqlist)
 tmp$request()
 tmp
 lapply(tmp$responses(), "[[", "response_headers_all")
+
+# retry
+reqlist <- list(
+  HttpRequest$new(url = "https://httpbin.org/get")$get(),
+  HttpRequest$new(url = "https://httpbin.org/post")$post(),
+  HttpRequest$new(url = "https://httpbin.org/status/404")$retry("get"),
+  HttpRequest$new(url = "https://httpbin.org/status/429")$retry("get",
+   retry_only_on = c(403, 429), times = 2)
+)
+tmp <- AsyncVaried$new(.list = reqlist)
+tmp
+tmp$request()
+tmp$responses()[[3]]
 }
 }
 \seealso{

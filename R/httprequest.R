@@ -54,6 +54,10 @@
 #'     `Content-Type` = "application/json"
 #'   )
 #' )
+#'
+#' # retry
+#' (x <- HttpRequest$new(url = "https://httpbin.org/post"))
+#' x$retry("post", body = list(foo = "bar"))
 #' }
 HttpRequest <- R6::R6Class(
   'HttpRequest',
@@ -79,17 +83,14 @@ HttpRequest <- R6::R6Class(
     #' @param x self
     #' @param ... ignored
     print = function(x, ...) {
-      cat(paste0("<crul http request> ", self$method()), sep = "\n")
-      # cat(paste0("  url: ", if (is.null(self$url))
-      #   self$handle$url else self$url), sep = "\n")
+      retry_note <- if ("retry_options" %in% names(self$payload)) " (retry)" else ""
+      cat(paste0("<crul http request> ", self$method(), retry_note), sep = "\n")
       cat(paste0("  url: ",
         self$payload$url$url %||% self$handle$url %||% self$url), sep = "\n")
       cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
         z <- if (inherits(self$opts[[i]], "function")) "<function>" else self$opts[[i]]
         cat(sprintf("    %s: %s", names(self$opts)[i], z), sep = "\n")
-        # cat(sprintf("    %s: %s", names(self$opts)[i],
-        #             self$opts[[i]]), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
       if (length(self$proxies)) cat(paste("    -",
@@ -257,6 +258,42 @@ HttpRequest <- R6::R6Class(
       verbFunc <- self[[tolower(verb)]]
       stopifnot(is.function(verbFunc))
       verbFunc(...)
+    },
+
+    #' @description Define a RETRY request
+    #' @param verb an HTTP verb supported on this class: get,
+    #' post, put, patch, delete, head. Also supports retry.
+    #' @param times the maximum number of times to retry. Set to `Inf` to
+    #' not stop retrying due to exhausting the number of attempts.
+    #' @param pause_base,pause_cap,pause_min basis, maximum, and minimum for
+    #' calculating wait time for retry. Wait time is calculated according to the
+    #' exponential backoff with full jitter algorithm. Specifically, wait time is
+    #' chosen randomly between `pause_min` and the lesser of `pause_base * 2` and
+    #' `pause_cap`, with `pause_base` doubling on each subsequent retry attempt.
+    #' Use `pause_cap = Inf` to not terminate retrying due to cap of wait time
+    #' reached.
+    #' @param terminate_on,retry_only_on a vector of HTTP status codes. For
+    #' `terminate_on`, the status codes for which to terminate retrying, and for
+    #' `retry_only_on`, the status codes for which to retry the request.
+    #' @param onwait a callback function if the request will be retried and
+    #' a wait time is being applied. The function will be passed two parameters,
+    #' the response object from the failed request, and the wait time in seconds.
+    #' Note that the time spent in the function effectively adds to the wait time,
+    #' so it should be kept simple.
+    retry = function(verb, ..., pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
+                     terminate_on = NULL, retry_only_on = NULL,
+                     onwait = NULL) {
+      stopifnot(is.character(verb), length(verb) > 0)
+      verbs <- c('get', 'post', 'put', 'patch', 'delete', 'head')
+      if (!tolower(verb) %in% verbs) stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
+      verbFunc <- self[[tolower(verb)]]
+      stopifnot(is.function(verbFunc))
+      stopifnot(is.null(onwait) || is.function(onwait))
+      tmp <- verbFunc(...)
+      tmp$payload$retry_options <- list(pause_base = pause_base, pause_cap = pause_cap,
+        pause_min = pause_min, times = times, terminate_on = terminate_on,
+        retry_only_on = retry_only_on, onwait = onwait)
+      return(tmp)
     },
 
     #' @description Get the HTTP method (if defined)

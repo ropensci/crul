@@ -109,6 +109,11 @@ res <- conn$get()
 res[[1]]$parse("UTF-8") # a failure
 res[[2]]$parse("UTF-8") # a failure
 res[[3]]$parse("UTF-8") # a success
+
+# retry
+urls = c("https://httpbin.org/status/404", "https://httpbin.org/status/429")
+conn <- Async$new(urls = urls)
+res <- conn$retry(verb="get")
 }
 
 ## ------------------------------------------------
@@ -173,6 +178,7 @@ Other async:
 \item \href{#method-Async-patch}{\code{Async$patch()}}
 \item \href{#method-Async-delete}{\code{Async$delete()}}
 \item \href{#method-Async-head}{\code{Async$head()}}
+\item \href{#method-Async-retry}{\code{Async$retry()}}
 \item \href{#method-Async-verb}{\code{Async$verb()}}
 \item \href{#method-Async-clone}{\code{Async$clone()}}
 }
@@ -451,6 +457,25 @@ execute the \code{HEAD} http verb for the \code{urls}
 \describe{
 \item{\code{path}}{(character) URL path, appended to the base URL}
 
+\item{\code{...}}{curl options, only those in the acceptable set from
+\code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
+postfields, postfieldsize, and customrequest}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Async-retry"></a>}}
+\if{latex}{\out{\hypertarget{method-Async-retry}{}}}
+\subsection{Method \code{retry()}}{
+execute the \code{RETRY} http verb for the \code{urls}. see \code{\link[=HttpRequest]{HttpRequest$retry}} method for parameters
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Async$retry(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
 postfields, postfieldsize, and customrequest}

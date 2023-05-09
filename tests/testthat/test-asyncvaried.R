@@ -250,3 +250,16 @@ test_that("AsyncVaried verb method works", {
   expect_equal(aa$responses()[[1]]$method, 'get')
   expect_equal(aa$responses()[[2]]$method, 'post')
 })
+
+# verb method works
+test_that("AsyncVaried verb retry", {
+  skip_on_cran()
+
+  req1 <- HttpRequest$new(url = hb("/get"))$retry('get')
+  req2 <- HttpRequest$new(url = hb("/post"))$retry('post')
+
+  aa <- AsyncVaried$new(req1, req2)
+  aa$request()
+  expect_equal(aa$responses()[[1]]$method, 'get')
+  expect_equal(aa$responses()[[2]]$method, 'post')
+})
