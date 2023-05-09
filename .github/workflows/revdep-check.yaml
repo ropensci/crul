@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - { os: ubuntu-18.04, r: 'release'}
+        - { os: ubuntu-20.04, r: 'release'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -19,45 +19,43 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - name: Cache R packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{ hashFiles('DESCRIPTION') }}
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+      
       - name: Install pak
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
         shell: Rscript {0}
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          sudo apt update
-          sudo apt install libcurl4-openssl-dev
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(pak::local_system_requirements(".", "ubuntu", "18.04"))')
       
       - name: Install dependencies
-        run: Rscript -e "install.packages('remotes')" -e "remotes::install_deps(dependencies = TRUE)" -e "remotes::install_github('r-lib/revdepcheck')"
+        run: |
+          pak::pkg_install('r-lib/revdepcheck')
+        shell: Rscript {0}
 
       - name: Revdepcheck
-        run: Rscript -e "revdepcheck::revdep_reset()" -e "revdepcheck::revdep_check(num_workers=8)"
+        run: |
+          revdepcheck::revdep_reset()
+          revdepcheck::revdep_check(num_workers=8)
+        shell: Rscript {0}
 
       - name: Upload revdepcheck results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: revdep/*.md
