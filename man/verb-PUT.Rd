@@ -30,9 +30,6 @@ is successfully modified in accordance with the state of the enclosed
 representation, then the origin server MUST send either a 200 (OK) or
 a 204 (No Content) response to indicate successful completion of the
 request.
-
-See \url{https://tools.ietf.org/html/rfc7231#section-4.3.4} for further
-details.
 }
 
 \examples{
@@ -43,7 +40,7 @@ x$put(path = 'put', body = list(foo = "bar"))
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc7231#section-4.3.4}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4}
 }
 \seealso{
 \link{crul-package}

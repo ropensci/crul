@@ -15,9 +15,6 @@ document" identified by a media type.  If the Request-URI does not
 point to an existing resource, the server MAY create a new resource,
 depending on the patch document type (whether it can logically modify
 a null resource) and permissions, etc.
-
-See \url{https://tools.ietf.org/html/rfc5789#section-2} for further
-details.
 }
 
 \examples{
@@ -28,7 +25,7 @@ x$patch(path = 'patch', body = list(hello = "mars"))
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc5789}
+\url{https://datatracker.ietf.org/doc/html/rfc5789}
 }
 \seealso{
 \link{crul-package}

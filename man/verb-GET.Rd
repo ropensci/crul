@@ -19,7 +19,7 @@ to making a GET request.
 It is tempting to think of resource identifiers as remote file system
 pathnames and of representations as being a copy of the contents of
 such files.  In fact, that is how many resources are implemented (see
-Section 9.1 (\url{https://tools.ietf.org/html/rfc7231#section-9.1})
+Section 9.1 (\url{https://datatracker.ietf.org/doc/html/rfc7231#section-9.1})
 for related security considerations).  However, there are
 no such limitations in practice.  The HTTP interface for a resource
 is just as likely to be implemented as a tree of content objects, a
@@ -36,7 +36,7 @@ in a response to GET.
 A client can alter the semantics of GET to be a "range request",
 requesting transfer of only some part(s) of the selected
 representation, by sending a Range header field in the request
-(RFC7233: \url{https://tools.ietf.org/html/rfc7233}).
+(RFC7233: \url{https://datatracker.ietf.org/doc/html/rfc7233}).
 
 A payload within a GET request message has no defined semantics;
 sending a payload body on a GET request might cause some existing
@@ -45,7 +45,7 @@ implementations to reject the request.
 The response to a GET request is cacheable; a cache MAY use it to
 satisfy subsequent GET and HEAD requests unless otherwise indicated
 by the Cache-Control header field (Section 5.2 of RFC7234:
-\url{https://tools.ietf.org/html/rfc7234#section-5.2}).
+\url{https://datatracker.ietf.org/doc/html/rfc7234#section-5.2}).
 }
 
 \examples{
@@ -56,7 +56,7 @@ x$get(path = 'get')
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc7231#section-4.3.1}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1}
 }
 \seealso{
 \link{crul-package}

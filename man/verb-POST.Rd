@@ -13,12 +13,9 @@ If one or more resources has been created on the origin server as a
 result of successfully processing a POST request, the origin server
 SHOULD send a 201 (Created) response containing a Location header
 field that provides an identifier for the primary resource created
-(Section 7.1.2 \url{https://tools.ietf.org/html/rfc7231#section-7.1.2})
+(Section 7.1.2 \url{https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.2})
 and a representation that describes the status of the
 request while referring to the new resource(s).
-
-See \url{https://tools.ietf.org/html/rfc7231#section-4.3.3} for further
-details.
 }
 
 \examples{
@@ -60,7 +57,7 @@ jsonlite::fromJSON(res$parse())
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc7231#section-4.3.3}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.3}
 }
 \seealso{
 \link{crul-package}

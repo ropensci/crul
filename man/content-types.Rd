@@ -61,10 +61,10 @@ res$raise_for_ct_json(behavior = "warning")
 }
 \references{
 spec for content types:
-\url{https://tools.ietf.org/html/rfc7231#section-3.1.1.5}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5}
 
 spec for media types:
-\url{https://tools.ietf.org/html/rfc7231#section-3.1.1.1}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.1}
 }
 \seealso{
 \link{HttpResponse}

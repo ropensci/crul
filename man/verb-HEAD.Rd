@@ -19,9 +19,6 @@ be used for obtaining metadata about the selected representation
 without transferring the representation data and is often used for
 testing hypertext links for validity, accessibility, and recent
 modification.
-
-See \url{https://tools.ietf.org/html/rfc7231#section-4.3.2} for further
-details.
 }
 
 \examples{
@@ -32,7 +29,7 @@ x$head()
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc7231#section-4.3.2}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.2}
 }
 \seealso{
 \link{crul-package}

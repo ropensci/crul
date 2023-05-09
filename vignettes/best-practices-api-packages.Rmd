@@ -1,7 +1,7 @@
 ---
 title: 5. API package best practices
 author: Scott Chamberlain
-date: "2021-08-16"
+date: "2023-05-09"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{5. API package best practices}
@@ -252,5 +252,5 @@ Last, the httr package has a similar article on best practices, see
 [webmockr]: https://github.com/ropensci/webmockr
 [vcr]: https://github.com/ropensci/vcr
 [httr]: https://github.com/r-lib/httr
-[fauxpas]: https://github.com/ropensci/fauxpas
+[fauxpas]: https://github.com/sckott/fauxpas
 [book]: https://books.ropensci.org/http-testing/

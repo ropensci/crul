@@ -14,9 +14,6 @@ functionality.  In effect, this method is similar to the rm command
 in UNIX: it expresses a deletion operation on the URI mapping of the
 origin server rather than an expectation that the previously
 associated information be deleted.
-
-See \url{https://tools.ietf.org/html/rfc7231#section-4.3.5} for further
-details.
 }
 
 \examples{
@@ -38,7 +35,7 @@ x$delete('delete', verbose = TRUE)
 
 }
 \references{
-\url{https://tools.ietf.org/html/rfc7231#section-4.3.5}
+\url{https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.5}
 }
 \seealso{
 \link{crul-package}
