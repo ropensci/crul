@@ -8,17 +8,14 @@ test_that("url build works", {
   cc <- url_build(hb(), "get", list(foo = "bar"))
 
   expect_is(aa, "character")
-  expect_match(aa, "https")
-  expect_match(aa, "httpbin.org")
+  expect_match(aa, "http")
 
   expect_is(bb, "character")
-  expect_match(bb, "https")
-  expect_match(bb, "httpbin.org")
+  expect_match(bb, "http")
   expect_match(bb, "get")
 
   expect_is(cc, "character")
-  expect_match(cc, "https")
-  expect_match(cc, "httpbin.org")
+  expect_match(cc, "http")
   expect_match(cc, "?foo=bar")
 })
 

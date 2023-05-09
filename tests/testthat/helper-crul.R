@@ -4,14 +4,19 @@ hb <- function(x = NULL) if (is.null(x)) base_url else paste0(base_url, x)
 
 # check various httpbin servers
 urls <- c(
-  "https://eu.httpbin.org", 
+  "https://hb.opencpu.org", 
+  "https://nghttp2.org/httpbin",
   "https://httpbin.org", 
   "http://httpbin.org"
 )
 h <- curl::new_handle(timeout = 10, failonerror = FALSE)
 out <- list()
 for (i in seq_along(urls)) {
-  out[[i]] <- curl::curl_fetch_memory(urls[i], handle = h)
+  tryCatch({
+    out[[i]] <- curl::curl_fetch_memory(urls[i], handle = h)
+  }, error = function(e)
+    message(urls[i], " is down ", e$message)
+  )
 }
 codes <- vapply(out, "[[", 1, "status_code")
 if (!any(codes == 200)) stop("all httpbin servers down")

@@ -1,7 +1,7 @@
 skip_on_cran()
 
-res_html <- HttpClient$new(url = hb())$get()
-res_json <- HttpClient$new(url = hb("/json"))$get()
+res_html <- HttpClient$new(url = hb("/html"))$get()
+res_json <- HttpClient$new(url = hb())$get('/get')
 res_xml <- HttpClient$new(url = hb("/xml"))$get()
 
 test_that("html", {
