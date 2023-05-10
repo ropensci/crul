@@ -58,7 +58,8 @@ install.packages("crul", repos = "https://dev.ropensci.org")
 Dev version from GitHub
 
 ```{r eval=FALSE}
-remotes::install_github("ropensci/crul")
+install.packages("pak")
+pak::pkg_install("ropensci/crul")
 ```
 
 ```{r}

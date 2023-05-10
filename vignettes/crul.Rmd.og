@@ -31,7 +31,8 @@ install.packages("crul")
 Dev version
 
 ```{r eval=FALSE}
-remotes::install_github("ropensci/crul")
+install.packages("pak")
+pak::pkg_install("ropensci/crul")
 ```
 
 ```{r}
@@ -44,7 +45,7 @@ library("crul")
 
 ```{r}
 (x <- HttpClient$new(
-  url = "https://httpbin.org",
+  url = "https://hb.opencpu.org",
   opts = list(
     timeout = 1
   ),
@@ -73,7 +74,7 @@ and pass paths to, as well as query parameters, body values, and any other
 curl options.
 
 Here, we'll do a __GET__ request on the route `/get` on our base url
-`https://httpbin.org` (the full url is then `https://httpbin.org/get`)
+`https://hb.opencpu.org` (the full url is then `https://hb.opencpu.org/get`)
 
 ```{r}
 res <- x$get("get")
@@ -141,7 +142,7 @@ x$post(
 ## write to disk
 
 ```{r}
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
@@ -157,7 +158,7 @@ readLines(res$content, n = 10)
 ## stream data
 
 ```{r}
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
 # when streaming, content is NULL
 res$content 

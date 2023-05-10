@@ -55,7 +55,8 @@ Dev version from GitHub
 
 
 ```r
-remotes::install_github("ropensci/crul")
+install.packages("pak")
+pak::pkg_install("ropensci/crul")
 ```
 
 
