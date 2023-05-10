@@ -266,7 +266,6 @@ AsyncVaried <- R6::R6Class(
             if (! (wait_time > pause_cap)) {
               if (is.function(onwait)) onwait(res, wait_time)
               Sys.sleep(wait_time)
-              message("Retrying ", times)
               retry(i, handle,
                     pause_base = pause_base * 2,
                     pause_cap = pause_cap,
