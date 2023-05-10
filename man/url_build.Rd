@@ -24,16 +24,16 @@ returns a list with URL components
 Build and parse URLs
 }
 \examples{
-url_build("https://httpbin.org")
-url_build("https://httpbin.org", "get")
-url_build("https://httpbin.org", "post")
-url_build("https://httpbin.org", "get", list(foo = "bar"))
+url_build("https://hb.opencpu.org")
+url_build("https://hb.opencpu.org", "get")
+url_build("https://hb.opencpu.org", "post")
+url_build("https://hb.opencpu.org", "get", list(foo = "bar"))
 
-url_parse("httpbin.org")
-url_parse("http://httpbin.org")
-url_parse(url = "https://httpbin.org")
-url_parse("https://httpbin.org/get")
-url_parse("https://httpbin.org/get?foo=bar")
-url_parse("https://httpbin.org/get?foo=bar&stuff=things")
-url_parse("https://httpbin.org/get?foo=bar&stuff=things[]")
+url_parse("hb.opencpu.org")
+url_parse("https://hb.opencpu.org")
+url_parse(url = "https://hb.opencpu.org")
+url_parse("https://hb.opencpu.org/get")
+url_parse("https://hb.opencpu.org/get?foo=bar")
+url_parse("https://hb.opencpu.org/get?foo=bar&stuff=things")
+url_parse("https://hb.opencpu.org/get?foo=bar&stuff=things[]")
 }

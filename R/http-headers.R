@@ -2,11 +2,11 @@
 #'
 #' @name http-headers
 #' @examples \dontrun{
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #'
 #' # set headers
 #' (res <- HttpClient$new(
-#'   url = "https://httpbin.org",
+#'   url = "https://hb.opencpu.org",
 #'   opts = list(
 #'     verbose = TRUE
 #'   ),
@@ -25,7 +25,7 @@
 #'
 #' ## setting content-type via headers
 #' (res <- HttpClient$new(
-#'   url = "https://httpbin.org",
+#'   url = "https://hb.opencpu.org",
 #'   opts = list(
 #'     verbose = TRUE
 #'   ),

@@ -20,7 +20,7 @@ request while referring to the new resource(s).
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 
 # a named list
 x$post(path='post', body = list(hello = "world"))

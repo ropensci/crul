@@ -16,7 +16,7 @@ make_url <- function(url = NULL, handle = NULL, path, query) {
 # query <- list(a = 5, a = 6)
 # query <- list(a = 5)
 # query <- list()
-# add_query(query, "https://httpbin.org")
+# add_query(query, "https://hb.opencpu.org")
 add_query <- function(x, url) {
   if (length(x)) {
     quer <- list()
@@ -43,18 +43,18 @@ add_query <- function(x, url) {
 #' @return `url_build` returns a character string URL; `url_parse`
 #' returns a list with URL components
 #' @examples
-#' url_build("https://httpbin.org")
-#' url_build("https://httpbin.org", "get")
-#' url_build("https://httpbin.org", "post")
-#' url_build("https://httpbin.org", "get", list(foo = "bar"))
+#' url_build("https://hb.opencpu.org")
+#' url_build("https://hb.opencpu.org", "get")
+#' url_build("https://hb.opencpu.org", "post")
+#' url_build("https://hb.opencpu.org", "get", list(foo = "bar"))
 #'
-#' url_parse("httpbin.org")
-#' url_parse("http://httpbin.org")
-#' url_parse(url = "https://httpbin.org")
-#' url_parse("https://httpbin.org/get")
-#' url_parse("https://httpbin.org/get?foo=bar")
-#' url_parse("https://httpbin.org/get?foo=bar&stuff=things")
-#' url_parse("https://httpbin.org/get?foo=bar&stuff=things[]")
+#' url_parse("hb.opencpu.org")
+#' url_parse("https://hb.opencpu.org")
+#' url_parse(url = "https://hb.opencpu.org")
+#' url_parse("https://hb.opencpu.org/get")
+#' url_parse("https://hb.opencpu.org/get?foo=bar")
+#' url_parse("https://hb.opencpu.org/get?foo=bar&stuff=things")
+#' url_parse("https://hb.opencpu.org/get?foo=bar&stuff=things[]")
 url_build <- function(url, path = NULL, query = NULL) {
   assert(url, "character")
   assert(path, "character")

@@ -27,7 +27,7 @@
 #' \dontrun{
 #' # with HttpClient
 #' (res <- HttpClient$new(
-#'   url = "https://httpbin.org/basic-auth/user/passwd",
+#'   url = "https://hb.opencpu.org/basic-auth/user/passwd",
 #'   auth = auth(user = "user", pwd = "passwd")
 #' ))
 #' res$auth
@@ -36,7 +36,7 @@
 #'
 #' # with HttpRequest
 #' (res <- HttpRequest$new(
-#'   url = "https://httpbin.org/basic-auth/user/passwd",
+#'   url = "https://hb.opencpu.org/basic-auth/user/passwd",
 #'   auth = auth(user = "user", pwd = "passwd")
 #' ))
 #' res$auth

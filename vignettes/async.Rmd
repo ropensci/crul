@@ -1,7 +1,7 @@
 ---
 title: 3. async with crul
 author: Scott Chamberlain
-date: "2020-07-09"
+date: "2023-05-10"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{3. async with crul}
@@ -44,9 +44,9 @@ Build request object with 1 or more URLs
 ```r
 (cc <- Async$new(
   urls = c(
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?a=5&b=6',
-    'https://httpbin.org/ip'
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?a=5&b=6',
+    'https://hb.opencpu.org/ip'
   )
 ))
 #> <crul async connection> 
@@ -55,9 +55,9 @@ Build request object with 1 or more URLs
 #>   auth: 
 #>   headers: 
 #>   urls: (n: 3)
-#>    https://httpbin.org/get?a=5
-#>    https://httpbin.org/get?a=5&b=6
-#>    https://httpbin.org/ip
+#>    https://hb.opencpu.org/get?a=5
+#>    https://hb.opencpu.org/get?a=5&b=6
+#>    https://hb.opencpu.org/ip
 ```
 
 Make request with any HTTP method
@@ -65,52 +65,11 @@ Make request with any HTTP method
 
 ```r
 (res <- cc$get())
-#> [[1]]
-#> <crul response> 
-#>   url: https://httpbin.org/get?a=5
-#>   request_headers: 
-#>   response_headers: 
-#>     status: HTTP/2 200 
-#>     date: Thu, 09 Jul 2020 20:14:45 GMT
-#>     content-type: application/json
-#>     content-length: 400
-#>     server: gunicorn/19.9.0
-#>     access-control-allow-origin: *
-#>     access-control-allow-credentials: true
-#>   params: 
-#>     a: 5
-#>   status: 200
-#> 
-#> [[2]]
-#> <crul response> 
-#>   url: https://httpbin.org/get?a=5&b=6
-#>   request_headers: 
-#>   response_headers: 
-#>     status: HTTP/2 200 
-#>     date: Thu, 09 Jul 2020 20:14:45 GMT
-#>     content-type: application/json
-#>     content-length: 419
-#>     server: gunicorn/19.9.0
-#>     access-control-allow-origin: *
-#>     access-control-allow-credentials: true
-#>   params: 
-#>     a: 5
-#>     b: 6
-#>   status: 200
-#> 
-#> [[3]]
-#> <crul response> 
-#>   url: https://httpbin.org/ip
-#>   request_headers: 
-#>   response_headers: 
-#>     status: HTTP/2 200 
-#>     date: Thu, 09 Jul 2020 20:14:45 GMT
-#>     content-type: application/json
-#>     content-length: 31
-#>     server: gunicorn/19.9.0
-#>     access-control-allow-origin: *
-#>     access-control-allow-credentials: true
-#>   status: 200
+#> async responses
+#> status code - url (N=3; printing up to 10)
+#>   200 - https://hb.opencpu.org/get?a=5
+#>   200 - https://hb.opencpu.org/get?a=5&b=6
+#>   200 - https://hb.opencpu.org/ip
 ```
 
 You get back a list matching length of the number of input URLs
@@ -120,11 +79,11 @@ Access object variables and methods just as with `HttpClient` results, here just
 
 ```r
 res[[1]]$url
-#> [1] "https://httpbin.org/get?a=5"
+#> [1] "https://hb.opencpu.org/get?a=5"
 res[[1]]$success()
 #> [1] TRUE
 res[[1]]$parse("UTF-8")
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077ab5-686fd087166386a10fe80f25\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"R (4.2.3 aarch64-apple-darwin20 aarch64 darwin20)\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get?a=5\"\n}\n"
 ```
 
 Or apply access/method calls across many results, e.g., parse all results
@@ -133,13 +92,13 @@ Or apply access/method calls across many results, e.g., parse all results
 ```r
 lapply(res, function(z) z$parse("UTF-8"))
 #> [[1]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077ab5-686fd087166386a10fe80f25\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"R (4.2.3 aarch64-apple-darwin20 aarch64 darwin20)\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get?a=5\"\n}\n"
 #> 
 #> [[2]]
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077ab5-0c5caed1b0cac8d405458e4e\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"R (4.2.3 aarch64-apple-darwin20 aarch64 darwin20)\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get?a=5&b=6\"\n}\n"
 #> 
 #> [[3]]
-#> [1] "{\n  \"origin\": \"24.21.229.59\"\n}\n"
+#> [1] "{\n  \"origin\": \"172.18.0.4\"\n}\n"
 ```
 
 ## varied request async
@@ -147,14 +106,14 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 ```r
 req1 <- HttpRequest$new(
-  url = "https://httpbin.org/get?a=5",
+  url = "https://hb.opencpu.org/get?a=5",
   opts = list(
     verbose = TRUE
   )
 )
 req1$get()
 #> <crul http request> get
-#>   url: https://httpbin.org/get?a=5
+#>   url: https://hb.opencpu.org/get?a=5
 #>   curl options: 
 #>     verbose: TRUE
 #>   proxies: 
@@ -163,11 +122,11 @@ req1$get()
 #>   progress: FALSE
 
 req2 <- HttpRequest$new(
-  url = "https://httpbin.org/post?a=5&b=6"
+  url = "https://hb.opencpu.org/post?a=5&b=6"
 )
 req2$post(body = list(a = 5))
 #> <crul http request> post
-#>   url: https://httpbin.org/post?a=5&b=6
+#>   url: https://hb.opencpu.org/post?a=5&b=6
 #>   curl options: 
 #>   proxies: 
 #>   auth: 
@@ -177,8 +136,8 @@ req2$post(body = list(a = 5))
 (res <- AsyncVaried$new(req1, req2))
 #> <crul async varied connection>
 #>   requests: (n: 2)
-#>    get: https://httpbin.org/get?a=5 
-#>    post: https://httpbin.org/post?a=5&b=6
+#>    get: https://hb.opencpu.org/get?a=5 
+#>    post: https://hb.opencpu.org/post?a=5&b=6
 ```
 
 Make requests asynchronously
@@ -193,8 +152,8 @@ Parse all results
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077ab6-74ff987c9d00dd500c8ad920\"\n  }, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/get?a=5\"\n}\n"                                                                                                                                                                                                                                                       
-#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------cb67be38c1a8a084\", \n    \"Host\": \"httpbin.org\", \n    \"User-Agent\": \"libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f077ab6-d206c2e86f429778e6cb9810\"\n  }, \n  \"json\": null, \n  \"origin\": \"24.21.229.59\", \n  \"url\": \"https://httpbin.org/post?a=5&b=6\"\n}\n"
+#> [1] "{\n  \"args\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"R (4.2.3 aarch64-apple-darwin20 aarch64 darwin20)\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get?a=5\"\n}\n"                                                                                                                                                                                                                                                           
+#> [2] "{\n  \"args\": {\n    \"a\": \"5\", \n    \"b\": \"6\"\n  }, \n  \"data\": \"\", \n  \"files\": {}, \n  \"form\": {\n    \"a\": \"5\"\n  }, \n  \"headers\": {\n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Content-Length\": \"137\", \n    \"Content-Type\": \"multipart/form-data; boundary=------------------------389c6ab199efc7cd\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100\"\n  }, \n  \"json\": null, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/post?a=5&b=6\"\n}\n"
 ```
 
 
@@ -208,12 +167,12 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "headers": {
 #>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
-#>         "Host": "httpbin.org",
-#>         "User-Agent": "R (4.0.2 x86_64-apple-darwin17.0 x86_64 darwin17.0)",
-#>         "X-Amzn-Trace-Id": "Root=1-5f077ab6-74ff987c9d00dd500c8ad920"
+#>         "Connection": "close",
+#>         "Host": "httpbin:8080",
+#>         "User-Agent": "R (4.2.3 aarch64-apple-darwin20 aarch64 darwin20)"
 #>     },
-#>     "origin": "24.21.229.59",
-#>     "url": "https://httpbin.org/get?a=5"
+#>     "origin": "172.18.0.4",
+#>     "url": "http://httpbin:8080/get?a=5"
 #> }
 #>  
 #> 
@@ -233,15 +192,15 @@ lapply(res$parse(), jsonlite::prettify)
 #>     "headers": {
 #>         "Accept": "application/json, text/xml, application/xml, */*",
 #>         "Accept-Encoding": "gzip, deflate",
+#>         "Connection": "close",
 #>         "Content-Length": "137",
-#>         "Content-Type": "multipart/form-data; boundary=------------------------cb67be38c1a8a084",
-#>         "Host": "httpbin.org",
-#>         "User-Agent": "libcurl/7.64.1 r-curl/4.3 crul/0.9.2.93",
-#>         "X-Amzn-Trace-Id": "Root=1-5f077ab6-d206c2e86f429778e6cb9810"
+#>         "Content-Type": "multipart/form-data; boundary=------------------------389c6ab199efc7cd",
+#>         "Host": "httpbin:8080",
+#>         "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"
 #>     },
 #>     "json": null,
-#>     "origin": "24.21.229.59",
-#>     "url": "https://httpbin.org/post?a=5&b=6"
+#>     "origin": "172.18.0.4",
+#>     "url": "http://httpbin:8080/post?a=5&b=6"
 #> }
 #> 
 ```

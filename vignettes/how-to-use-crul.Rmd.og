@@ -64,7 +64,7 @@ Use the function
 
 
 ```{r}
-make_request("https://httpbin.org/get")
+make_request("https://hb.opencpu.org/get")
 ```
 
 Now you can use the `make_request` function in your script or package.

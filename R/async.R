@@ -24,9 +24,9 @@
 #' @examples \dontrun{
 #' cc <- Async$new(
 #'   urls = c(
-#'     'https://httpbin.org/',
-#'     'https://httpbin.org/get?a=5',
-#'     'https://httpbin.org/get?foo=bar'
+#'     'https://hb.opencpu.org/',
+#'     'https://hb.opencpu.org/get?a=5',
+#'     'https://hb.opencpu.org/get?foo=bar'
 #'   )
 #' )
 #' cc
@@ -43,9 +43,9 @@
 #' 
 #' # curl options/headers with async
 #' urls = c(
-#'  'https://httpbin.org/',
-#'  'https://httpbin.org/get?a=5',
-#'  'https://httpbin.org/get?foo=bar'
+#'  'https://hb.opencpu.org/',
+#'  'https://hb.opencpu.org/get?a=5',
+#'  'https://hb.opencpu.org/get?foo=bar'
 #' )
 #' cc <- Async$new(urls = urls, 
 #'   opts = list(verbose = TRUE),
@@ -56,7 +56,7 @@
 #' 
 #' # using auth with async
 #' dd <- Async$new(
-#'   urls = rep('https://httpbin.org/basic-auth/user/passwd', 3),
+#'   urls = rep('https://hb.opencpu.org/basic-auth/user/passwd', 3),
 #'   auth = auth(user = "foo", pwd = "passwd"),
 #'   opts = list(verbose = TRUE)
 #' )
@@ -70,7 +70,7 @@
 #' # failure behavior
 #' ## e.g. when a URL doesn't exist, a timeout, etc.
 #' urls <- c("http://stuffthings.gvb", "https://foo.com", 
-#'   "https://httpbin.org/get")
+#'   "https://hb.opencpu.org/get")
 #' conn <- Async$new(urls = urls)
 #' res <- conn$get()
 #' res[[1]]$parse("UTF-8") # a failure
@@ -78,7 +78,7 @@
 #' res[[3]]$parse("UTF-8") # a success
 #' 
 #' # retry
-#' urls = c("https://httpbin.org/status/404", "https://httpbin.org/status/429")
+#' urls = c("https://hb.opencpu.org/status/404", "https://hb.opencpu.org/status/429")
 #' conn <- Async$new(urls = urls)
 #' res <- conn$retry(verb="get")
 #' }
@@ -151,9 +151,9 @@ Async <- R6::R6Class(
     #' execute the `GET` http verb for the `urls`
     #' @examples \dontrun{
     #' (cc <- Async$new(urls = c(
-    #'     'https://httpbin.org/',
-    #'     'https://httpbin.org/get?a=5',
-    #'     'https://httpbin.org/get?foo=bar'
+    #'     'https://hb.opencpu.org/',
+    #'     'https://hb.opencpu.org/get?a=5',
+    #'     'https://hb.opencpu.org/get?foo=bar'
     #'   )))
     #' (res <- cc$get())
     #' }
@@ -222,9 +222,9 @@ Async <- R6::R6Class(
     #' @examples \dontrun{
     #' cc <- Async$new(
     #'   urls = c(
-    #'     'https://httpbin.org/',
-    #'     'https://httpbin.org/get?a=5',
-    #'     'https://httpbin.org/get?foo=bar'
+    #'     'https://hb.opencpu.org/',
+    #'     'https://hb.opencpu.org/get?a=5',
+    #'     'https://hb.opencpu.org/get?foo=bar'
     #'   )
     #' )
     #' (res <- cc$verb('get'))

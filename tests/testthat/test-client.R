@@ -102,7 +102,7 @@ test_that("parse() works with disk usage", {
   skip_on_cran()
   
   f <- tempfile(fileext = ".json")
-  out <- crul::HttpClient$new("https://httpbin.org/get")$get(disk = f)
+  out <- crul::HttpClient$new(hb("/get"))$get(disk = f)
   expect_is(out$parse(), "character")
   expect_match(out$parse(), "headers")
 })
@@ -112,6 +112,6 @@ test_that("parse() works with stream usage", {
 
   lst <- list()
   fun <- function(x) lst <<- append(lst, list(x))
-  out <- crul::HttpClient$new("https://httpbin.org/get")$get(stream = fun)
+  out <- crul::HttpClient$new(hb("/get"))$get(stream = fun)
   expect_equal(out$parse(), raw(0))
 })

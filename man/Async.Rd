@@ -49,7 +49,7 @@ method
 
 This is an R6 class from the package \pkg{R6}. Find out more
 about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
-class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+class (e.g., \code{x <- HttpClient$new(url = "https://hb.opencpu.org")}) you can
 access values and methods on the object \code{x}.
 }
 
@@ -57,9 +57,9 @@ access values and methods on the object \code{x}.
 \dontrun{
 cc <- Async$new(
   urls = c(
-    'https://httpbin.org/',
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?foo=bar'
+    'https://hb.opencpu.org/',
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?foo=bar'
   )
 )
 cc
@@ -76,9 +76,9 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 # curl options/headers with async
 urls = c(
- 'https://httpbin.org/',
- 'https://httpbin.org/get?a=5',
- 'https://httpbin.org/get?foo=bar'
+ 'https://hb.opencpu.org/',
+ 'https://hb.opencpu.org/get?a=5',
+ 'https://hb.opencpu.org/get?foo=bar'
 )
 cc <- Async$new(urls = urls, 
   opts = list(verbose = TRUE),
@@ -89,7 +89,7 @@ cc
 
 # using auth with async
 dd <- Async$new(
-  urls = rep('https://httpbin.org/basic-auth/user/passwd', 3),
+  urls = rep('https://hb.opencpu.org/basic-auth/user/passwd', 3),
   auth = auth(user = "foo", pwd = "passwd"),
   opts = list(verbose = TRUE)
 )
@@ -103,7 +103,7 @@ lapply(res, function(z) z$parse("UTF-8"))
 # failure behavior
 ## e.g. when a URL doesn't exist, a timeout, etc.
 urls <- c("http://stuffthings.gvb", "https://foo.com", 
-  "https://httpbin.org/get")
+  "https://hb.opencpu.org/get")
 conn <- Async$new(urls = urls)
 res <- conn$get()
 res[[1]]$parse("UTF-8") # a failure
@@ -111,7 +111,7 @@ res[[2]]$parse("UTF-8") # a failure
 res[[3]]$parse("UTF-8") # a success
 
 # retry
-urls = c("https://httpbin.org/status/404", "https://httpbin.org/status/429")
+urls = c("https://hb.opencpu.org/status/404", "https://hb.opencpu.org/status/429")
 conn <- Async$new(urls = urls)
 res <- conn$retry(verb="get")
 }
@@ -122,9 +122,9 @@ res <- conn$retry(verb="get")
 
 \dontrun{
 (cc <- Async$new(urls = c(
-    'https://httpbin.org/',
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?foo=bar'
+    'https://hb.opencpu.org/',
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?foo=bar'
   )))
 (res <- cc$get())
 }
@@ -136,9 +136,9 @@ res <- conn$retry(verb="get")
 \dontrun{
 cc <- Async$new(
   urls = c(
-    'https://httpbin.org/',
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?foo=bar'
+    'https://hb.opencpu.org/',
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?foo=bar'
   )
 )
 (res <- cc$verb('get'))
@@ -263,9 +263,9 @@ postfields, postfieldsize, and customrequest}
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{\dontrun{
 (cc <- Async$new(urls = c(
-    'https://httpbin.org/',
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?foo=bar'
+    'https://hb.opencpu.org/',
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?foo=bar'
   )))
 (res <- cc$get())
 }
@@ -509,9 +509,9 @@ postfields, postfieldsize, and customrequest}
 \preformatted{\dontrun{
 cc <- Async$new(
   urls = c(
-    'https://httpbin.org/',
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?foo=bar'
+    'https://hb.opencpu.org/',
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?foo=bar'
   )
 )
 (res <- cc$verb('get'))

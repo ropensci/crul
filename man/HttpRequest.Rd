@@ -24,13 +24,13 @@ See \code{\link[=HttpClient]{HttpClient()}} for information on parameters.
 
 This is an R6 class from the package \pkg{R6}. Find out more
 about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
-class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+class (e.g., \code{x <- HttpClient$new(url = "https://hb.opencpu.org")}) you can
 access values and methods on the object \code{x}.
 }
 
 \examples{
 \dontrun{
-x <- HttpRequest$new(url = "https://httpbin.org/get")
+x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 ## note here how the HTTP method is shown on the first line to the right
 x$get()
 
@@ -39,22 +39,22 @@ z <- x$get()
 ### get the HTTP method
 z$method()
 
-(x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
+(x <- HttpRequest$new(url = "https://hb.opencpu.org/get")$get())
 x$url
 x$payload
 
-(x <- HttpRequest$new(url = "https://httpbin.org/post"))
+(x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 x$post(body = list(foo = "bar"))
 
 HttpRequest$new(
-  url = "https://httpbin.org/get",
+  url = "https://hb.opencpu.org/get",
   headers = list(
     `Content-Type` = "application/json"
   )
 )
 
 # retry
-(x <- HttpRequest$new(url = "https://httpbin.org/post"))
+(x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 x$retry("post", body = list(foo = "bar"))
 }
 
@@ -62,7 +62,7 @@ x$retry("post", body = list(foo = "bar"))
 ## Method `HttpRequest$verb`
 ## ------------------------------------------------
 
-z <- HttpRequest$new(url = "https://httpbin.org/get")
+z <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 res <- z$verb('get', query = list(hello = "world"))
 res$payload
 }
@@ -409,7 +409,7 @@ postfields, postfieldsize, and customrequest}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{z <- HttpRequest$new(url = "https://httpbin.org/get")
+\preformatted{z <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 res <- z$verb('get', query = list(hello = "world"))
 res$payload
 }

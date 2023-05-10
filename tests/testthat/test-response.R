@@ -143,7 +143,7 @@ test_that("parse works when file on disk is binary", {
 })
 
 test_that("internal fxn: parse_params", {
-  url <- "https://httpbin.org/get?a=5&foo=bar"
+  url <- sprintf("%s/get?a=5&foo=bar", hb())
   x <- parse_params(url)
 
   expect_is(x, "character")

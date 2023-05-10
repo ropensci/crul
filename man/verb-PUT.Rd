@@ -34,7 +34,7 @@ request.
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$put(path = 'put', body = list(foo = "bar"))
 }
 

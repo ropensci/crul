@@ -49,7 +49,7 @@ Build request object with 1 or more URLs
   urls = c(
     'https://www.heroku.com/',
     'http://docs.python-tablib.org/en/latest/',
-    'https://httpbin.org'
+    'https://hb.opencpu.org'
   )
 ))
 ```
@@ -57,9 +57,9 @@ Build request object with 1 or more URLs
 ```{r}
 (cc <- Async$new(
   urls = c(
-    'https://httpbin.org/get?a=5',
-    'https://httpbin.org/get?a=5&b=6',
-    'https://httpbin.org/ip'
+    'https://hb.opencpu.org/get?a=5',
+    'https://hb.opencpu.org/get?a=5&b=6',
+    'https://hb.opencpu.org/ip'
   )
 ))
 ```
@@ -90,7 +90,7 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 ```{r}
 req1 <- HttpRequest$new(
-  url = "https://httpbin.org/get?a=5",
+  url = "https://hb.opencpu.org/get?a=5",
   opts = list(
     verbose = TRUE
   )
@@ -98,7 +98,7 @@ req1 <- HttpRequest$new(
 req1$get()
 
 req2 <- HttpRequest$new(
-  url = "https://httpbin.org/post?a=5&b=6"
+  url = "https://hb.opencpu.org/post?a=5&b=6"
 )
 req2$post(body = list(a = 5))
 

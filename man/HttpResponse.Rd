@@ -37,17 +37,17 @@ not matched. Parameters: see \code{raise_for_ct()}
 
 This is an R6 class from the package \pkg{R6}. Find out more
 about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
-class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+class (e.g., \code{x <- HttpClient$new(url = "https://hb.opencpu.org")}) you can
 access values and methods on the object \code{x}.
 }
 
 \examples{
 \dontrun{
-x <- HttpResponse$new(method = "get", url = "https://httpbin.org")
+x <- HttpResponse$new(method = "get", url = "https://hb.opencpu.org")
 x$url
 x$method
 
-x <- HttpClient$new(url = 'https://httpbin.org')
+x <- HttpClient$new(url = 'https://hb.opencpu.org')
 (res <- x$get('get'))
 res$request_headers
 res$response_headers
@@ -59,11 +59,11 @@ res$status_http()$message
 res$status_http()$explanation
 res$success()
 
-x <- HttpClient$new(url = 'https://httpbin.org/status/404')
+x <- HttpClient$new(url = 'https://hb.opencpu.org/status/404')
 (res <- x$get())
 # res$raise_for_status()
 
-x <- HttpClient$new(url = 'https://httpbin.org/status/414')
+x <- HttpClient$new(url = 'https://hb.opencpu.org/status/414')
 (res <- x$get())
 # res$raise_for_status()
 }

@@ -23,7 +23,7 @@ modification.
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$head()
 }
 

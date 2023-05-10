@@ -61,7 +61,7 @@ in cases where no query args are needed.
 You can use the function like:
 
 ```{r eval=FALSE}
-x <- xGET("https://httpbin.org", "get", args = list(foo = "bar"))
+x <- xGET("https://hb.opencpu.org", "get", args = list(foo = "bar"))
 # parse the JSON to a list
 jsonlite::fromJSON(x)
 # more parsing
@@ -96,7 +96,7 @@ gives you more flexibility in how you deal with HTTP status codes.
 First, make an HTTP request:
 
 ```{r eval=FALSE}
-con <- HttpClient$new("https://httpbin.org/status/404")
+con <- HttpClient$new("https://hb.opencpu.org/status/404")
 res <- con$get()
 ```
 

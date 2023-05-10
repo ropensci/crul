@@ -121,10 +121,10 @@ relevant commands:
 Just do a `HEAD` request so we don't have to deal with big output
 
 ```r
-HttpClient$new("https://httpbin.org", 
+HttpClient$new("https://hb.opencpu.org", 
   opts = list(verbose = TRUE))$head()
 #> > HEAD / HTTP/1.1
-#> Host: httpbin.org
+#> Host: hb.opencpu.org
 #> User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521
 #> Accept: */*
 #> Accept-Encoding: gzip, deflate
@@ -152,7 +152,7 @@ relevant commands:
 
 
 ```r
-x <- HttpClient$new("https://httpbin.org", 
+x <- HttpClient$new("https://hb.opencpu.org", 
   headers = list(
     Accept = "application/json", 
     foo = "bar"
@@ -161,7 +161,7 @@ x <- HttpClient$new("https://httpbin.org",
 )
 x$head()
 #> > HEAD / HTTP/1.1
-#> Host: httpbin.org
+#> Host: hb.opencpu.org
 #> User-Agent: libcurl/7.54.0 r-curl/3.2 crul/0.5.4.9521
 #> Accept-Encoding: gzip, deflate
 #> Accept: application/json
@@ -209,13 +209,13 @@ To use an API key, this depends on the data provider. They may request it one or
 
 
 ```r
-HttpClient$new("https://httpbin.org/get", headers = list(Authorization = "Bearer 234kqhrlj2342"))
+HttpClient$new("https://hb.opencpu.org/get", headers = list(Authorization = "Bearer 234kqhrlj2342"))
 ```
 
 or as a query parameter (which is passed in the URL string)
 
 ```r
-HttpClient$new("https://httpbin.org/get", query = list(api_key = "<your key>"))
+HttpClient$new("https://hb.opencpu.org/get", query = list(api_key = "<your key>"))
 ```
 
 Another authentication option is OAuth. OAuth is not supported in `crul` yet. You can always do OAuth with 
@@ -273,7 +273,7 @@ relevant commands:
 * `HttpClient$new(progress = fxn)`
 
 ```r
-x <- HttpClient$new("https://httpbin.org/get", progress = httr::progress())
+x <- HttpClient$new("https://hb.opencpu.org/get", progress = httr::progress())
 #> |==================================| 100%
 ```
 

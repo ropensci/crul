@@ -23,7 +23,7 @@ it in the request headers is consistent.
 
 This is an R6 class from the package \pkg{R6}. Find out more
 about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
-class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+class (e.g., \code{x <- HttpClient$new(url = "https://hb.opencpu.org")}) you can
 access values and methods on the object \code{x}.
 }
 
@@ -44,7 +44,7 @@ http verb request does have the handle in the \code{handle} slot.
 \examples{
 \dontrun{
 # set your own handle
-(h <- handle("https://httpbin.org"))
+(h <- handle("https://hb.opencpu.org"))
 (x <- HttpClient$new(handle = h))
 x$handle
 x$url
@@ -59,7 +59,7 @@ out$response_headers_all
 
 # if you just pass a url, we create a handle for you
 #  this is how most people will use HttpClient
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 x$url
 x$handle # is empty, it gets created when a HTTP verb is called
 (r1 <- x$get('get'))
@@ -96,7 +96,7 @@ x$post('post')
 
 # query params are URL encoded for you, so DO NOT do it yourself
 ## if you url encode yourself, it gets double encoded, and that's bad
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 res <- x$get("get", query = list(a = 'hello world'))
 
 # access intermediate headers in response_headers_all
@@ -110,7 +110,7 @@ bb$response_headers_all
 ## ------------------------------------------------
 
 \dontrun{
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 x$verb('get')
 x$verb('GET')
 x$verb('GET', query = list(foo = "bar"))
@@ -122,7 +122,7 @@ x$verb('retry', 'GET', path = "status/400")
 ## ------------------------------------------------
 
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 
 # retry, by default at most 3 times
 (res_get <- x$retry("GET", path = "status/400"))
@@ -138,7 +138,7 @@ x <- HttpClient$new(url = "https://httpbin.org")
 ## Method `HttpClient$url_fetch`
 ## ------------------------------------------------
 
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$url_fetch()
 x$url_fetch('get')
 x$url_fetch('post')
@@ -529,7 +529,7 @@ and customrequest}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{\dontrun{
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 x$verb('get')
 x$verb('GET')
 x$verb('GET', query = list(foo = "bar"))
@@ -605,7 +605,7 @@ in the response for rate-limited remote APIs.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{\dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 
 # retry, by default at most 3 times
 (res_get <- x$retry("GET", path = "status/400"))
@@ -659,7 +659,7 @@ URL (character)
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{x <- HttpClient$new(url = "https://httpbin.org")
+\preformatted{x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$url_fetch()
 x$url_fetch('get')
 x$url_fetch('post')

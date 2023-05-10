@@ -24,7 +24,7 @@ if (interactive()) {
   library(webmockr)
   library(crul)
 
-  URL <- "https://httpbin.org"
+  URL <- "https://hb.opencpu.org"
 
   # turn on mocking
   crul::mock()

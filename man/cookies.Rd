@@ -9,7 +9,7 @@ Working with cookies
 \examples{
 \dontrun{
 x <- HttpClient$new(
-  url = "https://httpbin.org",
+  url = "https://hb.opencpu.org",
   opts = list(
     cookie = "c=1;f=5",
     verbose = TRUE
@@ -21,7 +21,7 @@ x
 (res <- x$get("cookies"))
 jsonlite::fromJSON(res$parse("UTF-8"))
 
-(x <- HttpClient$new(url = "https://httpbin.org"))
+(x <- HttpClient$new(url = "https://hb.opencpu.org"))
 res <- x$get("cookies/set", query = list(foo = 123, bar = "ftw"))
 jsonlite::fromJSON(res$parse("UTF-8"))
 curl::handle_cookies(handle = res$handle)

@@ -19,7 +19,7 @@ a null resource) and permissions, etc.
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$patch(path = 'patch', body = list(hello = "mars"))
 }
 

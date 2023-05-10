@@ -22,7 +22,7 @@
 #' fun_req <- function(request) {
 #'   cat(paste0("Requesting: ", request$url$url), sep = "\n")
 #' }
-#' (x <- HttpClient$new(url = "https://httpbin.org",
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org",
 #'   hooks = list(request = fun_req)))
 #' x$hooks
 #' x$hooks$request
@@ -33,7 +33,7 @@
 #'   cat("Capturing Request", sep = "\n")
 #'   captured_req <<- request
 #' }
-#' (x <- HttpClient$new(url = "https://httpbin.org",
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org",
 #'   hooks = list(request = fun_req2)))
 #' x$hooks
 #' x$hooks$request
@@ -46,14 +46,14 @@
 #' fun_resp <- function(response) {
 #'   cat(paste0("status_code: ", response$status_code), sep = "\n")
 #' }
-#' (x <- HttpClient$new(url = "https://httpbin.org",
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org",
 #'   hooks = list(response = fun_resp)))
 #' x$url
 #' x$hooks
 #' r1 <- x$get('get')
 #' 
 #' # both
-#' (x <- HttpClient$new(url = "https://httpbin.org",
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org",
 #'   hooks = list(request = fun_req, response = fun_resp)))
 #' x$get("get")
 #' }

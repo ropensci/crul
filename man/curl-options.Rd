@@ -16,7 +16,7 @@ you need to give curl options exactly as given in
 }
 \examples{
 \dontrun{
-url <- "https://httpbin.org"
+url <- "https://hb.opencpu.org"
 
 # set curl options on client initialization
 (res <- HttpClient$new(url = url, opts = list(verbose = TRUE)))

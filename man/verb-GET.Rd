@@ -50,7 +50,7 @@ by the Cache-Control header field (Section 5.2 of RFC7234:
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$get(path = 'get')
 }
 

@@ -1,7 +1,7 @@
 context("encode")
 test_that("encode", {
-  aa <- encode("https://httpbin.org")
-  bb <- encode(I("https://httpbin.org"))
+  aa <- encode(hb())
+  bb <- encode(I(hb()))
 
   expect_is(aa, "character")
   expect_is(bb, "AsIs")

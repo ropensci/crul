@@ -47,7 +47,7 @@ method
 
 This is an R6 class from the package \pkg{R6}. Find out more
 about R6 at \url{https://r6.r-lib.org/}. After creating an instance of an R6
-class (e.g., \code{x <- HttpClient$new(url = "https://httpbin.org")}) you can
+class (e.g., \code{x <- HttpClient$new(url = "https://hb.opencpu.org")}) you can
 access values and methods on the object \code{x}.
 }
 
@@ -55,11 +55,11 @@ access values and methods on the object \code{x}.
 \dontrun{
 # pass in requests via ...
 req1 <- HttpRequest$new(
-  url = "https://httpbin.org/get",
+  url = "https://hb.opencpu.org/get",
   opts = list(verbose = TRUE),
   headers = list(foo = "bar")
 )$get()
-req2 <- HttpRequest$new(url = "https://httpbin.org/post")$post()
+req2 <- HttpRequest$new(url = "https://hb.opencpu.org/post")$post()
 
 # Create an AsyncVaried object
 out <- AsyncVaried$new(req1, req2)
@@ -92,11 +92,11 @@ out$responses()
 # use $verb() method to select http verb
 method <- "post"
 req1 <- HttpRequest$new(
-  url = "https://httpbin.org/post",
+  url = "https://hb.opencpu.org/post",
   opts = list(verbose = TRUE),
   headers = list(foo = "bar")
 )$verb(method)
-req2 <- HttpRequest$new(url = "https://httpbin.org/post")$verb(method)
+req2 <- HttpRequest$new(url = "https://hb.opencpu.org/post")$verb(method)
 out <- AsyncVaried$new(req1, req2)
 out
 out$request()
@@ -104,15 +104,15 @@ out$responses()
 
 # pass in requests in a list via .list param
 reqlist <- list(
-  HttpRequest$new(url = "https://httpbin.org/get")$get(),
-  HttpRequest$new(url = "https://httpbin.org/post")$post(),
-  HttpRequest$new(url = "https://httpbin.org/put")$put(),
-  HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
-  HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
+  HttpRequest$new(url = "https://hb.opencpu.org/get")$get(),
+  HttpRequest$new(url = "https://hb.opencpu.org/post")$post(),
+  HttpRequest$new(url = "https://hb.opencpu.org/put")$put(),
+  HttpRequest$new(url = "https://hb.opencpu.org/delete")$delete(),
+  HttpRequest$new(url = "https://hb.opencpu.org/get?g=5")$get(),
   HttpRequest$new(
-    url = "https://httpbin.org/post")$post(body = list(y = 9)),
+    url = "https://hb.opencpu.org/post")$post(body = list(y = 9)),
   HttpRequest$new(
-    url = "https://httpbin.org/get")$get(query = list(hello = "world"))
+    url = "https://hb.opencpu.org/get")$get(query = list(hello = "world"))
 )
 
 out <- AsyncVaried$new(.list = reqlist)
@@ -124,7 +124,7 @@ out$times()
 out$parse()
 
 # using auth with async
-url <- "https://httpbin.org/basic-auth/user/passwd"
+url <- "https://hb.opencpu.org/basic-auth/user/passwd"
 auth <- auth(user = "user", pwd = "passwd")
 reqlist <- list(
   HttpRequest$new(url = url, auth = auth)$get(),
@@ -140,8 +140,8 @@ out$parse()
 ## e.g. when a URL doesn't exist, a timeout, etc.
 reqlist <- list(
   HttpRequest$new(url = "http://stuffthings.gvb")$get(),
-  HttpRequest$new(url = "https://httpbin.org")$head(),
-  HttpRequest$new(url = "https://httpbin.org",
+  HttpRequest$new(url = "https://hb.opencpu.org")$head(),
+  HttpRequest$new(url = "https://hb.opencpu.org",
    opts = list(timeout_ms = 10))$head()
 )
 (tmp <- AsyncVaried$new(.list = reqlist))
@@ -163,10 +163,10 @@ lapply(tmp$responses(), "[[", "response_headers_all")
 
 # retry
 reqlist <- list(
-  HttpRequest$new(url = "https://httpbin.org/get")$get(),
-  HttpRequest$new(url = "https://httpbin.org/post")$post(),
-  HttpRequest$new(url = "https://httpbin.org/status/404")$retry("get"),
-  HttpRequest$new(url = "https://httpbin.org/status/429")$retry("get",
+  HttpRequest$new(url = "https://hb.opencpu.org/get")$get(),
+  HttpRequest$new(url = "https://hb.opencpu.org/post")$post(),
+  HttpRequest$new(url = "https://hb.opencpu.org/status/404")$retry("get"),
+  HttpRequest$new(url = "https://hb.opencpu.org/status/429")$retry("get",
    retry_only_on = c(403, 429), times = 2)
 )
 tmp <- AsyncVaried$new(.list = reqlist)

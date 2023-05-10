@@ -71,11 +71,11 @@ may not be the one you want.
 # 200
 ok("https://www.google.com") 
 # 200
-ok("https://httpbin.org/status/200")
+ok("https://hb.opencpu.org/status/200")
 # more than one status
 ok("https://www.google.com", status = c(200L, 202L))
 # 404
-ok("https://httpbin.org/status/404")
+ok("https://hb.opencpu.org/status/404")
 # doesn't exist
 ok("https://stuff.bar")
 # doesn't exist
@@ -104,7 +104,7 @@ replicate(5, ok(z, ua_random=TRUE), simplify=FALSE)
 ok("https://doi.org/10.1093/chemse/bjq042", useragent="foobar", ua_random=TRUE)
 
 # with HttpClient
-z <- crul::HttpClient$new("https://httpbin.org/status/404", 
+z <- crul::HttpClient$new("https://hb.opencpu.org/status/404", 
  opts = list(verbose = TRUE))
 ok(z)
 }

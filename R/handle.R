@@ -4,11 +4,11 @@
 #' @param url (character) A url. required.
 #' @param ... options passed on to [curl::new_handle()]
 #' @examples
-#' handle("https://httpbin.org")
+#' handle("https://hb.opencpu.org")
 #'
 #' # handles - pass in your own handle
 #' \dontrun{
-#' h <- handle("https://httpbin.org")
+#' h <- handle("https://hb.opencpu.org")
 #' (res <- HttpClient$new(handle = h))
 #' out <- res$get("get")
 #' }

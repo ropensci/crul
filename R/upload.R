@@ -7,7 +7,7 @@
 #' @examples \dontrun{
 #' # image
 #' path <- file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg")
-#' (x <- HttpClient$new(url = "https://eu.httpbin.org"))
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #' res <- x$post(path = "post", body = list(y = upload(path)))
 #' res$content
 #'

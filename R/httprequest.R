@@ -32,7 +32,7 @@
 #' See [HttpClient()] for information on parameters.
 #'
 #' @examples \dontrun{
-#' x <- HttpRequest$new(url = "https://httpbin.org/get")
+#' x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 #' ## note here how the HTTP method is shown on the first line to the right
 #' x$get()
 #'
@@ -41,22 +41,22 @@
 #' ### get the HTTP method
 #' z$method()
 #'
-#' (x <- HttpRequest$new(url = "https://httpbin.org/get")$get())
+#' (x <- HttpRequest$new(url = "https://hb.opencpu.org/get")$get())
 #' x$url
 #' x$payload
 #'
-#' (x <- HttpRequest$new(url = "https://httpbin.org/post"))
+#' (x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 #' x$post(body = list(foo = "bar"))
 #'
 #' HttpRequest$new(
-#'   url = "https://httpbin.org/get",
+#'   url = "https://hb.opencpu.org/get",
 #'   headers = list(
 #'     `Content-Type` = "application/json"
 #'   )
 #' )
 #'
 #' # retry
-#' (x <- HttpRequest$new(url = "https://httpbin.org/post"))
+#' (x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 #' x$retry("post", body = list(foo = "bar"))
 #' }
 HttpRequest <- R6::R6Class(
@@ -248,7 +248,7 @@ HttpRequest <- R6::R6Class(
     #' @param verb an HTTP verb supported on this class: get,
     #' post, put, patch, delete, head. Also supports retry.
     #' @examples
-    #' z <- HttpRequest$new(url = "https://httpbin.org/get")
+    #' z <- HttpRequest$new(url = "https://hb.opencpu.org/get")
     #' res <- z$verb('get', query = list(hello = "world"))
     #' res$payload
     verb = function(verb, ...) {

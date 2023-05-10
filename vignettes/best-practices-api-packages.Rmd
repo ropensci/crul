@@ -1,7 +1,7 @@
 ---
 title: 5. API package best practices
 author: Scott Chamberlain
-date: "2023-05-09"
+date: "2023-05-10"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{5. API package best practices}
@@ -63,7 +63,7 @@ You can use the function like:
 
 
 ```r
-x <- xGET("https://httpbin.org", "get", args = list(foo = "bar"))
+x <- xGET("https://hb.opencpu.org", "get", args = list(foo = "bar"))
 # parse the JSON to a list
 jsonlite::fromJSON(x)
 # more parsing
@@ -100,7 +100,7 @@ First, make an HTTP request:
 
 
 ```r
-con <- HttpClient$new("https://httpbin.org/status/404")
+con <- HttpClient$new("https://hb.opencpu.org/status/404")
 res <- con$get()
 ```
 

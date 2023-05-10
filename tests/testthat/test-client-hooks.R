@@ -5,7 +5,7 @@ test_that("hooks: requests", {
   fun_req <- function(request) {
     cat("Requesting: ", request$url$url, sep = "\n")
   }
-  x <- HttpClient$new(url = "https://httpbin.org",
+  x <- HttpClient$new(url = hb(),
     hooks = list(request = fun_req))
 
   expect_is(x$hooks, "list")
@@ -32,7 +32,7 @@ test_that("hooks: responses", {
   fun_resp <- function(response) {
     cat(paste0("status_code: ", response$status_code), sep = "\n")
   }
-  x <- HttpClient$new(url = "https://httpbin.org",
+  x <- HttpClient$new(url = hb(),
     hooks = list(response = fun_resp))
 
   expect_is(x$hooks, "list")
@@ -63,7 +63,7 @@ test_that("hooks: request and response", {
   fun_resp <- function(response) {
     cat(paste0("status_code: ", response$status_code), sep = "\n")
   }
-  x <- HttpClient$new(url = "https://httpbin.org",
+  x <- HttpClient$new(url = hb(),
     hooks = list(request = fun_req, response = fun_resp))
 
   expect_is(x$hooks, "list")

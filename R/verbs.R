@@ -43,7 +43,7 @@
 #' <https://datatracker.ietf.org/doc/html/rfc7234#section-5.2>).
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' x$get(path = 'get')
 #' }
 #'
@@ -68,7 +68,7 @@ NULL
 #' request while referring to the new resource(s).
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' 
 #' # a named list
 #' x$post(path='post', body = list(hello = "world"))
@@ -138,7 +138,7 @@ NULL
 #' request.
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' x$put(path = 'put', body = list(foo = "bar"))
 #' }
 #'
@@ -162,7 +162,7 @@ NULL
 #' a null resource) and permissions, etc.
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' x$patch(path = 'patch', body = list(hello = "mars"))
 #' }
 #'
@@ -185,7 +185,7 @@ NULL
 #' associated information be deleted.
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' x$delete(path = 'delete')
 #' 
 #' ## a list
@@ -224,7 +224,7 @@ NULL
 #' modification.
 #' 
 #' @examples \dontrun{
-#' x <- HttpClient$new(url = "https://httpbin.org")
+#' x <- HttpClient$new(url = "https://hb.opencpu.org")
 #' x$head()
 #' }
 #'

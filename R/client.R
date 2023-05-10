@@ -46,7 +46,7 @@
 #'
 #' @examples \dontrun{
 #' # set your own handle
-#' (h <- handle("https://httpbin.org"))
+#' (h <- handle("https://hb.opencpu.org"))
 #' (x <- HttpClient$new(handle = h))
 #' x$handle
 #' x$url
@@ -61,7 +61,7 @@
 #'
 #' # if you just pass a url, we create a handle for you
 #' #  this is how most people will use HttpClient
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #' x$url
 #' x$handle # is empty, it gets created when a HTTP verb is called
 #' (r1 <- x$get('get'))
@@ -98,7 +98,7 @@
 #'
 #' # query params are URL encoded for you, so DO NOT do it yourself
 #' ## if you url encode yourself, it gets double encoded, and that's bad
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #' res <- x$get("get", query = list(a = 'hello world'))
 #'
 #' # access intermediate headers in response_headers_all
@@ -344,7 +344,7 @@ HttpClient <- R6::R6Class(
     #' @param verb an HTTP verb supported on this class: "get",
     #' "post", "put", "patch", "delete", "head". Also supports retry.
     #' @examples \dontrun{
-    #' (x <- HttpClient$new(url = "https://httpbin.org"))
+    #' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
     #' x$verb('get')
     #' x$verb('GET')
     #' x$verb('GET', query = list(foo = "bar"))
@@ -386,7 +386,7 @@ HttpClient <- R6::R6Class(
     #' Note that the time spent in the function effectively adds to the wait time,
     #' so it should be kept simple.
     #' @examples \dontrun{
-    #' x <- HttpClient$new(url = "https://httpbin.org")
+    #' x <- HttpClient$new(url = "https://hb.opencpu.org")
     #'
     #' # retry, by default at most 3 times
     #' (res_get <- x$retry("GET", path = "status/400"))
@@ -454,7 +454,7 @@ HttpClient <- R6::R6Class(
     #' parameters; body and any curl options don't change the URL
     #' @return URL (character)
     #' @examples
-    #' x <- HttpClient$new(url = "https://httpbin.org")
+    #' x <- HttpClient$new(url = "https://hb.opencpu.org")
     #' x$url_fetch()
     #' x$url_fetch('get')
     #' x$url_fetch('post')

@@ -35,7 +35,7 @@
 #' set_opts(verbose = TRUE)
 #' crul_settings()
 #' \dontrun{
-#' HttpClient$new('https://httpbin.org')$get('get')
+#' HttpClient$new('https://hb.opencpu.org')$get('get')
 #' }
 #' # set_verbose - sets: `verbose=TRUE`, and `debugfunction` to 
 #' # result of call to `curl_verbose()`, see `?curl_verbose`
@@ -58,7 +58,7 @@
 #' crul_settings()
 #' \dontrun{
 #' set_opts(verbose = TRUE)
-#' HttpClient$new('https://httpbin.org')$get('get')
+#' HttpClient$new('https://hb.opencpu.org')$get('get')
 #' }
 #' 
 #' # reset
@@ -69,16 +69,16 @@
 #' ## Async
 #' set_opts(verbose = TRUE)
 #' cc <- Async$new(urls = c(
-#'     'https://httpbin.org/get?a=5',
-#'     'https://httpbin.org/get?foo=bar'))
+#'     'https://hb.opencpu.org/get?a=5',
+#'     'https://hb.opencpu.org/get?foo=bar'))
 #' (res <- cc$get())
 #' 
 #' ## AsyncVaried
 #' set_opts(verbose = TRUE)
 #' set_headers(stuff = "things")
 #' reqlist <- list(
-#'   HttpRequest$new(url = "https://httpbin.org/get")$get(),
-#'   HttpRequest$new(url = "https://httpbin.org/post")$post())
+#'   HttpRequest$new(url = "https://hb.opencpu.org/get")$get(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/post")$post())
 #' out <- AsyncVaried$new(.list = reqlist)
 #' out$request()
 #' }

@@ -1,7 +1,7 @@
 ---
 title: 1. crul introduction
 author: Scott Chamberlain
-date: "2023-05-09"
+date: "2023-05-10"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{1. crul introduction}
@@ -166,7 +166,7 @@ res$response_headers
 #> [1] "nginx/1.20.2"
 #> 
 #> $date
-#> [1] "Wed, 10 May 2023 02:57:59 GMT"
+#> [1] "Wed, 10 May 2023 21:55:58 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
@@ -203,7 +203,7 @@ res$response_headers_all
 #> [1] "nginx/1.20.2"
 #> 
 #> [[1]]$date
-#> [1] "Wed, 10 May 2023 02:57:59 GMT"
+#> [1] "Wed, 10 May 2023 21:55:58 GMT"
 #> 
 #> [[1]]$`content-type`
 #> [1] "application/json"
@@ -286,7 +286,7 @@ f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/vw/4nm3x1ld0_jgmqy6_yf6pz3c0000gn/T//Rtmp5ZjGOK/filecfb54db7f4a2"
+#> [1] "/var/folders/vw/4nm3x1ld0_jgmqy6_yf6pz3c0000gn/T//RtmpZ9O9vQ/file17033155d5263"
 ```
 
 Read lines

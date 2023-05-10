@@ -33,7 +33,7 @@
 #'
 #' @seealso [HttpResponse]
 #' @examples \dontrun{
-#' (x <- HttpClient$new(url = "https://httpbin.org"))
+#' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #' (res <- x$get())
 #'
 #' ## see the content type

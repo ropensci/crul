@@ -237,9 +237,9 @@ test_that("retry recognizes retry headers", {
 
   loadNamespace("webmockr")
   webmockr::enable()
-  cli <- HttpClient$new(url = "http://httpbin.org")
+  cli <- HttpClient$new(url = hb())
 
-  stub <- webmockr::stub_request("get", "http://httpbin.org/get")
+  stub <- webmockr::stub_request("get", hb("/get"))
   stub <- webmockr::to_return(stub,
                               status = 503,
                               headers = list("retry-after" = 1))
@@ -250,7 +250,7 @@ test_that("retry recognizes retry headers", {
   expect_gt(tt1["elapsed"], 2)
   webmockr::stub_registry_clear()
 
-  stub <- webmockr::stub_request("get", "http://httpbin.org/get")
+  stub <- webmockr::stub_request("get", hb("/get"))
   stub <- webmockr::to_return(stub,
                               status = 429,
                               headers = list("x-ratelimit-remaining" = "0", "retry-after" = "1"))
@@ -258,7 +258,7 @@ test_that("retry recognizes retry headers", {
   expect_gt(tt1["elapsed"], 2)
   webmockr::stub_registry_clear()
 
-  stub <- webmockr::stub_request("get", "http://httpbin.org/get")
+  stub <- webmockr::stub_request("get", hb("/get"))
   stub <- webmockr::to_return(stub,
                               status = 429,
                               headers = list("x-ratelimit-remaining" = "0",

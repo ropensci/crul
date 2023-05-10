@@ -18,7 +18,7 @@ associated information be deleted.
 
 \examples{
 \dontrun{
-x <- HttpClient$new(url = "https://httpbin.org")
+x <- HttpClient$new(url = "https://hb.opencpu.org")
 x$delete(path = 'delete')
 
 ## a list

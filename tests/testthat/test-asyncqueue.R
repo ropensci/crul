@@ -71,15 +71,13 @@ test_that("AsyncQueue fails well", {
 })
 
 reqlist <- list(
-  HttpRequest$new(url = "https://httpbin.org/get")$get(),
-  HttpRequest$new(url = "https://httpbin.org/post")$post(),
-  HttpRequest$new(url = "https://httpbin.org/put")$put(),
-  HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
-  HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
-  HttpRequest$new(
-    url = "https://httpbin.org/post")$post(body = list(y = 9)),
-  HttpRequest$new(
-    url = "https://httpbin.org/get")$get(query = list(hello = "world")),
+  HttpRequest$new(url = hb("/get"))$get(),
+  HttpRequest$new(url = hb("/post"))$post(),
+  HttpRequest$new(url = hb("/put"))$put(),
+  HttpRequest$new(url = hb("/delete"))$delete(),
+  HttpRequest$new(url = hb("/get?g=5"))$get(),
+  HttpRequest$new(url = hb("/post"))$post(body = list(y = 9)),
+  HttpRequest$new(url = hb("/get"))$get(query = list(hello = "world")),
   HttpRequest$new(url = "https://ropensci.org")$get(),
   HttpRequest$new(url = "https://ropensci.org/about")$get(),
   HttpRequest$new(url = "https://ropensci.org/packages")$get(),

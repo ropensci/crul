@@ -6,22 +6,22 @@
 #' @examples \dontrun{
 #' # Using sleep (note this works with retry requests)
 #' reqlist <- list(
-#'   HttpRequest$new(url = "https://httpbin.org/get")$get(),
-#'   HttpRequest$new(url = "https://httpbin.org/post")$post(),
-#'   HttpRequest$new(url = "https://httpbin.org/put")$put(),
-#'   HttpRequest$new(url = "https://httpbin.org/delete")$delete(),
-#'   HttpRequest$new(url = "https://httpbin.org/get?g=5")$get(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/get")$get(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/post")$post(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/put")$put(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/delete")$delete(),
+#'   HttpRequest$new(url = "https://hb.opencpu.org/get?g=5")$get(),
 #'   HttpRequest$new(
-#'     url = "https://httpbin.org/post")$post(body = list(y = 9)),
+#'     url = "https://hb.opencpu.org/post")$post(body = list(y = 9)),
 #'   HttpRequest$new(
-#'     url = "https://httpbin.org/get")$get(query = list(hello = "world")),
+#'     url = "https://hb.opencpu.org/get")$get(query = list(hello = "world")),
 #'   HttpRequest$new(url = "https://ropensci.org")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/about")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/packages")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/community")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/blog")$get(),
 #'   HttpRequest$new(url = "https://ropensci.org/careers")$get(),
-#'   HttpRequest$new(url = "https://httpbin.org/status/404")$retry("get")
+#'   HttpRequest$new(url = "https://hb.opencpu.org/status/404")$retry("get")
 #' )
 #' out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
 #' out
