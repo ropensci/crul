@@ -1,7 +1,7 @@
 ## Test environments
 
-* local macOS install, R 4.2.1
-* ubuntu 20.04 (on github actions), R 4.2.1
+* local macOS install, R 4.2.3
+* ubuntu 20.04 (on github actions), R 4.3.0
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -14,7 +14,8 @@
 
 ---
 
-This version includes some minor improvements.
+This version includes a few new features and fix to make examples/tests
+more robust
 
 Thanks!
 Scott Chamberlain
