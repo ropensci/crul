@@ -1,3 +1,11 @@
+crul 1.4
+========
+
+### ASYNC RETRIES
+
+Via the two issues (#135) and (#159) `crul` now supports http retries in: `Async`, `AsyncVaried`, `AsyncQueue`, and the request builder class `HttpRequest`
+
+
 crul 1.3
 ========
 
