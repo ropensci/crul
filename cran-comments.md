@@ -1,6 +1,6 @@
 ## Test environments
 
-* local macOS install, R 4.2.3
+* local macOS install, R 4.3.0
 * ubuntu 20.04 (on github actions), R 4.3.0
 * win-builder (devel and release)
 
