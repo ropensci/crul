@@ -1,7 +1,7 @@
 ---
 title: 5. API package best practices
 author: Scott Chamberlain
-date: "2023-05-10"
+date: "2023-05-23"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{5. API package best practices}
@@ -11,21 +11,21 @@ vignette: >
 
 
 The `crul` package documentation mostly documents how to work
-with any particular function or class, but does not detail 
+with any particular function or class, but does not detail
 how you would use the package in a more realistic context. This
 vignette outlines what we think of as best practices for using
 `crul` in scripts or an R package.
 
 ## Importing crul
 
-In most cases you'll only need to import one thing from `crul`: 
+In most cases you'll only need to import one thing from `crul`:
 `HttpClient`. Add crul to `Imports` in your `DESCRIPTION` file,
-and add an entry like `@importFrom crul HttpClient` somewhere in 
+and add an entry like `@importFrom crul HttpClient` somewhere in
 your package documentation, for example:
 
 ```r
 #' Some function
-#' 
+#'
 #' @export
 #' @importFrom crul HttpClient
 #' ...
@@ -50,12 +50,12 @@ xGET <- function(url, path, args = list(), ...) {
 
 There's some features to note in the above function:
 
-* `url`: this really depends on your setup. In some cases the base URL 
-doesn't change, so you can remove the `url` parameter and define the 
-url in the `crul::HttpClient$new()` call. 
+* `url`: this really depends on your setup. In some cases the base URL
+doesn't change, so you can remove the `url` parameter and define the
+url in the `crul::HttpClient$new()` call.
 * `path`: this likely will hold anything after the base path
-* `args`: named list of query arguments. the default of `list()` 
-means you can then use the function and not have to pass `args` 
+* `args`: named list of query arguments. the default of `list()`
+means you can then use the function and not have to pass `args`
 in cases where no query args are needed.
 * `...`: it's called an ellipsis. see example and discussion below.
 
@@ -76,12 +76,12 @@ Because we used an ellipsis, anyone can pass in curl options like:
 xGET("https://xxx.org", args = list(foo = "bar"), verbose = TRUE)
 ```
 
-Curl options are important for digging into the details of HTTP 
-requests, and go a long way towards users being able to sort out 
+Curl options are important for digging into the details of HTTP
+requests, and go a long way towards users being able to sort out
 their own problems, and help you diagnose problems as well.
 
 Alternatively, you can just do the HTTP request in your `xGET` function
-and return the response object - and line by line, or with 
+and return the response object - and line by line, or with
 another function, parse results as needed.
 
 ## Failing with fauxpas
@@ -91,9 +91,9 @@ installed, no worries, but if you do have it installed, we use
 fauxpas.
 
 There is not much difference with the default `raise_for_status()`
-between using fauxpas and not using it. 
+between using fauxpas and not using it.
 
-However, you can construct your own replacement with fauxpas that 
+However, you can construct your own replacement with fauxpas that
 gives you more flexibility in how you deal with HTTP status codes.
 
 First, make an HTTP request:
@@ -104,7 +104,7 @@ con <- HttpClient$new("https://hb.opencpu.org/status/404")
 res <- con$get()
 ```
 
-Then use `fauxpas::find_error_class` to get the correct R6 error 
+Then use `fauxpas::find_error_class` to get the correct R6 error
 class for the status code, in this case `404`
 
 
@@ -116,9 +116,9 @@ x <- fauxpas::find_error_class(res$status_code)$new()
 #>  message_template_verbose: {{reason}} (HTTP {{status}}).\n - {{message}}
 ```
 
-We can then do one of two things: use `$do()` or `$do_verbose()`. `$do()` 
-is simpler and gives you thhe same thing `$raise_for_status()` gives, but
-allows you to change behavior (stop vs. warning vs. message), and how the 
+We can then do one of two things: use `$do()` or `$do_verbose()`. `$do()`
+is simpler and gives you the same thing `$raise_for_status()` gives, but
+allows you to change behavior (stop vs. warning vs. message), and how the
 message is formatted. By default we get:
 
 
@@ -167,7 +167,7 @@ x$do(res)
 
 ## Retrying requests
 
-In some failure scenarios it may make sense to retry the same request. 
+In some failure scenarios it may make sense to retry the same request.
 For example, if a 429 "Too many requests" http status is returned, you
 can retry the request after a certain amount of time (that time should
 be supplied by the server). We suggest using RETRY if you are in these
@@ -177,22 +177,22 @@ for more information.
 
 ## Mocking with webmockr
 
-[webmockr][] is a package for stubbing and setting expectations on 
-HTTP requests. It has support for working with two HTTP request 
-packages: [crul][] and [httr][]. 
+[webmockr][] is a package for stubbing and setting expectations on
+HTTP requests. It has support for working with two HTTP request
+packages: [crul][] and [httr][].
 
-There are a variety of use cases for `webmockr`. 
+There are a variety of use cases for `webmockr`.
 
-* Use it in an interactive R session where you're working 
-on a project and want to mock HTTP requests and set certain responses. 
-* You can be on a plane and still allow requests to work without an 
-internet connection by setting a response to give back. 
-* Test hard to test scenarios in your code or package. `webmockr` 
-allows you to give back exact responses just as you describe and 
-even fail with certain HTTP conditions. Getting certain failures 
-to happen with a remote server can sometimes be difficult. 
-* Package test suite: you can use `webmockr` in a test suite, 
-although the next section covers `vcr` which builds on top of 
+* Use it in an interactive R session where you're working
+on a project and want to mock HTTP requests and set certain responses.
+* You can be on a plane and still allow requests to work without an
+internet connection by setting a response to give back.
+* Test hard to test scenarios in your code or package. `webmockr`
+allows you to give back exact responses just as you describe and
+even fail with certain HTTP conditions. Getting certain failures
+to happen with a remote server can sometimes be difficult.
+* Package test suite: you can use `webmockr` in a test suite,
+although the next section covers `vcr` which builds on top of
 `webmockr` and is ideal for tests.
 
 See the book [HTTP mocking and testing in R][book] for more.
@@ -200,16 +200,16 @@ See the book [HTTP mocking and testing in R][book] for more.
 
 ## Testing with vcr
 
-[vcr][] records and replays HTTP requests. Its main use case is for 
-caching HTTP requests in test suites in R packages. It has support 
-for working with two HTTP request packages: [crul][] and [httr][]. 
+[vcr][] records and replays HTTP requests. Its main use case is for
+caching HTTP requests in test suites in R packages. It has support
+for working with two HTTP request packages: [crul][] and [httr][].
 
-To use `vcr` for testing the setup is pretty easy. 
+To use `vcr` for testing the setup is pretty easy.
 
 1. Add `vcr` to Suggests in your DESCRIPTION file
-2. Make a file in your `tests/testthat/` directory called 
-`helper-yourpackage.R` (or skip if as similar file already exists). 
-In that file use the following lines to setup your path for storing 
+2. Make a file in your `tests/testthat/` directory called
+`helper-yourpackage.R` (or skip if as similar file already exists).
+In that file use the following lines to setup your path for storing
 cassettes (change path to whatever you want):
 
 ```r
@@ -217,7 +217,7 @@ library("vcr")
 invisible(vcr::vcr_configure())
 ```
 
-3. In your tests, for whichever tests you want to use `vcr`, wrap 
+3. In your tests, for whichever tests you want to use `vcr`, wrap
 the tests in a `vcr::use_cassette()` call like:
 
 ```r
@@ -233,18 +233,18 @@ test_that("my test", {
 })
 ```
 
-That's it! Just run your tests are you normally would and any HTTP 
+That's it! Just run your tests are you normally would and any HTTP
 requests done by `crul` or `httr` will be cached on the first test run
-then the cached responses used every time thereafter. 
+then the cached responses used every time thereafter.
 
 See the book [HTTP mocking and testing in R][book] for more.
 
 ## What else?
 
-Let us know if there's anything else you'd like to see in this 
+Let us know if there's anything else you'd like to see in this
 document and/or if there's anything that can be explained better.
 
-Last, the httr package has a similar article on best practices, see 
+Last, the httr package has a similar article on best practices, see
 <https://httr.r-lib.org/articles/api-packages.html>
 
 
