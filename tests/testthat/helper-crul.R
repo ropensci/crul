@@ -5,9 +5,7 @@ hb <- function(x = NULL) if (is.null(x)) base_url else paste0(base_url, x)
 # check various httpbin servers
 urls <- c(
   "https://hb.opencpu.org",
-  "https://nghttp2.org/httpbin",
-  "https://httpbin.org",
-  "http://httpbin.org"
+  "https://nghttp2.org/httpbin"
 )
 h <- curl::new_handle(timeout = 10, failonerror = FALSE)
 out <- list()
