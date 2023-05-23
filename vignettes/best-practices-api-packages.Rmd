@@ -117,7 +117,7 @@ x <- fauxpas::find_error_class(res$status_code)$new()
 ```
 
 We can then do one of two things: use `$do()` or `$do_verbose()`. `$do()` 
-is simpler and gives you thhe same thing `$raise_for_status()` gives, but
+is simpler and gives you the same thing `$raise_for_status()` gives, but
 allows you to change behavior (stop vs. warning vs. message), and how the 
 message is formatted. By default we get:
 
