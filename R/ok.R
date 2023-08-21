@@ -25,7 +25,7 @@
 #' in the known set of HTTP status codes, and that info is a boolean
 #' 
 #' You may have to fiddle with the parameters to `ok()` as well as
-#' curl options to get the "right answer". If you think you are getting
+#' curl options to get the "right answer". If you think you are
 #' incorrectly getting `FALSE`, the first thing to do is to pass in
 #' `verbose=TRUE` to `ok()`. That will give you verbose curl output and will
 #' help determine what the issue may be. Here's some different scenarios:
