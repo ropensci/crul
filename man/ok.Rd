@@ -43,7 +43,7 @@ We internally verify that status is an integer and
 in the known set of HTTP status codes, and that info is a boolean
 
 You may have to fiddle with the parameters to \code{ok()} as well as
-curl options to get the "right answer". If you think you are getting
+curl options to get the "right answer". If you think you are
 incorrectly getting \code{FALSE}, the first thing to do is to pass in
 \code{verbose=TRUE} to \code{ok()}. That will give you verbose curl output and will
 help determine what the issue may be. Here's some different scenarios:
