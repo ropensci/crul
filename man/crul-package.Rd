@@ -2,11 +2,13 @@
 % Please edit documentation in R/crul-package.r
 \docType{package}
 \name{crul-package}
-\alias{crul-package}
 \alias{crul}
-\title{crul}
+\alias{crul-package}
+\title{crul: HTTP Client}
 \description{
-\strong{HTTP R client}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+A simple HTTP client, with tools for making HTTP requests, and mocking HTTP requests. The package is built on R6, and takes inspiration from Ruby's 'faraday' gem (\url{https://rubygems.org/gems/faraday}). The package name is a play on curl, the widely used command line tool for HTTP, and this package is built on top of the R package 'curl', an interface to 'libcurl' (\url{https://curl.se/libcurl/}).
 }
 \section{Package API}{
 
@@ -92,6 +94,16 @@ Source code: \url{https://github.com/ropensci/crul}
 Bug reports/feature requests: \url{https://github.com/ropensci/crul/issues}
 }
 
-\author{
-Scott Chamberlain \email{myrmecocystus@gmail.com}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/crul/ (website) https://github.com/ropensci/crul (devel) https://books.ropensci.org/http-testing/ (user manual)}
+  \item Report bugs at \url{https://github.com/ropensci/crul/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Scott Chamberlain \email{myrmecocystus@gmail.com} (\href{https://orcid.org/0000-0003-1444-9135}{ORCID})
+
+}
+\keyword{internal}

@@ -177,8 +177,8 @@ tmp$responses()[[3]]
 }
 \seealso{
 Other async: 
-\code{\link{AsyncQueue}},
 \code{\link{Async}},
+\code{\link{AsyncQueue}},
 \code{\link{HttpRequest}}
 }
 \concept{async}

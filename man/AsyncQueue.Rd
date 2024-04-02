@@ -64,8 +64,8 @@ out$responses()
 }
 \seealso{
 Other async: 
-\code{\link{AsyncVaried}},
 \code{\link{Async}},
+\code{\link{AsyncVaried}},
 \code{\link{HttpRequest}}
 }
 \concept{async}

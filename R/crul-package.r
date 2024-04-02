@@ -1,5 +1,3 @@
-#' @title crul
-#' @description **HTTP R client**
 #' @section Package API:
 #' 
 #' - [HttpClient()] - create a connection client, set all
@@ -67,14 +65,15 @@
 #' 
 #' Bug reports/feature requests: <https://github.com/ropensci/crul/issues>
 #'
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
 #' @importFrom curl curl_escape curl_fetch_disk curl_fetch_memory
 #' curl_fetch_stream curl_options curl_version handle_reset handle_setform
 #' handle_setheaders handle_setopt multi_add multi_cancel multi_list
 #' multi_run new_handle new_pool parse_headers
 #' @importFrom R6 R6Class
 #' @importFrom httpcode http_code
-#' @name crul-package
-#' @aliases crul
-#' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
-#' @docType package
+## usethis namespace: end
 NULL

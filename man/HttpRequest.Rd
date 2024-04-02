@@ -70,9 +70,9 @@ res$payload
 \link{http-headers}, \link{writing-options}
 
 Other async: 
+\code{\link{Async}},
 \code{\link{AsyncQueue}},
-\code{\link{AsyncVaried}},
-\code{\link{Async}}
+\code{\link{AsyncVaried}}
 }
 \concept{async}
 \section{Public fields}{
