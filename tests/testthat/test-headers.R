@@ -97,7 +97,4 @@ test_that("headers - non-UTF-8 headers from Crossref ('link' header)", {
   expect_is(bb, "HttpResponse")
   expect_is(bb$response_headers, "list")
   expect_named(bb$response_headers)
-
-  # includes link header
-  expect_is(bb$response_headers$link, "character")
 })

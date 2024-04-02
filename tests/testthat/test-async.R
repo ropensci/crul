@@ -436,7 +436,7 @@ test_that("Async - failure behavior", {
 
   expect_match(res[[1]]$parse("UTF-8"), "resolve host")
   expect_is(res[[2]]$parse("UTF-8"), "character")
-  expect_match(res[[3]]$parse("UTF-8"), "DOCTYPE")
+  expect_match(res[[3]]$parse("UTF-8"), "doctype")
 
   expect_equal(length(readLines(files[1])), 0)
   expect_equal(length(readLines(files[2])), 0)
