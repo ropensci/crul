@@ -97,9 +97,9 @@ Bug reports/feature requests: \url{https://github.com/ropensci/crul/issues}
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://docs.ropensci.org/crul/ (website)}
-  \item \url{https://github.com/ropensci/crul (devel)}
-  \item \url{https://books.ropensci.org/http-testing/ (user manual)}
+  \item \url{https://docs.ropensci.org/crul/}
+  \item \url{https://github.com/ropensci/crul}
+  \item \url{https://books.ropensci.org/http-testing/}
   \item Report bugs at \url{https://github.com/ropensci/crul/issues}
 }
 
