@@ -1,3 +1,16 @@
+crul 1.4.2
+==========
+
+### DOCUMENTATION
+
+* fix typos (thanks @mdsumner and @espinielli) (#173) (#176)
+* change to `_PACKAGE` pattern for pkg level man file (#177)
+
+### INTERNAL
+
+* tweak to test helper base url setup (#178)
+
+
 crul 1.4
 ========
 
