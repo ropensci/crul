@@ -1,8 +1,9 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("Async - General")
 
 test_that("Async works", {
-  skip_on_cran()
-
   expect_is(Async, "R6ClassGenerator")
 
   aa <- Async$new(urls = c(hb('/get'), 'https://google.com'))
@@ -30,14 +31,10 @@ test_that("Async works", {
 })
 
 test_that("Async fails well", {
-  skip_on_cran()
-
   expect_error(Async$new(), "\"urls\" is missing, with no default")
 })
 
 test_that("Async print method", {
-  skip_on_cran()
-  
   aa <- Async$new(urls = c(hb('/get'), 'https://google.com'))
 
   expect_is(aa, "Async")
@@ -60,7 +57,6 @@ test_that("Async print method", {
 
 
 test_that("Async curl options work", {
-  skip_on_cran()
   skip_on_ci() # not sure why, but not working on CI
   
   aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
@@ -72,8 +68,6 @@ test_that("Async curl options work", {
 })
 
 test_that("Async headers work", {
-  skip_on_cran()
-  
   aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
     headers = list(foo = "bar"))
   expect_output(aa$print(), "headers")
@@ -87,8 +81,6 @@ test_that("Async headers work", {
 
 context("Async - get")
 test_that("Async - get", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/get'),
                            'https://google.com'))
   out <- aa$get()
@@ -103,8 +95,6 @@ test_that("Async - get", {
 
 context("Async - post")
 test_that("Async - post", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/post'),
                            hb('/post')))
   out <- aa$post()
@@ -117,8 +107,6 @@ test_that("Async - post", {
 
 context("Async - put")
 test_that("Async - put", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/put'),
                            hb('/put')))
   out <- aa$put()
@@ -133,8 +121,6 @@ test_that("Async - put", {
 
 context("Async - patch")
 test_that("Async - patch", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/patch'),
                            hb('/patch')))
   out <- aa$patch()
@@ -149,8 +135,6 @@ test_that("Async - patch", {
 
 context("Async - delete")
 test_that("Async - delete", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/delete'),
                            hb('/delete')))
   out <- aa$delete()
@@ -165,8 +149,6 @@ test_that("Async - delete", {
 
 context("Async - head")
 test_that("Async - head", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c('https://google.com',
                            'https://nytimes.com'))
   out <- aa$head()
@@ -180,8 +162,6 @@ test_that("Async - head", {
 
 context("Async - verb")
 test_that("Async - verb", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c('https://google.com',
                            'https://nytimes.com'))
   out <- aa$verb('get')
@@ -195,8 +175,6 @@ test_that("Async - verb", {
 
 context("Async - verb")
 test_that("Async - retry", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c("https://nghttp2.org/httpbin/status/404", 
     "https://nghttp2.org/httpbin/status/429"))
   out <- aa$retry(verb='get')
@@ -213,8 +191,6 @@ test_that("Async - retry", {
 
 context("Async - order of results")
 test_that("Async - order", {
-  skip_on_cran()
-
   aa <- Async$new(urls = c(hb('/get?a=5'),
                            hb('/get?b=6'),
                            hb('/get?c=7')))
@@ -232,8 +208,6 @@ test_that("Async - order", {
 
 context("Async - disk w/ GET")
 test_that("Async - writing to disk works", {
-  skip_on_cran()
-
   cc <- Async$new(
     urls = c(
       hb('/get?a=5'),
@@ -258,8 +232,6 @@ test_that("Async - writing to disk works", {
 
 context("Async - disk w/ POST")
 test_that("Async - writing to disk works", {
-  skip_on_cran()
-
   post_url <- hb('/post')
   cc <- Async$new(urls = rep(post_url, 5))
   files <- replicate(5, tempfile())
@@ -278,8 +250,6 @@ test_that("Async - writing to disk works", {
 
 context("Async - disk w/ PUT")
 test_that("Async - writing to disk works", {
-  skip_on_cran()
-
   put_url <- hb('/put')
   cc <- Async$new(urls = rep(put_url, 5))
   files <- replicate(5, tempfile())
@@ -298,8 +268,6 @@ test_that("Async - writing to disk works", {
 
 context("Async - disk w/ PATCH")
 test_that("Async - writing to disk works", {
-  skip_on_cran()
-
   patch_url <- hb('/patch')
   cc <- Async$new(urls = rep(patch_url, 5))
   files <- replicate(5, tempfile())
@@ -318,8 +286,6 @@ test_that("Async - writing to disk works", {
 
 context("Async - disk w/ DELETE")
 test_that("Async - writing to disk works", {
-  skip_on_cran()
-
   delete_url <- hb('/delete')
   cc <- Async$new(urls = rep(delete_url, 5))
   files <- replicate(5, tempfile())
@@ -338,8 +304,6 @@ test_that("Async - writing to disk works", {
 
 context("Async - stream")
 test_that("Async - streaming to disk works", {
-  skip_on_cran()
-
   bb <- Async$new(urls = c(hb('/get?a=5'),
                            hb('/get?b=6'),
                            hb('/get?c=7')))
@@ -365,8 +329,6 @@ test_that("Async - streaming to disk works", {
 
 context("Async - basic auth")
 test_that("Async - with basic auth works", {
-  skip_on_cran()
-
   dd <- Async$new(
     urls = rep(hb('/basic-auth/user/passwd'), 3), 
     auth = auth(user = "user", pwd = "passwd")
@@ -388,8 +350,6 @@ test_that("Async - with basic auth works", {
 
 context("Async - failure behavior w/ bad URLs/etc.")
 test_that("Async - failure behavior", {
-  skip_on_cran()
-
   urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
   conn <- Async$new(urls = urls)
   res <- conn$get()
@@ -413,8 +373,6 @@ test_that("Async - failure behavior", {
 
 context("Async - failure behavior w/ bad URLs/etc. - disk")
 test_that("Async - failure behavior", {
-  skip_on_cran()
-
   files <- replicate(3, tempfile())
   urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
   conn <- Async$new(urls = urls)
@@ -448,8 +406,6 @@ test_that("Async - failure behavior", {
 
 context("Async - failure behavior w/ bad URLs/etc. - stream")
 test_that("Async - failure behavior", {
-  skip_on_cran()
-
   mylist <- c()
   fun <- function(x) mylist <<- append(mylist, list(x))
 

@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: verb")
 
 test_that("verb: works", {
-  skip_on_cran()
-
   x <- HttpClient$new(url = hb())
 
   expect_is(x$verb, "function")
@@ -21,8 +21,6 @@ test_that("verb: works", {
 })
 
 test_that("verb: works for all supported verbs + retry", {
-  skip_on_cran()
-
   x <- HttpClient$new(url = hb())
 
   expect_is(x$verb('get', path = "get"), "HttpResponse")
@@ -35,8 +33,6 @@ test_that("verb: works for all supported verbs + retry", {
 })
 
 test_that("verb: fails well", {
-  skip_on_cran()
-
   x <- HttpClient$new(url = hb())
 
   # fails when non-character verb value passed
@@ -53,8 +49,6 @@ test_that("verb: fails well", {
 })
 
 test_that("verb: with auth works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
   aa <- cli$verb("get", "/basic-auth/foo/bar")
 

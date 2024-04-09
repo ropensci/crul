@@ -1,8 +1,9 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("handle")
 
 test_that("handle - works", {
-  skip_on_cran()
-
   aa <- handle(hb())
 
   expect_is(aa, "list")
@@ -12,7 +13,5 @@ test_that("handle - works", {
 })
 
 test_that("handle fails well", {
-  skip_on_cran()
-  
   expect_error(handle(), "argument \"url\" is missing")
 })

@@ -1,14 +1,13 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("mocking: mock function")
 test_that("crul_opts env", {
-  skip_on_cran()
-
   expect_is(crul_opts, "environment")
   expect_false(crul_opts$mock)
 })
 
 test_that("mock function", {
-  skip_on_cran()
-
   expect_is(mock, "function")
   expect_true(mock())
   expect_true(crul_opts$mock)
@@ -18,7 +17,6 @@ test_that("mock function", {
 
 context("mocking: HttpClient")
 test_that("mocking with HttpClient", {
-  skip_on_cran()
   skip_if_not_installed("webmockr")
 
   loadNamespace("webmockr")
@@ -50,7 +48,6 @@ test_that("mocking with HttpClient", {
 
 context("mocking: HttpClient when not stubbed yet")
 test_that("mocking with HttpClient: ", {
-  skip_on_cran()
   skip_if_not_installed("webmockr")
 
   loadNamespace("webmockr")

@@ -1,7 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("HttpClient")
 test_that("HttpClient works", {
-  skip_on_cran()
-
   expect_is(HttpClient, "R6ClassGenerator")
 
   aa <- HttpClient$new(url = hb())
@@ -16,14 +17,10 @@ test_that("HttpClient works", {
 })
 
 test_that("HttpClient fails well", {
-  skip_on_cran()
-
   expect_error(HttpClient$new(), "need one of url or handle")
 })
 
 test_that("HttpClient print method", {
-  skip_on_cran()
-
   aa <- HttpClient$new(url = hb(), 
     opts = list(verbose = TRUE),
     headers = list(foo = "bar"),
@@ -44,8 +41,6 @@ test_that("HttpClient print method", {
 
 context("HttpClient - disk")
 test_that("HttpClient works", {
-  skip_on_cran()
-
   aa <- HttpClient$new(url = hb())
   f <- tempfile()
   res <- aa$get("get", disk = f)
@@ -59,8 +54,6 @@ test_that("HttpClient works", {
 })
 
 test_that("HttpClient disk fails well", {
-  skip_on_cran()
-
   aa <- HttpClient$new(url = hb())
   expect_error(aa$get("get", disk = 5), "invalid 'path' argument")
 })
@@ -68,8 +61,6 @@ test_that("HttpClient disk fails well", {
 
 context("HttpClient - stream")
 test_that("stream works", {
-  skip_on_cran()
-
   aa <- HttpClient$new(url = hb())
   expect_output(
     res <- aa$get('stream/50', stream = function(x) cat(rawToChar(x))),
@@ -81,8 +72,6 @@ test_that("stream works", {
 })
 
 test_that("stream fails well", {
-  skip_on_cran()
-
   aa <- HttpClient$new(url = hb())
   expect_error(aa$get("get", stream = 5), "could not find function \"fun\"")
 })
@@ -90,8 +79,6 @@ test_that("stream fails well", {
 
 context("HttpClient - failure behavior")
 test_that("HttpClient - failure behavior", {
-  skip_on_cran()
-
   # url doesn't exist - could not resolve host
   conn <- HttpClient$new("http://stuffthings.gvb")
   expect_error(conn$get(), "resolve host")
@@ -99,8 +86,6 @@ test_that("HttpClient - failure behavior", {
 
 
 test_that("parse() works with disk usage", {
-  skip_on_cran()
-  
   f <- tempfile(fileext = ".json")
   out <- crul::HttpClient$new(hb("/get"))$get(disk = f)
   expect_is(out$parse(), "character")
@@ -108,8 +93,6 @@ test_that("parse() works with disk usage", {
 })
 
 test_that("parse() works with stream usage", {
-  skip_on_cran()
-
   lst <- list()
   fun <- function(x) lst <<- append(lst, list(x))
   out <- crul::HttpClient$new(hb("/get"))$get(stream = fun)

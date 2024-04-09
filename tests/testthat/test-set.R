@@ -1,3 +1,5 @@
+skip_if_offline(url_parse(hb())$domain)
+
 context("set curl options: crul_settings")
 test_that("crul_settings structure", {
   skip_on_cran()

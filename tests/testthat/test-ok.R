@@ -1,7 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("ok: character")
 test_that("ok works with character input", {
-  skip_on_cran()
-
   expect_is(ok, "function")
 
   # good
@@ -15,8 +16,6 @@ test_that("ok works with character input", {
 
 context("ok: HttpClient")
 test_that("ok works with HttpClient input", {
-  skip_on_cran()
-
   # good
   z <- crul::HttpClient$new(hb("/status/200"))
   expect_true(ok(z))
@@ -29,8 +28,6 @@ test_that("ok works with HttpClient input", {
 
 context("ok: multiple status codes")
 test_that("ok works multiple status codes", {
-  skip_on_cran()
-
   z <- crul::HttpClient$new(hb("/status/200"))
   expect_true(ok(z, c(200L, 201L)))
   expect_error(ok(z, c(200L, 901L)))
@@ -39,8 +36,6 @@ test_that("ok works multiple status codes", {
 
 context("ok: random user agent")
 test_that("ok random user agents", {
-  skip_on_cran()
-
   ua_val <- NULL
   fxn <- function(request) {
     ua <- request$options$useragent
@@ -59,8 +54,6 @@ test_that("ok random user agents", {
 
 context("ok: fails well")
 test_that("ok fails well", {
-  skip_on_cran()
-
   expect_error(ok(5), "no 'ok' method for numeric")
   expect_error(ok(mtcars), "no 'ok' method for data.frame")
   expect_error(ok(list()), "no 'ok' method for list")

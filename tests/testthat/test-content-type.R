@@ -1,4 +1,5 @@
 skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 
 res_html <- HttpClient$new(url = hb("/html"))$get()
 res_json <- HttpClient$new(url = hb())$get('/get')

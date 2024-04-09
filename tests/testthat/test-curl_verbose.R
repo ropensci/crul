@@ -1,6 +1,7 @@
-test_that("curl_verbose", {
-  skip_on_cran()
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 
+test_that("curl_verbose", {
   # is a function
   expect_is(curl_verbose, "function")
   

@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("authenticate")
 
 test_that("auth construction works", {
-  skip_on_cran()
-
   basic <- auth(user = "foo", pwd = "bar", auth = "basic")
   digest <- auth(user = "foo", pwd = "bar", auth = "digest")
   ntlm <- auth(user = "foo", pwd = "bar", auth = "ntlm")
@@ -25,8 +25,6 @@ test_that("auth construction works", {
 })
 
 test_that("auth works with HttpClient", {
-  skip_on_cran()
-
   aa <- HttpClient$new(
     url = hb("/basic-auth/user/passwd"),
     auth = auth(user = "foo", pwd = "bar")
@@ -39,8 +37,6 @@ test_that("auth works with HttpClient", {
 })
 
 test_that("auth works with HttpRequest", {
-  skip_on_cran()
-
   aa <- HttpRequest$new(
     url = hb("/basic-auth/user/passwd"),
     auth = auth(user = "foo", pwd = "bar")
@@ -53,8 +49,6 @@ test_that("auth works with HttpRequest", {
 })
 
 test_that("auth fails well", {
-  skip_on_cran()
-  
   expect_error(auth(), "argument \"user\" is missing")
   expect_error(auth(user = "asdf"), "argument \"pwd\" is missing")
   expect_error(auth(5, 5), "user must be of class character")

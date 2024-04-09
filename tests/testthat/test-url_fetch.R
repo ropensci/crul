@@ -1,3 +1,5 @@
+skip_if_offline(url_parse(hb())$domain)
+
 context("client: url_fetch")
 url <- hb()
 x <- HttpClient$new(url = url)

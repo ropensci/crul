@@ -1,7 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("HttpClient: request hooks")
 test_that("hooks: requests", {
-  skip_on_cran()
-
   fun_req <- function(request) {
     cat("Requesting: ", request$url$url, sep = "\n")
   }
@@ -27,8 +28,6 @@ test_that("hooks: requests", {
 
 context("HttpClient: response hooks")
 test_that("hooks: responses", {
-  skip_on_cran()
-
   fun_resp <- function(response) {
     cat(paste0("status_code: ", response$status_code), sep = "\n")
   }
@@ -55,8 +54,6 @@ test_that("hooks: responses", {
 
 context("HttpClient: request and response hook")
 test_that("hooks: request and response", {
-  skip_on_cran()
-
   fun_req <- function(request) {
     cat("Requesting: ", request$url$url, sep = "\n")
   }
@@ -79,8 +76,6 @@ test_that("hooks: request and response", {
 
 
 test_that("hooks: fails well", {
-  skip_on_cran()
-
   # fails when non-list passed
   expect_error(HttpClient$new(url = hb(), hooks = 5),
     "hooks must be of class list")

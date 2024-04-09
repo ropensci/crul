@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: post")
 
 test_that("post request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$post("post")
 
@@ -19,8 +19,6 @@ test_that("post request works", {
 })
 
 test_that("post request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$post("post", body = list(hello = "world"))
 
@@ -47,8 +45,6 @@ body <- list(
 )
 
 test_that("post request: encode=form", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb("/post"))
   form <- cli$post(body = body, encode = "form")
 
@@ -65,8 +61,6 @@ test_that("post request: encode=form", {
 })
 
 test_that("post request: encode=multipart", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb("/post"))
   multi <- cli$post(body = body, encode = "multipart")
 
@@ -86,8 +80,6 @@ test_that("post request: encode=multipart", {
 })
 
 test_that("post request: encode=form/multipart both use form content-type when 0 length list", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb("/post"))
   form <- cli$post(body = list(), encode = "form")
   multi <- cli$post(body = list(), encode = "multipart")
@@ -101,8 +93,6 @@ test_that("post request: encode=form/multipart both use form content-type when 0
 })
 
 test_that("post request: encode=form/multipart drop NULL elements in a list", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb("/post"))
   form <- cli$post(body = list(a = 5, b = NULL), encode = "form")
   multi <- cli$post(body = list(a = 5, b = NULL), encode = "multipart")
@@ -113,8 +103,6 @@ test_that("post request: encode=form/multipart drop NULL elements in a list", {
 
 
 test_that("post request with file upload", {
-  skip_on_cran()
-
   # txt file
   ## as file
   file <- upload(system.file("CITATION"))

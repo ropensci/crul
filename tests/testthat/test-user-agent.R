@@ -1,3 +1,5 @@
+skip_if_offline(url_parse(hb())$domain)
+
 context("user-agent")
 
 test_that("user-agent internal helper fxn works as expected", {

@@ -1,3 +1,6 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("Paginator")
 
 cli <- HttpClient$new(url = "http://api.crossref.org")
@@ -5,8 +8,6 @@ aa <- Paginator$new(client = cli, by = "limit_offset", limit_param = "rows",
   offset_param = "offset", limit = 50, chunk = 10)
 
 test_that("Paginator print method", {
-  skip_on_cran()
-
   expect_is(aa$print, "function")
   expect_output(aa$print(), "api.crossref.org")
   expect_output(aa$print(), "limit_offset")
@@ -18,8 +19,6 @@ test_that("Paginator print method", {
 })
 
 test_that("Paginator works", {
-  skip_on_cran()
-
   expect_is(cli, "HttpClient")
   expect_is(Paginator, "R6ClassGenerator")
 
@@ -45,8 +44,6 @@ test_that("Paginator works", {
 
 
 test_that("Paginator works with many different limit and chunk combinations", {
-  skip_on_cran()
-
   limit_param = "rows"
   offset_param = "start"
 
@@ -84,8 +81,6 @@ test_that("Paginator works with many different limit and chunk combinations", {
 
 
 test_that("Paginator fails well", {
-  skip_on_cran()
-
   expect_error(Paginator$new(), "argument \"client\" is missing")
   # expect_error(Paginator$new(cli), "argument \"chunk\" is missing")
   expect_error(Paginator$new(cli, 5), "'by' must be one of")
@@ -142,8 +137,6 @@ test_that("Paginator fails well", {
 })
 
 test_that("Paginator progress option", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = "https://api.crossref.org")
   cc <- Paginator$new(client = cli, limit_param = "rows",
      offset_param = "offset", limit = 20, chunk = 10, 
@@ -152,8 +145,6 @@ test_that("Paginator progress option", {
 })
 
 test_that("by throws warning when query_params used", {
-  skip_on_cran()
-
   expect_warning(
     Paginator$new(client = cli, by = "query_params", limit_param = "rows",
       offset_param = "offset", limit = 50, chunk = 10)

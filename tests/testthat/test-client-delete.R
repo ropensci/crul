@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: delete")
 
 test_that("delete request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$delete("delete")
 
@@ -19,8 +19,6 @@ test_that("delete request works", {
 })
 
 test_that("delete request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$delete("delete", body = list(hello = "world"))
 

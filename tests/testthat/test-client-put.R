@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: put")
 
 test_that("put request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$put("put")
 
@@ -19,8 +19,6 @@ test_that("put request works", {
 })
 
 test_that("put request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$put("put", body = list(hello = "world"))
 

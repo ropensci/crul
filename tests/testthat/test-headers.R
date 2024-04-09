@@ -1,7 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("headers: default headers")
 test_that("headers work - just default headers", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$get('get')
 
@@ -11,8 +12,6 @@ test_that("headers work - just default headers", {
 
 context("headers: user defined headers")
 test_that("headers work - user headers passed", {
-  skip_on_cran()
-
   cli <- HttpClient$new(
     url = hb(),
     headers = list(hello = "world")
@@ -28,8 +27,6 @@ test_that("headers work - user headers passed", {
 
 context("headers: all response headers")
 test_that("headers - all response headers, WITH redirect", {
-  skip_on_cran()
-
   x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")
   bb <- x$get()
 
@@ -56,8 +53,6 @@ test_that("headers - all response headers, WITH redirect", {
 })
 
 test_that("headers - all response headers, WITHOUT redirect", {
-  skip_on_cran()
-
   x <- HttpClient$new(url = hb())
   bb <- x$get()
 
@@ -87,8 +82,6 @@ test_that("headers - all response headers, WITHOUT redirect", {
 
 context("headers: non-UTF-8 headers")
 test_that("headers - non-UTF-8 headers from Crossref ('link' header)", {
-  skip_on_cran()
-
   x <- HttpClient$new(url = 'https://doi.org/10.1126/science.aax9044',
     opts = list(followlocation = 1), headers = list(Accept = "application/x-bibtex"))
   bb <- x$get()

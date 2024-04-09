@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("AsyncVaried")
 
 test_that("AsyncVaried works", {
-  skip_on_cran()
-
   expect_is(AsyncVaried, "R6ClassGenerator")
 
   req1 <- HttpRequest$new(url = hb("/get"))$get()
@@ -37,16 +37,12 @@ test_that("AsyncVaried works", {
 })
 
 test_that("AsyncVaried fails well", {
-  skip_on_cran()
-
   expect_error(AsyncVaried$new(), "must pass in at least one request")
   expect_error(AsyncVaried$new(5), "all inputs must be of class 'HttpRequest'")
 })
 
 context("AsyncVaried - order of results")
 test_that("AsyncVaried - order", {
-  skip_on_cran()
-
   req1 <- HttpRequest$new(url = hb("/get?a=5"))$get()
   req2 <- HttpRequest$new(url = hb("/get?b=6"))$get()
   req3 <- HttpRequest$new(url = hb("/get?c=7"))$get()
@@ -67,8 +63,6 @@ test_that("AsyncVaried - order", {
 
 context("AsyncVaried - disk")
 test_that("AsyncVaried - writing to disk works", {
-  skip_on_cran()
-
   f <- tempfile()
   g <- tempfile()
   req1 <- HttpRequest$new(url = hb("/get"))$get(disk = f)
@@ -103,8 +97,6 @@ test_that("AsyncVaried - writing to disk works", {
 
 context("AsyncVaried - stream")
 test_that("AsyncVaried - streaming to disk works", {
-  skip_on_cran()
-
   lst <- c()
   fun <- function(x) lst <<- append(lst, list(x))
   req1 <- HttpRequest$new(url = hb("/get")
@@ -129,8 +121,6 @@ test_that("AsyncVaried - streaming to disk works", {
 
 context("AsyncVaried - basic auth")
 test_that("AsyncVaried - basic auth works", {
-  skip_on_cran()
-
   url <- hb("/basic-auth/user/passwd")
   auth <- auth(user = "user", pwd = "passwd")
   reqlist <- list(
@@ -155,8 +145,6 @@ test_that("AsyncVaried - basic auth works", {
 
 context("AsyncVaried - failure behavior w/ bad URLs/etc.")
 test_that("AsyncVaried - failure behavior", {
-  skip_on_cran()
-
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(),
     HttpRequest$new(url = base_url)$head(),
@@ -184,8 +172,6 @@ test_that("AsyncVaried - failure behavior", {
 # disk and stream behave the same was as w/o either of them
 context("AsyncVaried - failure behavior w/ bad URLs/etc. - disk")
 test_that("AsyncVaried - failure behavior", {
-  skip_on_cran()
-
   f <- tempfile()
   g <- tempfile()
   reqlist <- list(
@@ -214,8 +200,6 @@ test_that("AsyncVaried - failure behavior", {
 # disk and stream behave the same was as w/o either of them
 context("AsyncVaried - failure behavior w/ bad URLs/etc. - stream")
 test_that("AsyncVaried - failure behavior", {
-  skip_on_cran()
-
   lst <- c()
   fun <- function(x) lst <<- c(lst, x)
   reqlist <- list(
@@ -240,8 +224,6 @@ test_that("AsyncVaried - failure behavior", {
 
 # verb method works
 test_that("AsyncVaried verb method works", {
-  skip_on_cran()
-
   req1 <- HttpRequest$new(url = hb("/get"))$verb('get')
   req2 <- HttpRequest$new(url = hb("/post"))$verb('post')
 
@@ -253,8 +235,6 @@ test_that("AsyncVaried verb method works", {
 
 # verb method works
 test_that("AsyncVaried verb retry", {
-  skip_on_cran()
-
   req1 <- HttpRequest$new(url = hb("/get"))$retry('get')
   req2 <- HttpRequest$new(url = hb("/post"))$retry('post')
 

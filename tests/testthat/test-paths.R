@@ -1,8 +1,9 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("paths")
 
 test_that("paths work", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$get(path = 'get')
 
@@ -13,8 +14,6 @@ test_that("paths work", {
 })
 
 test_that("path - multiple route paths work", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   bb <- cli$get('status/200')
 
@@ -25,8 +24,6 @@ test_that("path - multiple route paths work", {
 })
 
 test_that("path - paths don't work if paths already on URL", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb("/get/adsfasdf"))
   bb <- cli$get('stuff')
 
@@ -37,7 +34,6 @@ test_that("path - paths don't work if paths already on URL", {
 })
 
 test_that("path - work with routes that have spaces", {
-  skip_on_cran()
   skip_on_os("windows")
 
   cli <- HttpClient$new(url = "http://www.marinespecies.org")

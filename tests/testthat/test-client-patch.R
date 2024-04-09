@@ -1,8 +1,9 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("HttpClient: patch")
 
 test_that("patch request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$patch("patch")
 
@@ -19,8 +20,6 @@ test_that("patch request works", {
 })
 
 test_that("patch request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$patch("patch", body = list(hello = "world"))
 

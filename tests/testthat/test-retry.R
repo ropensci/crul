@@ -1,8 +1,9 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("HttpClient retry: basics")
 
 test_that("retry has basic error checking", {
-  skip_on_cran()
-  
   cli <- HttpClient$new(url = hb())
 
   expect_error(cli$retry())
@@ -15,8 +16,6 @@ test_that("retry has basic error checking", {
 context("HttpClient retry: get")
 
 test_that("retry wrapping get request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("GET", path = "get")
 
@@ -31,8 +30,6 @@ test_that("retry wrapping get request works", {
 })
 
 test_that("retry wrapping get request - query parameters", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   querya <- list(a = "Asdfadsf", hello = "world")
   aa <- cli$retry("GET", path = "get", query = querya)
@@ -59,8 +56,6 @@ test_that("retry wrapping get request - query parameters", {
 context("HttpClient retry: post")
 
 test_that("retry wrapping post request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("POST", path = "post")
 
@@ -77,8 +72,6 @@ test_that("retry wrapping post request works", {
 })
 
 test_that("retry wrapping post request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("POST", path = "post", body = list(hello = "world"))
 
@@ -97,8 +90,6 @@ test_that("retry wrapping post request with body", {
 
 
 test_that("retry wrapping post request with file upload", {
-  skip_on_cran()
-
   # txt file
   ## as file
   file <- upload(system.file("CITATION"))
@@ -139,8 +130,6 @@ test_that("retry wrapping post request with file upload", {
 context("HttpClient retry: put")
 
 test_that("retry wrapping put request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("PUT", path = "put")
 
@@ -157,8 +146,6 @@ test_that("retry wrapping put request works", {
 })
 
 test_that("retry wrapping put request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("PUT", path = "put", body = list(hello = "world"))
 
@@ -178,8 +165,6 @@ test_that("retry wrapping put request with body", {
 context("HttpClient retry: delete")
 
 test_that("retry wrapping delete request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("DELETE", path = "delete")
 
@@ -196,8 +181,6 @@ test_that("retry wrapping delete request works", {
 })
 
 test_that("retry wrapping delete request with body", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$retry("DELETE", path = "delete", body = list(hello = "world"))
 
@@ -217,8 +200,6 @@ test_that("retry wrapping delete request with body", {
 context("HttpClient retry: retry")
 
 test_that("retry actually retries on error", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   ## baseline time for comparison
   tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
@@ -232,7 +213,6 @@ test_that("retry actually retries on error", {
 })
 
 test_that("retry recognizes retry headers", {
-  skip_on_cran()
   skip_if_not_installed("webmockr")
 
   loadNamespace("webmockr")
@@ -272,8 +252,6 @@ test_that("retry recognizes retry headers", {
 })
 
 test_that("retry doesn't retry on error unless triggered", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   ## baseline time
   tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
@@ -305,8 +283,6 @@ test_that("retry doesn't retry on error unless triggered", {
 
 context("HttpClient retry: using callback")
 test_that("retry invokes callback function if provided", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   codes <- c()
   waittimes <- c()

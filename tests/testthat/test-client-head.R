@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: head")
 
 test_that("head request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = "https://www.google.com")
   aa <- cli$head()
 
@@ -21,8 +21,6 @@ test_that("head request works", {
 
 
 test_that("head - query passed to head doesn't fail", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = "https://www.google.com")
   aa <- cli$head(query = list(foo = "bar"))
 
@@ -42,8 +40,6 @@ test_that("head - query passed to head doesn't fail", {
 
 
 test_that("with auth works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
   aa <- cli$head("/basic-auth/foo/bar")
 

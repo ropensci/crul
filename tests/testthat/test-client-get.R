@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: get")
 
 test_that("get request works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   aa <- cli$get("get")
 
@@ -25,8 +25,6 @@ test_that("get request works", {
 })
 
 test_that("get request - query parameters", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
   querya <- list(a = "Asdfadsf", hello = "world")
   aa <- cli$get("get", query = querya)
@@ -51,8 +49,6 @@ test_that("get request - query parameters", {
 })
 
 test_that("with auth works", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
   aa <- cli$get("/basic-auth/foo/bar")
 

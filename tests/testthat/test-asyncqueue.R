@@ -1,7 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
+
 context("AsyncQueue: basic structure")
 test_that("AsyncQueue basic structure", {
-  skip_on_cran()
-
   expect_is(AsyncQueue, "R6ClassGenerator")
 
   req1 <- HttpRequest$new(url = hb("/get"))$get()
@@ -62,8 +63,6 @@ test_that("AsyncQueue basic structure", {
 
 context("AsyncQueue: fails well")
 test_that("AsyncQueue fails well", {
-  skip_on_cran()
-
   expect_error(AsyncQueue$new(), "must pass in at least one request")
   expect_error(AsyncQueue$new(5), "all inputs must be of class 'HttpRequest'")
   expect_error(AsyncQueue$new(HttpRequest$new(url = hb("/get"))$get()),
@@ -88,8 +87,6 @@ reqlist <- list(
 
 context("AsyncQueue: sleep parameter")
 test_that("AsyncQueue sleep parameter", {
-  skip_on_cran()
-
   out <- AsyncQueue$new(.list = reqlist, bucket_size = 5, sleep = 3)
   expect_equal(out$bucket_size, 5)
   expect_equal(out$sleep, 3)
@@ -109,7 +106,6 @@ test_that("AsyncQueue sleep parameter", {
 
 context("AsyncQueue: req_per_min parameter")
 test_that("AsyncQueue req_per_min parameter", {
-  skip_on_cran()
   skip_on_ci()
 
   out <- AsyncQueue$new(.list = reqlist, req_per_min = 10)

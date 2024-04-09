@@ -1,8 +1,8 @@
+skip_on_cran()
+skip_if_offline(url_parse(hb())$domain)
 context("HttpClient: status")
 
 test_that("HTTP status is as expected", {
-  skip_on_cran()
-
   cli <- HttpClient$new(url = hb())
 
   # im a teapot

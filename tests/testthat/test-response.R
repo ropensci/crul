@@ -1,3 +1,5 @@
+skip_if_offline(url_parse(hb())$domain)
+
 context("HttpResponse")
 
 test_that("HttpResponse works", {
