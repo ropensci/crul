@@ -310,11 +310,11 @@ OR
 both result in the same thing
 
 
-_Why use this?_ This is set by default in a http request, as you can see in the first example above for user agent. Some web APIs require that you set a specific user agent. For example, the [GitHub API](https://developer.github.com/v3/#user-agent-required) requires that you include a user agent string in the header of each request that is your username or the name of your application so they can contact you if there is a problem.
+_Why use this?_ This is set by default in a http request, as you can see in the first example above for user agent. Some web APIs require that you set a specific user agent. For example, the [GitHub API](https://docs.github.com/en/rest/using-the-rest-api/getting-started-with-the-rest-api?apiVersion=2022-11-28#user-agent) requires that you include a user agent string in the header of each request that is your username or the name of your application so they can contact you if there is a problem.
 
 
 [curl]: https://curl.se/
-[jq]: https://stedolan.github.io/jq/
-[httpie]: https://github.com/httpie/httpie
+[jq]: https://jqlang.github.io/jq/
+[httpie]: https://github.com/httpie/cli
 [gbif]: https://www.gbif.org/
 [post]: https://ropensci.org/blog/2014/12/18/curl-options/

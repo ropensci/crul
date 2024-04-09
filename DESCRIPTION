@@ -13,8 +13,8 @@ Authors@R: c(
     email = "myrmecocystus@gmail.com",
     comment = c(ORCID = "0000-0003-1444-9135"))
     )
-URL: https://docs.ropensci.org/crul/ (website)
-    https://github.com/ropensci/crul (devel)
+URL: https://docs.ropensci.org/crul/ (website),
+    https://github.com/ropensci/crul (devel),
     https://books.ropensci.org/http-testing/ (user manual)
 BugReports: https://github.com/ropensci/crul/issues
 Roxygen: list(markdown = TRUE)
