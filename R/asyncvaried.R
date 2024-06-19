@@ -296,12 +296,18 @@ AsyncVaried <- R6::R6Class(
         if ("retry_options" %in% names(w)) {
           do.call(retry, c(list(i=i, handle=h), w$retry_options))
         } else if (is.null(w$disk) && is.null(w$stream)) {
-          curl::multi_add(
-            handle = h,
-            done = function(res) multi_res[[i]] <<- res,
-            fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
-            pool = crulpool
-          )
+          if(crul_opts$mock) {
+            check_for_package("webmockr")
+            adap <- webmockr::CrulAdapter$new()
+            multi_res[[i]] <<- adap$handle_request(w)
+          } else {
+            curl::multi_add(
+              handle = h,
+              done = function(res) multi_res[[i]] <<- res,
+              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
+              pool = crulpool
+            )
+          }
         } else {
           if (!is.null(w$disk) && is.null(w$stream)) {
             stopifnot(inherits(w$disk, "character"))
@@ -335,6 +341,10 @@ AsyncVaried <- R6::R6Class(
       }
 
       for (i in seq_along(reqs)) make_request(i)
+
+      if(crul_opts$mock) {
+        return(multi_res)
+      }
 
       curl::multi_run(pool = crulpool)
       remain <- curl::multi_list(crulpool)

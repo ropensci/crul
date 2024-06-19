@@ -15,6 +15,45 @@ test_that("mock function", {
   expect_false(crul_opts$mock)
 })
 
+context("mocking: HttpRequest with AsyncVaried")
+test_that("mocking with HttpRequest", {
+  skip_if_not_installed("webmockr")
+
+  loadNamespace("webmockr")
+  url <- hb()
+  st <- webmockr::stub_request("get", file.path(url, "get"))
+  #webmockr:::webmockr_stub_registry
+
+  make_req <- function(url) {
+    req <- HttpRequest$new(url = url)
+    req$get("get")
+    res <- AsyncVaried$new(req)
+    res$request()
+    return(unclass(res$responses())[[1]])
+  }
+
+  mock(FALSE)
+  # webmockr IS NOT enabled
+  aa <- make_req(url)
+
+  # webmockr IS enabled
+  mock()
+  bb <- make_req(url)
+
+  # content and times differ btw the two
+  expect_is(aa, "HttpResponse")
+  expect_is(bb, "HttpResponse")
+
+  expect_is(aa$content, "raw")
+  expect_equal(length(bb$content), 0)
+
+  expect_is(aa$times, "numeric")
+  expect_null(bb$times)
+
+  # clean up
+  webmockr::stub_registry_clear()
+})
+
 context("mocking: HttpClient")
 test_that("mocking with HttpClient", {
   skip_if_not_installed("webmockr")
@@ -24,6 +63,7 @@ test_that("mocking with HttpClient", {
   st <- webmockr::stub_request("get", file.path(url, "get"))
   #webmockr:::webmockr_stub_registry
 
+  mock(FALSE)
   # webmockr IS NOT enabled
   cli <- HttpClient$new(url = url)
   aa <- cli$get("get")
