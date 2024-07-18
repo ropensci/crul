@@ -285,55 +285,55 @@ AsyncVaried <- R6::R6Class(
       multi_res <- list()
 
       make_request <- function(i) {
-        w <- reqs[[i]]$payload
-        h <- w$url$handle
-        curl::handle_setopt(h, .list = w$options)
-        if (!is.null(w$fields)) {
-          curl::handle_setform(h, .list = w$fields)
+        request <- reqs[[i]]$payload
+        handle <- request$url$handle
+        curl::handle_setopt(handle, .list = request$options)
+        if (!is.null(request$fields)) {
+          curl::handle_setform(handle, .list = request$fields)
         }
-        curl::handle_setheaders(h, .list = w$headers)
+        curl::handle_setheaders(handle, .list = request$headers)
 
-        if ("retry_options" %in% names(w)) {
-          do.call(retry, c(list(i=i, handle=h), w$retry_options))
-        } else if (is.null(w$disk) && is.null(w$stream)) {
+        if ("retry_options" %in% names(request)) {
+          do.call(retry, c(list(i=i, handle=handle), request$retry_options))
+        } else if (is.null(request$disk) && is.null(request$stream)) {
           if (crul_opts$mock) {
             check_for_package("webmockr")
             adap <- webmockr::CrulAdapter$new()
-            multi_res[[i]] <<- adap$handle_request(w)
+            multi_res[[i]] <<- adap$handle_request(request)
           } else {
             curl::multi_add(
-              handle = h,
+              handle = handle,
               done = function(res) multi_res[[i]] <<- res,
-              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
+              fail = function(res) multi_res[[i]] <<- make_async_error(res, request),
               pool = crulpool
             )
           }
         } else {
-          if (!is.null(w$disk) && is.null(w$stream)) {
-            stopifnot(inherits(w$disk, "character"))
-            ff <- file(w$disk, open = "wb")
+          if (!is.null(request$disk) && is.null(request$stream)) {
+            stopifnot(inherits(request$disk, "character"))
+            file_con <- file(request$disk, open = "wb")
             curl::multi_add(
-              handle = h,
+              handle = handle,
               done = function(res) {
-                close(ff)
+                close(file_con)
                 multi_res[[i]] <<- res
               },
               fail = function(res) {
-                close(ff)
-                multi_res[[i]] <<- make_async_error(res, w)
+                close(file_con)
+                multi_res[[i]] <<- make_async_error(res, request)
               },
-              data = ff,
+              data = file_con,
               pool = crulpool
             )
-          } else if (is.null(w$disk) && !is.null(w$stream)) {
-            stopifnot(is.function(w$stream))
+          } else if (is.null(request$disk) && !is.null(request$stream)) {
+            stopifnot(is.function(request$stream))
             # assign empty response since stream is a user supplied function
             # to write somewhere of their choosing
-            multi_res[[i]] <<- make_async_error("", w)
+            multi_res[[i]] <<- make_async_error("", request)
             curl::multi_add(
-              handle = h,
-              done = w$stream,
-              fail = function(res) multi_res[[i]] <<- make_async_error(res, w),
+              handle = handle,
+              done = request$stream,
+              fail = function(res) multi_res[[i]] <<- make_async_error(res, request),
               pool = crulpool
             )
           }
@@ -356,10 +356,12 @@ AsyncVaried <- R6::R6Class(
         if (grepl("^ftp://", z$url)) {
           headers <- list()
         } else {
-          hh <- rawToChar(z$headers %||% raw(0))
-          if (nzchar(hh)) {
-            headers <- lapply(curl::parse_headers(hh, multiple = TRUE),
-              head_parse)
+          headers_temp <- rawToChar(z$headers %||% raw(0))
+          if (nzchar(headers_temp)) {
+            headers <- lapply(
+              curl::parse_headers(headers_temp, multiple = TRUE),
+              head_parse
+            )
           } else {
             headers <- list()
           }

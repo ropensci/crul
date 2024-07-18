@@ -522,15 +522,15 @@ HttpClient <- R6::R6Class(
       if (grepl("^ftp://", resp$url)) {
         headers <- list()
       } else {
-        hh <- rawToChar(resp$headers %||% raw(0))
-        if (!validEnc(hh)) {
-          Encoding(hh) <- "latin1"
-          if (!validEnc(hh)) stop("Headers aren't encoded in UTF-8 or Latin1")
+        headers_temp <- rawToChar(resp$headers %||% raw(0))
+        if (!validEnc(headers_temp)) {
+          Encoding(headers_temp) <- "latin1"
+          if (!validEnc(headers_temp)) stop("Headers aren't encoded in UTF-8 or Latin1")
         }
-        if (is.null(hh) || nchar(hh) == 0) {
+        if (is.null(headers_temp) || nchar(headers_temp) == 0) {
           headers <- list()
         } else {
-          headers <- lapply(curl::parse_headers(hh, multiple = TRUE),
+          headers <- lapply(curl::parse_headers(headers_temp, multiple = TRUE),
             head_parse)
         }
       }

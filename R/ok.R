@@ -101,8 +101,8 @@ ok.default <- function(x, status=200L, info=TRUE, verb="head",
 #' @export
 ok.character <- function(x, status=200L, info=TRUE, verb="head",
   ua_random=FALSE, ...) {
-  z <- crul::HttpClient$new(x, opts = list(...))
-  ok(z, status, info, verb, ua_random, ...)
+  con <- crul::HttpClient$new(x, opts = list(...))
+  ok(con, status, info, verb, ua_random, ...)
 }
 
 #' @export
@@ -115,15 +115,16 @@ ok.HttpClient <- function(x, status=200L, info=TRUE, verb="head",
   # set ua
   if (ua_random) x$opts$useragent <- sample(agents, size=1)
   for (i in seq_along(status)) {
-    ts <- tryCatch(httpcode::http_code(status[i]), error = function(e) e)
-    if (inherits(ts, "error"))
+    try_status <- tryCatch(
+      httpcode::http_code(status[i]), error = function(e) e)
+    if (inherits(try_status, "error"))
       stop("status [", status[i], "] not in acceptable set")
   }
 
-  w <- tryCatch(x$verb(verb), error = function(e) e)
-  if (inherits(w, "error")) {
-    if (info) message(w$message)
+  try_req <- tryCatch(x$verb(verb), error = function(e) e)
+  if (inherits(try_req, "error")) {
+    if (info) message(try_req$message)
     return(FALSE)
   }
-  w$status_code %in% status
+  try_req$status_code %in% status
 }
