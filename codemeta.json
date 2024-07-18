@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
+  "runtimePlatform": "R version 4.4.1 Patched (2024-06-25 r86831)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -197,6 +197,10 @@
   },
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching"],
-  "fileSize": "1235.955KB"
+  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching", "rstats", "api", "r", "r-package"],
+  "fileSize": "1238.746KB",
+  "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
+  "readme": "https://github.com/ropensci/crul/blob/main/README.md",
+  "contIntegration": ["https://github.com/ropensci/crul/actions/", "https://codecov.io/gh/ropensci/crul"],
+  "developmentStatus": "https://www.repostatus.org/#active"
 }

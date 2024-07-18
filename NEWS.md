@@ -1,3 +1,15 @@
+crul 1.5.0
+==========
+
+### NEW FEATURES
+
+* gains ability to mock (via `webmockr`) async requests via either `Async` and/or `AsyncVaried` (thanks @keller-mark) (#180)
+
+### INTERNAL
+
+* reduce use of single letter variables within crul code to make code easier to understand (#181)
+
+
 crul 1.4.2
 ==========
 

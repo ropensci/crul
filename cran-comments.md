@@ -1,7 +1,7 @@
 ## Test environments
 
-* local macOS install, R 4.3.3
-* ubuntu 22.04 (on github actions), R 4.3.3
+* local macOS install, R 4.4.1
+* ubuntu 22.04 (on github actions), R 4.4.1
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -14,7 +14,7 @@
 
 ---
 
-This version includes a fix to make tests more robust to internet outage
+This version includes one new feature.
 
 Thanks!
 Scott Chamberlain
