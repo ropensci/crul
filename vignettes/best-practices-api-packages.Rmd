@@ -1,7 +1,7 @@
 ---
 title: 5. API package best practices
 author: Scott Chamberlain
-date: "2023-05-23"
+date: "2024-07-18"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{5. API package best practices}

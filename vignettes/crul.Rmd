@@ -1,7 +1,7 @@
 ---
 title: 1. crul introduction
 author: Scott Chamberlain
-date: "2023-05-10"
+date: "2024-07-18"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{1. crul introduction}
@@ -120,12 +120,11 @@ res$content
 #> [151] 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65
 #> [176] 63 74 69 6f 6e 22 3a 20 22 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f
 #> [201] 73 74 22 3a 20 22 68 74 74 70 62 69 6e 3a 38 30 38 30 22 2c 20 0a 20 20 20
-#> [226] 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37
-#> [251] 2e 38 37 2e 30 20 72 2d 63 75 72 6c 2f 35 2e 30 2e 30 20 63 72 75 6c 2f 31
-#> [276] 2e 33 2e 39 31 30 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22
-#> [301] 3a 20 22 31 37 32 2e 31 38 2e 30 2e 34 22 2c 20 0a 20 20 22 75 72 6c 22 3a
-#> [326] 20 22 68 74 74 70 3a 2f 2f 68 74 74 70 62 69 6e 3a 38 30 38 30 2f 67 65 74
-#> [351] 22 0a 7d 0a
+#> [226] 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 38
+#> [251] 2e 36 2e 30 20 72 2d 63 75 72 6c 2f 35 2e 32 2e 31 20 63 72 75 6c 2f 31 2e
+#> [276] 35 2e 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
+#> [301] 37 32 2e 31 38 2e 30 2e 32 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74
+#> [326] 74 70 3a 2f 2f 68 74 74 70 62 69 6e 3a 38 30 38 30 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
@@ -142,7 +141,7 @@ Request headers
 ```r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"
+#> [1] "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -163,16 +162,16 @@ res$response_headers
 #> [1] "HTTP/1.1 200 OK"
 #> 
 #> $server
-#> [1] "nginx/1.20.2"
+#> [1] "nginx/1.22.1"
 #> 
 #> $date
-#> [1] "Wed, 10 May 2023 21:55:58 GMT"
+#> [1] "Thu, 18 Jul 2024 23:00:46 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
 #> 
 #> $`content-length`
-#> [1] "354"
+#> [1] "350"
 #> 
 #> $connection
 #> [1] "keep-alive"
@@ -200,16 +199,16 @@ res$response_headers_all
 #> [1] "HTTP/1.1 200 OK"
 #> 
 #> [[1]]$server
-#> [1] "nginx/1.20.2"
+#> [1] "nginx/1.22.1"
 #> 
 #> [[1]]$date
-#> [1] "Wed, 10 May 2023 21:55:58 GMT"
+#> [1] "Thu, 18 Jul 2024 23:00:46 GMT"
 #> 
 #> [[1]]$`content-type`
 #> [1] "application/json"
 #> 
 #> [[1]]$`content-length`
-#> [1] "354"
+#> [1] "350"
 #> 
 #> [[1]]$connection
 #> [1] "keep-alive"
@@ -232,7 +231,7 @@ And you can parse the content with a provided function:
 
 ```r
 res$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0\"\n  }, \n  \"origin\": \"172.18.0.2\", \n  \"url\": \"http://httpbin:8080/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
@@ -254,11 +253,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin:8080"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"
+#> [1] "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"
 #> 
 #> 
 #> $origin
-#> [1] "172.18.0.4"
+#> [1] "172.18.0.2"
 #> 
 #> $url
 #> [1] "http://httpbin:8080/get"
@@ -286,7 +285,7 @@ f <- tempfile()
 res <- x$get(disk = f)
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/vw/4nm3x1ld0_jgmqy6_yf6pz3c0000gn/T//RtmpZ9O9vQ/file17033155d5263"
+#> [1] "/var/folders/vw/4nm3x1ld0_jgmqy6_yf6pz3c0000gn/T//Rtmp5sdRgz/file53cc629c02a3"
 ```
 
 Read lines
@@ -320,11 +319,11 @@ readLines(res$content, n = 10)
 #>   progress: FALSE
 #>   hooks:
 res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"}, "args": {}, "id": 0, "origin": "172.18.0.4"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"}, "args": {}, "id": 1, "origin": "172.18.0.4"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"}, "args": {}, "id": 2, "origin": "172.18.0.4"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"}, "args": {}, "id": 3, "origin": "172.18.0.4"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/7.87.0 r-curl/5.0.0 crul/1.3.9100"}, "args": {}, "id": 4, "origin": "172.18.0.4"}
+#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 0, "origin": "172.18.0.2"}
+#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 1, "origin": "172.18.0.2"}
+#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 2, "origin": "172.18.0.2"}
+#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 3, "origin": "172.18.0.2"}
+#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 4, "origin": "172.18.0.2"}
 # when streaming, content is NULL
 res$content 
 #> NULL
