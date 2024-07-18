@@ -35,7 +35,7 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 X-schema.org-applicationCategory: Web
 X-schema.org-keywords: http, https, API, web-services, curl, download, libcurl, async, mocking, caching
 X-schema.org-isPartOf: https://ropensci.org
