@@ -40,27 +40,27 @@ HTTP requests. Checkout the [http testing book][book]
 CRAN version
 
 
-```r
+``` r
 install.packages("crul")
 ```
 
 Latest binaries from rOpenSci
 
 
-```r
+``` r
 install.packages("crul", repos = "https://dev.ropensci.org")
 ```
 
 Dev version from GitHub
 
 
-```r
+``` r
 install.packages("pak")
 pak::pak("ropensci/crul")
 ```
 
 
-```r
+``` r
 library("crul")
 ```
 
