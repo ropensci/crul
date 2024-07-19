@@ -11,7 +11,8 @@ mock(on = TRUE)
 By default is \code{FALSE}}
 }
 \description{
-Mocking HTTP requests
+Works for both synchronous requests via \code{\link[=HttpClient]{HttpClient()}} and async
+requests via \code{\link[=Async]{Async()}} and \code{\link[=AsyncVaried]{AsyncVaried()}}
 }
 \details{
 \code{webmockr} package required for mocking behavior
@@ -20,7 +21,6 @@ Mocking HTTP requests
 \dontrun{
 
 if (interactive()) {
-  # load webmockr
   library(webmockr)
   library(crul)
 
@@ -31,7 +31,6 @@ if (interactive()) {
 
   # stub a request
   stub_request("get", file.path(URL, "get"))
-  webmockr:::webmockr_stub_registry
 
   # create an HTTP client
   (x <- HttpClient$new(url = URL))
@@ -44,6 +43,22 @@ if (interactive()) {
   x$get('get', query = list(foo = "bar"))
   webmockr::webmockr_disable_net_connect()
   x$get('get', query = list(foo = "bar"))
+
+  # With Async
+  urls <- c(
+   file.path(URL, "get"),
+   file.path(URL, "anything"),
+   file.path(URL, "encoding/utf8")
+  )
+  
+  for (u in urls) {
+    webmockr::stub_request("get", u) \%>\% 
+      webmockr::to_return(body = list(mocked = TRUE))
+  }
+
+  async_con <- Async$new(urls = urls)
+  async_resp <- async_con$get()
+  lapply(async_resp, \(x) x$parse("UTF-8"))
 }
 
 }
