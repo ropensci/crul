@@ -54,7 +54,7 @@ test_that("AsyncQueue basic structure", {
   expect_length(aa$content(), 2)
   expect_is(aa$content()[[1]], "raw")
 
-  # response_headers and response_headers_all 
+  # response_headers and response_headers_all
   expect_is(aa$responses()[[1]]$response_headers, "list")
   expect_named(aa$responses()[[1]]$response_headers)
   expect_is(aa$responses()[[1]]$response_headers_all, "list")
@@ -65,8 +65,10 @@ context("AsyncQueue: fails well")
 test_that("AsyncQueue fails well", {
   expect_error(AsyncQueue$new(), "must pass in at least one request")
   expect_error(AsyncQueue$new(5), "all inputs must be of class 'HttpRequest'")
-  expect_error(AsyncQueue$new(HttpRequest$new(url = hb("/get"))$get()),
-    "must set")
+  expect_error(
+    AsyncQueue$new(HttpRequest$new(url = hb("/get"))$get()),
+    "must set"
+  )
 })
 
 reqlist <- list(
@@ -95,13 +97,17 @@ test_that("AsyncQueue sleep parameter", {
   # should take at least 6 seconds: 3 sec sleep * 2 sleep periods
   z <- system.time(out$request())
   expect_gt(z[['elapsed']], 6)
-  
+
   # after requests sent off
   expect_length(out$requests(), 13)
   resp <- out$responses()
   expect_length(resp, 13)
-  for (i in seq_along(resp)) expect_is(resp[[i]], "HttpResponse")
-  for (i in seq_along(resp)) expect_equal(resp[[i]]$status_code, 200)
+  for (i in seq_along(resp)) {
+    expect_is(resp[[i]], "HttpResponse")
+  }
+  for (i in seq_along(resp)) {
+    expect_equal(resp[[i]]$status_code, 200)
+  }
 })
 
 context("AsyncQueue: req_per_min parameter")
@@ -117,7 +123,7 @@ test_that("AsyncQueue req_per_min parameter", {
   # FIXME: not doing actual requests as would take 1 min
   # z <- system.time(out$request())
   # expect_gt(z[['elapsed']], 6)
-  
+
   # # after requests sent off
   # expect_equal(length(out$requests()), 13)
   # resp <- out$responses()

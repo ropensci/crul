@@ -33,14 +33,17 @@ test_that("build fails well", {
   expect_error(url_build("adff", query = 5), "query must be of class list")
 
   # length
-  expect_error(url_build(rep(hb(), 2)), 
-    "length\\(url\\) == 1 is not TRUE")
-  expect_error(url_build(hb(), c('foo', 'bar')), 
-    "length\\(path\\) <= 1 is not TRUE")
+  expect_error(url_build(rep(hb(), 2)), "length\\(url\\) == 1 is not TRUE")
+  expect_error(
+    url_build(hb(), c('foo', 'bar')),
+    "length\\(path\\) <= 1 is not TRUE"
+  )
 
   # query list is named
-  expect_error(url_build("As", query = list(4, 5)),
-               "all query elements must be named")
+  expect_error(
+    url_build("As", query = list(4, 5)),
+    "all query elements must be named"
+  )
 })
 
 
@@ -54,8 +57,10 @@ test_that("url parse works", {
   cc <- url_parse(hb("/get?foo=bar&stuff=things"))
 
   expect_is(aa, "list")
-  expect_named(aa, c('scheme', 'domain', 'port', 'path', 'parameter',
-                     'fragment'))
+  expect_named(
+    aa,
+    c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
+  )
   expect_is(aa$scheme, "character")
   expect_equal(aa$scheme, "https")
   expect_is(aa$domain, "character")
@@ -63,8 +68,10 @@ test_that("url parse works", {
   expect_true(is.na(aa$parameter))
 
   expect_is(bb, "list")
-  expect_named(bb, c('scheme', 'domain', 'port', 'path', 'parameter',
-                     'fragment'))
+  expect_named(
+    bb,
+    c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
+  )
   expect_is(bb$scheme, "character")
   expect_equal(bb$scheme, "https")
   expect_is(bb$domain, "character")
@@ -73,8 +80,10 @@ test_that("url parse works", {
   expect_equal(bb$parameter$foo, "bar")
 
   expect_is(cc, "list")
-  expect_named(cc, c('scheme', 'domain', 'port', 'path', 'parameter',
-                     'fragment'))
+  expect_named(
+    cc,
+    c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
+  )
   expect_is(cc$scheme, "character")
   expect_equal(cc$scheme, "https")
   expect_is(cc$domain, "character")

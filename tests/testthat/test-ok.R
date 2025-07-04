@@ -19,7 +19,7 @@ test_that("ok works with HttpClient input", {
   # good
   z <- crul::HttpClient$new(hb("/status/200"))
   expect_true(ok(z))
-  
+
   # bad
   z <- crul::HttpClient$new(hb("/status/404"))
   expect_false(ok(z))
@@ -58,8 +58,7 @@ test_that("ok fails well", {
   expect_error(ok(mtcars), "no 'ok' method for data.frame")
   expect_error(ok(list()), "no 'ok' method for list")
   expect_error(ok(), "argument \"x\" is missing")
-  expect_error(ok(hb("/status/404"), status = 567L),
-               "not in acceptable set")
+  expect_error(ok(hb("/status/404"), status = 567L), "not in acceptable set")
   # ua_random must be logical
   expect_error(ok(hb("/status/404"), ua_random = "adf"))
 })

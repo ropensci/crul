@@ -57,26 +57,25 @@ con <- HttpClient$new(url = cr_url)
 test_that("HttpClient url_fetch w/ bigger numbers", {
   skip_on_cran()
 
-  expect_match(con$url_fetch(query = list(limit = 0)),
-    "limit=0")
-  expect_match(con$url_fetch(query = list(limit = 100000)),
-    "limit=100000")
-  expect_match(con$url_fetch(query = list(limit = 200000)),
-    "limit=200000")
-  expect_match(con$url_fetch(query = list(limit = 300000)),
-    "limit=300000")
-  expect_match(con$url_fetch(query = list(limit = 400000)),
-    "limit=400000")
+  expect_match(con$url_fetch(query = list(limit = 0)), "limit=0")
+  expect_match(con$url_fetch(query = list(limit = 100000)), "limit=100000")
+  expect_match(con$url_fetch(query = list(limit = 200000)), "limit=200000")
+  expect_match(con$url_fetch(query = list(limit = 300000)), "limit=300000")
+  expect_match(con$url_fetch(query = list(limit = 400000)), "limit=400000")
 })
-
-
 
 
 context("paginator: url_fetch")
 cr_url <- "https://api.crossref.org"
 cli <- HttpClient$new(url = cr_url)
-aa <- Paginator$new(client = cli, by = "limit_offset", limit_param = "rows",
-  offset_param = "offset", limit = 500000, chunk = 100000)
+aa <- Paginator$new(
+  client = cli,
+  by = "limit_offset",
+  limit_param = "rows",
+  offset_param = "offset",
+  limit = 500000,
+  chunk = 100000
+)
 test_that("Paginator url_fetch base url only", {
   skip_on_cran()
 

@@ -7,8 +7,12 @@ sw <- function(x) gsub("^\\s+|\\s+$", "", x)
 assert <- function(x, y) {
   if (!is.null(x)) {
     if (!class(x) %in% y) {
-      stop(deparse(substitute(x)), " must be of class ",
-           paste0(y, collapse = ", "), call. = FALSE)
+      stop(
+        deparse(substitute(x)),
+        " must be of class ",
+        paste0(y, collapse = ", "),
+        call. = FALSE
+      )
     }
   }
 }
@@ -16,8 +20,12 @@ assert <- function(x, y) {
 assert_opts <- function(x, y) {
   if (!is.null(x)) {
     if (!x %in% y) {
-      stop(deparse(substitute(x)), " must be in the set ",
-           paste0(y, collapse = ", "), call. = FALSE)
+      stop(
+        deparse(substitute(x)),
+        " must be in the set ",
+        paste0(y, collapse = ", "),
+        call. = FALSE
+      )
     }
   }
 }
@@ -39,7 +47,9 @@ prep_opts <- function(method, url, self, opts, ...) {
     fields = opts$fields
   )
   rr$headers <- norm_headers(rr$headers, self$headers)
-  if (!"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))) {
+  if (
+    !"useragent" %in% self$opts && !'user-agent' %in% tolower(names(rr$headers))
+  ) {
     rr$options$useragent <- make_ua()
   }
   rr$options <- utils::modifyList(
@@ -87,33 +97,40 @@ drop_name <- function(x, y) {
 
 # adapted from https://github.com/hadley/httr
 find_cert_bundle <- function() {
-  if (.Platform$OS.type != "windows")
+  if (.Platform$OS.type != "windows") {
     return()
+  }
 
   env <- Sys.getenv("CURL_CA_BUNDLE")
-  if (!identical(env, ""))
+  if (!identical(env, "")) {
     return(env)
+  }
 
   bundled <- file.path(R.home("etc"), "curl-ca-bundle.crt")
-  if (file.exists(bundled))
+  if (file.exists(bundled)) {
     return(bundled)
+  }
 
   # Fall back to certificate bundle in openssl
   system.file("cacert.pem", package = "openssl")
 }
 
 fround <- function(x, accuracy) {
-  tmp <- floor(x/accuracy) * accuracy
+  tmp <- floor(x / accuracy) * accuracy
   if (tmp == x) x - accuracy else tmp
 }
 
 last <- function(x) {
-  if (length(x) == 0) return(list())
+  if (length(x) == 0) {
+    return(list())
+  }
   x[[length(x)]]
 }
 
 # Format numbers so they don't turn into scientific notation
 num_format <- function(x) {
-  if (is.null(x) || !is.numeric(x)) return(x)
+  if (is.null(x) || !is.numeric(x)) {
+    return(x)
+  }
   format(x, trim = TRUE, drop0trailing = TRUE, scientific = FALSE)
 }

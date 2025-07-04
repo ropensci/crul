@@ -64,7 +64,7 @@
 #' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 #' x$url
 #' x$handle # is empty, it gets created when a HTTP verb is called
-#' (r1 <- x$get('get'))
+#' (r1 <- x$get("get"))
 #' x$url
 #' x$handle
 #' r1$url
@@ -73,25 +73,25 @@
 #' r1$response_headers
 #' r1$parse()
 #'
-#' (res_get2 <- x$get('get', query = list(hello = "world")))
+#' (res_get2 <- x$get("get", query = list(hello = "world")))
 #' res_get2$parse()
 #' library("jsonlite")
 #' jsonlite::fromJSON(res_get2$parse())
 #'
 #' # post request
-#' (res_post <- x$post('post', body = list(hello = "world")))
+#' (res_post <- x$post("post", body = list(hello = "world")))
 #'
 #' ## empty body request
-#' x$post('post')
+#' x$post("post")
 #'
 #' # put request
-#' (res_put <- x$put('put'))
+#' (res_put <- x$put("put"))
 #'
 #' # delete request
-#' (res_delete <- x$delete('delete'))
+#' (res_delete <- x$delete("delete"))
 #'
 #' # patch request
-#' (res_patch <- x$patch('patch'))
+#' (res_patch <- x$patch("patch"))
 #'
 #' # head request
 #' (res_head <- x$head())
@@ -99,16 +99,15 @@
 #' # query params are URL encoded for you, so DO NOT do it yourself
 #' ## if you url encode yourself, it gets double encoded, and that's bad
 #' (x <- HttpClient$new(url = "https://hb.opencpu.org"))
-#' res <- x$get("get", query = list(a = 'hello world'))
+#' res <- x$get("get", query = list(a = "hello world"))
 #'
 #' # access intermediate headers in response_headers_all
 #' x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")
 #' bb <- x$get()
 #' bb$response_headers_all
 #' }
-
 HttpClient <- R6::R6Class(
-  'HttpClient',
+  "HttpClient",
   public = list(
     #' @field url (character) a url
     url = NULL,
@@ -132,17 +131,26 @@ HttpClient <- R6::R6Class(
     #' @param ... ignored
     print = function(x, ...) {
       cat("<crul connection> ", sep = "\n")
-      cat(paste0("  url: ",
-                 if (is.null(self$url)) self$handle$url else self$url),
-          sep = "\n")
+      cat(
+        paste0(
+          "  url: ",
+          if (is.null(self$url)) self$handle$url else self$url
+        ),
+        sep = "\n"
+      )
       cat("  curl options: ", sep = "\n")
       for (i in seq_along(self$opts)) {
-        z <- if (inherits(self$opts[[i]], "function")) "<function>" else self$opts[[i]]
+        z <- if (inherits(self$opts[[i]], "function")) {
+          "<function>"
+        } else {
+          self$opts[[i]]
+        }
         cat(sprintf("    %s: %s", names(self$opts)[i], z), sep = "\n")
       }
       cat("  proxies: ", sep = "\n")
-      if (length(self$proxies)) cat(paste("    -", purl(self$proxies)),
-                                    sep = "\n")
+      if (length(self$proxies)) {
+        cat(paste("    -", purl(self$proxies)), sep = "\n")
+      }
       cat("  auth: ", sep = "\n")
       if (length(self$auth$userpwd)) {
         cat(paste("    -", self$auth$userpwd), sep = "\n")
@@ -150,8 +158,14 @@ HttpClient <- R6::R6Class(
       }
       cat("  headers: ", sep = "\n")
       for (i in seq_along(self$headers)) {
-        cat(sprintf("    %s: %s", names(self$headers)[i],
-                    self$headers[[i]]), sep = "\n")
+        cat(
+          sprintf(
+            "    %s: %s",
+            names(self$headers)[i],
+            self$headers[[i]]
+          ),
+          sep = "\n"
+        )
       }
       cat(paste0("  progress: ", !is.null(self$progress)), sep = "\n")
       cat("  hooks: ", sep = "\n")
@@ -172,19 +186,34 @@ HttpClient <- R6::R6Class(
     #' @param handle a [handle()]
     #' @param progress only supports `httr::progress()`, see [progress]
     #' @param hooks a named list, see [hooks]
-    #' @param verbose a special handler for verbose curl output, 
+    #' @param verbose a special handler for verbose curl output,
     #' accepts a function only. default is `NULL`. if used, `verbose`
     #' and `debugfunction` curl options are ignored if passed to `opts`
     #' on `$new()` and ignored if `...` passed to a http method call
     #' @return A new `HttpClient` object
-    initialize = function(url, opts, proxies, auth, headers, handle,
-      progress, hooks, verbose) {
+    initialize = function(
+      url,
+      opts,
+      proxies,
+      auth,
+      headers,
+      handle,
+      progress,
+      hooks,
+      verbose
+    ) {
       private$crul_h_pool <- new.env(hash = TRUE, parent = emptyenv())
-      if (!missing(url)) self$url <- url
+      if (!missing(url)) {
+        self$url <- url
+      }
 
       # curl options: check for set_opts first
-      if (!is.null(crul_opts$opts)) self$opts <- crul_opts$opts
-      if (!missing(opts) && length(opts) > 0) self$opts <- opts
+      if (!is.null(crul_opts$opts)) {
+        self$opts <- crul_opts$opts
+      }
+      if (!missing(opts) && length(opts) > 0) {
+        self$opts <- opts
+      }
       if (!missing(verbose)) {
         assert(verbose, "function")
         self$opts$verbose <- TRUE
@@ -192,7 +221,9 @@ HttpClient <- R6::R6Class(
       }
 
       # proxy: check for set_proxy first
-      if (!is.null(crul_opts$proxies)) self$proxies <- crul_opts$proxies
+      if (!is.null(crul_opts$proxies)) {
+        self$proxies <- crul_opts$proxies
+      }
       if (!missing(proxies)) {
         if (!inherits(proxies, "proxy")) {
           stop("proxies input must be of class proxy", call. = FALSE)
@@ -201,8 +232,12 @@ HttpClient <- R6::R6Class(
       }
 
       # auth: check for set_auth first
-      if (!is.null(crul_opts$auth)) self$auth <- crul_opts$auth
-      if (!missing(auth)) self$auth <- auth
+      if (!is.null(crul_opts$auth)) {
+        self$auth <- crul_opts$auth
+      }
+      if (!missing(auth)) {
+        self$auth <- auth
+      }
 
       # progress
       if (!missing(progress)) {
@@ -211,8 +246,12 @@ HttpClient <- R6::R6Class(
       }
 
       # headers: check for set_headers first
-      if (!is.null(crul_opts$headers)) self$headers <- crul_opts$headers
-      if (!missing(headers)) self$headers <- headers
+      if (!is.null(crul_opts$headers)) {
+        self$headers <- crul_opts$headers
+      }
+      if (!missing(headers)) {
+        self$headers <- headers
+      }
 
       if (!missing(handle)) {
         assert(handle, "list")
@@ -227,22 +266,33 @@ HttpClient <- R6::R6Class(
       # hooks
       if (!missing(hooks)) {
         assert(hooks, "list")
-        if (!all(has_name(hooks))) stop("'hooks' must be a named list",
-          call. = FALSE)
-        if (!all(names(hooks) %in% c("request", "response")))
-          stop("unsupported names in 'hooks' list: only request, ",
-            "response supported", call. = FALSE)
+        if (!all(has_name(hooks))) {
+          stop("'hooks' must be a named list", call. = FALSE)
+        }
+        if (!all(names(hooks) %in% c("request", "response"))) {
+          stop(
+            "unsupported names in 'hooks' list: only request, ",
+            "response supported",
+            call. = FALSE
+          )
+        }
         invisible(lapply(hooks, function(z) {
-          if (!inherits(z, "function"))
+          if (!inherits(z, "function")) {
             stop("hooks must be functions", call. = FALSE)
+          }
         }))
         self$hooks <- hooks
       }
     },
 
     #' @description Make a GET request
-    get = function(path = NULL, query = list(), disk = NULL,
-                   stream = NULL, ...) {
+    get = function(
+      path = NULL,
+      query = list(),
+      disk = NULL,
+      stream = NULL,
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       rr <- list(
@@ -254,12 +304,14 @@ HttpClient <- R6::R6Class(
       rr$headers <- norm_headers(rr$headers, self$headers)
       if (
         !"useragent" %in% self$opts &&
-        !"user-agent" %in% tolower(names(rr$headers))
+          !"user-agent" %in% tolower(names(rr$headers))
       ) {
         rr$options$useragent <- make_ua()
       }
       rr$options <- utils::modifyList(
-        rr$options, c(self$opts, self$proxies, self$auth, self$progress, ...))
+        rr$options,
+        c(self$opts, self$proxies, self$auth, self$progress, ...)
+      )
       rr$options <- curl_opts_fil(rr$options)
       rr$disk <- disk
       rr$stream <- stream
@@ -267,8 +319,15 @@ HttpClient <- R6::R6Class(
     },
 
     #' @description Make a POST request
-    post = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                    stream = NULL, encode = "multipart", ...) {
+    post = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      disk = NULL,
+      stream = NULL,
+      encode = "multipart",
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
@@ -279,8 +338,15 @@ HttpClient <- R6::R6Class(
     },
 
     #' @description Make a PUT request
-    put = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                   stream = NULL, encode = "multipart", ...) {
+    put = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      disk = NULL,
+      stream = NULL,
+      encode = "multipart",
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
@@ -291,8 +357,15 @@ HttpClient <- R6::R6Class(
     },
 
     #' @description Make a PATCH request
-    patch = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                     stream = NULL, encode = "multipart", ...) {
+    patch = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      disk = NULL,
+      stream = NULL,
+      encode = "multipart",
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
@@ -303,8 +376,15 @@ HttpClient <- R6::R6Class(
     },
 
     #' @description Make a DELETE request
-    delete = function(path = NULL, query = list(), body = NULL, disk = NULL,
-                      stream = NULL, encode = "multipart", ...) {
+    delete = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      disk = NULL,
+      stream = NULL,
+      encode = "multipart",
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       opts <- prep_body(body, encode)
@@ -327,13 +407,14 @@ HttpClient <- R6::R6Class(
       )
       if (
         !"useragent" %in% self$opts &&
-        !"user-agent" %in% tolower(names(rr$headers))
+          !"user-agent" %in% tolower(names(rr$headers))
       ) {
         rr$options$useragent <- make_ua()
       }
       rr$options <- utils::modifyList(
         rr$options,
-        c(self$opts, self$proxies, self$auth, ...))
+        c(self$opts, self$proxies, self$auth, ...)
+      )
       rr$options <- curl_opts_fil(rr$options)
       private$make_request(rr)
     },
@@ -352,10 +433,18 @@ HttpClient <- R6::R6Class(
     #' }
     verb = function(verb, ...) {
       stopifnot(is.character(verb), length(verb) > 0)
-      verbs <- c("get", "post", "put", "patch",
-        "delete", "head", "retry")
-      if (!tolower(verb) %in% verbs)
+      verbs <- c(
+        "get",
+        "post",
+        "put",
+        "patch",
+        "delete",
+        "head",
+        "retry"
+      )
+      if (!tolower(verb) %in% verbs) {
         stop("'verb' must be one of: ", paste0(verbs, collapse = ", "))
+      }
       verb_func <- self[[tolower(verb)]]
       stopifnot(is.function(verb_func))
       verb_func(...)
@@ -397,45 +486,68 @@ HttpClient <- R6::R6Class(
     #' # retry, but only for exceeding rate limit (note that e.g. Github uses 403)
     #' (res_get <- x$retry("GET", path = "status/429", retry_only_on = c(403, 429)))
     #' }
-    retry = function(verb, ...,
-                     pause_base = 1, pause_cap = 60, pause_min = 1, times = 3,
-                     terminate_on = NULL, retry_only_on = NULL,
-                     onwait = NULL) {
+    retry = function(
+      verb,
+      ...,
+      pause_base = 1,
+      pause_cap = 60,
+      pause_min = 1,
+      times = 3,
+      terminate_on = NULL,
+      retry_only_on = NULL,
+      onwait = NULL
+    ) {
       stopifnot(is.character(verb), length(verb) > 0)
       stopifnot(is.null(onwait) || is.function(onwait))
       verb_func <- self[[tolower(verb)]]
       stopifnot(is.function(verb_func))
       resp <- verb_func(...)
-      if ((resp$status_code >= 400) &&
-          (! resp$status_code %in% terminate_on) &&
+      if (
+        (resp$status_code >= 400) &&
+          (!resp$status_code %in% terminate_on) &&
           (is.null(retry_only_on) || resp$status_code %in% retry_only_on) &&
           (times > 0) &&
-          (pause_base < pause_cap)) {
+          (pause_base < pause_cap)
+      ) {
         rh <- resp$response_headers
-        if (! is.null(rh[["retry-after"]])) {
+        if (!is.null(rh[["retry-after"]])) {
           wait_time <- as.numeric(rh[["retry-after"]])
-        } else if (identical(rh[["x-ratelimit-remaining"]], "0") &&
-                   ! is.null(rh[["x-ratelimit-reset"]])) {
-          wait_time <- max(0, as.numeric(rh[["x-ratelimit-reset"]]) -
-            as.numeric(Sys.time()))
+        } else if (
+          identical(rh[["x-ratelimit-remaining"]], "0") &&
+            !is.null(rh[["x-ratelimit-reset"]])
+        ) {
+          wait_time <- max(
+            0,
+            as.numeric(rh[["x-ratelimit-reset"]]) -
+              as.numeric(Sys.time())
+          )
         } else {
-          if (is.null(pause_min)) pause_min <- pause_base
+          if (is.null(pause_min)) {
+            pause_min <- pause_base
+          }
           # exponential backoff with full jitter
-          wait_time <- stats::runif(1,
-                                   min = pause_min,
-                                   max = min(pause_base * 2, pause_cap))
+          wait_time <- stats::runif(
+            1,
+            min = pause_min,
+            max = min(pause_base * 2, pause_cap)
+          )
         }
-        if (! (wait_time > pause_cap)) {
-          if (is.function(onwait)) onwait(resp, wait_time)
+        if (!(wait_time > pause_cap)) {
+          if (is.function(onwait)) {
+            onwait(resp, wait_time)
+          }
           Sys.sleep(wait_time)
-          resp <- self$retry(verb = verb, ...,
-                             pause_base = pause_base * 2,
-                             pause_cap = pause_cap,
-                             pause_min = pause_min,
-                             times = times - 1,
-                             terminate_on = terminate_on,
-                             retry_only_on = retry_only_on,
-                             onwait = onwait)
+          resp <- self$retry(
+            verb = verb,
+            ...,
+            pause_base = pause_base * 2,
+            pause_cap = pause_cap,
+            pause_min = pause_min,
+            times = times - 1,
+            terminate_on = terminate_on,
+            retry_only_on = retry_only_on,
+            onwait = onwait
+          )
         }
       }
       resp
@@ -463,7 +575,6 @@ HttpClient <- R6::R6Class(
       private$make_url(self$url, path = path, query = query)$url
     }
   ),
-
   private = list(
     request = NULL,
     crul_h_pool = NULL,
@@ -477,7 +588,6 @@ HttpClient <- R6::R6Class(
       }
       return(handle)
     },
-
     make_url = function(url = NULL, handle = NULL, path, query) {
       if (!is.null(handle)) {
         url <- handle$url
@@ -492,7 +602,6 @@ HttpClient <- R6::R6Class(
       url <- add_query(query, url)
       return(list(url = url, handle = handle$handle))
     },
-
     make_request = function(opts) {
       if (xor(!is.null(opts$disk), !is.null(opts$stream))) {
         if (!is.null(opts$disk) && !is.null(opts$stream)) {
@@ -506,7 +615,9 @@ HttpClient <- R6::R6Class(
       curl::handle_setheaders(opts$url$handle, .list = opts$headers)
       on.exit(curl::handle_reset(opts$url$handle), add = TRUE)
 
-      if ("request" %in% names(self$hooks)) self$hooks$request(opts)
+      if ("request" %in% names(self$hooks)) {
+        self$hooks$request(opts)
+      }
 
       if (crul_opts$mock) {
         check_for_package("webmockr")
@@ -516,7 +627,9 @@ HttpClient <- R6::R6Class(
         resp <- crul_fetch(opts)
       }
 
-      if ("response" %in% names(self$hooks)) self$hooks$response(resp)
+      if ("response" %in% names(self$hooks)) {
+        self$hooks$response(resp)
+      }
 
       # prep headers
       if (grepl("^ftp://", resp$url)) {
@@ -525,13 +638,17 @@ HttpClient <- R6::R6Class(
         headers_temp <- rawToChar(resp$headers %||% raw(0))
         if (!validEnc(headers_temp)) {
           Encoding(headers_temp) <- "latin1"
-          if (!validEnc(headers_temp)) stop("Headers aren't encoded in UTF-8 or Latin1")
+          if (!validEnc(headers_temp)) {
+            stop("Headers aren't encoded in UTF-8 or Latin1")
+          }
         }
         if (is.null(headers_temp) || nchar(headers_temp) == 0) {
           headers <- list()
         } else {
-          headers <- lapply(curl::parse_headers(headers_temp, multiple = TRUE),
-            head_parse)
+          headers <- lapply(
+            curl::parse_headers(headers_temp, multiple = TRUE),
+            head_parse
+          )
         }
       }
       # build response
@@ -539,8 +656,10 @@ HttpClient <- R6::R6Class(
         method = opts$method,
         url = resp$url,
         status_code = resp$status_code,
-        request_headers =
-        c("User-Agent" = opts$options$useragent, opts$headers),
+        request_headers = c(
+          "User-Agent" = opts$options$useragent,
+          opts$headers
+        ),
         response_headers = last(headers),
         response_headers_all = headers,
         modified = resp$modified,

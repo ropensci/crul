@@ -1,7 +1,7 @@
 ---
 title: 1. crul introduction
 author: Scott Chamberlain
-date: "2024-07-18"
+date: "2024-09-13"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{1. crul introduction}
@@ -18,20 +18,20 @@ vignette: >
 Stable CRAN version
 
 
-```r
+``` r
 install.packages("crul")
 ```
 
 Dev version
 
 
-```r
+``` r
 install.packages("pak")
 pak::pkg_install("ropensci/crul")
 ```
 
 
-```r
+``` r
 library("crul")
 ```
 
@@ -40,7 +40,7 @@ library("crul")
 `HttpClient` is where to start
 
 
-```r
+``` r
 (x <- HttpClient$new(
   url = "https://hb.opencpu.org",
   opts = list(
@@ -67,14 +67,14 @@ requests. When it prints, it gives any defaults you've set. As you update
 the object you can see what's been set
 
 
-```r
+``` r
 x$opts
 #> $timeout
 #> [1] 1
 ```
 
 
-```r
+``` r
 x$headers
 #> $a
 #> [1] "hello world"
@@ -90,7 +90,7 @@ Here, we'll do a __GET__ request on the route `/get` on our base url
 `https://hb.opencpu.org` (the full url is then `https://hb.opencpu.org/get`)
 
 
-```r
+``` r
 res <- x$get("get")
 ```
 
@@ -101,7 +101,7 @@ the response:
 Status code
 
 
-```r
+``` r
 res$status_code
 #> [1] 200
 ```
@@ -109,7 +109,7 @@ res$status_code
 The content
 
 
-```r
+``` r
 res$content
 #>   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61 64 65
 #>  [26] 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c 6f 20 77 6f
@@ -121,16 +121,16 @@ res$content
 #> [176] 63 74 69 6f 6e 22 3a 20 22 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f
 #> [201] 73 74 22 3a 20 22 68 74 74 70 62 69 6e 3a 38 30 38 30 22 2c 20 0a 20 20 20
 #> [226] 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 38
-#> [251] 2e 36 2e 30 20 72 2d 63 75 72 6c 2f 35 2e 32 2e 31 20 63 72 75 6c 2f 31 2e
+#> [251] 2e 37 2e 31 20 72 2d 63 75 72 6c 2f 35 2e 32 2e 31 20 63 72 75 6c 2f 31 2e
 #> [276] 35 2e 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
-#> [301] 37 32 2e 31 38 2e 30 2e 32 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74
+#> [301] 37 32 2e 31 38 2e 30 2e 34 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74
 #> [326] 74 70 3a 2f 2f 68 74 74 70 62 69 6e 3a 38 30 38 30 2f 67 65 74 22 0a 7d 0a
 ```
 
 HTTP method
 
 
-```r
+``` r
 res$method
 #> [1] "get"
 ```
@@ -138,10 +138,10 @@ res$method
 Request headers
 
 
-```r
+``` r
 res$request_headers
 #> $`User-Agent`
-#> [1] "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"
+#> [1] "libcurl/8.7.1 r-curl/5.2.1 crul/1.5.0"
 #> 
 #> $`Accept-Encoding`
 #> [1] "gzip, deflate"
@@ -156,7 +156,7 @@ res$request_headers
 Response headers
 
 
-```r
+``` r
 res$response_headers
 #> $status
 #> [1] "HTTP/1.1 200 OK"
@@ -165,7 +165,7 @@ res$response_headers
 #> [1] "nginx/1.22.1"
 #> 
 #> $date
-#> [1] "Thu, 18 Jul 2024 23:00:46 GMT"
+#> [1] "Fri, 13 Sep 2024 18:17:24 GMT"
 #> 
 #> $`content-type`
 #> [1] "application/json"
@@ -192,7 +192,7 @@ res$response_headers
 All response headers, including intermediate headers, if any
 
 
-```r
+``` r
 res$response_headers_all
 #> [[1]]
 #> [[1]]$status
@@ -202,7 +202,7 @@ res$response_headers_all
 #> [1] "nginx/1.22.1"
 #> 
 #> [[1]]$date
-#> [1] "Thu, 18 Jul 2024 23:00:46 GMT"
+#> [1] "Fri, 13 Sep 2024 18:17:24 GMT"
 #> 
 #> [[1]]$`content-type`
 #> [1] "application/json"
@@ -229,9 +229,9 @@ res$response_headers_all
 And you can parse the content with a provided function:
 
 
-```r
+``` r
 res$parse()
-#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0\"\n  }, \n  \"origin\": \"172.18.0.2\", \n  \"url\": \"http://httpbin:8080/get\"\n}\n"
+#> [1] "{\n  \"args\": {}, \n  \"headers\": {\n    \"A\": \"hello world\", \n    \"Accept\": \"application/json, text/xml, application/xml, */*\", \n    \"Accept-Encoding\": \"gzip, deflate\", \n    \"Connection\": \"close\", \n    \"Host\": \"httpbin:8080\", \n    \"User-Agent\": \"libcurl/8.7.1 r-curl/5.2.1 crul/1.5.0\"\n  }, \n  \"origin\": \"172.18.0.4\", \n  \"url\": \"http://httpbin:8080/get\"\n}\n"
 jsonlite::fromJSON(res$parse())
 #> $args
 #> named list()
@@ -253,11 +253,11 @@ jsonlite::fromJSON(res$parse())
 #> [1] "httpbin:8080"
 #> 
 #> $headers$`User-Agent`
-#> [1] "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"
+#> [1] "libcurl/8.7.1 r-curl/5.2.1 crul/1.5.0"
 #> 
 #> 
 #> $origin
-#> [1] "172.18.0.2"
+#> [1] "172.18.0.4"
 #> 
 #> $url
 #> [1] "http://httpbin:8080/get"
@@ -268,7 +268,7 @@ we set, we can make other HTTP verb requests. For example, a `HEAD`
 request:
 
 
-```r
+``` r
 x$post(
   path = "post", 
   body = list(hello = "world")
@@ -279,62 +279,38 @@ x$post(
 ## write to disk
 
 
-```r
+``` r
 x <- HttpClient$new(url = "https://hb.opencpu.org")
 f <- tempfile()
 res <- x$get(disk = f)
+#> Error in curl::curl_fetch_disk(x$url$url, x$disk, handle = x$url$handle): Operation was aborted by an application callback
 # when using write to disk, content is a path
 res$content 
-#> [1] "/var/folders/vw/4nm3x1ld0_jgmqy6_yf6pz3c0000gn/T//Rtmp5sdRgz/file53cc629c02a3"
+#>   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61 64 65
+#>  [26] 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c 6f 20 77 6f
+#>  [51] 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22 3a 20 22 61 70 70
+#>  [76] 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 2c 20 74 65 78 74 2f 78 6d 6c 2c 20
+#> [101] 61 70 70 6c 69 63 61 74 69 6f 6e 2f 78 6d 6c 2c 20 2a 2f 2a 22 2c 20 0a 20
+#> [126] 20 20 20 22 41 63 63 65 70 74 2d 45 6e 63 6f 64 69 6e 67 22 3a 20 22 67 7a
+#> [151] 69 70 2c 20 64 65 66 6c 61 74 65 22 2c 20 0a 20 20 20 20 22 43 6f 6e 6e 65
+#> [176] 63 74 69 6f 6e 22 3a 20 22 63 6c 6f 73 65 22 2c 20 0a 20 20 20 20 22 48 6f
+#> [201] 73 74 22 3a 20 22 68 74 74 70 62 69 6e 3a 38 30 38 30 22 2c 20 0a 20 20 20
+#> [226] 20 22 55 73 65 72 2d 41 67 65 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 38
+#> [251] 2e 37 2e 31 20 72 2d 63 75 72 6c 2f 35 2e 32 2e 31 20 63 72 75 6c 2f 31 2e
+#> [276] 35 2e 30 22 0a 20 20 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31
+#> [301] 37 32 2e 31 38 2e 30 2e 34 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68 74
+#> [326] 74 70 3a 2f 2f 68 74 74 70 62 69 6e 3a 38 30 38 30 2f 67 65 74 22 0a 7d 0a
 ```
 
 Read lines
 
 
-```r
+``` r
 readLines(res$content, n = 10)
-#>  [1] "<!DOCTYPE html>"                                                                           
-#>  [2] "<html>"                                                                                    
-#>  [3] "<head>"                                                                                    
-#>  [4] "  <meta http-equiv='content-type' value='text/html;charset=utf8'>"                         
-#>  [5] "  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>"
-#>  [6] "  <title>httpbin(1): HTTP Client Testing Service</title>"                                  
-#>  [7] "  <style type='text/css' media='all'>"                                                     
-#>  [8] "  /* style: man */"                                                                        
-#>  [9] "  body#manpage {margin:0}"                                                                 
-#> [10] "  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}"
+#> Error in readLines(res$content, n = 10): 'con' is not a connection
 ```
 
 ## stream data
 
 
-```r
-(x <- HttpClient$new(url = "https://hb.opencpu.org"))
-#> <crul connection> 
-#>   url: https://hb.opencpu.org
-#>   curl options: 
-#>   proxies: 
-#>   auth: 
-#>   headers: 
-#>   progress: FALSE
-#>   hooks:
-res <- x$get('stream/5', stream = function(x) cat(rawToChar(x)))
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 0, "origin": "172.18.0.2"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 1, "origin": "172.18.0.2"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 2, "origin": "172.18.0.2"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 3, "origin": "172.18.0.2"}
-#> {"url": "http://httpbin:8080/stream/5", "headers": {"Connection": "close", "Host": "httpbin:8080", "Accept-Encoding": "gzip, deflate", "Accept": "application/json, text/xml, application/xml, */*", "User-Agent": "libcurl/8.6.0 r-curl/5.2.1 crul/1.5.0"}, "args": {}, "id": 4, "origin": "172.18.0.2"}
-# when streaming, content is NULL
-res$content 
-#> NULL
-```
 
-## Learn more 
-
-Learn more with the other vignettes:
-
-- [crul workflows](how-to-use-crul.html)
-- [async with crul](async.html)
-- [curl options](curl-options.html)
-- [API package best practices](best-practices-api-packages.html)
-- [Choosing a HTTP request class](choosing-a-client.html)

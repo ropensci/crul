@@ -51,8 +51,9 @@ test_that("post request: encode=form", {
   expect_is(form, "HttpResponse")
   expect_equal(form$method, "post")
   expect_match(
-    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`, 
-    "application/x-www-form-urlencoded")
+    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`,
+    "application/x-www-form-urlencoded"
+  )
 
   expect_null(form$request$fields)
   expect_true(form$request$options$post)
@@ -67,8 +68,9 @@ test_that("post request: encode=multipart", {
   expect_is(multi, "HttpResponse")
   expect_equal(multi$method, "post")
   expect_match(
-    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`, 
-    "multipart/form-data")
+    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`,
+    "multipart/form-data"
+  )
 
   expect_is(multi$request$fields, "list")
   expect_is(multi$request$fields$custname, "character")
@@ -85,11 +87,13 @@ test_that("post request: encode=form/multipart both use form content-type when 0
   multi <- cli$post(body = list(), encode = "multipart")
 
   expect_match(
-    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`, 
-    "application/x-www-form-urlencoded")
+    jsonlite::fromJSON(form$parse("UTF-8"))$headers$`Content-Type`,
+    "application/x-www-form-urlencoded"
+  )
   expect_match(
-    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`, 
-    "application/x-www-form-urlencoded")
+    jsonlite::fromJSON(multi$parse("UTF-8"))$headers$`Content-Type`,
+    "application/x-www-form-urlencoded"
+  )
 })
 
 test_that("post request: encode=form/multipart drop NULL elements in a list", {
@@ -125,7 +129,6 @@ test_that("post request with file upload", {
   expect_equal(length(out$files), 0)
   expect_is(out$data, "character")
   expect_match(out$data, "bibentry")
-
 
   # binary file: jpeg
   file <- upload(file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg"))

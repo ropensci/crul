@@ -19,7 +19,9 @@ test_that("head_parse: good", {
     expect_named(zparsed[[1]])
     expect_equal(zparsed[[1]]$status, "HTTP/2 200")
     w <- unname(unlist(zparsed[[1]]))
-    for (j in w) expect_false(grepl("^\\s|\\s$", j))
+    for (j in w) {
+      expect_false(grepl("^\\s|\\s$", j))
+    }
   }
 })
 
@@ -34,9 +36,10 @@ test_that("head_parse: bad", {
     expect_named(zparsed[[1]])
     expect_equal(zparsed[[1]]$status, "HTTP/1.1 200 OK")
     w <- unname(unlist(zparsed[[1]]))
-    for (j in w) expect_false(grepl("^\\s|\\s$", j))
+    for (j in w) {
+      expect_false(grepl("^\\s|\\s$", j))
+    }
     # should throw warnings for each bad header
     lapply(z, function(w) expect_warning(head_parse(w)))
   }
 })
-

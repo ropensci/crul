@@ -61,7 +61,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' # cc$content()
 #' cc$parse()
 #' lapply(cc$parse(), jsonlite::fromJSON)
-#' 
+#'
 #' # page/per page approach (with no per_page param allowed)
 #' conn <- HttpClient$new(url = "https://discuss.ropensci.org")
 #' cc <- Paginator$new(client = conn, by = "page_perpage",
@@ -70,7 +70,7 @@ by_options <- c("limit_offset", "page_perpage")
 #' cc$get('c/usecases/l/latest.json')
 #' cc$responses()
 #' lapply(cc$parse(), jsonlite::fromJSON)
-#' 
+#'
 #' # page/per_page
 #' conn <- HttpClient$new('https://api.inaturalist.org')
 #' cc <- Paginator$new(conn, by = "page_perpage", page_param = "page",
@@ -109,7 +109,7 @@ Paginator <- R6::R6Class(
     #' See Details.
     by = "limit_offset",
     #' @field chunk (numeric/integer) the number by which to chunk
-    #' requests, e.g., 10 would be be each request gets 10 records. 
+    #' requests, e.g., 10 would be be each request gets 10 records.
     #' number is passed through [format()] to prevent larger numbers
     #' from being scientifically formatted
     chunk = NULL,
@@ -138,24 +138,42 @@ Paginator <- R6::R6Class(
     #' @param ... ignored
     print = function(x, ...) {
       cat("<crul paginator> ", sep = "\n")
-      cat(paste0(
-        "  base url: ",
-        if (is.null(self$http_req)) self$http_req$handle$url else self$http_req$url),
-        sep = "\n")
+      cat(
+        paste0(
+          "  base url: ",
+          if (is.null(self$http_req)) {
+            self$http_req$handle$url
+          } else {
+            self$http_req$url
+          }
+        ),
+        sep = "\n"
+      )
       cat(paste0("  by: ", self$by), sep = "\n")
       cat(paste0("  chunk: ", self$chunk %||% "<none>"), sep = "\n")
       cat(paste0("  limit_param: ", self$limit_param %||% "<none>"), sep = "\n")
-      cat(paste0("  offset_param: ", self$offset_param %||% "<none>"), sep = "\n")
+      cat(
+        paste0("  offset_param: ", self$offset_param %||% "<none>"),
+        sep = "\n"
+      )
       cat(paste0("  limit: ", self$limit %||% "<none>"), sep = "\n")
       cat(paste0("  page_param: ", self$page_param %||% "<none>"), sep = "\n")
-      cat(paste0("  per_page_param: ", self$per_page_param %||% "<none>"), sep = "\n")
+      cat(
+        paste0("  per_page_param: ", self$per_page_param %||% "<none>"),
+        sep = "\n"
+      )
       cat(paste0("  progress: ", self$progress %||% ""), sep = "\n")
-      cat(paste0("  status: ",
-        if (length(private$resps) == 0) {
-          "not run yet"
-        } else {
-          paste0(length(private$resps), " requests done")
-        }), sep = "\n")
+      cat(
+        paste0(
+          "  status: ",
+          if (length(private$resps) == 0) {
+            "not run yet"
+          } else {
+            paste0(length(private$resps), " requests done")
+          }
+        ),
+        sep = "\n"
+      )
       invisible(self)
     },
 
@@ -175,31 +193,54 @@ Paginator <- R6::R6Class(
     #' @param progress (logical) print a progress bar, using [utils::txtProgressBar].
     #' Default: `FALSE`.
     #' @return A new `Paginator` object
-    initialize = function(client, by = "limit_offset", limit_param = NULL,
-      offset_param = NULL, limit = NULL, chunk = NULL,
-      page_param = NULL, per_page_param = NULL, progress = FALSE) {
-
+    initialize = function(
+      client,
+      by = "limit_offset",
+      limit_param = NULL,
+      offset_param = NULL,
+      limit = NULL,
+      chunk = NULL,
+      page_param = NULL,
+      per_page_param = NULL,
+      progress = FALSE
+    ) {
       ## checks
-      if (!inherits(client, "HttpClient")) stop("'client' has to be an object of class 'HttpClient'",
-        call. = FALSE)
+      if (!inherits(client, "HttpClient")) {
+        stop(
+          "'client' has to be an object of class 'HttpClient'",
+          call. = FALSE
+        )
+      }
       self$http_req <- client
       if (by == "query_params") {
-        warning("by='query_params' has been changed to 'limit_offset'", call.=FALSE)
+        warning(
+          "by='query_params' has been changed to 'limit_offset'",
+          call. = FALSE
+        )
         by <- "limit_offset"
       }
       if (!by %in% by_options) {
-        stop("'by' must be one of: ", paste0(by_options, collapse = ", "),
-          call. = FALSE)
+        stop(
+          "'by' must be one of: ",
+          paste0(by_options, collapse = ", "),
+          call. = FALSE
+        )
       }
       self$by <- by
       if (!missing(chunk)) {
         assert(chunk, c("numeric", "integer"))
-        if (chunk < 1 || chunk %% 1 != 0) stop("'chunk' must be an integer and > 0")
+        if (chunk < 1 || chunk %% 1 != 0) {
+          stop("'chunk' must be an integer and > 0")
+        }
       }
       self$chunk <- chunk
-      if (!missing(limit_param)) assert(limit_param, "character")
+      if (!missing(limit_param)) {
+        assert(limit_param, "character")
+      }
       self$limit_param <- limit_param
-      if (!missing(offset_param)) assert(offset_param, "character")
+      if (!missing(offset_param)) {
+        assert(offset_param, "character")
+      }
       self$offset_param <- offset_param
       if (!missing(limit)) {
         assert(limit, c("numeric", "integer"))
@@ -211,17 +252,25 @@ Paginator <- R6::R6Class(
       assert(progress, "logical")
       self$progress <- progress
 
-      if (!missing(page_param)) assert(page_param, "character")
+      if (!missing(page_param)) {
+        assert(page_param, "character")
+      }
       self$page_param <- page_param
-      if (!missing(per_page_param)) assert(per_page_param, "character")
+      if (!missing(per_page_param)) {
+        assert(per_page_param, "character")
+      }
       self$per_page_param <- per_page_param
 
       if (self$by == "limit_offset") {
         # calculate pagination values
-        private$offset_iters <-  c(0, seq(from=0, to=fround(self$limit, 10),
-          by=self$chunk)[-1])
-        private$offset_args <- as.list(stats::setNames(private$offset_iters,
-          rep(self$offset_param, length(private$offset_iters))))
+        private$offset_iters <- c(
+          0,
+          seq(from = 0, to = fround(self$limit, 10), by = self$chunk)[-1]
+        )
+        private$offset_args <- as.list(stats::setNames(
+          private$offset_iters,
+          rep(self$offset_param, length(private$offset_iters))
+        ))
         private$limit_chunks <- rep(self$chunk, length(private$offset_iters))
         diffy <- self$limit - private$offset_iters[length(private$offset_iters)]
         if (diffy != self$chunk) {
@@ -234,22 +283,34 @@ Paginator <- R6::R6Class(
           self$chunk <- if (!is.null(self$per_page_param)) {
             self$per_page_param
           } else {
-            stop("if `per_page_param` is NULL, you must set `chunk`",
-              call.=FALSE)
+            stop(
+              "if `per_page_param` is NULL, you must set `chunk`",
+              call. = FALSE
+            )
           }
         }
 
-        private$offset_iters <- c(0, seq(from=0, to=fround(self$limit, 10),
-          by=self$chunk)[-1])
-        private$offset_args <- as.list(stats::setNames(1:length(private$offset_iters), 
-          rep(self$page_param, length(private$offset_iters))))
+        private$offset_iters <- c(
+          0,
+          seq(from = 0, to = fround(self$limit, 10), by = self$chunk)[-1]
+        )
+        private$offset_args <- as.list(stats::setNames(
+          1:length(private$offset_iters),
+          rep(self$page_param, length(private$offset_iters))
+        ))
         if (!is.null(self$per_page_param)) {
-          pp <- as.list(stats::setNames(rep(self$chunk, length(private$offset_iters)),
-            rep(self$per_page_param, length(private$offset_iters))))
-          for (i in seq_along(pp)) private$offset_args[[i]] <- c(private$offset_args[i], pp[i])
+          pp <- as.list(stats::setNames(
+            rep(self$chunk, length(private$offset_iters)),
+            rep(self$per_page_param, length(private$offset_iters))
+          ))
+          for (i in seq_along(pp)) {
+            private$offset_args[[i]] <- c(private$offset_args[i], pp[i])
+          }
           private$offset_args <- unname(private$offset_args)
         } else {
-          for (i in seq_along(private$offset_args)) private$offset_args[i] <- list(private$offset_args[i])
+          for (i in seq_along(private$offset_args)) {
+            private$offset_args[i] <- list(private$offset_args[i])
+          }
         }
       }
     },
@@ -260,26 +321,46 @@ Paginator <- R6::R6Class(
     },
 
     #' @description make a paginated POST request
-    post = function(path = NULL, query = list(), body = NULL,
-                    encode = "multipart", ...) {
+    post = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      encode = "multipart",
+      ...
+    ) {
       private$page("post", path, query, body, encode, ...)
     },
 
     #' @description make a paginated PUT request
-    put = function(path = NULL, query = list(), body = NULL,
-                   encode = "multipart", ...) {
+    put = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      encode = "multipart",
+      ...
+    ) {
       private$page("put", path, query, body, encode, ...)
     },
 
     #' @description make a paginated PATCH request
-    patch = function(path = NULL, query = list(), body = NULL,
-                     encode = "multipart", ...) {
+    patch = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      encode = "multipart",
+      ...
+    ) {
       private$page("patch", path, query, body, encode, ...)
     },
 
     #' @description make a paginated DELETE request
-    delete = function(path = NULL, query = list(), body = NULL,
-                      encode = "multipart", ...) {
+    delete = function(
+      path = NULL,
+      query = list(),
+      body = NULL,
+      encode = "multipart",
+      ...
+    ) {
       private$page("delete", path, query, body, encode, ...)
     },
 
@@ -358,26 +439,52 @@ Paginator <- R6::R6Class(
     page = function(method, path, query, body, encode, ...) {
       tmp <- list()
       if (self$progress) {
-        pb <- utils::txtProgressBar(min = 0, max = length(private$offset_iters),
-          initial = 0, style = 3)
+        pb <- utils::txtProgressBar(
+          min = 0,
+          max = length(private$offset_iters),
+          initial = 0,
+          style = 3
+        )
         on.exit(close(pb), add = TRUE)
       }
       if (self$by == "limit_offset") {
         for (i in seq_along(private$offset_iters)) {
-          if (self$progress) utils::setTxtProgressBar(pb, i)
+          if (self$progress) {
+            utils::setTxtProgressBar(pb, i)
+          }
           off <- private$offset_args[i]
           off[self$limit_param] <- private$limit_chunks[i]
           tmp[[i]] <- switch(
             method,
             get = self$http_req$get(path, query = ccp(c(query, off)), ...),
-            post = self$http_req$post(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            put = self$http_req$put(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            patch = self$http_req$patch(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            delete = self$http_req$delete(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
+            post = self$http_req$post(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            put = self$http_req$put(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            patch = self$http_req$patch(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            delete = self$http_req$delete(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
             head = self$http_req$head(path, ...)
           )
           # cat("\n")
@@ -385,19 +492,41 @@ Paginator <- R6::R6Class(
       }
       if (self$by == "page_perpage") {
         for (i in seq_along(private$offset_iters)) {
-          if (self$progress) utils::setTxtProgressBar(pb, i)
+          if (self$progress) {
+            utils::setTxtProgressBar(pb, i)
+          }
           off <- private$offset_args[[i]]
           tmp[[i]] <- switch(
             method,
             get = self$http_req$get(path, query = ccp(c(query, off)), ...),
-            post = self$http_req$post(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            put = self$http_req$put(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            patch = self$http_req$patch(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
-            delete = self$http_req$delete(path, query = ccp(c(query, off)),
-              body = body, encode = encode, ...),
+            post = self$http_req$post(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            put = self$http_req$put(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            patch = self$http_req$patch(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
+            delete = self$http_req$delete(
+              path,
+              query = ccp(c(query, off)),
+              body = body,
+              encode = encode,
+              ...
+            ),
             head = self$http_req$head(path, ...)
           )
           # cat("\n")

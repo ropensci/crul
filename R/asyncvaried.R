@@ -143,14 +143,25 @@ AsyncVaried <- R6::R6Class(
       cat(sprintf("  requests: (n: %s)", length(private$reqs)), sep = "\n")
       print_urls <- private$reqs[1:min(c(length(private$reqs), 10))]
       for (i in seq_along(print_urls)) {
-        retry_note <- if ("retry_options" %in% names(print_urls[[i]]$payload)) " (retry)" else ""
-        cat(sprintf("   %s: %s",
-                    paste0(print_urls[[i]]$payload$method, retry_note),
-                    print_urls[[i]]$url), "\n")
+        retry_note <- if ("retry_options" %in% names(print_urls[[i]]$payload)) {
+          " (retry)"
+        } else {
+          ""
+        }
+        cat(
+          sprintf(
+            "   %s: %s",
+            paste0(print_urls[[i]]$payload$method, retry_note),
+            print_urls[[i]]$url
+          ),
+          "\n"
+        )
       }
       if (length(private$reqs) > 10) {
-        cat(sprintf("   # ... with %s more", length(private$reqs) - 10),
-          sep = "\n")
+        cat(
+          sprintf("   # ... with %s more", length(private$reqs) - 10),
+          sep = "\n"
+        )
       }
       invisible(self)
     },
@@ -188,7 +199,7 @@ AsyncVaried <- R6::R6Class(
     #' @details An S3 print method is used to summarise results. [unclass]
     #' the output to see the list, or index to results, e.g., `[1]`, `[1:3]`
     responses = function() {
-      structure(private$output %||% list(), class="asyncresponses")
+      structure(private$output %||% list(), class = "asyncresponses")
     },
 
     #' @description List requests
@@ -238,42 +249,64 @@ AsyncVaried <- R6::R6Class(
     output = NULL,
 
     async_request = function(reqs) {
-      retry <- function(i, handle, pause_base, pause_cap, pause_min, times,
-        terminate_on, retry_only_on, onwait)
-      {
+      retry <- function(
+        i,
+        handle,
+        pause_base,
+        pause_cap,
+        pause_min,
+        times,
+        terminate_on,
+        retry_only_on,
+        onwait
+      ) {
         curl::multi_add(handle, pool = crulpool, done = function(res) {
           if (
             (res$status_code >= 400) &&
-            (! res$status_code %in% terminate_on) &&
-            (is.null(retry_only_on) || res$status_code %in% retry_only_on) &&
-            (times > 0) &&
-            (pause_base < pause_cap)
+              (!res$status_code %in% terminate_on) &&
+              (is.null(retry_only_on) || res$status_code %in% retry_only_on) &&
+              (times > 0) &&
+              (pause_base < pause_cap)
           ) {
             rh <- res$response_headers
-            if (! is.null(rh[["retry-after"]])) {
+            if (!is.null(rh[["retry-after"]])) {
               wait_time <- as.numeric(rh[["retry-after"]])
-            } else if (identical(rh[["x-ratelimit-remaining"]], "0") &&
-                       !is.null(rh[["x-ratelimit-reset"]])) {
-              wait_time <- max(0, as.numeric(rh[["x-ratelimit-reset"]]) -
-                as.numeric(Sys.time()))
+            } else if (
+              identical(rh[["x-ratelimit-remaining"]], "0") &&
+                !is.null(rh[["x-ratelimit-reset"]])
+            ) {
+              wait_time <- max(
+                0,
+                as.numeric(rh[["x-ratelimit-reset"]]) -
+                  as.numeric(Sys.time())
+              )
             } else {
-              if (is.null(pause_min)) pause_min <- pause_base
+              if (is.null(pause_min)) {
+                pause_min <- pause_base
+              }
               # exponential backoff with full jitter
-              wait_time <- stats::runif(1,
-                                       min = pause_min,
-                                       max = min(pause_base * 2, pause_cap))
+              wait_time <- stats::runif(
+                1,
+                min = pause_min,
+                max = min(pause_base * 2, pause_cap)
+              )
             }
-            if (! (wait_time > pause_cap)) {
-              if (is.function(onwait)) onwait(res, wait_time)
+            if (!(wait_time > pause_cap)) {
+              if (is.function(onwait)) {
+                onwait(res, wait_time)
+              }
               Sys.sleep(wait_time)
-              retry(i, handle,
-                    pause_base = pause_base * 2,
-                    pause_cap = pause_cap,
-                    pause_min = pause_min,
-                    times = times - 1,
-                    terminate_on = terminate_on,
-                    retry_only_on = retry_only_on,
-                    onwait = onwait)
+              retry(
+                i,
+                handle,
+                pause_base = pause_base * 2,
+                pause_cap = pause_cap,
+                pause_min = pause_min,
+                times = times - 1,
+                terminate_on = terminate_on,
+                retry_only_on = retry_only_on,
+                onwait = onwait
+              )
             }
           } else {
             multi_res[[i]] <<- res
@@ -294,7 +327,7 @@ AsyncVaried <- R6::R6Class(
         curl::handle_setheaders(handle, .list = request$headers)
 
         if ("retry_options" %in% names(request)) {
-          do.call(retry, c(list(i=i, handle=handle), request$retry_options))
+          do.call(retry, c(list(i = i, handle = handle), request$retry_options))
         } else if (is.null(request$disk) && is.null(request$stream)) {
           if (crul_opts$mock) {
             check_for_package("webmockr")
@@ -304,7 +337,9 @@ AsyncVaried <- R6::R6Class(
             curl::multi_add(
               handle = handle,
               done = function(res) multi_res[[i]] <<- res,
-              fail = function(res) multi_res[[i]] <<- make_async_error(res, request),
+              fail = function(res) {
+                multi_res[[i]] <<- make_async_error(res, request)
+              },
               pool = crulpool
             )
           }
@@ -333,14 +368,18 @@ AsyncVaried <- R6::R6Class(
             curl::multi_add(
               handle = handle,
               done = request$stream,
-              fail = function(res) multi_res[[i]] <<- make_async_error(res, request),
+              fail = function(res) {
+                multi_res[[i]] <<- make_async_error(res, request)
+              },
               pool = crulpool
             )
           }
         }
       }
 
-      for (i in seq_along(reqs)) make_request(i)
+      for (i in seq_along(reqs)) {
+        make_request(i)
+      }
 
       if (crul_opts$mock) {
         return(multi_res)
@@ -348,57 +387,73 @@ AsyncVaried <- R6::R6Class(
 
       curl::multi_run(pool = crulpool)
       remain <- curl::multi_list(crulpool)
-      if (length(remain)) lapply(remain, curl::multi_cancel)
+      if (length(remain)) {
+        lapply(remain, curl::multi_cancel)
+      }
       multi_res <- ccp(multi_res)
 
-      Map(function(z, b) {
-        # prep headers
-        if (grepl("^ftp://", z$url)) {
-          headers <- list()
-        } else {
-          headers_temp <- rawToChar(z$headers %||% raw(0))
-          if (nzchar(headers_temp)) {
-            headers <- lapply(
-              curl::parse_headers(headers_temp, multiple = TRUE),
-              head_parse
-            )
-          } else {
+      Map(
+        function(z, b) {
+          # prep headers
+          if (grepl("^ftp://", z$url)) {
             headers <- list()
+          } else {
+            headers_temp <- rawToChar(z$headers %||% raw(0))
+            if (nzchar(headers_temp)) {
+              headers <- lapply(
+                curl::parse_headers(headers_temp, multiple = TRUE),
+                head_parse
+              )
+            } else {
+              headers <- list()
+            }
           }
-        }
-        HttpResponse$new(
-          method = b$payload$method,
-          url = z$url,
-          status_code = z$status_code,
-          request_headers = c(
-            useragent = b$payload$options$useragent,
-            b$headers
-          ),
-          response_headers = last(headers),
-          response_headers_all = headers,
-          modified = z$modified,
-          times = z$times,
-          content = z$content,
-          handle = b$handle,
-          request = b
-        )
-      }, multi_res, reqs)
+          HttpResponse$new(
+            method = b$payload$method,
+            url = z$url,
+            status_code = z$status_code,
+            request_headers = c(
+              useragent = b$payload$options$useragent,
+              b$headers
+            ),
+            response_headers = last(headers),
+            response_headers_all = headers,
+            modified = z$modified,
+            times = z$times,
+            content = z$content,
+            handle = b$handle,
+            request = b
+          )
+        },
+        multi_res,
+        reqs
+      )
     }
   )
 )
 
 make_async_error <- function(x, req) {
-  list(url = req$url$url, status_code = 0, headers = raw(0),
-    modified = NA_character_, times = NA_character_,
-    content = charToRaw(x))
+  list(
+    url = req$url$url,
+    status_code = 0,
+    headers = raw(0),
+    modified = NA_character_,
+    times = NA_character_,
+    content = charToRaw(x)
+  )
 }
 
 #' @export
 print.asyncresponses <- function(x, ...) {
-  cat("async responses", sep="\n")
-  cat(sprintf("status code - url (N=%s; printing up to 10)", length(x)), sep="\n")
-  if (length(x) == 0) cat("  empty", sep="\n")
+  cat("async responses", sep = "\n")
+  cat(
+    sprintf("status code - url (N=%s; printing up to 10)", length(x)),
+    sep = "\n"
+  )
+  if (length(x) == 0) {
+    cat("  empty", sep = "\n")
+  }
   for (i in seq_len(min(c(10, length(x))))) {
-    cat(sprintf("  %s - %s", x[[i]]$status_code, x[[i]]$url), sep="\n")
+    cat(sprintf("  %s - %s", x[[i]]$status_code, x[[i]]$url), sep = "\n")
   }
 }

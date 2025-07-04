@@ -1,5 +1,5 @@
 #' @section Package API:
-#' 
+#'
 #' - [HttpClient()] - create a connection client, set all
 #'  your http options, make http requests
 #' - [HttpResponse()] - mostly for internal use, handles
@@ -13,28 +13,28 @@
 #' - [auth()] - Simple authentication helper
 #' - [proxy()] - Proxy helper
 #' - [upload()] - File upload helper
-#' - set curl options globally: [set_auth()], [set_headers()], 
+#' - set curl options globally: [set_auth()], [set_headers()],
 #'   [set_opts()], [set_proxy()], and [crul_settings()]
-#' 
+#'
 #' @section HTTP verbs (or HTTP request methods):
-#' 
-#' See [verb-GET], [verb-POST], [verb-PUT], [verb-PATCH], [verb-DELETE], 
+#'
+#' See [verb-GET], [verb-POST], [verb-PUT], [verb-PATCH], [verb-DELETE],
 #' [verb-HEAD] for details.
 #'
-#' - [HttpClient] is the main interface for making HTTP requests, 
+#' - [HttpClient] is the main interface for making HTTP requests,
 #' and includes methods for each HTTP verb
 #' - [HttpRequest] allows you to prepare a HTTP payload for use with
-#' [AsyncVaried], which provides asynchronous requests for varied 
+#' [AsyncVaried], which provides asynchronous requests for varied
 #' HTTP methods
 #' - [Async] provides asynchronous requests for a single HTTP method
 #' at a time
-#' - the `verb()` method can be used on all the above to request 
+#' - the `verb()` method can be used on all the above to request
 #' a specific HTTP verb
-#' 
+#'
 #' @section Checking HTTP responses:
-#' 
+#'
 #' [HttpResponse()] has helpers for checking and raising warnings/errors.
-#' 
+#'
 #' - [content-types] details the various options for checking content
 #' types and throwing a warning or error if the response content
 #' type doesn't match what you expect. Mis-matched content-types are
@@ -52,17 +52,17 @@
 #'
 #' @section Mocking:
 #' Mocking HTTP requests is supported via the \pkg{webmockr}
-#' package. See [mock] for guidance, and 
+#' package. See [mock] for guidance, and
 #' <https://books.ropensci.org/http-testing/>
-#' 
+#'
 #' @section Caching:
 #' Caching HTTP requests is supported via the \pkg{vcr}
 #' package. See <https://books.ropensci.org/http-testing/>
-#' 
+#'
 #' @section Links:
-#' 
+#'
 #' Source code: <https://github.com/ropensci/crul>
-#' 
+#'
 #' Bug reports/feature requests: <https://github.com/ropensci/crul/issues>
 #'
 #' @keywords internal

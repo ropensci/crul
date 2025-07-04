@@ -29,7 +29,7 @@ test_that("AsyncVaried works", {
   expect_equal(length(aa$status_code()), 2)
   expect_equal(length(aa$times()), 2)
 
-  # response_headers and response_headers_all 
+  # response_headers and response_headers_all
   expect_is(aa$responses()[[1]]$response_headers, "list")
   expect_named(aa$responses()[[1]]$response_headers)
   expect_is(aa$responses()[[1]]$response_headers_all, "list")
@@ -99,10 +99,14 @@ context("AsyncVaried - stream")
 test_that("AsyncVaried - streaming to disk works", {
   lst <- c()
   fun <- function(x) lst <<- append(lst, list(x))
-  req1 <- HttpRequest$new(url = hb("/get")
-  )$get(query = list(foo = "bar"), stream = fun)
-  req2 <- HttpRequest$new(url = hb("/get")
-  )$get(query = list(hello = "world"), stream = fun)
+  req1 <- HttpRequest$new(url = hb("/get"))$get(
+    query = list(foo = "bar"),
+    stream = fun
+  )
+  req2 <- HttpRequest$new(url = hb("/get"))$get(
+    query = list(hello = "world"),
+    stream = fun
+  )
   out <- AsyncVaried$new(req1, req2)
   suppressWarnings(out$request())
 
@@ -125,8 +129,8 @@ test_that("AsyncVaried - basic auth works", {
   auth <- auth(user = "user", pwd = "passwd")
   reqlist <- list(
     HttpRequest$new(url = url, auth = auth)$get(),
-    HttpRequest$new(url = url, auth = auth)$get(query = list(a=5)),
-    HttpRequest$new(url = url, auth = auth)$get(query = list(b=3))
+    HttpRequest$new(url = url, auth = auth)$get(query = list(a = 5)),
+    HttpRequest$new(url = url, auth = auth)$get(query = list(b = 3))
   )
   out <- AsyncVaried$new(.list = reqlist)
   out$request()
@@ -140,7 +144,6 @@ test_that("AsyncVaried - basic auth works", {
   expect_equal(resps[[1]]$request$auth$userpwd, "user:passwd")
   expect_equal(resps[[1]]$request$auth$httpauth, 1)
 })
-
 
 
 context("AsyncVaried - failure behavior w/ bad URLs/etc.")
@@ -192,7 +195,7 @@ test_that("AsyncVaried - failure behavior", {
   expect_false(resps[[2]]$success())
 
   expect_match(resps[[1]]$parse("UTF-8"), "resolve host")
-  
+
   # cleanup
   closeAllConnections()
 })
@@ -204,7 +207,9 @@ test_that("AsyncVaried - failure behavior", {
   fun <- function(x) lst <<- c(lst, x)
   reqlist <- list(
     HttpRequest$new(url = "http://stuffthings.gvb")$get(stream = fun),
-    HttpRequest$new(url = base_url, opts = list(timeout_ms = 10))$get(stream = fun)
+    HttpRequest$new(url = base_url, opts = list(timeout_ms = 10))$get(
+      stream = fun
+    )
   )
   tmp <- AsyncVaried$new(.list = reqlist)
   tmp$request()

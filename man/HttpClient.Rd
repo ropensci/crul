@@ -62,7 +62,7 @@ out$response_headers_all
 (x <- HttpClient$new(url = "https://hb.opencpu.org"))
 x$url
 x$handle # is empty, it gets created when a HTTP verb is called
-(r1 <- x$get('get'))
+(r1 <- x$get("get"))
 x$url
 x$handle
 r1$url
@@ -71,25 +71,25 @@ r1$content
 r1$response_headers
 r1$parse()
 
-(res_get2 <- x$get('get', query = list(hello = "world")))
+(res_get2 <- x$get("get", query = list(hello = "world")))
 res_get2$parse()
 library("jsonlite")
 jsonlite::fromJSON(res_get2$parse())
 
 # post request
-(res_post <- x$post('post', body = list(hello = "world")))
+(res_post <- x$post("post", body = list(hello = "world")))
 
 ## empty body request
-x$post('post')
+x$post("post")
 
 # put request
-(res_put <- x$put('put'))
+(res_put <- x$put("put"))
 
 # delete request
-(res_delete <- x$delete('delete'))
+(res_delete <- x$delete("delete"))
 
 # patch request
-(res_patch <- x$patch('patch'))
+(res_patch <- x$patch("patch"))
 
 # head request
 (res_head <- x$head())
@@ -97,7 +97,7 @@ x$post('post')
 # query params are URL encoded for you, so DO NOT do it yourself
 ## if you url encode yourself, it gets double encoded, and that's bad
 (x <- HttpClient$new(url = "https://hb.opencpu.org"))
-res <- x$get("get", query = list(a = 'hello world'))
+res <- x$get("get", query = list(a = "hello world"))
 
 # access intermediate headers in response_headers_all
 x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")

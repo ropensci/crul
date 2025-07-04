@@ -7,7 +7,7 @@ test_that("crul_settings structure", {
   expect_is(crul_settings, "function")
 
   aa <- crul_settings()
-  
+
   expect_is(aa, "ls_str")
   expect_null(names(aa))
   expect_equal(as.list(aa)[[1]], "mock")
@@ -22,7 +22,7 @@ test_that("set_opts works", {
   skip_on_cran()
 
   expect_is(set_opts, "function")
-  
+
   # without any curl options set
   aa <- crul_settings()
   expect_length(aa, 1)
@@ -41,7 +41,7 @@ test_that("set_opts works", {
   expect_equal(unlist(as.list(aa)), c("mock", "opts"))
   expect_named(get("opts", envir = crul_opts), 'timeout_ms')
   expect_equal(get("opts", envir = crul_opts)$timeout_ms, 1000)
-  
+
   # resetting a previously set option
   set_opts(timeout_ms = 4000)
   aa <- crul_settings()
@@ -55,15 +55,14 @@ test_that("set_opts works", {
   aa <- crul_settings()
   expect_length(aa, 2)
   expect_equal(unlist(as.list(aa)), c("mock", "opts"))
-  expect_named(get("opts", envir = crul_opts), 
-    c('timeout_ms', 'verbose'))
+  expect_named(get("opts", envir = crul_opts), c('timeout_ms', 'verbose'))
   expect_equal(get("opts", envir = crul_opts)$timeout_ms, 4000)
   expect_true(get("opts", envir = crul_opts)$verbose)
 })
 #reset
 crul_settings(reset = TRUE)
 
-test_that("set_opts in a http request", { 
+test_that("set_opts in a http request", {
   set_opts(timeout_ms = 1)
   expect_error(
     HttpClient$new(hb())$get('get')
@@ -106,7 +105,6 @@ test_that("set_auth works", {
 crul_settings(reset = TRUE)
 
 
-
 context("set curl options: set_headers")
 test_that("set_headers works", {
   expect_is(set_headers, "function")
@@ -132,7 +130,6 @@ test_that("set_headers works", {
 crul_settings(reset = TRUE)
 
 
-
 context("set curl options: set_proxy")
 test_that("set_proxy works", {
   expect_is(set_proxy, "function")
@@ -150,15 +147,16 @@ test_that("set_proxy works", {
   expect_length(aa, 2)
   expect_equal(unlist(as.list(aa)), c("mock", "proxies"))
   expect_is(get("proxies", envir = crul_opts), "proxy")
-  expect_named(get("proxies", envir = crul_opts), c("proxy", "proxyport", "proxyauth"))
+  expect_named(
+    get("proxies", envir = crul_opts),
+    c("proxy", "proxyport", "proxyauth")
+  )
   expect_equal(get("proxies", envir = crul_opts)$proxy, "97.77.104.22")
   expect_equal(get("proxies", envir = crul_opts)$proxyport, 3128)
   expect_equal(get("proxies", envir = crul_opts)$proxyauth, 1)
 })
 #reset
 crul_settings(reset = TRUE)
-
-
 
 
 #reset

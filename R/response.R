@@ -1,6 +1,6 @@
 #' @title Base HTTP response object
 #' @description Class with methods for handling HTTP responses
-#' 
+#'
 #' @export
 #' @template r6
 #' @seealso [content-types]
@@ -101,16 +101,28 @@ HttpResponse <- R6::R6Class(
       cat("  request_headers: ", sep = "\n")
       if (length(self$request_headers)) {
         for (i in seq_along(self$request_headers)) {
-          cat(sprintf("    %s: %s", names(self$request_headers)[i],
-                      self$request_headers[[i]]), sep = "\n")
+          cat(
+            sprintf(
+              "    %s: %s",
+              names(self$request_headers)[i],
+              self$request_headers[[i]]
+            ),
+            sep = "\n"
+          )
         }
       }
 
       cat("  response_headers: ", sep = "\n")
       if (length(self$response_headers)) {
         for (i in seq_along(self$response_headers)) {
-          cat(sprintf("    %s: %s", names(self$response_headers)[i],
-                      self$response_headers[[i]]), sep = "\n")
+          cat(
+            sprintf(
+              "    %s: %s",
+              names(self$response_headers)[i],
+              self$response_headers[[i]]
+            ),
+            sep = "\n"
+          )
         }
       }
 
@@ -121,8 +133,9 @@ HttpResponse <- R6::R6Class(
           cat(paste0("    ", sub("=", ": ", params[[i]], "=")), sep = "\n")
         }
       }
-      if (!is.null(self$status_code)) cat(paste0("  status: ",
-                                                 self$status_code), sep = "\n")
+      if (!is.null(self$status_code)) {
+        cat(paste0("  status: ", self$status_code), sep = "\n")
+      }
       invisible(self)
     },
 
@@ -140,24 +153,54 @@ HttpResponse <- R6::R6Class(
     #' @param times (vector) named vector
     #' @param content (raw) raw binary content response
     #' @param request request object, with all details
-    initialize = function(method, url, opts, handle, status_code,
-                          request_headers, response_headers,
-                          response_headers_all, modified, times,
-                          content, request) {
-
-      if (!missing(method)) self$method <- method
+    initialize = function(
+      method,
+      url,
+      opts,
+      handle,
+      status_code,
+      request_headers,
+      response_headers,
+      response_headers_all,
+      modified,
+      times,
+      content,
+      request
+    ) {
+      if (!missing(method)) {
+        self$method <- method
+      }
       self$url <- url
-      if (!missing(opts)) self$opts <- opts
-      if (!missing(handle)) self$handle <- handle
-      if (!missing(status_code)) self$status_code <- as.numeric(status_code)
-      if (!missing(request_headers)) self$request_headers <- request_headers
-      if (!missing(response_headers)) self$response_headers <- response_headers
-      if (!missing(response_headers_all))
+      if (!missing(opts)) {
+        self$opts <- opts
+      }
+      if (!missing(handle)) {
+        self$handle <- handle
+      }
+      if (!missing(status_code)) {
+        self$status_code <- as.numeric(status_code)
+      }
+      if (!missing(request_headers)) {
+        self$request_headers <- request_headers
+      }
+      if (!missing(response_headers)) {
+        self$response_headers <- response_headers
+      }
+      if (!missing(response_headers_all)) {
         self$response_headers_all <- response_headers_all
-      if (!missing(modified)) self$modified <- modified
-      if (!missing(times)) self$times <- times
-      if (!missing(content)) self$content <- content
-      if (!missing(request)) self$request <- request
+      }
+      if (!missing(modified)) {
+        self$modified <- modified
+      }
+      if (!missing(times)) {
+        self$times <- times
+      }
+      if (!missing(content)) {
+        self$content <- content
+      }
+      if (!missing(request)) {
+        self$request <- request
+      }
 
       self$raise_for_ct = private$raise_for_ct_user()
       self$raise_for_ct_html = private$raise_for_ct_factory(type = "html")
@@ -174,13 +217,14 @@ HttpResponse <- R6::R6Class(
     #' @return character string
     parse = function(encoding = NULL, ...) {
       if (
-        "disk" %in% names(self$request) ||
-        (inherits(self$request, "HttpRequest") &&
-          "disk" %in% names(self$request$payload))
+        "disk" %in%
+          names(self$request) ||
+          (inherits(self$request, "HttpRequest") &&
+            "disk" %in% names(self$request$payload))
       ) {
         if (
           inherits(self$request, "HttpRequest") &&
-          length(self$content) == 0
+            length(self$content) == 0
         ) {
           pld <- self$request$payload$disk
         } else if (inherits(self$content, "raw")) {
@@ -233,11 +277,13 @@ HttpResponse <- R6::R6Class(
   private = list(
     raise_for_ct_user = function() {
       function(type, charset = NULL, behavior = "stop") {
-        if (!type %in% mime::mimemap)
+        if (!type %in% mime::mimemap) {
           stop("type not in allowed set, see ?mime::mimemap")
+        }
         type <- names(mime::mimemap[type == mime::mimemap])[1]
         private$raise_for_ct_factory(type)(
-          charset = charset, behavior = behavior
+          charset = charset,
+          behavior = behavior
         )
       }
     },
@@ -245,28 +291,46 @@ HttpResponse <- R6::R6Class(
       function(charset = NULL, behavior = "stop") {
         behaviors <- c("stop", "warning")
         assert(behavior, "character")
-        if (!behavior %in% behaviors)
+        if (!behavior %in% behaviors) {
           stop("'behavior' must be one of ", paste(behaviors, collapse = ", "))
+        }
         ctype <- mime::mimemap[[type]]
         rh <- self$response_headers
         names(rh) <- tolower(names(rh))
-        if (is.null(rh$`content-type`))
+        if (is.null(rh$`content-type`)) {
           stop("content-type header is missing")
+        }
         rtype <- rh$`content-type`
         if (!is.null(charset)) {
           if (!grepl(";\\s?[A-Za-z0-9]+|;\\s?charset=[A-Za-z0-9]+", rtype)) {
-            warning("no charset detected in response content-type",
-              call. = FALSE)
+            warning(
+              "no charset detected in response content-type",
+              call. = FALSE
+            )
           } else if (
             !grepl(ctype, rtype) ||
-            !grepl(norm(charset), norm(rtype))
+              !grepl(norm(charset), norm(rtype))
           ) {
-            get(behavior)(sprintf("response content-type (%s) did not match expected type (%s)\nor character set (%s)", rtype, ctype, charset), call. = FALSE)
+            get(behavior)(
+              sprintf(
+                "response content-type (%s) did not match expected type (%s)\nor character set (%s)",
+                rtype,
+                ctype,
+                charset
+              ),
+              call. = FALSE
+            )
           }
         } else {
           if (!grepl(ctype, rtype)) {
-            get(behavior)(sprintf("response content-type (%s) did not match expected type (%s)",
-              rtype, ctype), call. = FALSE)
+            get(behavior)(
+              sprintf(
+                "response content-type (%s) did not match expected type (%s)",
+                rtype,
+                ctype
+              ),
+              call. = FALSE
+            )
           }
         }
       }
@@ -291,7 +355,9 @@ guess_encoding <- function(encoding = NULL) {
 }
 
 check_encoding <- function(x) {
-  if ((tolower(x) %in% tolower(iconvlist()))) return(x)
+  if ((tolower(x) %in% tolower(iconvlist()))) {
+    return(x)
+  }
   message("Invalid encoding ", x, ": defaulting to UTF-8.")
   "UTF-8"
 }
@@ -306,6 +372,10 @@ parse_params <- function(x) {
 }
 
 parse_content <- function(x, encoding, ...) {
-  iconv(x = readBin(x, character()),
-    from = guess_encoding(encoding), to = "UTF-8", ...)
+  iconv(
+    x = readBin(x, character()),
+    from = guess_encoding(encoding),
+    to = "UTF-8",
+    ...
+  )
 }

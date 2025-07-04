@@ -41,7 +41,7 @@ test_that("verb: fails well", {
   # fails when verb=retry, but no method passed to retry
   expect_error(x$verb('retry'), "argument \"verb\" is missing")
 
-  # to prevent an endless loop if user supplies verb to the verb 
+  # to prevent an endless loop if user supplies verb to the verb
   # method, don't allow 'verb' to be passed to $verb()
   expect_error(x$verb('verb'), "'verb' must be one of")
   # fails correctly when unsupported verb passed

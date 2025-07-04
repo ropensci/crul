@@ -33,7 +33,6 @@ test_that("HttpResponse works", {
   expect_null(aa$times)
   expect_is(aa$request, "list")
 
-
   aa <- HttpResponse$new(
     method = "get",
     url = hb(),
@@ -43,13 +42,16 @@ test_that("HttpResponse works", {
     request = list()
   )
 
-  expect_error(aa$raise_for_status(), "Not Found \\(HTTP 404\\)",
-    class = "error")
+  expect_error(
+    aa$raise_for_status(),
+    "Not Found \\(HTTP 404\\)",
+    class = "error"
+  )
 })
 
 test_that("HttpResponse print method", {
   skip_on_cran()
-  
+
   aa <- HttpResponse$new(
     method = "get",
     url = hb("/stuff?g=6"),
@@ -112,10 +114,14 @@ test_that("parse works when file on disk is binary", {
   opts <- list(
     url = handle(url),
     method = "get",
-    options = list(httpget = TRUE, 
-      useragent = "libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9123"),
-    headers = list(`Accept-Encoding` = "gzip, deflate", 
-      Accept = "application/json, text/xml, application/xml, */*"),
+    options = list(
+      httpget = TRUE,
+      useragent = "libcurl/7.54.0 r-curl/4.0 crul/0.8.1.9123"
+    ),
+    headers = list(
+      `Accept-Encoding` = "gzip, deflate",
+      Accept = "application/json, text/xml, application/xml, */*"
+    ),
     disk = f
   )
 
@@ -179,7 +185,6 @@ test_that("internal fxn: check_encoding", {
 #   x <- aa$content
 #   z <- readBin(x, character())
 #   out <- iconv(z, from = guess_encoding(), to = "UTF-8", sub = "")
-
 
 #   iconv(readBin(x, character()),
 #     from = guess_encoding(encoding), to = "UTF-8")

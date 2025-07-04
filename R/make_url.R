@@ -24,8 +24,7 @@ add_query <- function(x, url) {
       if (!inherits(x[[i]], "AsIs")) {
         x[[i]] <- curl::curl_escape(num_format(x[[i]]))
       }
-      quer[[i]] <- paste(curl::curl_escape(names(x)[i]),
-        x[[i]], sep = "=")
+      quer[[i]] <- paste(curl::curl_escape(names(x)[i]), x[[i]], sep = "=")
     }
     parms <- paste0(quer, collapse = "&")
     paste0(url, "?", parms)
@@ -60,8 +59,12 @@ url_build <- function(url, path = NULL, query = NULL) {
   assert(path, "character")
   assert(query, "list")
   stopifnot(length(url) == 1)
-  if (!is.null(path)) stopifnot(length(path) <= 1)
-  if (!has_namez(query)) stop("all query elements must be named", call. = FALSE)
+  if (!is.null(path)) {
+    stopifnot(length(path) <= 1)
+  }
+  if (!has_namez(query)) {
+    stop("all query elements must be named", call. = FALSE)
+  }
   make_url(url, handle = NULL, path, query)$url
 }
 
@@ -76,7 +79,9 @@ url_parse <- function(url) {
       lapply(strsplit(tmp$parameter, "&")[[1]], function(x) {
         z <- strsplit(x, split = "=")[[1]]
         as.list(stats::setNames(z[2], z[1]))
-      }), FALSE)
+      }),
+      FALSE
+    )
   }
   return(tmp)
 }

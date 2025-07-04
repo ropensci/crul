@@ -54,6 +54,7 @@ test_that("auth fails well", {
   expect_error(auth(5, 5), "user must be of class character")
   expect_error(auth("adsf", 5), "pwd must be of class character")
   expect_error(
-    auth("asdf", "asdf", 5), "inherits\\(x, \"character\"\\) is not TRUE")
+    auth("asdf", "asdf", 5),
+    "inherits\\(x, \"character\"\\) is not TRUE"
+  )
 })
-

@@ -1,7 +1,8 @@
 # adapted from https://github.com/hadley/httr
 encode <- function(x) {
-  if (inherits(x, "AsIs"))
+  if (inherits(x, "AsIs")) {
     return(x)
+  }
   curl::curl_escape(x)
 }
 
@@ -12,7 +13,9 @@ has_namez <- function(x) {
 # adapted from https://github.com/hadley/httr
 has_name <- function(x) {
   nms <- names(x)
-  if (is.null(nms)) return(rep(FALSE, length(x)))
+  if (is.null(nms)) {
+    return(rep(FALSE, length(x)))
+  }
   !is.na(nms) & nms != ""
 }
 

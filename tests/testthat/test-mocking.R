@@ -65,7 +65,9 @@ test_that("mocking with HttpRequest", {
     file.path(url, "anything"),
     file.path(url, "encoding/utf8")
   )
-  for (u in urls) webmockr::stub_request("get", u)
+  for (u in urls) {
+    webmockr::stub_request("get", u)
+  }
   # webmockr::stub_registry()
 
   make_req <- function(urls) {

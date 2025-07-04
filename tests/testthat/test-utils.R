@@ -45,14 +45,14 @@ test_that("curl_opts_check works", {
   expect_null(curl_opts_check(verbose = TRUE))
   expect_null(curl_opts_check(timeout_ms = 0.001))
   expect_error(
-    curl_opts_check(httppost = 1), "the following curl options are not allowed")
+    curl_opts_check(httppost = 1),
+    "the following curl options are not allowed"
+  )
 })
 
 context("num_format")
 test_that("num_format works", {
   expect_null(num_format(NULL))
-  expect_equal(num_format(c("hello", "goodbye")),
-               c("hello", "goodbye"))
-  expect_equal(num_format(c(11, 0.00005, 200000)),
-               c("11", "0.00005", "200000"))
+  expect_equal(num_format(c("hello", "goodbye")), c("hello", "goodbye"))
+  expect_equal(num_format(c(11, 0.00005, 200000)), c("11", "0.00005", "200000"))
 })

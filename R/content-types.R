@@ -1,7 +1,7 @@
 #' Working with content types
 #'
 #' The [HttpResponse] class holds all the responses elements for an HTTP
-#' request. This document details how to work specifically with the 
+#' request. This document details how to work specifically with the
 #' content-type of the response headers
 #'
 #' @name content-types

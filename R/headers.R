@@ -7,8 +7,7 @@ head_parse <- function(z) {
   if (any(n != 3)) {
     bad <- hl[n != 3]
     xx <- xx[n == 3]
-    warning("Failed to parse headers:\n", paste0(bad, "\n"),
-      call. = FALSE)
+    warning("Failed to parse headers:\n", paste0(bad, "\n"), call. = FALSE)
   }
   names <- tolower(vapply(xx, "[[", 2, FUN.VALUE = character(1)))
   values <- lapply(xx, "[[", 3)

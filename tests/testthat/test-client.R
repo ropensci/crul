@@ -21,7 +21,8 @@ test_that("HttpClient fails well", {
 })
 
 test_that("HttpClient print method", {
-  aa <- HttpClient$new(url = hb(), 
+  aa <- HttpClient$new(
+    url = hb(),
     opts = list(verbose = TRUE),
     headers = list(foo = "bar"),
     auth = auth(user = "foo", pwd = "bar", auth = "basic"),

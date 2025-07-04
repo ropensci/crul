@@ -1,12 +1,20 @@
-nonacccurl <- c("httpget", "httppost", "post", "postfields",
-                "postfieldsize", "customrequest")
+nonacccurl <- c(
+  "httpget",
+  "httppost",
+  "post",
+  "postfields",
+  "postfieldsize",
+  "customrequest"
+)
 
 curl_opts_check <- function(...) {
   x <- list(...)
   if (any(names(x) %in% nonacccurl)) {
     stop(
-      paste0("the following curl options are not allowed:\n  ",
-             paste(nonacccurl, collapse = ", ")),
+      paste0(
+        "the following curl options are not allowed:\n  ",
+        paste(nonacccurl, collapse = ", ")
+      ),
       call. = FALSE
     )
   }
@@ -20,7 +28,7 @@ curl_opts_check <- function(...) {
 #' debugging https and auth problems, so is disabled by default
 #' @param ssl Show even data sent/recieved over SSL connections?
 #' @note adapted from `httr::verbose`
-#' @details 
+#' @details
 #' line prefixes:
 #' - `*` informative curl messages
 #' - `=>` headers sent (out)
@@ -29,9 +37,12 @@ curl_opts_check <- function(...) {
 #' - `<=` headers received (in)
 #' - `<` data received (in)
 #' - `<*` ssl data received (in)
-curl_verbose <- function(data_out = TRUE, data_in = FALSE, info = FALSE,
-  ssl = FALSE) {
-
+curl_verbose <- function(
+  data_out = TRUE,
+  data_in = FALSE,
+  info = FALSE,
+  ssl = FALSE
+) {
   pm <- function(prefix, x, blank_line = FALSE) {
     x <- readBin(x, character())
     lines <- unlist(strsplit(x, "\n", fixed = TRUE, useBytes = TRUE))
@@ -40,10 +51,11 @@ curl_verbose <- function(data_out = TRUE, data_in = FALSE, info = FALSE,
     if (blank_line) cat("\n")
   }
   function(type, msg) {
-    switch(type + 1,
+    switch(
+      type + 1,
       text = if (info) pm("*  ", msg),
       headerIn = pm("<= ", msg),
-      headerOut = pm("=> ", msg), 
+      headerOut = pm("=> ", msg),
       dataIn = if (data_in) pm("<  ", msg, TRUE),
       dataOut = if (data_out) pm("> ", msg, TRUE),
       sslDataIn = if (ssl && data_in) pm("*< ", msg, TRUE),

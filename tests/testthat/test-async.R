@@ -58,9 +58,11 @@ test_that("Async print method", {
 
 test_that("Async curl options work", {
   skip_on_ci() # not sure why, but not working on CI
-  
-  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
-    opts = list(timeout_ms = 100))
+
+  aa <- Async$new(
+    urls = c(hb('/get'), 'https://google.com'),
+    opts = list(timeout_ms = 100)
+  )
   expect_output(aa$print(), "curl options")
   expect_output(aa$print(), "timeout_ms: 100")
 
@@ -68,21 +70,24 @@ test_that("Async curl options work", {
 })
 
 test_that("Async headers work", {
-  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'), 
-    headers = list(foo = "bar"))
+  aa <- Async$new(
+    urls = c(hb('/get'), 'https://google.com'),
+    headers = list(foo = "bar")
+  )
   expect_output(aa$print(), "headers")
   expect_output(aa$print(), "foo: bar")
 
   bb <- aa$get()
-  expect_equal(vapply(bb, function(x) x$request_headers[[1]], ""), 
-    c("bar", "bar"))
+  expect_equal(
+    vapply(bb, function(x) x$request_headers[[1]], ""),
+    c("bar", "bar")
+  )
 })
 
 
 context("Async - get")
 test_that("Async - get", {
-  aa <- Async$new(urls = c(hb('/get'),
-                           'https://google.com'))
+  aa <- Async$new(urls = c(hb('/get'), 'https://google.com'))
   out <- aa$get()
 
   expect_is(out, "asyncresponses")
@@ -95,8 +100,7 @@ test_that("Async - get", {
 
 context("Async - post")
 test_that("Async - post", {
-  aa <- Async$new(urls = c(hb('/post'),
-                           hb('/post')))
+  aa <- Async$new(urls = c(hb('/post'), hb('/post')))
   out <- aa$post()
 
   expect_is(out, "asyncresponses")
@@ -107,8 +111,7 @@ test_that("Async - post", {
 
 context("Async - put")
 test_that("Async - put", {
-  aa <- Async$new(urls = c(hb('/put'),
-                           hb('/put')))
+  aa <- Async$new(urls = c(hb('/put'), hb('/put')))
   out <- aa$put()
 
   expect_is(out, "asyncresponses")
@@ -121,8 +124,7 @@ test_that("Async - put", {
 
 context("Async - patch")
 test_that("Async - patch", {
-  aa <- Async$new(urls = c(hb('/patch'),
-                           hb('/patch')))
+  aa <- Async$new(urls = c(hb('/patch'), hb('/patch')))
   out <- aa$patch()
 
   expect_is(out, "asyncresponses")
@@ -135,8 +137,7 @@ test_that("Async - patch", {
 
 context("Async - delete")
 test_that("Async - delete", {
-  aa <- Async$new(urls = c(hb('/delete'),
-                           hb('/delete')))
+  aa <- Async$new(urls = c(hb('/delete'), hb('/delete')))
   out <- aa$delete()
 
   expect_is(out, "asyncresponses")
@@ -149,8 +150,7 @@ test_that("Async - delete", {
 
 context("Async - head")
 test_that("Async - head", {
-  aa <- Async$new(urls = c('https://google.com',
-                           'https://nytimes.com'))
+  aa <- Async$new(urls = c('https://google.com', 'https://nytimes.com'))
   out <- aa$head()
 
   expect_is(out, "asyncresponses")
@@ -162,8 +162,7 @@ test_that("Async - head", {
 
 context("Async - verb")
 test_that("Async - verb", {
-  aa <- Async$new(urls = c('https://google.com',
-                           'https://nytimes.com'))
+  aa <- Async$new(urls = c('https://google.com', 'https://nytimes.com'))
   out <- aa$verb('get')
 
   expect_is(out, "asyncresponses")
@@ -175,9 +174,13 @@ test_that("Async - verb", {
 
 context("Async - verb")
 test_that("Async - retry", {
-  aa <- Async$new(urls = c("https://nghttp2.org/httpbin/status/404", 
-    "https://nghttp2.org/httpbin/status/429"))
-  out <- aa$retry(verb='get')
+  aa <- Async$new(
+    urls = c(
+      "https://nghttp2.org/httpbin/status/404",
+      "https://nghttp2.org/httpbin/status/429"
+    )
+  )
+  out <- aa$retry(verb = 'get')
 
   expect_is(out, "asyncresponses")
   expect_is(out[[1]], "HttpResponse")
@@ -191,9 +194,7 @@ test_that("Async - retry", {
 
 context("Async - order of results")
 test_that("Async - order", {
-  aa <- Async$new(urls = c(hb('/get?a=5'),
-                           hb('/get?b=6'),
-                           hb('/get?c=7')))
+  aa <- Async$new(urls = c(hb('/get?a=5'), hb('/get?b=6'), hb('/get?c=7')))
   out <- aa$get()
 
   expect_is(out, "asyncresponses")
@@ -304,9 +305,7 @@ test_that("Async - writing to disk works", {
 
 context("Async - stream")
 test_that("Async - streaming to disk works", {
-  bb <- Async$new(urls = c(hb('/get?a=5'),
-                           hb('/get?b=6'),
-                           hb('/get?c=7')))
+  bb <- Async$new(urls = c(hb('/get?a=5'), hb('/get?b=6'), hb('/get?c=7')))
   lst <- c()
   fun <- function(x) lst <<- append(lst, list(x))
   out <- bb$get(stream = fun)
@@ -326,15 +325,14 @@ test_that("Async - streaming to disk works", {
 })
 
 
-
 context("Async - basic auth")
 test_that("Async - with basic auth works", {
   dd <- Async$new(
-    urls = rep(hb('/basic-auth/user/passwd'), 3), 
+    urls = rep(hb('/basic-auth/user/passwd'), 3),
     auth = auth(user = "user", pwd = "passwd")
   )
   out <- dd$get()
-  
+
   expect_is(dd, "Async")
 
   expect_equal(length(out), 3)
@@ -350,12 +348,16 @@ test_that("Async - with basic auth works", {
 
 context("Async - failure behavior w/ bad URLs/etc.")
 test_that("Async - failure behavior", {
-  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  urls <- c(
+    "http://stuffthings.gvb",
+    "https://foo.com",
+    "https://scottchamberlain.info"
+  )
   conn <- Async$new(urls = urls)
   res <- conn$get()
 
   expect_is(res, "asyncresponses")
-  
+
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")
   expect_is(res[[3]], "HttpResponse")
@@ -374,12 +376,16 @@ test_that("Async - failure behavior", {
 context("Async - failure behavior w/ bad URLs/etc. - disk")
 test_that("Async - failure behavior", {
   files <- replicate(3, tempfile())
-  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  urls <- c(
+    "http://stuffthings.gvb",
+    "https://foo.com",
+    "https://scottchamberlain.info"
+  )
   conn <- Async$new(urls = urls)
   res <- conn$get(disk = files)
 
   expect_is(res, "asyncresponses")
-  
+
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")
   expect_is(res[[3]], "HttpResponse")
@@ -409,24 +415,28 @@ test_that("Async - failure behavior", {
   mylist <- c()
   fun <- function(x) mylist <<- append(mylist, list(x))
 
-  urls <- c("http://stuffthings.gvb", "https://foo.com", "https://scottchamberlain.info")
+  urls <- c(
+    "http://stuffthings.gvb",
+    "https://foo.com",
+    "https://scottchamberlain.info"
+  )
   conn <- Async$new(urls = urls)
   res <- conn$get(stream = fun)
 
   expect_is(res, "asyncresponses")
-  
+
   expect_is(res[[1]], "HttpResponse")
   expect_is(res[[2]], "HttpResponse")
   expect_is(res[[3]], "HttpResponse")
 
-  # this doesn't mean anything really since we give a templated repsonse with 
+  # this doesn't mean anything really since we give a templated repsonse with
   # status_code of 0
   expect_equal(res[[1]]$status_code, 0)
   expect_equal(res[[2]]$status_code, 0)
   expect_equal(res[[3]]$status_code, 0)
 
-  # this doesn't mean anything really since we give a templated repsonse with 
-  # status_code of 0 
+  # this doesn't mean anything really since we give a templated repsonse with
+  # status_code of 0
   expect_false(res[[1]]$success())
   expect_false(res[[2]]$success())
   expect_false(res[[3]]$success())

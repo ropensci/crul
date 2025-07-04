@@ -22,6 +22,8 @@
 #' }
 upload <- function(path, type = NULL) {
   stopifnot(is.character(path), length(path) == 1, file.exists(path))
-  if (is.null(type)) type <- mime::guess_type(path)
+  if (is.null(type)) {
+    type <- mime::guess_type(path)
+  }
   curl::form_file(path, type)
 }

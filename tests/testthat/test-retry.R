@@ -43,13 +43,16 @@ test_that("retry wrapping get request - query parameters", {
   expect_true(aa$success())
 
   library(urltools)
-  params <- unlist(lapply(
-    strsplit(urltools::url_parse(aa$request$url$url)$parameter, "&")[[1]],
-    function(x) {
-      tmp <- strsplit(x, "=")[[1]]
-      as.list(stats::setNames(tmp[2], tmp[1]))
-    }
-  ), FALSE)
+  params <- unlist(
+    lapply(
+      strsplit(urltools::url_parse(aa$request$url$url)$parameter, "&")[[1]],
+      function(x) {
+        tmp <- strsplit(x, "=")[[1]]
+        as.list(stats::setNames(tmp[2], tmp[1]))
+      }
+    ),
+    FALSE
+  )
   expect_equal(params, querya)
 })
 
@@ -112,7 +115,6 @@ test_that("retry wrapping post request with file upload", {
   expect_equal(length(out$files), 0)
   expect_is(out$data, "character")
   expect_match(out$data, "bibentry")
-
 
   # binary file: jpeg
   file <- upload(file.path(Sys.getenv("R_DOC_DIR"), "html/logo.jpg"))
@@ -204,12 +206,12 @@ test_that("retry actually retries on error", {
   ## baseline time for comparison
   tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
   ## try again if this took longer than expected
-  if (tt["elapsed"] > 1)
+  if (tt["elapsed"] > 1) {
     tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
+  }
 
   tt1 <- system.time(cli$retry("GET", path = "status/400", times = 2))
   expect_gt(tt1["elapsed"] - tt["elapsed"], 2)
-
 })
 
 test_that("retry recognizes retry headers", {
@@ -220,31 +222,56 @@ test_that("retry recognizes retry headers", {
   cli <- HttpClient$new(url = hb())
 
   stub <- webmockr::stub_request("get", hb("/get"))
-  stub <- webmockr::to_return(stub,
-                              status = 503,
-                              headers = list("retry-after" = 1))
+  stub <- webmockr::to_return(
+    stub,
+    status = 503,
+    headers = list("retry-after" = 1)
+  )
   tt0 <- system.time(cli$retry("GET", path = "get", times = 0))
   expect_lt(tt0["elapsed"], 0.5)
 
-  tt1 <- system.time(cli$retry("GET", path = "get", pause_base = 0, pause_min = 0, times = 2))
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "get",
+    pause_base = 0,
+    pause_min = 0,
+    times = 2
+  ))
   expect_gt(tt1["elapsed"], 2)
   webmockr::stub_registry_clear()
 
   stub <- webmockr::stub_request("get", hb("/get"))
-  stub <- webmockr::to_return(stub,
-                              status = 429,
-                              headers = list("x-ratelimit-remaining" = "0", "retry-after" = "1"))
-  tt1 <- system.time(cli$retry("GET", path = "get", pause_base = 0, pause_min = 0, times = 2))
+  stub <- webmockr::to_return(
+    stub,
+    status = 429,
+    headers = list("x-ratelimit-remaining" = "0", "retry-after" = "1")
+  )
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "get",
+    pause_base = 0,
+    pause_min = 0,
+    times = 2
+  ))
   expect_gt(tt1["elapsed"], 2)
   webmockr::stub_registry_clear()
 
   stub <- webmockr::stub_request("get", hb("/get"))
-  stub <- webmockr::to_return(stub,
-                              status = 429,
-                              headers = list("x-ratelimit-remaining" = "0",
-                                             "x-ratelimit-reset" =
-                                               ceiling(as.numeric(Sys.time())) + 3))
-  tt1 <- system.time(cli$retry("GET", path = "get", pause_base = 0, pause_min = 0, times = 1))
+  stub <- webmockr::to_return(
+    stub,
+    status = 429,
+    headers = list(
+      "x-ratelimit-remaining" = "0",
+      "x-ratelimit-reset" = ceiling(as.numeric(Sys.time())) + 3
+    )
+  )
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "get",
+    pause_base = 0,
+    pause_min = 0,
+    times = 1
+  ))
   expect_gt(tt1["elapsed"], 2.0)
   webmockr::stub_registry_clear()
 
@@ -256,8 +283,9 @@ test_that("retry doesn't retry on error unless triggered", {
   ## baseline time
   tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
   ## try again if this took longer than expected
-  if (tt["elapsed"] > 1)
+  if (tt["elapsed"] > 1) {
     tt <- system.time(cli$retry("GET", path = "status/200", times = 2))
+  }
 
   tt1 <- system.time(cli$retry("GET", path = "status/400", times = 0))
   expect_lt(tt1["elapsed"], 2)
@@ -267,18 +295,29 @@ test_that("retry doesn't retry on error unless triggered", {
   expect_lt(tt1["elapsed"], 2)
   expect_lt(abs(tt1["elapsed"] - tt["elapsed"]), 1)
 
-  tt1 <- system.time(cli$retry("GET", path = "status/400", terminate_on = c(400)))
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "status/400",
+    terminate_on = c(400)
+  ))
   expect_lt(tt1["elapsed"], 2)
   expect_lt(abs(tt1["elapsed"] - tt["elapsed"]), 1)
 
-  tt1 <- system.time(cli$retry("GET", path = "status/404", terminate_on = c(400, 404)))
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "status/404",
+    terminate_on = c(400, 404)
+  ))
   expect_lt(tt1["elapsed"], 2)
   expect_lt(abs(tt1["elapsed"] - tt["elapsed"]), 1)
 
-  tt1 <- system.time(cli$retry("GET", path = "status/404", retry_only_on = c(400)))
+  tt1 <- system.time(cli$retry(
+    "GET",
+    path = "status/404",
+    retry_only_on = c(400)
+  ))
   expect_lt(tt1["elapsed"], 2)
   expect_lt(abs(tt1["elapsed"] - tt["elapsed"]), 1)
-
 })
 
 context("HttpClient retry: using callback")
@@ -286,15 +325,18 @@ test_that("retry invokes callback function if provided", {
   cli <- HttpClient$new(url = hb())
   codes <- c()
   waittimes <- c()
-  tt <- system.time(cli$retry("GET", path = "status/400", times = 2,
-                              onwait = function(resp, secs) {
-                                codes <<- c(codes, resp$status_code)
-                                waittimes <<- c(waittimes, secs)
-                              }))
+  tt <- system.time(cli$retry(
+    "GET",
+    path = "status/400",
+    times = 2,
+    onwait = function(resp, secs) {
+      codes <<- c(codes, resp$status_code)
+      waittimes <<- c(waittimes, secs)
+    }
+  ))
   expect_length(codes, 2)
   expect_length(waittimes, 2)
   expect_identical(codes, c(400, 400))
   expect_true(waittimes[1] >= 1 && waittimes[1] <= 2)
   expect_true(waittimes[2] >= 1 && waittimes[2] <= 4)
 })
-

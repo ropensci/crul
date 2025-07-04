@@ -84,15 +84,20 @@ AsyncQueue <- R6::R6Class(
     #' `req_per_min` we calculate a new `bucket_size` when `$new()` is
     #' called
     #' @return A new `AsyncQueue` object
-    initialize = function(..., .list = list(), bucket_size = 5,
-      sleep = NULL, req_per_min = NULL) {
-
+    initialize = function(
+      ...,
+      .list = list(),
+      bucket_size = 5,
+      sleep = NULL,
+      req_per_min = NULL
+    ) {
       super$initialize(..., .list = .list)
       self$bucket_size <- bucket_size
       self$sleep <- sleep
       self$req_per_min <- req_per_min
-      if (!xor(!is.null(self$sleep), !is.null(self$req_per_min)))
+      if (!xor(!is.null(self$sleep), !is.null(self$req_per_min))) {
         stop("must set either sleep or req_per_min to non-NULL integer")
+      }
       if (!is.null(self$req_per_min)) {
         self$bucket_size <- self$req_per_min
       }
@@ -103,7 +108,9 @@ AsyncQueue <- R6::R6Class(
     #' @return nothing, responses stored inside object, though will print
     #' messages if you choose verbose output
     request = function() {
-      if (!is.null(self$sleep)) private$request_sleep()
+      if (!is.null(self$sleep)) {
+        private$request_sleep()
+      }
       if (!is.null(self$req_per_min)) private$request_rate()
     },
 
@@ -154,19 +161,25 @@ AsyncQueue <- R6::R6Class(
     fill_buckets = function() {
       x <- super$requests()
       if (length(x) > 0) {
-        private$buckets <- split(x, ceiling(seq_along(x)/self$bucket_size))
+        private$buckets <- split(x, ceiling(seq_along(x) / self$bucket_size))
       }
     },
     request_sleep = function() {
       for (i in seq_along(private$buckets)) {
-        super$output <- c(super$output, super$async_request(private$buckets[[i]]))
+        super$output <- c(
+          super$output,
+          super$async_request(private$buckets[[i]])
+        )
         if (i < length(private$buckets)) Sys.sleep(self$sleep)
       }
     },
     request_rate = function() {
       for (i in seq_along(private$buckets)) {
         start <- Sys.time()
-        super$output <- c(super$output, super$async_request(private$buckets[[i]]))
+        super$output <- c(
+          super$output,
+          super$async_request(private$buckets[[i]])
+        )
         if (i < length(private$buckets)) {
           now <- Sys.time()
           diff_time <- now - start
