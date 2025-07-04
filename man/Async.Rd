@@ -80,7 +80,7 @@ urls = c(
  'https://hb.opencpu.org/get?a=5',
  'https://hb.opencpu.org/get?foo=bar'
 )
-cc <- Async$new(urls = urls, 
+cc <- Async$new(urls = urls,
   opts = list(verbose = TRUE),
   headers = list(foo = "bar")
 )
@@ -102,7 +102,7 @@ lapply(res, function(z) z$parse("UTF-8"))
 
 # failure behavior
 ## e.g. when a URL doesn't exist, a timeout, etc.
-urls <- c("http://stuffthings.gvb", "https://foo.com", 
+urls <- c("http://stuffthings.gvb", "https://foo.com",
   "https://hb.opencpu.org/get")
 conn <- Async$new(urls = urls)
 res <- conn$get()

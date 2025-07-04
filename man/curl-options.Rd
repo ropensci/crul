@@ -42,7 +42,7 @@ HttpClient$new(url = url,
   opts = list(verbose = TRUE, useragent = "hello world")
 )$get('get')
 
-# You can also set custom debug function via the verbose 
+# You can also set custom debug function via the verbose
 # parameter when calling `$new()`
 res <- HttpClient$new(url, verbose=curl_verbose())
 res

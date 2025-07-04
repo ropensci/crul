@@ -69,7 +69,7 @@ may not be the one you want.
 \examples{
 \dontrun{
 # 200
-ok("https://www.google.com") 
+ok("https://www.google.com")
 # 200
 ok("https://hb.opencpu.org/status/200")
 # more than one status
@@ -91,12 +91,12 @@ ok("https://doi.org/10.1093/chemse/bjq042")
 ok("https://doi.org/10.1093/chemse/bjq042", verb = "get", useragent = "foobar")
 
 # with random user agent's
-## here, use a request hook to print out just the user agent string so 
+## here, use a request hook to print out just the user agent string so
 ## we can see what user agent string is being sent off
 fun_ua <- function(request) {
   message(paste0("User-agent: ", request$options$useragent), sep = "\n")
 }
-z <- crul::HttpClient$new("https://doi.org/10.1093/chemse/bjq042", 
+z <- crul::HttpClient$new("https://doi.org/10.1093/chemse/bjq042",
  hooks = list(request = fun_ua))
 z
 replicate(5, ok(z, ua_random=TRUE), simplify=FALSE)
@@ -104,7 +104,7 @@ replicate(5, ok(z, ua_random=TRUE), simplify=FALSE)
 ok("https://doi.org/10.1093/chemse/bjq042", useragent="foobar", ua_random=TRUE)
 
 # with HttpClient
-z <- crul::HttpClient$new("https://hb.opencpu.org/status/404", 
+z <- crul::HttpClient$new("https://hb.opencpu.org/status/404",
  opts = list(verbose = TRUE))
 ok(z)
 }

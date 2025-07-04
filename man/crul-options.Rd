@@ -66,7 +66,7 @@ crul_settings()
 \dontrun{
 HttpClient$new('https://hb.opencpu.org')$get('get')
 }
-# set_verbose - sets: `verbose=TRUE`, and `debugfunction` to 
+# set_verbose - sets: `verbose=TRUE`, and `debugfunction` to
 # result of call to `curl_verbose()`, see `?curl_verbose`
 set_verbose()
 crul_settings()

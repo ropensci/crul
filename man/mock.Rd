@@ -50,9 +50,9 @@ if (interactive()) {
    file.path(URL, "anything"),
    file.path(URL, "encoding/utf8")
   )
-  
+
   for (u in urls) {
-    webmockr::stub_request("get", u) \%>\% 
+    webmockr::stub_request("get", u) \%>\%
       webmockr::to_return(body = list(mocked = TRUE))
   }
 
