@@ -1,56 +1,55 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("HttpClient: request hooks")
+
 test_that("hooks: requests", {
   fun_req <- function(request) {
     cat("Requesting: ", request$url$url, sep = "\n")
   }
   x <- HttpClient$new(url = hb(), hooks = list(request = fun_req))
 
-  expect_is(x$hooks, "list")
+  expect_type(x$hooks, "list")
   expect_named(x$hooks, "request")
-  expect_is(x$hooks$request, "function")
+  expect_type(x$hooks$request, "closure")
 
   expect_output(aa <- x$get("get"), "Requesting")
 
   # HttpResponse object is still as normal
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$handle, "curl_handle")
-  expect_is(aa$content, "raw")
-  expect_is(aa$method, "character")
+  expect_s3_class(aa, "HttpResponse")
+  expect_s3_class(aa$handle, "curl_handle")
+  expect_type(aa$content, "raw")
+  expect_type(aa$method, "character")
   expect_equal(aa$method, "get")
-  expect_is(aa$parse, "function")
-  expect_is(aa$parse("UTF-8"), "character")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
 })
 
-context("HttpClient: response hooks")
+
 test_that("hooks: responses", {
   fun_resp <- function(response) {
     cat(paste0("status_code: ", response$status_code), sep = "\n")
   }
   x <- HttpClient$new(url = hb(), hooks = list(response = fun_resp))
 
-  expect_is(x$hooks, "list")
+  expect_type(x$hooks, "list")
   expect_named(x$hooks, "response")
-  expect_is(x$hooks$response, "function")
+  expect_type(x$hooks$response, "closure")
 
   expect_output(aa <- x$get("get"), "status_code")
 
   # HttpResponse object is still as normal
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$handle, "curl_handle")
-  expect_is(aa$content, "raw")
-  expect_is(aa$method, "character")
+  expect_s3_class(aa, "HttpResponse")
+  expect_s3_class(aa$handle, "curl_handle")
+  expect_type(aa$content, "raw")
+  expect_type(aa$method, "character")
   expect_equal(aa$method, "get")
-  expect_is(aa$parse, "function")
-  expect_is(aa$parse("UTF-8"), "character")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$parse("UTF-8"), "character")
   expect_true(aa$success())
 })
 
 
-context("HttpClient: request and response hook")
 test_that("hooks: request and response", {
   fun_req <- function(request) {
     cat("Requesting: ", request$url$url, sep = "\n")
@@ -63,15 +62,15 @@ test_that("hooks: request and response", {
     hooks = list(request = fun_req, response = fun_resp)
   )
 
-  expect_is(x$hooks, "list")
+  expect_type(x$hooks, "list")
   expect_named(x$hooks, c("request", "response"))
-  expect_is(x$hooks$request, "function")
-  expect_is(x$hooks$response, "function")
+  expect_type(x$hooks$request, "closure")
+  expect_type(x$hooks$response, "closure")
 
   expect_output(aa <- x$get("get"), "Requesting")
   expect_output(aa <- x$get("get"), "status_code")
 
-  expect_is(aa, "HttpResponse")
+  expect_s3_class(aa, "HttpResponse")
 })
 
 

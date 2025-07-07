@@ -1,12 +1,12 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("ok: character")
+
 test_that("ok works with character input", {
-  expect_is(ok, "function")
+  expect_type(ok, "closure")
 
   # good
-  expect_true(ok(base_url))
+  expect_true(ok(hb()))
 
   # bad
   expect_message(z <- ok('http://foo.bar'))
@@ -14,7 +14,6 @@ test_that("ok works with character input", {
 })
 
 
-context("ok: HttpClient")
 test_that("ok works with HttpClient input", {
   # good
   z <- crul::HttpClient$new(hb("/status/200"))
@@ -26,7 +25,6 @@ test_that("ok works with HttpClient input", {
 })
 
 
-context("ok: multiple status codes")
 test_that("ok works multiple status codes", {
   z <- crul::HttpClient$new(hb("/status/200"))
   expect_true(ok(z, c(200L, 201L)))
@@ -34,7 +32,6 @@ test_that("ok works multiple status codes", {
 })
 
 
-context("ok: random user agent")
 test_that("ok random user agents", {
   ua_val <- NULL
   fxn <- function(request) {
@@ -45,14 +42,13 @@ test_that("ok random user agents", {
   z <- crul::HttpClient$new(hb(), hooks = list(request = fxn))
   expect_message(ok(z, ua_random = TRUE), 'User-agent:')
   # us string is one of the strings in agents
-  expect_true(ua_val %in% agents)
+  expect_true(ua_val %in% crul:::agents)
   # agents is length 50  and character
-  expect_is(agents, "character")
-  expect_equal(length(agents), 50)
+  expect_type(crul:::agents, "character")
+  expect_equal(length(crul:::agents), 50)
 })
 
 
-context("ok: fails well")
 test_that("ok fails well", {
   expect_error(ok(5), "no 'ok' method for numeric")
   expect_error(ok(mtcars), "no 'ok' method for data.frame")

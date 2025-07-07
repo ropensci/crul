@@ -1,35 +1,34 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
-context("HttpClient: verb")
 
 test_that("verb: works", {
   x <- HttpClient$new(url = hb())
 
-  expect_is(x$verb, "function")
+  expect_type(x$verb, "closure")
   expect_named(formals(x$verb), c("verb", "..."))
 
   aa <- x$verb('get')
 
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$handle, 'curl_handle')
-  expect_is(aa$content, "raw")
-  expect_is(aa$method, "character")
+  expect_s3_class(aa, "HttpResponse")
+  expect_s3_class(aa$handle, 'curl_handle')
+  expect_type(aa$content, "raw")
+  expect_type(aa$method, "character")
   expect_equal(aa$method, "get")
-  expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$parse(), "character")
   expect_true(aa$success())
 })
 
 test_that("verb: works for all supported verbs + retry", {
   x <- HttpClient$new(url = hb())
 
-  expect_is(x$verb('get', path = "get"), "HttpResponse")
-  expect_is(x$verb('post', path = "post"), "HttpResponse")
-  expect_is(x$verb('put', path = "put"), "HttpResponse")
-  expect_is(x$verb('patch', path = "patch"), "HttpResponse")
-  expect_is(x$verb('delete', path = "delete"), "HttpResponse")
-  expect_is(x$verb('head'), "HttpResponse")
-  expect_is(x$verb('retry', 'get', path = "status/400"), "HttpResponse")
+  expect_s3_class(x$verb('get', path = "get"), "HttpResponse")
+  expect_s3_class(x$verb('post', path = "post"), "HttpResponse")
+  expect_s3_class(x$verb('put', path = "put"), "HttpResponse")
+  expect_s3_class(x$verb('patch', path = "patch"), "HttpResponse")
+  expect_s3_class(x$verb('delete', path = "delete"), "HttpResponse")
+  expect_s3_class(x$verb('head'), "HttpResponse")
+  expect_s3_class(x$verb('retry', 'get', path = "status/400"), "HttpResponse")
 })
 
 test_that("verb: fails well", {
@@ -52,7 +51,7 @@ test_that("verb: with auth works", {
   cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
   aa <- cli$verb("get", "/basic-auth/foo/bar")
 
-  expect_is(aa, "HttpResponse")
+  expect_s3_class(aa, "HttpResponse")
   expect_equal(aa$method, "get")
   expect_true(aa$success())
   expect_equal(aa$status_code, 200)

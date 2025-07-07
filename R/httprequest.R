@@ -14,6 +14,7 @@
 #' @param stream an R function to determine how to stream data. if
 #' NULL (default), memory used. See [curl::curl_fetch_stream()]
 #' for help
+#' @param mock a mocking function. could be `NULL` too
 #' @param ... curl options, only those in the acceptable set from
 #' [curl::curl_options()] except the following: httpget, httppost, post,
 #' postfields, postfieldsize, and customrequest
@@ -31,7 +32,7 @@
 #'
 #' See [HttpClient()] for information on parameters.
 #'
-#' @examples \dontrun{
+#' @examples
 #' x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 #' ## note here how the HTTP method is shown on the first line to the right
 #' x$get()
@@ -58,7 +59,14 @@
 #' # retry
 #' (x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 #' x$retry("post", body = list(foo = "bar"))
+#'
+#' # mock
+#' x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
+#' fun <- function() {
+#'   HttpResponse$new(method = "GET", url = "http://google.com",
+#'     status_code = 200L)
 #' }
+#' x$get(mock = fun)
 HttpRequest <- R6::R6Class(
   'HttpRequest',
   public = list(
@@ -122,6 +130,13 @@ HttpRequest <- R6::R6Class(
         )
       }
       cat(paste0("  progress: ", !is.null(self$progress)), sep = "\n")
+      cat(
+        paste0(
+          "  mock: ",
+          ifelse(!is.null(self$payload$mock), "<function>", "")
+        ),
+        sep = "\n"
+      )
       invisible(self)
     },
 
@@ -194,6 +209,7 @@ HttpRequest <- R6::R6Class(
       query = list(),
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -211,6 +227,7 @@ HttpRequest <- R6::R6Class(
       )
       rr$disk <- disk
       rr$stream <- stream
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },
@@ -223,6 +240,7 @@ HttpRequest <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -231,6 +249,7 @@ HttpRequest <- R6::R6Class(
       rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },
@@ -243,6 +262,7 @@ HttpRequest <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -251,6 +271,7 @@ HttpRequest <- R6::R6Class(
       rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },
@@ -263,6 +284,7 @@ HttpRequest <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -271,6 +293,7 @@ HttpRequest <- R6::R6Class(
       rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },
@@ -283,6 +306,7 @@ HttpRequest <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -291,12 +315,13 @@ HttpRequest <- R6::R6Class(
       rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },
 
     #' @description Define a HEAD request
-    head = function(path = NULL, ...) {
+    head = function(path = NULL, mock = getOption("crul_mock", NULL), ...) {
       curl_opts_check(...)
       url <- make_url_async(self$url, self$handle, path, NULL)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
@@ -310,6 +335,7 @@ HttpRequest <- R6::R6Class(
         rr$options,
         c(self$opts, self$proxies, ...)
       )
+      rr$mock <- mock
       self$payload <- rr
       return(self)
     },

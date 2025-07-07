@@ -130,7 +130,7 @@ HttpResponse <- R6::R6Class(
       if (!is.null(params)) {
         cat("  params: ", sep = "\n")
         for (i in seq_along(params)) {
-          cat(paste0("    ", sub("=", ": ", params[[i]], "=")), sep = "\n")
+          cat(paste0("    ", sub("=", ": ", params[[i]])), sep = "\n")
         }
       }
       if (!is.null(self$status_code)) {

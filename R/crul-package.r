@@ -75,5 +75,6 @@
 #' multi_run new_handle new_pool parse_headers
 #' @importFrom R6 R6Class
 #' @importFrom httpcode http_code
+#' @import rlang
 ## usethis namespace: end
 NULL

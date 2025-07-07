@@ -1,7 +1,6 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("proxies")
 
 test_that("proxy without http requests works", {
   aa <- proxy("http://97.77.104.22:3128")
@@ -10,33 +9,33 @@ test_that("proxy without http requests works", {
   dd <- proxy("http://97.77.104.22:3128", "foo", "bar", auth = "digest")
   ee <- proxy("http://97.77.104.22:3128", "foo", "bar", auth = "ntlm")
 
-  expect_is(aa, "proxy")
-  expect_is(unclass(aa), "list")
-  expect_is(aa$proxy, "character")
+  expect_s3_class(aa, "proxy")
+  expect_type(unclass(aa), "list")
+  expect_type(aa$proxy, "character")
   expect_type(aa$proxyport, "double")
   expect_type(aa$proxyauth, "double")
 
-  expect_is(bb, "proxy")
-  expect_is(unclass(bb), "list")
-  expect_is(bb$proxy, "character")
+  expect_s3_class(bb, "proxy")
+  expect_type(unclass(bb), "list")
+  expect_type(bb$proxy, "character")
   expect_type(bb$proxyport, "double")
   expect_type(bb$proxyauth, "double")
 
-  expect_is(cc, "proxy")
-  expect_is(unclass(cc), "list")
-  expect_is(cc$proxy, "character")
+  expect_s3_class(cc, "proxy")
+  expect_type(unclass(cc), "list")
+  expect_type(cc$proxy, "character")
   expect_type(cc$proxyport, "double")
   expect_type(cc$proxyauth, "double")
 
-  expect_is(dd, "proxy")
-  expect_is(unclass(dd), "list")
-  expect_is(dd$proxy, "character")
+  expect_s3_class(dd, "proxy")
+  expect_type(unclass(dd), "list")
+  expect_type(dd$proxy, "character")
   expect_type(dd$proxyport, "double")
   expect_type(dd$proxyauth, "double")
 
-  expect_is(ee, "proxy")
-  expect_is(unclass(ee), "list")
-  expect_is(ee$proxy, "character")
+  expect_s3_class(ee, "proxy")
+  expect_type(unclass(ee), "list")
+  expect_type(ee$proxy, "character")
   expect_type(ee$proxyport, "double")
   expect_type(ee$proxyauth, "double")
 })
@@ -47,8 +46,8 @@ test_that("proxy - using in HttpClient", {
     proxies = proxy("http://97.77.104.22:3128")
   )
 
-  expect_is(aa, "HttpClient")
-  expect_is(aa$proxies, "proxy")
+  expect_s3_class(aa, "HttpClient")
+  expect_s3_class(aa$proxies, "proxy")
 })
 
 test_that("proxy fails well", {

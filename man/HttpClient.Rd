@@ -262,7 +262,14 @@ A new \code{HttpClient} object
 \subsection{Method \code{get()}}{
 Make a GET request
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HttpClient$get(path = NULL, query = list(), disk = NULL, stream = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HttpClient$get(
+  path = NULL,
+  query = list(),
+  disk = NULL,
+  stream = NULL,
+  mock = getOption("crul_mock", NULL),
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -280,6 +287,8 @@ See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 \item{\code{stream}}{an R function to determine how to stream data. if
 NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -303,6 +312,7 @@ Make a POST request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -326,6 +336,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -349,6 +361,7 @@ Make a PUT request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -372,6 +385,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -395,6 +410,7 @@ Make a PATCH request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -418,6 +434,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
@@ -441,6 +459,7 @@ Make a DELETE request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -465,6 +484,8 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,
 curl options, only those in the acceptable set from \code{\link[curl:curl_options]{curl::curl_options()}}
@@ -480,7 +501,12 @@ and customrequest}
 \subsection{Method \code{head()}}{
 Make a HEAD request
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HttpClient$head(path = NULL, query = list(), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HttpClient$head(
+  path = NULL,
+  query = list(),
+  mock = getOption("crul_mock", NULL),
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -491,6 +517,8 @@ Make a HEAD request
 \item{\code{query}}{query terms, as a named list. any numeric values are
 passed through \code{\link[=format]{format()}} to prevent larger numbers from being
 scientifically formatted}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{For \code{retry}, the options to be passed on to the method
 implementing the requested verb, including curl options. Otherwise,

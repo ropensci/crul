@@ -1,24 +1,24 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
-context("HttpClient: get")
+
 
 test_that("get request works", {
   cli <- HttpClient$new(url = hb())
   aa <- cli$get("get")
 
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$handle, 'curl_handle')
-  expect_is(aa$content, "raw")
-  expect_is(aa$method, "character")
+  expect_s3_class(aa, "HttpResponse")
+  expect_s3_class(aa$handle, 'curl_handle')
+  expect_type(aa$content, "raw")
+  expect_type(aa$method, "character")
   expect_equal(aa$method, "get")
-  expect_is(aa$parse, "function")
-  expect_is(suppressMessages(aa$parse()), "character")
+  expect_type(aa$parse, "closure")
+  expect_type(suppressMessages(aa$parse()), "character")
   expect_true(aa$success())
 
   # headers
-  expect_is(aa$response_headers, "list")
+  expect_type(aa$response_headers, "list")
   expect_named(aa$response_headers)
-  expect_is(aa$response_headers_all, "list")
+  expect_type(aa$response_headers_all, "list")
   expect_named(aa$response_headers_all, NULL)
   ## identical when no intermediate headers
   expect_identical(aa$response_headers, aa$response_headers_all[[1]])
@@ -29,12 +29,12 @@ test_that("get request - query parameters", {
   querya <- list(a = "Asdfadsf", hello = "world")
   aa <- cli$get("get", query = querya)
 
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$content, "raw")
-  expect_is(aa$method, "character")
+  expect_s3_class(aa, "HttpResponse")
+  expect_type(aa$content, "raw")
+  expect_type(aa$method, "character")
   expect_equal(aa$method, "get")
-  expect_is(aa$parse, "function")
-  expect_is(aa$parse(), "character")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$parse(), "character")
   expect_true(aa$success())
 
   library(urltools)
@@ -55,7 +55,7 @@ test_that("with auth works", {
   cli <- HttpClient$new(url = hb(), auth = auth("foo", "bar"))
   aa <- cli$get("/basic-auth/foo/bar")
 
-  expect_is(aa, "HttpResponse")
+  expect_s3_class(aa, "HttpResponse")
   expect_equal(aa$method, "get")
   expect_true(aa$success())
   expect_equal(aa$status_code, 200)

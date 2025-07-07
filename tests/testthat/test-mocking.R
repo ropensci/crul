@@ -1,28 +1,34 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("mocking: mock function")
+
 test_that("crul_opts env", {
-  expect_is(crul_opts, "environment")
+  expect_type(crul_opts, "environment")
   expect_false(crul_opts$mock)
 })
 
 test_that("mock function", {
-  expect_is(mock, "function")
+  expect_type(mock, "closure")
   expect_true(mock())
   expect_true(crul_opts$mock)
   expect_false(mock(FALSE))
   expect_false(crul_opts$mock)
 })
 
-context("mocking: HttpRequest with AsyncVaried")
+
 test_that("mocking with HttpRequest", {
   skip_if_not_installed("webmockr")
 
-  loadNamespace("webmockr")
+  library(webmockr)
+  withr::defer({
+    if ("webmockr" %in% loadedNamespaces()) {
+      try(disable(quiet = TRUE), silent = TRUE)
+      try(stub_registry_clear(), silent = TRUE)
+      unloadNamespace("webmockr")
+    }
+  })
   url <- hb()
-  st <- webmockr::stub_request("get", file.path(url, "get"))
-  #webmockr:::webmockr_stub_registry
+  st <- stub_request("get", file.path(url, "get"))
 
   make_req <- function(url) {
     req <- HttpRequest$new(url = url)
@@ -32,33 +38,40 @@ test_that("mocking with HttpRequest", {
     return(unclass(res$responses())[[1]])
   }
 
-  mock(FALSE)
+  # mock(FALSE)
   # webmockr IS NOT enabled
   aa <- make_req(url)
 
   # webmockr IS enabled
-  mock()
+  enable(quiet = TRUE)
+  withr::defer(disable(quiet = TRUE))
   bb <- make_req(url)
 
   # content and times differ btw the two
   expect_s3_class(aa, "HttpResponse")
   expect_s3_class(bb, "HttpResponse")
 
-  expect_is(aa$content, "raw")
+  expect_type(aa$content, "raw")
   expect_equal(length(bb$content), 0)
 
-  expect_is(aa$times, "numeric")
+  expect_type(aa$times, "double")
   expect_null(bb$times)
 
   # clean up
-  webmockr::stub_registry_clear()
+  stub_registry_clear()
 })
 
-context("mocking: HttpRequest with Async")
-test_that("mocking with HttpRequest", {
+test_that("mocking with HttpRequest & webmockr", {
   skip_if_not_installed("webmockr")
 
-  loadNamespace("webmockr")
+  library(webmockr)
+  withr::defer({
+    if ("webmockr" %in% loadedNamespaces()) {
+      try(disable(quiet = TRUE), silent = TRUE)
+      try(stub_registry_clear(), silent = TRUE)
+      unloadNamespace("webmockr")
+    }
+  })
   url <- hb()
   urls <- c(
     file.path(url, "get"),
@@ -66,9 +79,8 @@ test_that("mocking with HttpRequest", {
     file.path(url, "encoding/utf8")
   )
   for (u in urls) {
-    webmockr::stub_request("get", u)
+    stub_request("get", u)
   }
-  # webmockr::stub_registry()
 
   make_req <- function(urls) {
     cc <- Async$new(urls = urls)
@@ -80,7 +92,8 @@ test_that("mocking with HttpRequest", {
   not_mocked <- make_req(urls)
 
   # webmockr IS enabled
-  mock()
+  enable(quiet = TRUE)
+  withr::defer(disable(quiet = TRUE))
   mocked <- make_req(urls)
 
   expect_s3_class(not_mocked[[1]], "HttpResponse")
@@ -89,56 +102,103 @@ test_that("mocking with HttpRequest", {
   expect_s3_class(not_mocked[[1]]$status_http(), "http_code")
   expect_s3_class(mocked[[1]]$status_http(), "http_code")
 
-  expect_is(not_mocked[[1]]$content, "raw")
+  expect_type(not_mocked[[1]]$content, "raw")
   expect_equal(length(mocked[[1]]$content), 0)
 
-  expect_is(not_mocked[[1]]$times, "numeric")
+  expect_type(not_mocked[[1]]$times, "double")
   expect_null(mocked[[1]]$times)
 
   # clean up
-  webmockr::stub_registry_clear()
+  stub_registry_clear()
 })
 
-context("mocking: HttpClient")
-test_that("mocking with HttpClient", {
+test_that("mocking with HttpRequest w/o webmockr", {
+  url <- hb()
+  urls <- c(
+    file.path(url, "get"),
+    file.path(url, "anything"),
+    file.path(url, "encoding/utf8")
+  )
+
+  make_req <- function(urls) {
+    cc <- Async$new(urls = urls)
+    cc$get(mock = \(req) {
+      HttpResponse$new(
+        method = "get",
+        url = "https://hb.opencpu.org",
+        content = charToRaw("hello world"),
+        status_code = 200L
+      )
+    })
+  }
+
+  mocked <- make_req(urls)
+
+  expect_s3_class(mocked[[1]], "HttpResponse")
+  expect_s3_class(mocked[[1]]$status_http(), "http_code")
+  expect_equal(mocked[[1]]$parse("UTF-8"), "hello world")
+  expect_null(mocked[[1]]$times)
+})
+
+test_that("mocking with HttpClient w/o webmockr", {
+  cli_no_mock <- HttpClient$new(url = hb())
+  cli_no_mock_res <- cli_no_mock$get("get")
+
+  cli_mocked <- HttpClient$new(url = hb())
+  cli_mocked_res <- cli_mocked$get("get", mock = \(req) 200L)
+
+  # content and times differ btw the two
+  expect_s3_class(cli_no_mock_res, "HttpResponse")
+  expect_type(cli_mocked_res, "integer")
+
+  expect_type(cli_no_mock_res$content, "raw")
+  expect_equal(cli_mocked_res, 200L)
+
+  expect_type(cli_no_mock_res$times, "double")
+})
+
+test_that("mocking with HttpClient and webmockr", {
   skip_if_not_installed("webmockr")
 
-  loadNamespace("webmockr")
+  library(webmockr)
+  withr::defer({
+    if ("webmockr" %in% loadedNamespaces()) {
+      try(disable(quiet = TRUE), silent = TRUE)
+      try(stub_registry_clear(), silent = TRUE)
+      unloadNamespace("webmockr")
+    }
+  })
+  enable(quiet = TRUE)
   url <- hb()
-  st <- webmockr::stub_request("get", file.path(url, "get"))
-  #webmockr:::webmockr_stub_registry
+  st <- stub_request("get", file.path(url, "get"))
 
-  mock(FALSE)
-  # webmockr IS NOT enabled
   cli <- HttpClient$new(url = url)
   aa <- cli$get("get")
 
-  # webmockr IS enabled
-  mock()
-  bb <- cli$get("get")
-
   # content and times differ btw the two
-  expect_is(aa, "HttpResponse")
-  expect_is(bb, "HttpResponse")
-
-  expect_is(aa$content, "raw")
-  expect_equal(length(bb$content), 0)
-
-  expect_is(aa$times, "numeric")
-  expect_null(bb$times)
+  expect_s3_class(aa, "HttpResponse")
+  expect_type(aa$content, "raw")
+  expect_null(aa$times)
 
   # clean up
-  webmockr::stub_registry_clear()
+  stub_registry_clear()
 })
 
-context("mocking: HttpClient when not stubbed yet")
-test_that("mocking with HttpClient: ", {
+
+test_that("mocking with HttpClient fails well", {
   skip_if_not_installed("webmockr")
 
-  loadNamespace("webmockr")
+  library(webmockr)
+  withr::defer({
+    if ("webmockr" %in% loadedNamespaces()) {
+      try(disable(quiet = TRUE), silent = TRUE)
+      try(stub_registry_clear(), silent = TRUE)
+      unloadNamespace("webmockr")
+    }
+  })
+  enable(quiet = TRUE)
   url <- hb()
-  st <- webmockr::stub_request("get", file.path(url, "get"))
-  #webmockr:::webmockr_stub_registry
+  st <- stub_request("get", file.path(url, "get"))
 
   # webmockr IS NOT enabled
   cli <- HttpClient$new(url = url)
@@ -156,8 +216,8 @@ test_that("mocking with HttpClient: ", {
   )
 
   # clean up
-  webmockr::stub_registry_clear()
+  stub_registry_clear()
 })
 
 # turn mocking off
-mock(FALSE)
+# mock(FALSE)

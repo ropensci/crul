@@ -55,3 +55,11 @@ mock <- function(on = TRUE) {
   check_for_package("webmockr")
   crul_opts$mock <- on
 }
+
+as_mock_fun <- function(mock, error_call = caller_env()) {
+  if (is.null(mock) || is.function(mock)) {
+    mock
+  } else {
+    abort("mock must be NULL or a function")
+  }
+}
