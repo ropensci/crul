@@ -1,16 +1,16 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("headers: default headers")
+
 test_that("headers work - just default headers", {
   cli <- HttpClient$new(url = hb())
   aa <- cli$get('get')
 
-  expect_is(aa, "HttpResponse")
+  expect_s3_class(aa, "HttpResponse")
   expect_named(aa$request_headers, c('User-Agent', 'Accept-Encoding', 'Accept'))
 })
 
-context("headers: user defined headers")
+
 test_that("headers work - user headers passed", {
   cli <- HttpClient$new(
     url = hb(),
@@ -18,7 +18,7 @@ test_that("headers work - user headers passed", {
   )
   bb <- cli$get('get')
 
-  expect_is(bb, "HttpResponse")
+  expect_s3_class(bb, "HttpResponse")
   expect_named(
     bb$request_headers,
     c('User-Agent', 'Accept-Encoding', 'Accept', 'hello')
@@ -28,21 +28,21 @@ test_that("headers work - user headers passed", {
   )
 })
 
-context("headers: all response headers")
+
 test_that("headers - all response headers, WITH redirect", {
   x <- HttpClient$new("https://doi.org/10.1007/978-3-642-40455-9_52-1")
   bb <- x$get()
 
   # response headers are the final set of headers and are named
-  expect_is(bb, "HttpResponse")
-  expect_is(bb$response_headers, "list")
+  expect_s3_class(bb, "HttpResponse")
+  expect_type(bb$response_headers, "list")
   expect_named(bb$response_headers)
 
   # response headers all are all headers and are not named
-  expect_is(bb$response_headers_all, "list")
+  expect_type(bb$response_headers_all, "list")
   expect_named(bb$response_headers_all, NULL)
   # individual header sets are named
-  expect_is(bb$response_headers_all[[1]], "list")
+  expect_type(bb$response_headers_all[[1]], "list")
   expect_named(bb$response_headers_all[[1]])
   # response_headers == the last response_headers_all list
   expect_identical(
@@ -60,15 +60,15 @@ test_that("headers - all response headers, WITHOUT redirect", {
   bb <- x$get()
 
   # response headers are the final set of headers and are named
-  expect_is(bb, "HttpResponse")
-  expect_is(bb$response_headers, "list")
+  expect_s3_class(bb, "HttpResponse")
+  expect_type(bb$response_headers, "list")
   expect_named(bb$response_headers)
 
   # response headers all are all headers and are not named
-  expect_is(bb$response_headers_all, "list")
+  expect_type(bb$response_headers_all, "list")
   expect_named(bb$response_headers_all, NULL)
   # individual header sets are named
-  expect_is(bb$response_headers_all[[1]], "list")
+  expect_type(bb$response_headers_all[[1]], "list")
   expect_named(bb$response_headers_all[[1]])
   # response_headers == the last response_headers_all list
   expect_identical(
@@ -83,7 +83,7 @@ test_that("headers - all response headers, WITHOUT redirect", {
   expect_equal(length(bb$response_headers_all), 1)
 })
 
-context("headers: non-UTF-8 headers")
+
 test_that("headers - non-UTF-8 headers from Crossref ('link' header)", {
   x <- HttpClient$new(
     url = 'https://doi.org/10.1126/science.aax9044',
@@ -93,7 +93,7 @@ test_that("headers - non-UTF-8 headers from Crossref ('link' header)", {
   bb <- x$get()
 
   # response headers are the final set of headers and are named
-  expect_is(bb, "HttpResponse")
-  expect_is(bb$response_headers, "list")
+  expect_s3_class(bb, "HttpResponse")
+  expect_type(bb$response_headers, "list")
   expect_named(bb$response_headers)
 })

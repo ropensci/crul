@@ -10,7 +10,7 @@
 #' @return An object of class `AsyncVaried` with variables and methods.
 #' [HttpResponse] objects are returned in the order they are passed in.
 #' We print the first 10.
-#' @examples \dontrun{
+#' @examplesIf interactive()
 #' # pass in requests via ...
 #' req1 <- HttpRequest$new(
 #'   url = "https://hb.opencpu.org/get",
@@ -131,10 +131,30 @@
 #' tmp
 #' tmp$request()
 #' tmp$responses()[[3]]
+#'
+#' # mock
+#' url <- "https://hb.opencpu.org/get"
+#' mock_fun <- function(status) {
+#'   function(req) {
+#'     HttpResponse$new(method = "GET", url = "http://google.com",
+#'       status_code = status)
+#'   }
 #' }
+#' reqlist <- list(
+#'   HttpRequest$new(url = url)$get(mock = mock_fun(status=418L)),
+#'   HttpRequest$new(url = url)$get(mock = mock_fun(status=201)),
+#'   HttpRequest$new(url = url)$get(mock = mock_fun(status=501L))
+#' )
+#' tmp <- AsyncVaried$new(.list = reqlist)
+#' tmp
+#' tmp$request()
+#' tmp$status()
 AsyncVaried <- R6::R6Class(
   "AsyncVaried",
   public = list(
+    #' @field mock a mocking function. could be `NULL` too
+    mock = NULL,
+
     #' @description print method for AsyncVaried objects
     #' @param x self
     #' @param ... ignored
@@ -170,7 +190,11 @@ AsyncVaried <- R6::R6Class(
     #' @param ...,.list Any number of objects of class [HttpRequest()],
     #' must supply inputs to one of these parameters, but not both
     #' @return A new `AsyncVaried` object
-    initialize = function(..., .list = list()) {
+    initialize = function(
+      ...,
+      .list = list(),
+      mock = getOption("crul_mock", NULL)
+    ) {
       if (length(.list)) {
         private$reqs <- .list
       } else {
@@ -183,6 +207,9 @@ AsyncVaried <- R6::R6Class(
         any(vapply(private$reqs, function(x) class(x)[1], "") != "HttpRequest")
       ) {
         stop("all inputs must be of class 'HttpRequest'", call. = FALSE)
+      }
+      if (!is.null(mock)) {
+        self$mock <- mock
       }
     },
 
@@ -329,10 +356,9 @@ AsyncVaried <- R6::R6Class(
         if ("retry_options" %in% names(request)) {
           do.call(retry, c(list(i = i, handle = handle), request$retry_options))
         } else if (is.null(request$disk) && is.null(request$stream)) {
-          if (crul_opts$mock) {
-            check_for_package("webmockr")
-            adap <- webmockr::CrulAdapter$new()
-            multi_res[[i]] <<- adap$handle_request(request)
+          mock_fun <- as_mock_fun(request$mock, error_call)
+          if (!is.null(mock_fun)) {
+            multi_res[[i]] <<- mock_fun(request)
           } else {
             curl::multi_add(
               handle = handle,
@@ -381,7 +407,7 @@ AsyncVaried <- R6::R6Class(
         make_request(i)
       }
 
-      if (crul_opts$mock) {
+      if (!is.null(as_mock_fun(self$mock, error_call))) {
         return(multi_res)
       }
 

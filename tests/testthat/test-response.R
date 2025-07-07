@@ -1,9 +1,8 @@
 skip_if_offline(url_parse(hb())$domain)
 
-context("HttpResponse")
 
 test_that("HttpResponse works", {
-  expect_is(HttpResponse, "R6ClassGenerator")
+  expect_s3_class(HttpResponse, "R6ClassGenerator")
 
   aa <- HttpResponse$new(
     method = "get",
@@ -14,24 +13,24 @@ test_that("HttpResponse works", {
     request = list()
   )
 
-  expect_is(aa, "HttpResponse")
+  expect_s3_class(aa, "HttpResponse")
   expect_null(aa$handle)
   expect_null(aa$opts)
-  expect_is(aa$url, "character")
-  expect_is(aa$method, "character")
-  expect_is(aa$content, "raw")
+  expect_type(aa$url, "character")
+  expect_type(aa$method, "character")
+  expect_type(aa$content, "raw")
   expect_null(aa$modified)
-  expect_is(aa$parse, "function")
-  expect_is(aa$raise_for_status, "function")
-  expect_is(aa$request_headers, "list")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$raise_for_status, "closure")
+  expect_type(aa$request_headers, "list")
   expect_null(aa$response_headers)
   expect_null(aa$response_headers_all)
   expect_equal(aa$status_code, 201)
-  expect_is(aa$status_http, "function")
-  expect_is(aa$success, "function")
+  expect_type(aa$status_http, "closure")
+  expect_type(aa$success, "closure")
   expect_true(aa$success())
   expect_null(aa$times)
-  expect_is(aa$request, "list")
+  expect_type(aa$request, "list")
 
   aa <- HttpResponse$new(
     method = "get",
@@ -62,8 +61,8 @@ test_that("HttpResponse print method", {
     request = list()
   )
 
-  expect_is(aa, "HttpResponse")
-  expect_is(aa$print, "function")
+  expect_s3_class(aa, "HttpResponse")
+  expect_type(aa$print, "closure")
   expect_output(aa$print(), "crul response")
   expect_output(aa$print(), "url:")
   expect_output(aa$print(), "request_headers:")
@@ -93,7 +92,7 @@ test_that("parse method", {
   expect_named(formals(aa$parse), c("encoding", "..."))
 
   # can pass parameters to iconv
-  expect_is(suppressMessages(aa$parse(sub = "")), "character")
+  expect_type(suppressMessages(aa$parse(sub = "")), "character")
   expect_true(nzchar(suppressMessages(aa$parse(sub = ""))))
 
   # sub parameter works
@@ -102,7 +101,7 @@ test_that("parse method", {
 
   # toRaw parameter works
   expect_null(suppressMessages(aa$parse(toRaw = TRUE)[[1]]))
-  expect_is(suppressMessages(aa$parse(sub = "", toRaw = TRUE)[[1]]), "raw")
+  expect_type(suppressMessages(aa$parse(sub = "", toRaw = TRUE)[[1]]), "raw")
 })
 
 test_that("parse works when file on disk is binary", {
@@ -136,13 +135,13 @@ test_that("parse works when file on disk is binary", {
   )
 
   # data is in the file
-  expect_is(aa$content, "character")
+  expect_type(aa$content, "character")
   expect_equal(aa$content, f)
-  expect_is(readLines(aa$content, n = 1, warn = FALSE), "character")
+  expect_type(readLines(aa$content, n = 1, warn = FALSE), "character")
 
   # parse works on the binary content
   parsed <- aa$parse()
-  expect_is(parsed, "raw")
+  expect_type(parsed, "raw")
   # binfile <- tempfile()
   # writeBin(parsed, con = file(binfile, open = "wb"))
   # on.exit(close(binfile))
@@ -154,7 +153,7 @@ test_that("internal fxn: parse_params", {
   url <- sprintf("%s/get?a=5&foo=bar", hb())
   x <- parse_params(url)
 
-  expect_is(x, "character")
+  expect_type(x, "character")
   expect_equal(length(x), 2)
 
   expect_null(parse_params(5))
@@ -164,7 +163,7 @@ test_that("internal fxn: parse_params", {
 test_that("internal fxn: check_encoding", {
   x <- check_encoding("UTF-8")
 
-  expect_is(x, "character")
+  expect_type(x, "character")
   expect_equal(length(x), 1)
 
   # throws message about invalid encoding

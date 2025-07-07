@@ -1,7 +1,6 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-context("Paginator")
 
 cli <- HttpClient$new(url = "http://api.crossref.org")
 aa <- Paginator$new(
@@ -14,7 +13,7 @@ aa <- Paginator$new(
 )
 
 test_that("Paginator print method", {
-  expect_is(aa$print, "function")
+  expect_type(aa$print, "closure")
   expect_output(aa$print(), "api.crossref.org")
   expect_output(aa$print(), "limit_offset")
   expect_output(aa$print(), "chunk: 10")
@@ -25,14 +24,14 @@ test_that("Paginator print method", {
 })
 
 test_that("Paginator works", {
-  expect_is(cli, "HttpClient")
-  expect_is(Paginator, "R6ClassGenerator")
+  expect_s3_class(cli, "HttpClient")
+  expect_s3_class(Paginator, "R6ClassGenerator")
 
-  expect_is(aa, "Paginator")
-  expect_is(aa$.__enclos_env__$private$page, "function")
-  expect_is(aa$parse, "function")
-  expect_is(aa$content, "function")
-  expect_is(aa$responses, "function")
+  expect_s3_class(aa, "Paginator")
+  expect_type(aa$.__enclos_env__$private$page, "closure")
+  expect_type(aa$parse, "closure")
+  expect_type(aa$content, "closure")
+  expect_type(aa$responses, "closure")
 
   # before requests
   expect_equal(length(aa$content()), 0)

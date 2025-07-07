@@ -15,6 +15,7 @@
 #' @param stream an R function to determine how to stream data. if
 #' NULL (default), memory used. See [curl::curl_fetch_stream()]
 #' for help
+#' @param mock a mocking function. could be `NULL` too
 #' @param ... For `retry`, the options to be passed on to the method
 #' implementing the requested verb, including curl options. Otherwise,
 #' curl options, only those in the acceptable set from [curl::curl_options()]
@@ -291,6 +292,7 @@ HttpClient <- R6::R6Class(
       query = list(),
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -315,7 +317,7 @@ HttpClient <- R6::R6Class(
       rr$options <- curl_opts_fil(rr$options)
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Make a POST request
@@ -326,6 +328,7 @@ HttpClient <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -334,7 +337,7 @@ HttpClient <- R6::R6Class(
       rr <- prep_opts("post", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Make a PUT request
@@ -345,6 +348,7 @@ HttpClient <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -353,7 +357,7 @@ HttpClient <- R6::R6Class(
       rr <- prep_opts("put", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Make a PATCH request
@@ -364,6 +368,7 @@ HttpClient <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -372,7 +377,7 @@ HttpClient <- R6::R6Class(
       rr <- prep_opts("patch", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Make a DELETE request
@@ -383,6 +388,7 @@ HttpClient <- R6::R6Class(
       disk = NULL,
       stream = NULL,
       encode = "multipart",
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       curl_opts_check(...)
@@ -391,11 +397,16 @@ HttpClient <- R6::R6Class(
       rr <- prep_opts("delete", url, self, opts, ...)
       rr$disk <- disk
       rr$stream <- stream
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Make a HEAD request
-    head = function(path = NULL, query = list(), ...) {
+    head = function(
+      path = NULL,
+      query = list(),
+      mock = getOption("crul_mock", NULL),
+      ...
+    ) {
       curl_opts_check(...)
       url <- private$make_url(self$url, self$handle, path, query)
       opts <- list(customrequest = "HEAD", nobody = TRUE)
@@ -416,7 +427,7 @@ HttpClient <- R6::R6Class(
         c(self$opts, self$proxies, self$auth, ...)
       )
       rr$options <- curl_opts_fil(rr$options)
-      private$make_request(rr)
+      private$make_request(rr, mock)
     },
 
     #' @description Use an arbitrary HTTP verb supported on this class
@@ -602,7 +613,7 @@ HttpClient <- R6::R6Class(
       url <- add_query(query, url)
       return(list(url = url, handle = handle$handle))
     },
-    make_request = function(opts) {
+    make_request = function(opts, mock = NULL) {
       if (xor(!is.null(opts$disk), !is.null(opts$stream))) {
         if (!is.null(opts$disk) && !is.null(opts$stream)) {
           stop("disk and stream can not be used together", call. = FALSE)
@@ -619,10 +630,9 @@ HttpClient <- R6::R6Class(
         self$hooks$request(opts)
       }
 
-      if (crul_opts$mock) {
-        check_for_package("webmockr")
-        adap <- webmockr::CrulAdapter$new()
-        return(adap$handle_request(opts))
+      mock_fun <- as_mock_fun(mock, error_call)
+      if (!is.null(mock_fun)) {
+        return(mock_fun(opts))
       } else {
         resp <- crul_fetch(opts)
       }

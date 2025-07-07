@@ -13,6 +13,7 @@
 #' @param stream an R function to determine how to stream data. if
 #' `NULL` (default), memory used. See [curl::curl_fetch_stream()]
 #' for help
+#' @param mock a mocking function. could be `NULL` too
 #' @param ... curl options, only those in the acceptable set from
 #' [curl::curl_options()] except the following: httpget, httppost, post,
 #' postfields, postfieldsize, and customrequest
@@ -21,7 +22,7 @@
 #' @return a list, with objects of class [HttpResponse()].
 #' Responses are returned in the order they are passed in. We print the
 #' first 10.
-#' @examples \dontrun{
+#' @examplesIf interactive()
 #' cc <- Async$new(
 #'   urls = c(
 #'     'https://hb.opencpu.org/',
@@ -81,7 +82,20 @@
 #' urls = c("https://hb.opencpu.org/status/404", "https://hb.opencpu.org/status/429")
 #' conn <- Async$new(urls = urls)
 #' res <- conn$retry(verb="get")
+#'
+#' # mock
+#' cc <- Async$new(
+#'   urls = c(
+#'     'https://hb.opencpu.org/',
+#'     'https://hb.opencpu.org/get?a=5',
+#'     'https://hb.opencpu.org/get?foo=bar'
+#'   )
+#' )
+#' fun <- function(req) {
+#'   HttpResponse$new(method = "GET", url = "http://google.com",
+#'     status_code = 401L)
 #' }
+#' cc$get(mock = fun)
 Async <- R6::R6Class(
   'Async',
   public = list(
@@ -147,7 +161,13 @@ Async <- R6::R6Class(
     #' @param auth an [auth()] object
     #' @param headers named list of headers
     #' @return A new `Async` object.
-    initialize = function(urls, opts, proxies, auth, headers) {
+    initialize = function(
+      urls,
+      opts,
+      proxies,
+      auth,
+      headers
+    ) {
       self$urls <- urls
       if (!missing(opts)) {
         self$opts <- opts
@@ -158,7 +178,9 @@ Async <- R6::R6Class(
       if (!missing(auth)) {
         self$auth <- auth
       }
-      if (!missing(headers)) self$headers <- headers
+      if (!missing(headers)) {
+        self$headers <- headers
+      }
     },
 
     #' @description
@@ -176,6 +198,7 @@ Async <- R6::R6Class(
       query = list(),
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       private$gen_interface(
@@ -185,6 +208,7 @@ Async <- R6::R6Class(
         query,
         disk = disk,
         stream = stream,
+        mock = mock,
         ...
       )
     },
@@ -200,6 +224,7 @@ Async <- R6::R6Class(
       encode = "multipart",
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       private$gen_interface(
@@ -211,6 +236,7 @@ Async <- R6::R6Class(
         encode,
         disk,
         stream,
+        mock,
         ...
       )
     },
@@ -226,6 +252,7 @@ Async <- R6::R6Class(
       encode = "multipart",
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       private$gen_interface(
@@ -237,6 +264,7 @@ Async <- R6::R6Class(
         encode,
         disk,
         stream,
+        mock,
         ...
       )
     },
@@ -252,6 +280,7 @@ Async <- R6::R6Class(
       encode = "multipart",
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       private$gen_interface(
@@ -263,6 +292,7 @@ Async <- R6::R6Class(
         encode,
         disk,
         stream,
+        mock,
         ...
       )
     },
@@ -278,6 +308,7 @@ Async <- R6::R6Class(
       encode = "multipart",
       disk = NULL,
       stream = NULL,
+      mock = getOption("crul_mock", NULL),
       ...
     ) {
       private$gen_interface(
@@ -289,14 +320,15 @@ Async <- R6::R6Class(
         encode,
         disk,
         stream,
+        mock,
         ...
       )
     },
 
     #' @description
     #' execute the `HEAD` http verb for the `urls`
-    head = function(path = NULL, ...) {
-      private$gen_interface(self$urls, "head", path, ...)
+    head = function(path = NULL, mock = getOption("crul_mock", NULL), ...) {
+      private$gen_interface(self$urls, "head", path, mock, ...)
     },
 
     #' @description
@@ -342,6 +374,7 @@ Async <- R6::R6Class(
       encode = NULL,
       disk = NULL,
       stream = NULL,
+      mock = NULL,
       ...
     ) {
       if (!is.null(disk)) {
@@ -363,6 +396,7 @@ Async <- R6::R6Class(
                 query = query,
                 disk = m,
                 stream = stream,
+                mock = mock,
                 ...
               ),
               post = HttpRequest$new(
@@ -378,6 +412,7 @@ Async <- R6::R6Class(
                 encode = encode,
                 disk = m,
                 stream = stream,
+                mock = mock,
                 ...
               ),
               put = HttpRequest$new(
@@ -393,6 +428,7 @@ Async <- R6::R6Class(
                 encode = encode,
                 disk = m,
                 stream = stream,
+                mock = mock,
                 ...
               ),
               patch = HttpRequest$new(
@@ -408,6 +444,7 @@ Async <- R6::R6Class(
                 encode = encode,
                 disk = m,
                 stream = stream,
+                mock = mock,
                 ...
               ),
               delete = HttpRequest$new(
@@ -423,6 +460,7 @@ Async <- R6::R6Class(
                 encode = encode,
                 disk = m,
                 stream = stream,
+                mock = mock,
                 ...
               ),
               head = HttpRequest$new(
@@ -431,7 +469,7 @@ Async <- R6::R6Class(
                 proxies = self$proxies,
                 auth = self$auth,
                 headers = self$headers
-              )$head(path = path, ...),
+              )$head(path = path, mock = mock, ...),
               retry = HttpRequest$new(
                 url = z,
                 opts = self$opts,
@@ -459,6 +497,7 @@ Async <- R6::R6Class(
               query = query,
               disk = disk,
               stream = stream,
+              mock = mock,
               ...
             ),
             post = HttpRequest$new(
@@ -474,6 +513,7 @@ Async <- R6::R6Class(
               encode = encode,
               disk = disk,
               stream = stream,
+              mock = mock,
               ...
             ),
             put = HttpRequest$new(
@@ -489,6 +529,7 @@ Async <- R6::R6Class(
               encode = encode,
               disk = disk,
               stream = stream,
+              mock = mock,
               ...
             ),
             patch = HttpRequest$new(
@@ -504,6 +545,7 @@ Async <- R6::R6Class(
               encode = encode,
               disk = disk,
               stream = stream,
+              mock = mock,
               ...
             ),
             delete = HttpRequest$new(
@@ -519,6 +561,7 @@ Async <- R6::R6Class(
               encode = encode,
               disk = disk,
               stream = stream,
+              mock = mock,
               ...
             ),
             head = HttpRequest$new(
@@ -527,7 +570,7 @@ Async <- R6::R6Class(
               proxies = self$proxies,
               auth = self$auth,
               headers = self$headers
-            )$head(path = path, ...),
+            )$head(path = path, mock = mock, ...),
             retry = HttpRequest$new(
               url = z,
               opts = self$opts,
@@ -538,7 +581,7 @@ Async <- R6::R6Class(
           )
         })
       }
-      tmp <- AsyncVaried$new(.list = reqs)
+      tmp <- AsyncVaried$new(.list = reqs, mock = self$mock)
       tmp$request()
       tmp$responses()
     }

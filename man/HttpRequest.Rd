@@ -29,7 +29,6 @@ access values and methods on the object \code{x}.
 }
 
 \examples{
-\dontrun{
 x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
 ## note here how the HTTP method is shown on the first line to the right
 x$get()
@@ -56,7 +55,14 @@ HttpRequest$new(
 # retry
 (x <- HttpRequest$new(url = "https://hb.opencpu.org/post"))
 x$retry("post", body = list(foo = "bar"))
+
+# mock
+x <- HttpRequest$new(url = "https://hb.opencpu.org/get")
+fun <- function() {
+  HttpResponse$new(method = "GET", url = "http://google.com",
+    status_code = 200L)
 }
+x$get(mock = fun)
 
 ## ------------------------------------------------
 ## Method `HttpRequest$verb`
@@ -172,7 +178,14 @@ A new \code{HttpRequest} object
 \subsection{Method \code{get()}}{
 Define a GET request
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HttpRequest$get(path = NULL, query = list(), disk = NULL, stream = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HttpRequest$get(
+  path = NULL,
+  query = list(),
+  disk = NULL,
+  stream = NULL,
+  mock = getOption("crul_mock", NULL),
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -188,6 +201,8 @@ See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 \item{\code{stream}}{an R function to determine how to stream data. if
 NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -209,6 +224,7 @@ Define a POST request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -230,6 +246,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -251,6 +269,7 @@ Define a PUT request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -272,6 +291,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -293,6 +314,7 @@ Define a PATCH request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -314,6 +336,8 @@ NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_s
 for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -335,6 +359,7 @@ Define a DELETE request
   disk = NULL,
   stream = NULL,
   encode = "multipart",
+  mock = getOption("crul_mock", NULL),
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -357,6 +382,8 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
 postfields, postfieldsize, and customrequest}
@@ -370,13 +397,15 @@ postfields, postfieldsize, and customrequest}
 \subsection{Method \code{head()}}{
 Define a HEAD request
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{HttpRequest$head(path = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{HttpRequest$head(path = NULL, mock = getOption("crul_mock", NULL), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
+
+\item{\code{mock}}{a mocking function. could be \code{NULL} too}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,

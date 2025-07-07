@@ -1,6 +1,5 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
-context("authenticate")
 
 test_that("auth construction works", {
   basic <- auth(user = "foo", pwd = "bar", auth = "basic")
@@ -8,10 +7,10 @@ test_that("auth construction works", {
   ntlm <- auth(user = "foo", pwd = "bar", auth = "ntlm")
   any <- auth(user = "foo", pwd = "bar", auth = "any")
 
-  expect_is(basic, "auth")
-  expect_is(digest, "auth")
-  expect_is(ntlm, "auth")
-  expect_is(any, "auth")
+  expect_s3_class(basic, "auth")
+  expect_s3_class(digest, "auth")
+  expect_s3_class(ntlm, "auth")
+  expect_s3_class(any, "auth")
 
   expect_named(basic, c('userpwd', 'httpauth'))
   expect_named(digest, c('userpwd', 'httpauth'))
@@ -30,8 +29,8 @@ test_that("auth works with HttpClient", {
     auth = auth(user = "foo", pwd = "bar")
   )
 
-  expect_is(aa, "HttpClient")
-  expect_is(aa$auth, "auth")
+  expect_s3_class(aa, "HttpClient")
+  expect_s3_class(aa$auth, "auth")
   expect_equal(aa$auth$userpwd, "foo:bar")
   expect_equal(aa$auth$httpauth, 1)
 })
@@ -42,8 +41,8 @@ test_that("auth works with HttpRequest", {
     auth = auth(user = "foo", pwd = "bar")
   )
 
-  expect_is(aa, "HttpRequest")
-  expect_is(aa$auth, "auth")
+  expect_s3_class(aa, "HttpRequest")
+  expect_s3_class(aa$auth, "auth")
   expect_equal(aa$auth$userpwd, "foo:bar")
   expect_equal(aa$auth$httpauth, 1)
 })

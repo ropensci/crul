@@ -1,6 +1,5 @@
 skip_if_offline(url_parse(hb())$domain)
 
-context("url build")
 
 test_that("url build works", {
   skip_on_cran()
@@ -9,14 +8,14 @@ test_that("url build works", {
   bb <- url_build(hb(), "get")
   cc <- url_build(hb(), "get", list(foo = "bar"))
 
-  expect_is(aa, "character")
+  expect_type(aa, "character")
   expect_match(aa, "http")
 
-  expect_is(bb, "character")
+  expect_type(bb, "character")
   expect_match(bb, "http")
   expect_match(bb, "get")
 
-  expect_is(cc, "character")
+  expect_type(cc, "character")
   expect_match(cc, "http")
   expect_match(cc, "?foo=bar")
 })
@@ -47,8 +46,6 @@ test_that("build fails well", {
 })
 
 
-context("url parse")
-
 test_that("url parse works", {
   skip_on_cran()
 
@@ -56,39 +53,39 @@ test_that("url parse works", {
   bb <- url_parse(hb("/get?foo=bar"))
   cc <- url_parse(hb("/get?foo=bar&stuff=things"))
 
-  expect_is(aa, "list")
+  expect_type(aa, "list")
   expect_named(
     aa,
     c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
   )
-  expect_is(aa$scheme, "character")
+  expect_type(aa$scheme, "character")
   expect_equal(aa$scheme, "https")
-  expect_is(aa$domain, "character")
+  expect_type(aa$domain, "character")
   expect_true(is.na(aa$path))
   expect_true(is.na(aa$parameter))
 
-  expect_is(bb, "list")
+  expect_type(bb, "list")
   expect_named(
     bb,
     c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
   )
-  expect_is(bb$scheme, "character")
+  expect_type(bb$scheme, "character")
   expect_equal(bb$scheme, "https")
-  expect_is(bb$domain, "character")
+  expect_type(bb$domain, "character")
   expect_equal(bb$path, "get")
-  expect_is(bb$parameter, "list")
+  expect_type(bb$parameter, "list")
   expect_equal(bb$parameter$foo, "bar")
 
-  expect_is(cc, "list")
+  expect_type(cc, "list")
   expect_named(
     cc,
     c('scheme', 'domain', 'port', 'path', 'parameter', 'fragment')
   )
-  expect_is(cc$scheme, "character")
+  expect_type(cc$scheme, "character")
   expect_equal(cc$scheme, "https")
-  expect_is(cc$domain, "character")
+  expect_type(cc$domain, "character")
   expect_equal(cc$path, "get")
-  expect_is(cc$parameter, "list")
+  expect_type(cc$parameter, "list")
   expect_equal(cc$parameter$foo, "bar")
   expect_equal(cc$parameter$stuff, "things")
 })
