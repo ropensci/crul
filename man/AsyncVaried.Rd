@@ -256,6 +256,10 @@ Create a new AsyncVaried object
 \describe{
 \item{\code{..., .list}}{Any number of objects of class \code{\link[=HttpRequest]{HttpRequest()}},
 must supply inputs to one of these parameters, but not both}
+
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 }
 \if{html}{\out{</div>}}
 }

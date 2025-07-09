@@ -202,7 +202,9 @@ See \code{\link[curl:curl_fetch]{curl::curl_fetch_disk()}} for help.}
 NULL (default), memory used. See \code{\link[curl:curl_fetch]{curl::curl_fetch_stream()}}
 for help}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -247,7 +249,9 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -292,7 +296,9 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -337,7 +343,9 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -382,7 +390,9 @@ for help}
 
 \item{\code{encode}}{one of form, multipart, json, or raw}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,
@@ -405,7 +415,9 @@ Define a HEAD request
 \describe{
 \item{\code{path}}{URL path, appended to the base URL}
 
-\item{\code{mock}}{a mocking function. could be \code{NULL} too}
+\item{\code{mock}}{A mocking function. If supplied, this function is called
+with the request. It should return either \code{NULL} (if it doesn't want to
+handle the request) or a \link{HttpResponse} (if it does).}
 
 \item{\code{...}}{curl options, only those in the acceptable set from
 \code{\link[curl:curl_options]{curl::curl_options()}} except the following: httpget, httppost, post,

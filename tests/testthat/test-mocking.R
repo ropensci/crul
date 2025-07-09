@@ -1,20 +1,14 @@
 skip_on_cran()
 skip_if_offline(url_parse(hb())$domain)
 
-
-test_that("crul_opts env", {
-  expect_type(crul_opts, "environment")
-  expect_false(crul_opts$mock)
-})
-
 test_that("mock function", {
-  expect_type(mock, "closure")
-  expect_true(mock())
-  expect_true(crul_opts$mock)
-  expect_false(mock(FALSE))
-  expect_false(crul_opts$mock)
-})
+  withr::local_options(lifecycle_verbosity = "quiet")
 
+  expect_type(mock, "closure")
+  expect_null(mock())
+  expect_null(mock(FALSE))
+  expect_false("mock" %in% names(crul_opts))
+})
 
 test_that("mocking with HttpRequest", {
   skip_if_not_installed("webmockr")
@@ -38,7 +32,6 @@ test_that("mocking with HttpRequest", {
     return(unclass(res$responses())[[1]])
   }
 
-  # mock(FALSE)
   # webmockr IS NOT enabled
   aa <- make_req(url)
 
@@ -87,7 +80,6 @@ test_that("mocking with HttpRequest & webmockr", {
     cc$get()
   }
 
-  mock(FALSE)
   # webmockr IS NOT enabled
   not_mocked <- make_req(urls)
 
@@ -218,6 +210,3 @@ test_that("mocking with HttpClient fails well", {
   # clean up
   stub_registry_clear()
 })
-
-# turn mocking off
-# mock(FALSE)

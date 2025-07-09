@@ -28,12 +28,13 @@ Imports:
     jsonlite,
     mime,
     rlang,
-    withr
+    lifecycle
 Suggests:
     testthat (>= 3.0.0),
     roxygen2 (>= 7.1.1),
     fauxpas (>= 0.1.0),
     webmockr (>= 0.1.0),
+    withr,
     knitr,
     rmarkdown
 Remotes: ropensci/webmockr@mocking-change
