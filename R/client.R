@@ -15,7 +15,9 @@
 #' @param stream an R function to determine how to stream data. if
 #' NULL (default), memory used. See [curl::curl_fetch_stream()]
 #' for help
-#' @param mock a mocking function. could be `NULL` too
+#' @param mock A mocking function. If supplied, this function is called
+#' with the request. It should return either `NULL` (if it doesn't want to
+#' handle the request) or a [HttpResponse] (if it does).
 #' @param ... For `retry`, the options to be passed on to the method
 #' implementing the requested verb, including curl options. Otherwise,
 #' curl options, only those in the acceptable set from [curl::curl_options()]

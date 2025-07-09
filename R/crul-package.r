@@ -69,12 +69,13 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import rlang
 #' @importFrom curl curl_escape curl_fetch_disk curl_fetch_memory
 #' curl_fetch_stream curl_options curl_version handle_reset handle_setform
 #' handle_setheaders handle_setopt multi_add multi_cancel multi_list
 #' multi_run new_handle new_pool parse_headers
-#' @importFrom R6 R6Class
 #' @importFrom httpcode http_code
-#' @import rlang
+#' @importFrom lifecycle deprecated
+#' @importFrom R6 R6Class
 ## usethis namespace: end
 NULL

@@ -11,55 +11,8 @@ mock(on = TRUE)
 By default is \code{FALSE}}
 }
 \description{
-Works for both synchronous requests via \code{\link[=HttpClient]{HttpClient()}} and async
-requests via \code{\link[=Async]{Async()}} and \code{\link[=AsyncVaried]{AsyncVaried()}}
-}
-\details{
-\code{webmockr} package required for mocking behavior
-}
-\examples{
-\dontrun{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-if (interactive()) {
-  library(webmockr)
-  library(crul)
-
-  URL <- "https://hb.opencpu.org"
-
-  # turn on mocking
-  crul::mock()
-
-  # stub a request
-  stub_request("get", file.path(URL, "get"))
-
-  # create an HTTP client
-  (x <- HttpClient$new(url = URL))
-
-  # make a request - matches stub - no real request made
-  x$get('get')
-
-  # allow net connect
-  webmockr::webmockr_allow_net_connect()
-  x$get('get', query = list(foo = "bar"))
-  webmockr::webmockr_disable_net_connect()
-  x$get('get', query = list(foo = "bar"))
-
-  # With Async
-  urls <- c(
-   file.path(URL, "get"),
-   file.path(URL, "anything"),
-   file.path(URL, "encoding/utf8")
-  )
-
-  for (u in urls) {
-    webmockr::stub_request("get", u) \%>\%
-      webmockr::to_return(body = list(mocked = TRUE))
-  }
-
-  async_con <- Async$new(urls = urls)
-  async_resp <- async_con$get()
-  lapply(async_resp, \(x) x$parse("UTF-8"))
-}
-
-}
+Mocking is now controlled by params within the various clients: \code{\link[=HttpClient]{HttpClient()}},
+\code{\link[=Async]{Async()}} and \code{\link[=AsyncVaried]{AsyncVaried()}}
 }

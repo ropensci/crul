@@ -189,6 +189,9 @@ AsyncVaried <- R6::R6Class(
     #' @description Create a new AsyncVaried object
     #' @param ...,.list Any number of objects of class [HttpRequest()],
     #' must supply inputs to one of these parameters, but not both
+    #' @param mock A mocking function. If supplied, this function is called
+    #' with the request. It should return either `NULL` (if it doesn't want to
+    #' handle the request) or a [HttpResponse] (if it does).
     #' @return A new `AsyncVaried` object
     initialize = function(
       ...,
