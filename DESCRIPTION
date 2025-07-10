@@ -33,11 +33,11 @@ Suggests:
     testthat (>= 3.0.0),
     roxygen2 (>= 7.1.1),
     fauxpas (>= 0.1.0),
-    webmockr (>= 0.1.0),
+    webmockr (>= 2.1.1.91),
     withr,
     knitr,
     rmarkdown
-Remotes: ropensci/webmockr@mocking-change
+Remotes: ropensci/webmockr
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
