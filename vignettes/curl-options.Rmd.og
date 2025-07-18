@@ -314,7 +314,7 @@ _Why use this?_ This is set by default in a http request, as you can see in the 
 
 
 [curl]: https://curl.se/
-[jq]: https://jqlang.github.io/jq/
+[jq]: https://jqlang.org/
 [httpie]: https://github.com/httpie/cli
 [gbif]: https://www.gbif.org/
 [post]: https://ropensci.org/blog/2014/12/18/curl-options/

@@ -1,7 +1,7 @@
 ---
 title: 4. curl options
 author: Scott Chamberlain
-date: "2024-07-18"
+date: "2025-07-17"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{4. curl options}
@@ -307,7 +307,7 @@ _Why use this?_ This is set by default in a http request, as you can see in the 
 
 
 [curl]: https://curl.se/
-[jq]: https://jqlang.github.io/jq/
+[jq]: https://jqlang.org/
 [httpie]: https://github.com/httpie/cli
 [gbif]: https://www.gbif.org/
 [post]: https://ropensci.org/blog/2014/12/18/curl-options/

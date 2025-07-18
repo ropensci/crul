@@ -4,8 +4,8 @@
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-check](https://github.com/ropensci/crul/workflows/R-check/badge.svg)](https://github.com/ropensci/crul/actions/)
-[![codecov](https://codecov.io/gh/ropensci/crul/graph/badge.svg?token=q7rQCfvbsy)](https://codecov.io/gh/ropensci/crul)
-[![cran checks](https://badges.cranchecks.info/worst/crul.svg)](https://cloud.r-project.org/web/checks/check_results_crul.html)
+[![codecov](https://codecov.io/gh/ropensci/crul/graph/badge.svg?token=q7rQCfvbsy)](https://app.codecov.io/gh/ropensci/crul)
+[![cran checks](https://badges.cranchecks.info/worst/crul.svg)](https://CRAN.R-project.org/package=crul)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/crul)](https://github.com/r-hub/cranlogs.app)
 [![cran version](https://www.r-pkg.org/badges/version/crul)](https://cran.r-project.org/package=crul)
 
