@@ -35,6 +35,12 @@ jobs:
         with:
           extra-packages: any::rcmdcheck
           needs: check
+      
+      - name: temporary fix, need dev webmockr
+        run: |
+          install.packages("pak")
+          pak::pak("ropensci/webmockr")
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
         with:
