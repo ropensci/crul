@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/ropensci/crul",
   "issueTracker": "https://github.com/ropensci/crul/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 Patched (2024-06-25 r86831)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -44,6 +44,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -82,7 +83,7 @@
       "@type": "SoftwareApplication",
       "identifier": "webmockr",
       "name": "webmockr",
-      "version": ">= 0.1.0",
+      "version": ">= 2.2.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -90,6 +91,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=webmockr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "withr",
+      "name": "withr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=withr"
     },
     {
       "@type": "SoftwareApplication",
@@ -193,14 +206,34 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=mime"
     },
+    "7": {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
+    },
     "SystemRequirements": null
   },
   "applicationCategory": "Web",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching", "rstats", "api", "r", "r-package"],
-  "fileSize": "1238.746KB",
-  "releaseNotes": "https://github.com/ropensci/crul/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/crul/blob/main/README.md",
-  "contIntegration": ["https://github.com/ropensci/crul/actions/", "https://codecov.io/gh/ropensci/crul"],
-  "developmentStatus": "https://www.repostatus.org/#active"
+  "keywords": ["http", "https", "API", "web-services", "curl", "download", "libcurl", "async", "mocking", "caching"],
+  "fileSize": "1258.397KB"
 }

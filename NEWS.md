@@ -1,3 +1,15 @@
+crul 1.6.0
+==========
+
+### NEW FEATURES
+
+* generic mocking is now controlled in each HTTP client (`HttpClient`, `Async`, and `AsyncVaried`) via an initialization parameter `AsyncVaried` or through each HTTP class method (e.g., `get`, `post` on `HttpClient`, `Async`). mocking used to be tied to `webmockr` but now can be controlled independently (#184)
+
+### DEPRECATED
+
+* `mock()` is deprecated, and will be removed in a future version. Mocking is now controlled by parameters within the various HTTP clients: `HttpClient`, `Async`, and `AsyncVaried` (#184)
+
+
 crul 1.5.0
 ==========
 
@@ -210,14 +222,14 @@ crul 0.5.2
 
 ### MINOR IMPROVEMENTS
 
-* Fixed handling of user agent: you can pass a UA string 
+* Fixed handling of user agent: you can pass a UA string
 as a curl option or a header. Previously, we were wrongly overwriting
-the user input UA if given as a curl option - but were not doing 
+the user input UA if given as a curl option - but were not doing
 so if given as a header. This is fixed now.  (#63) thx to @maelle and @dpprdan
 
 ### BUG FIXES
 
-* Fix to `Paginator` - it wasn't handling pagination correctly. 
+* Fix to `Paginator` - it wasn't handling pagination correctly.
 In addition, fixed to hopefully handle all scenarios now. added
 more tests (#62)
 * Fixed handling of query parameters. We were using `urltools::url_encode`
@@ -252,12 +264,12 @@ crul 0.4.0
 
 * fixes to reused curl handles - within a connection object only,
 not across connection objects (#45)
-* `crul` now drops any options passed in to `opts` or to `...` that 
+* `crul` now drops any options passed in to `opts` or to `...` that
 are not in set of allowed curl options, see `curl::curl_options()` (#49)
-* cookies should now be persisted across requests within 
+* cookies should now be persisted across requests within
 a connection object, see new doc `?cookies` for how to set cookies (#44)
 * gather cainfo and use in curl options when applicable (#51)
-* remove `disk` and `stream` from `head` method in `HttpClient` 
+* remove `disk` and `stream` from `head` method in `HttpClient`
 and `HttpRequest` as no body returned in a HEAD request
 
 
@@ -267,7 +279,7 @@ crul 0.3.8
 ### BUG FIXES
 
 * Fixed `AsyncVaried` to return async responses in the order that
-they were passed in. This also fixes this exact same behavior in 
+they were passed in. This also fixes this exact same behavior in
 `Async` because `Async` uses `AsyncVaried` internally. (#41)
 thanks @dirkschumacher for reporting
 
@@ -276,27 +288,27 @@ thanks @dirkschumacher for reporting
 crul 0.3.6
 ==========
 
-* Note: This version gains support for integration with 
+* Note: This version gains support for integration with
 `webmockr`, which is now on CRAN.
 
 ### NEW FEATURES
 
 * New function `auth()` to do simple authentication (#33)
-* New function `HttpStubbedResponse` for making a stubbed 
+* New function `HttpStubbedResponse` for making a stubbed
 response object for the `webmockr` integration (#4)
-* New function `mock()` to turn on mocking - it's off by 
-default. If `webmockr` is not installed but user attempts 
-to use mocking we error with message to install 
+* New function `mock()` to turn on mocking - it's off by
+default. If `webmockr` is not installed but user attempts
+to use mocking we error with message to install
 `webmockr` (#4)
 
 ### MINOR IMPROVEMENTS
 
-* Use `gzip-deflate` by deafult for each request 
-to make sure gzip compression is used if the server 
+* Use `gzip-deflate` by deafult for each request
+to make sure gzip compression is used if the server
 can do it (#34)
-* Change `useragent` to `User-Agent` as default user 
+* Change `useragent` to `User-Agent` as default user
 agent header (#35)
-* Now we make sure that user supplied headers override the 
+* Now we make sure that user supplied headers override the
 default headers if they are of the same name (#36)
 
 
