@@ -3,8 +3,8 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' Mocking is now controlled by params within the various clients: [HttpClient()],
-#' [Async()] and [AsyncVaried()]
+#' Mocking is now controlled by params within the various clients:
+#' [HttpClient()], [Async()] and [AsyncVaried()]
 #'
 #' @export
 #' @param on (logical) turn mocking on with `TRUE` or turn off with `FALSE`.

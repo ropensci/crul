@@ -13,6 +13,6 @@ By default is \code{FALSE}}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-Mocking is now controlled by params within the various clients: \code{\link[=HttpClient]{HttpClient()}},
-\code{\link[=Async]{Async()}} and \code{\link[=AsyncVaried]{AsyncVaried()}}
+Mocking is now controlled by params within the various clients:
+\code{\link[=HttpClient]{HttpClient()}}, \code{\link[=Async]{Async()}} and \code{\link[=AsyncVaried]{AsyncVaried()}}
 }
