@@ -36,7 +36,8 @@ Suggests:
     webmockr (>= 2.2.0),
     withr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    magrittr
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3
